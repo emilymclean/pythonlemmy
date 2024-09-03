@@ -31,9 +31,6 @@ def test_get_community() -> None:
     # initialize instance
     instance = plemmy.LemmyHttp(INSTANCE_URL)
 
-    # login
-    instance.login(USERNAME, PASSWORD)
-
     # get community
     response = instance.get_community(name=COMMUNITY_NAME)
 
@@ -42,40 +39,7 @@ def test_get_community() -> None:
         pytest.fail(f"{response.reason}")
 
 
-def test_create_delete_post() -> None:
-
-    # initialize instance
-    instance = plemmy.LemmyHttp(INSTANCE_URL)
-
-    # login
-    instance.login(USERNAME, PASSWORD)
-
-    # create post
-    response_create = instance.create_post(
-        f"Plemmy unit test {datetime.utcnow()}",
-        COMMUNITY_ID,
-        body="Unit test body text"
-    )
-
-    # check if successful
-    if response_create.status_code != 200:
-        pytest.fail(f"{response_create.reason}")
-
-    # parse post response
-    post_response = PostResponse(response_create)
-
-    # delete post
-    response_delete = instance.delete_post(
-        post_response.post_view.post.id,
-        True
-    )
-
-    # check if successful
-    if response_delete.status_code != 200:
-        pytest.fail(f"{response_delete.reason}")
-
-
-def test_create_delete_comment() -> None:
+def test_create_delete_comment_and_post() -> None:
 
     # initialize instance
     instance = plemmy.LemmyHttp(INSTANCE_URL)
@@ -89,6 +53,9 @@ def test_create_delete_comment() -> None:
         COMMUNITY_ID,
         body="Unit test body text"
     )
+
+    if response_post_create.status_code != 200:
+        pytest.fail(f"{response_post_create.reason}")
 
     # parse post response
     post_response = PostResponse(response_post_create)
@@ -116,6 +83,9 @@ def test_create_delete_comment() -> None:
         pytest.fail(f"{response_comment_delete.reason}")
 
     # delete post
-    instance.delete_post(
+    response_post_delete = instance.delete_post(
         post_response.post_view.post.id, True
     )
+
+    if response_post_delete.status_code != 200:
+        pytest.fail(f"{response_post_delete.reason}")
