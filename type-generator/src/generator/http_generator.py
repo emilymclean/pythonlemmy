@@ -69,9 +69,8 @@ def {method.name}(
 
         args = ["self"]
         for p in visitor.properties:
-            type = p.wrapped()
             default = "" if not p.nullable else " = None"
-            args.append(f"{p.api_name}: {type}{default}")
+            args.append(f"{p.api_name}: {p.type}{default}")
 
         return ",\n".join(args)
 

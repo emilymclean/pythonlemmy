@@ -45,47 +45,47 @@ class LemmyHttp(object):
     def create_site(
         self,
         name: str,
-        sidebar: Optional[str] = None,
-        description: Optional[str] = None,
-        icon: Optional[str] = None,
-        banner: Optional[str] = None,
-        enable_downvotes: Optional[bool] = None,
-        enable_nsfw: Optional[bool] = None,
-        community_creation_admin_only: Optional[bool] = None,
-        require_email_verification: Optional[bool] = None,
-        application_question: Optional[str] = None,
-        private_instance: Optional[bool] = None,
-        default_theme: Optional[str] = None,
-        default_post_listing_type: Optional[str] = None,
-        default_sort_type: Optional[str] = None,
-        legal_information: Optional[str] = None,
-        application_email_admins: Optional[bool] = None,
-        hide_modlog_mod_names: Optional[bool] = None,
-        discussion_languages: Optional[list[int]] = None,
-        slur_filter_regex: Optional[str] = None,
-        actor_name_max_length: Optional[int] = None,
-        rate_limit_message: Optional[int] = None,
-        rate_limit_message_per_second: Optional[int] = None,
-        rate_limit_post: Optional[int] = None,
-        rate_limit_post_per_second: Optional[int] = None,
-        rate_limit_register: Optional[int] = None,
-        rate_limit_register_per_second: Optional[int] = None,
-        rate_limit_image: Optional[int] = None,
-        rate_limit_image_per_second: Optional[int] = None,
-        rate_limit_comment: Optional[int] = None,
-        rate_limit_comment_per_second: Optional[int] = None,
-        rate_limit_search: Optional[int] = None,
-        rate_limit_search_per_second: Optional[int] = None,
-        federation_enabled: Optional[bool] = None,
-        federation_debug: Optional[bool] = None,
-        captcha_enabled: Optional[bool] = None,
-        captcha_difficulty: Optional[str] = None,
-        allowed_instances: Optional[list[str]] = None,
-        blocked_instances: Optional[list[str]] = None,
-        taglines: Optional[list[str]] = None,
-        registration_mode: Optional[str] = None,
-        content_warning: Optional[str] = None,
-        default_post_listing_mode: Optional[str] = None
+        sidebar: str = None,
+        description: str = None,
+        icon: str = None,
+        banner: str = None,
+        enable_downvotes: bool = None,
+        enable_nsfw: bool = None,
+        community_creation_admin_only: bool = None,
+        require_email_verification: bool = None,
+        application_question: str = None,
+        private_instance: bool = None,
+        default_theme: str = None,
+        default_post_listing_type: str = None,
+        default_sort_type: str = None,
+        legal_information: str = None,
+        application_email_admins: bool = None,
+        hide_modlog_mod_names: bool = None,
+        discussion_languages: list[int] = None,
+        slur_filter_regex: str = None,
+        actor_name_max_length: int = None,
+        rate_limit_message: int = None,
+        rate_limit_message_per_second: int = None,
+        rate_limit_post: int = None,
+        rate_limit_post_per_second: int = None,
+        rate_limit_register: int = None,
+        rate_limit_register_per_second: int = None,
+        rate_limit_image: int = None,
+        rate_limit_image_per_second: int = None,
+        rate_limit_comment: int = None,
+        rate_limit_comment_per_second: int = None,
+        rate_limit_search: int = None,
+        rate_limit_search_per_second: int = None,
+        federation_enabled: bool = None,
+        federation_debug: bool = None,
+        captcha_enabled: bool = None,
+        captcha_difficulty: str = None,
+        allowed_instances: list[str] = None,
+        blocked_instances: list[str] = None,
+        taglines: list[str] = None,
+        registration_mode: str = None,
+        content_warning: str = None,
+        default_post_listing_mode: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/site", form)
@@ -94,50 +94,50 @@ class LemmyHttp(object):
 
     def edit_site(
         self,
-        name: Optional[str] = None,
-        sidebar: Optional[str] = None,
-        description: Optional[str] = None,
-        icon: Optional[str] = None,
-        banner: Optional[str] = None,
-        enable_downvotes: Optional[bool] = None,
-        enable_nsfw: Optional[bool] = None,
-        community_creation_admin_only: Optional[bool] = None,
-        require_email_verification: Optional[bool] = None,
-        application_question: Optional[str] = None,
-        private_instance: Optional[bool] = None,
-        default_theme: Optional[str] = None,
-        default_post_listing_type: Optional[str] = None,
-        default_sort_type: Optional[str] = None,
-        legal_information: Optional[str] = None,
-        application_email_admins: Optional[bool] = None,
-        hide_modlog_mod_names: Optional[bool] = None,
-        discussion_languages: Optional[list[int]] = None,
-        slur_filter_regex: Optional[str] = None,
-        actor_name_max_length: Optional[int] = None,
-        rate_limit_message: Optional[int] = None,
-        rate_limit_message_per_second: Optional[int] = None,
-        rate_limit_post: Optional[int] = None,
-        rate_limit_post_per_second: Optional[int] = None,
-        rate_limit_register: Optional[int] = None,
-        rate_limit_register_per_second: Optional[int] = None,
-        rate_limit_image: Optional[int] = None,
-        rate_limit_image_per_second: Optional[int] = None,
-        rate_limit_comment: Optional[int] = None,
-        rate_limit_comment_per_second: Optional[int] = None,
-        rate_limit_search: Optional[int] = None,
-        rate_limit_search_per_second: Optional[int] = None,
-        federation_enabled: Optional[bool] = None,
-        federation_debug: Optional[bool] = None,
-        captcha_enabled: Optional[bool] = None,
-        captcha_difficulty: Optional[str] = None,
-        allowed_instances: Optional[list[str]] = None,
-        blocked_instances: Optional[list[str]] = None,
-        blocked_urls: Optional[list[str]] = None,
-        taglines: Optional[list[str]] = None,
-        registration_mode: Optional[str] = None,
-        reports_email_admins: Optional[bool] = None,
-        content_warning: Optional[str] = None,
-        default_post_listing_mode: Optional[str] = None
+        name: str = None,
+        sidebar: str = None,
+        description: str = None,
+        icon: str = None,
+        banner: str = None,
+        enable_downvotes: bool = None,
+        enable_nsfw: bool = None,
+        community_creation_admin_only: bool = None,
+        require_email_verification: bool = None,
+        application_question: str = None,
+        private_instance: bool = None,
+        default_theme: str = None,
+        default_post_listing_type: str = None,
+        default_sort_type: str = None,
+        legal_information: str = None,
+        application_email_admins: bool = None,
+        hide_modlog_mod_names: bool = None,
+        discussion_languages: list[int] = None,
+        slur_filter_regex: str = None,
+        actor_name_max_length: int = None,
+        rate_limit_message: int = None,
+        rate_limit_message_per_second: int = None,
+        rate_limit_post: int = None,
+        rate_limit_post_per_second: int = None,
+        rate_limit_register: int = None,
+        rate_limit_register_per_second: int = None,
+        rate_limit_image: int = None,
+        rate_limit_image_per_second: int = None,
+        rate_limit_comment: int = None,
+        rate_limit_comment_per_second: int = None,
+        rate_limit_search: int = None,
+        rate_limit_search_per_second: int = None,
+        federation_enabled: bool = None,
+        federation_debug: bool = None,
+        captcha_enabled: bool = None,
+        captcha_difficulty: str = None,
+        allowed_instances: list[str] = None,
+        blocked_instances: list[str] = None,
+        blocked_urls: list[str] = None,
+        taglines: list[str] = None,
+        registration_mode: str = None,
+        reports_email_admins: bool = None,
+        content_warning: str = None,
+        default_post_listing_mode: str = None
     ):
         form = create_form(locals())
         result = put_handler(self._session, f"{self._api_url}/site", form)
@@ -194,8 +194,8 @@ class LemmyHttp(object):
 
     def list_media(
         self,
-        page: Optional[int] = None,
-        limit: Optional[int] = None
+        page: int = None,
+        limit: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/account/list_media", form)
@@ -204,8 +204,8 @@ class LemmyHttp(object):
 
     def list_all_media(
         self,
-        page: Optional[int] = None,
-        limit: Optional[int] = None
+        page: int = None,
+        limit: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/admin/list_all_media", form)
@@ -224,14 +224,14 @@ class LemmyHttp(object):
 
     def get_modlog(
         self,
-        mod_person_id: Optional[int] = None,
-        community_id: Optional[int] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None,
-        type_: Optional[str] = None,
-        other_person_id: Optional[int] = None,
-        post_id: Optional[int] = None,
-        comment_id: Optional[int] = None
+        mod_person_id: int = None,
+        community_id: int = None,
+        page: int = None,
+        limit: int = None,
+        type_: str = None,
+        other_person_id: int = None,
+        post_id: int = None,
+        comment_id: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/modlog", form)
@@ -241,14 +241,14 @@ class LemmyHttp(object):
     def search(
         self,
         q: str,
-        community_id: Optional[int] = None,
-        community_name: Optional[str] = None,
-        creator_id: Optional[int] = None,
-        type_: Optional[str] = None,
-        sort: Optional[str] = None,
-        listing_type: Optional[str] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None
+        community_id: int = None,
+        community_name: str = None,
+        creator_id: int = None,
+        type_: str = None,
+        sort: str = None,
+        listing_type: str = None,
+        page: int = None,
+        limit: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/search", form)
@@ -268,13 +268,13 @@ class LemmyHttp(object):
         self,
         name: str,
         title: str,
-        description: Optional[str] = None,
-        icon: Optional[str] = None,
-        banner: Optional[str] = None,
-        nsfw: Optional[bool] = None,
-        posting_restricted_to_mods: Optional[bool] = None,
-        discussion_languages: Optional[list[int]] = None,
-        visibility: Optional[str] = None
+        description: str = None,
+        icon: str = None,
+        banner: str = None,
+        nsfw: bool = None,
+        posting_restricted_to_mods: bool = None,
+        discussion_languages: list[int] = None,
+        visibility: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/community", form)
@@ -283,8 +283,8 @@ class LemmyHttp(object):
 
     def get_community(
         self,
-        id: Optional[int] = None,
-        name: Optional[str] = None
+        id: int = None,
+        name: str = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/community", form)
@@ -294,14 +294,14 @@ class LemmyHttp(object):
     def edit_community(
         self,
         community_id: int,
-        title: Optional[str] = None,
-        description: Optional[str] = None,
-        icon: Optional[str] = None,
-        banner: Optional[str] = None,
-        nsfw: Optional[bool] = None,
-        posting_restricted_to_mods: Optional[bool] = None,
-        discussion_languages: Optional[list[int]] = None,
-        visibility: Optional[str] = None
+        title: str = None,
+        description: str = None,
+        icon: str = None,
+        banner: str = None,
+        nsfw: bool = None,
+        posting_restricted_to_mods: bool = None,
+        discussion_languages: list[int] = None,
+        visibility: str = None
     ):
         form = create_form(locals())
         result = put_handler(self._session, f"{self._api_url}/community", form)
@@ -310,11 +310,11 @@ class LemmyHttp(object):
 
     def list_communities(
         self,
-        type_: Optional[str] = None,
-        sort: Optional[str] = None,
-        show_nsfw: Optional[bool] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None
+        type_: str = None,
+        sort: str = None,
+        show_nsfw: bool = None,
+        page: int = None,
+        limit: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/community/list", form)
@@ -355,7 +355,7 @@ class LemmyHttp(object):
         self,
         community_id: int,
         hidden: bool,
-        reason: Optional[str] = None
+        reason: str = None
     ):
         form = create_form(locals())
         result = put_handler(self._session, f"{self._api_url}/community/hide", form)
@@ -366,7 +366,7 @@ class LemmyHttp(object):
         self,
         community_id: int,
         removed: bool,
-        reason: Optional[str] = None
+        reason: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/community/remove", form)
@@ -388,9 +388,9 @@ class LemmyHttp(object):
         community_id: int,
         person_id: int,
         ban: bool,
-        remove_data: Optional[bool] = None,
-        reason: Optional[str] = None,
-        expires: Optional[int] = None
+        remove_data: bool = None,
+        reason: str = None,
+        expires: int = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/community/ban_user", form)
@@ -412,13 +412,13 @@ class LemmyHttp(object):
         self,
         name: str,
         community_id: int,
-        url: Optional[str] = None,
-        body: Optional[str] = None,
-        alt_text: Optional[str] = None,
-        honeypot: Optional[str] = None,
-        nsfw: Optional[bool] = None,
-        language_id: Optional[int] = None,
-        custom_thumbnail: Optional[str] = None
+        url: str = None,
+        body: str = None,
+        alt_text: str = None,
+        honeypot: str = None,
+        nsfw: bool = None,
+        language_id: int = None,
+        custom_thumbnail: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/post", form)
@@ -427,8 +427,8 @@ class LemmyHttp(object):
 
     def get_post(
         self,
-        id: Optional[int] = None,
-        comment_id: Optional[int] = None
+        id: int = None,
+        comment_id: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/post", form)
@@ -438,13 +438,13 @@ class LemmyHttp(object):
     def edit_post(
         self,
         post_id: int,
-        name: Optional[str] = None,
-        url: Optional[str] = None,
-        body: Optional[str] = None,
-        alt_text: Optional[str] = None,
-        nsfw: Optional[bool] = None,
-        language_id: Optional[int] = None,
-        custom_thumbnail: Optional[str] = None
+        name: str = None,
+        url: str = None,
+        body: str = None,
+        alt_text: str = None,
+        nsfw: bool = None,
+        language_id: int = None,
+        custom_thumbnail: str = None
     ):
         form = create_form(locals())
         result = put_handler(self._session, f"{self._api_url}/post", form)
@@ -465,7 +465,7 @@ class LemmyHttp(object):
         self,
         post_id: int,
         removed: bool,
-        reason: Optional[str] = None
+        reason: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/post/remove", form)
@@ -515,19 +515,19 @@ class LemmyHttp(object):
 
     def get_posts(
         self,
-        type_: Optional[str] = None,
-        sort: Optional[str] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None,
-        community_id: Optional[int] = None,
-        community_name: Optional[str] = None,
-        saved_only: Optional[bool] = None,
-        liked_only: Optional[bool] = None,
-        disliked_only: Optional[bool] = None,
-        show_hidden: Optional[bool] = None,
-        show_read: Optional[bool] = None,
-        show_nsfw: Optional[bool] = None,
-        page_cursor: Optional[str] = None
+        type_: str = None,
+        sort: str = None,
+        page: int = None,
+        limit: int = None,
+        community_id: int = None,
+        community_name: str = None,
+        saved_only: bool = None,
+        liked_only: bool = None,
+        disliked_only: bool = None,
+        show_hidden: bool = None,
+        show_read: bool = None,
+        show_nsfw: bool = None,
+        page_cursor: str = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/post/list", form)
@@ -547,8 +547,8 @@ class LemmyHttp(object):
     def list_post_likes(
         self,
         post_id: int,
-        page: Optional[int] = None,
-        limit: Optional[int] = None
+        page: int = None,
+        limit: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/post/like/list", form)
@@ -587,11 +587,11 @@ class LemmyHttp(object):
 
     def list_post_reports(
         self,
-        page: Optional[int] = None,
-        limit: Optional[int] = None,
-        unresolved_only: Optional[bool] = None,
-        community_id: Optional[int] = None,
-        post_id: Optional[int] = None
+        page: int = None,
+        limit: int = None,
+        unresolved_only: bool = None,
+        community_id: int = None,
+        post_id: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/post/report/list", form)
@@ -611,8 +611,8 @@ class LemmyHttp(object):
         self,
         content: str,
         post_id: int,
-        parent_id: Optional[int] = None,
-        language_id: Optional[int] = None
+        parent_id: int = None,
+        language_id: int = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/comment", form)
@@ -622,8 +622,8 @@ class LemmyHttp(object):
     def edit_comment(
         self,
         comment_id: int,
-        content: Optional[str] = None,
-        language_id: Optional[int] = None
+        content: str = None,
+        language_id: int = None
     ):
         form = create_form(locals())
         result = put_handler(self._session, f"{self._api_url}/comment", form)
@@ -644,7 +644,7 @@ class LemmyHttp(object):
         self,
         comment_id: int,
         removed: bool,
-        reason: Optional[str] = None
+        reason: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/comment/remove", form)
@@ -674,8 +674,8 @@ class LemmyHttp(object):
     def list_comment_likes(
         self,
         comment_id: int,
-        page: Optional[int] = None,
-        limit: Optional[int] = None
+        page: int = None,
+        limit: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/comment/like/list", form)
@@ -704,18 +704,18 @@ class LemmyHttp(object):
 
     def get_comments(
         self,
-        type_: Optional[str] = None,
-        sort: Optional[str] = None,
-        max_depth: Optional[int] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None,
-        community_id: Optional[int] = None,
-        community_name: Optional[str] = None,
-        post_id: Optional[int] = None,
-        parent_id: Optional[int] = None,
-        saved_only: Optional[bool] = None,
-        liked_only: Optional[bool] = None,
-        disliked_only: Optional[bool] = None
+        type_: str = None,
+        sort: str = None,
+        max_depth: int = None,
+        page: int = None,
+        limit: int = None,
+        community_id: int = None,
+        community_name: str = None,
+        post_id: int = None,
+        parent_id: int = None,
+        saved_only: bool = None,
+        liked_only: bool = None,
+        disliked_only: bool = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/comment/list", form)
@@ -753,11 +753,11 @@ class LemmyHttp(object):
 
     def list_comment_reports(
         self,
-        comment_id: Optional[int] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None,
-        unresolved_only: Optional[bool] = None,
-        community_id: Optional[int] = None
+        comment_id: int = None,
+        page: int = None,
+        limit: int = None,
+        unresolved_only: bool = None,
+        community_id: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/comment/report/list", form)
@@ -766,10 +766,10 @@ class LemmyHttp(object):
 
     def get_private_messages(
         self,
-        unread_only: Optional[bool] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None,
-        creator_id: Optional[int] = None
+        unread_only: bool = None,
+        page: int = None,
+        limit: int = None,
+        creator_id: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/private_message/list", form)
@@ -838,9 +838,9 @@ class LemmyHttp(object):
 
     def list_private_message_reports(
         self,
-        page: Optional[int] = None,
-        limit: Optional[int] = None,
-        unresolved_only: Optional[bool] = None
+        page: int = None,
+        limit: int = None,
+        unresolved_only: bool = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/private_message/report/list", form)
@@ -852,12 +852,12 @@ class LemmyHttp(object):
         username: str,
         password: str,
         password_verify: str,
-        show_nsfw: Optional[bool] = None,
-        email: Optional[str] = None,
-        captcha_uuid: Optional[str] = None,
-        captcha_answer: Optional[str] = None,
-        honeypot: Optional[str] = None,
-        answer: Optional[str] = None
+        show_nsfw: bool = None,
+        email: str = None,
+        captcha_uuid: str = None,
+        captcha_answer: str = None,
+        honeypot: str = None,
+        answer: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/user/register", form)
@@ -868,7 +868,7 @@ class LemmyHttp(object):
         self,
         username_or_email: str,
         password: str,
-        totp_2fa_token: Optional[str] = None
+        totp_2fa_token: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/user/login", form)
@@ -889,13 +889,13 @@ class LemmyHttp(object):
 
     def get_person_details(
         self,
-        person_id: Optional[int] = None,
-        username: Optional[str] = None,
-        sort: Optional[str] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None,
-        community_id: Optional[int] = None,
-        saved_only: Optional[bool] = None
+        person_id: int = None,
+        username: str = None,
+        sort: str = None,
+        page: int = None,
+        limit: int = None,
+        community_id: int = None,
+        saved_only: bool = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/user", form)
@@ -904,10 +904,10 @@ class LemmyHttp(object):
 
     def get_person_mentions(
         self,
-        sort: Optional[str] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None,
-        unread_only: Optional[bool] = None
+        sort: str = None,
+        page: int = None,
+        limit: int = None,
+        unread_only: bool = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/user/mention", form)
@@ -926,10 +926,10 @@ class LemmyHttp(object):
 
     def get_replies(
         self,
-        sort: Optional[str] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None,
-        unread_only: Optional[bool] = None
+        sort: str = None,
+        page: int = None,
+        limit: int = None,
+        unread_only: bool = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/user/replies", form)
@@ -940,9 +940,9 @@ class LemmyHttp(object):
         self,
         person_id: int,
         ban: bool,
-        remove_data: Optional[bool] = None,
-        reason: Optional[str] = None,
-        expires: Optional[int] = None
+        remove_data: bool = None,
+        reason: str = None,
+        expires: int = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/user/ban", form)
@@ -1015,35 +1015,35 @@ class LemmyHttp(object):
 
     def save_user_settings(
         self,
-        show_nsfw: Optional[bool] = None,
-        blur_nsfw: Optional[bool] = None,
-        auto_expand: Optional[bool] = None,
-        theme: Optional[str] = None,
-        default_sort_type: Optional[str] = None,
-        default_listing_type: Optional[str] = None,
-        interface_language: Optional[str] = None,
-        avatar: Optional[str] = None,
-        banner: Optional[str] = None,
-        display_name: Optional[str] = None,
-        email: Optional[str] = None,
-        bio: Optional[str] = None,
-        matrix_user_id: Optional[str] = None,
-        show_avatars: Optional[bool] = None,
-        send_notifications_to_email: Optional[bool] = None,
-        bot_account: Optional[bool] = None,
-        show_bot_accounts: Optional[bool] = None,
-        show_read_posts: Optional[bool] = None,
-        discussion_languages: Optional[list[int]] = None,
-        open_links_in_new_tab: Optional[bool] = None,
-        infinite_scroll_enabled: Optional[bool] = None,
-        post_listing_mode: Optional[str] = None,
-        enable_keyboard_navigation: Optional[bool] = None,
-        enable_animated_images: Optional[bool] = None,
-        collapse_bot_comments: Optional[bool] = None,
-        show_scores: Optional[bool] = None,
-        show_upvotes: Optional[bool] = None,
-        show_downvotes: Optional[bool] = None,
-        show_upvote_percentage: Optional[bool] = None
+        show_nsfw: bool = None,
+        blur_nsfw: bool = None,
+        auto_expand: bool = None,
+        theme: str = None,
+        default_sort_type: str = None,
+        default_listing_type: str = None,
+        interface_language: str = None,
+        avatar: str = None,
+        banner: str = None,
+        display_name: str = None,
+        email: str = None,
+        bio: str = None,
+        matrix_user_id: str = None,
+        show_avatars: bool = None,
+        send_notifications_to_email: bool = None,
+        bot_account: bool = None,
+        show_bot_accounts: bool = None,
+        show_read_posts: bool = None,
+        discussion_languages: list[int] = None,
+        open_links_in_new_tab: bool = None,
+        infinite_scroll_enabled: bool = None,
+        post_listing_mode: str = None,
+        enable_keyboard_navigation: bool = None,
+        enable_animated_images: bool = None,
+        collapse_bot_comments: bool = None,
+        show_scores: bool = None,
+        show_upvotes: bool = None,
+        show_downvotes: bool = None,
+        show_upvote_percentage: bool = None
     ):
         form = create_form(locals())
         result = put_handler(self._session, f"{self._api_url}/user/save_user_settings", form)
@@ -1063,7 +1063,7 @@ class LemmyHttp(object):
 
     def get_report_count(
         self,
-        community_id: Optional[int] = None
+        community_id: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/user/report_count", form)
@@ -1107,9 +1107,9 @@ class LemmyHttp(object):
 
     def list_registration_applications(
         self,
-        unread_only: Optional[bool] = None,
-        page: Optional[int] = None,
-        limit: Optional[int] = None
+        unread_only: bool = None,
+        page: int = None,
+        limit: int = None
     ):
         form = create_form(locals())
         result = get_handler(self._session, f"{self._api_url}/admin/registration_application/list", form)
@@ -1120,7 +1120,7 @@ class LemmyHttp(object):
         self,
         id: int,
         approve: bool,
-        deny_reason: Optional[str] = None
+        deny_reason: str = None
     ):
         form = create_form(locals())
         result = put_handler(self._session, f"{self._api_url}/admin/registration_application/approve", form)
@@ -1139,7 +1139,7 @@ class LemmyHttp(object):
     def purge_person(
         self,
         person_id: int,
-        reason: Optional[str] = None
+        reason: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/admin/purge/person", form)
@@ -1149,7 +1149,7 @@ class LemmyHttp(object):
     def purge_community(
         self,
         community_id: int,
-        reason: Optional[str] = None
+        reason: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/admin/purge/community", form)
@@ -1159,7 +1159,7 @@ class LemmyHttp(object):
     def purge_post(
         self,
         post_id: int,
-        reason: Optional[str] = None
+        reason: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/admin/purge/post", form)
@@ -1169,7 +1169,7 @@ class LemmyHttp(object):
     def purge_comment(
         self,
         comment_id: int,
-        reason: Optional[str] = None
+        reason: str = None
     ):
         form = create_form(locals())
         result = post_handler(self._session, f"{self._api_url}/admin/purge/comment", form)
