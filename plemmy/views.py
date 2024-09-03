@@ -436,6 +436,15 @@ class ModTransferCommunityView(ViewObject):
         self.modded_person = call_with_filtered_kwargs(Person, self._view["modded_person"])
 
 
+class PersonBlockView(ViewObject):
+    person: Person = None
+    target: Person = None
+
+    def parse(self) -> None:
+        self.person = call_with_filtered_kwargs(Person, self._view["person"])
+        self.target = call_with_filtered_kwargs(Person, self._view["target"])
+
+
 class MyUserInfo(ViewObject):
     local_user_view: LocalUserView = None
     follows: list[CommunityFollowerView] = None
@@ -453,15 +462,6 @@ class MyUserInfo(ViewObject):
         self.instance_blocks = call_with_filtered_kwargs(list[InstanceBlockView], self._view["instance_blocks"])
         self.person_blocks = call_with_filtered_kwargs(list[PersonBlockView], self._view["person_blocks"])
         self.discussion_languages = call_with_filtered_kwargs(list[int], self._view["discussion_languages"])
-
-
-class PersonBlockView(ViewObject):
-    person: Person = None
-    target: Person = None
-
-    def parse(self) -> None:
-        self.person = call_with_filtered_kwargs(Person, self._view["person"])
-        self.target = call_with_filtered_kwargs(Person, self._view["target"])
 
 
 class PersonMentionView(ViewObject):
