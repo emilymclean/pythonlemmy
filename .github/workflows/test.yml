@@ -1,6 +1,10 @@
-name: Run Plemmy tests
+name: Tests
 
-on: [push]
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
 
 jobs:
   build:
@@ -15,9 +19,10 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
-            python -m pip install --upgrade pip
-            pip install build
-            pip install pytest pytest-md
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install build
+          pip install pytest pytest-md
       - name: Install package
         run: python -m pip install .
       - name: Run tests
