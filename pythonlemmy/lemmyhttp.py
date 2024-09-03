@@ -38,7 +38,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/site", form)
+        result = get_handler(self._session, f"{self._api_url}/site", json=None, params=form)
 
         return result
 
@@ -88,7 +88,7 @@ class LemmyHttp(object):
         default_post_listing_mode: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/site", form)
+        result = post_handler(self._session, f"{self._api_url}/site", json=form, params=None)
 
         return result
 
@@ -140,7 +140,7 @@ class LemmyHttp(object):
         default_post_listing_mode: str = None
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/site", form)
+        result = put_handler(self._session, f"{self._api_url}/site", json=form, params=None)
 
         return result
 
@@ -148,7 +148,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/leave_admin", form)
+        result = post_handler(self._session, f"{self._api_url}/user/leave_admin", json=form, params=None)
 
         return result
 
@@ -156,7 +156,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/totp/generate", form)
+        result = post_handler(self._session, f"{self._api_url}/user/totp/generate", json=form, params=None)
 
         return result
 
@@ -164,7 +164,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/export_settings", form)
+        result = get_handler(self._session, f"{self._api_url}/user/export_settings", json=None, params=form)
 
         return result
 
@@ -172,7 +172,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/import_settings", form)
+        result = post_handler(self._session, f"{self._api_url}/user/import_settings", json=form, params=None)
 
         return result
 
@@ -180,7 +180,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/list_logins", form)
+        result = get_handler(self._session, f"{self._api_url}/user/list_logins", json=None, params=form)
 
         return result
 
@@ -188,7 +188,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/validate_auth", form)
+        result = get_handler(self._session, f"{self._api_url}/user/validate_auth", json=None, params=form)
 
         return result
 
@@ -198,7 +198,7 @@ class LemmyHttp(object):
         limit: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/account/list_media", form)
+        result = get_handler(self._session, f"{self._api_url}/account/list_media", json=None, params=form)
 
         return result
 
@@ -208,7 +208,7 @@ class LemmyHttp(object):
         limit: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/admin/list_all_media", form)
+        result = get_handler(self._session, f"{self._api_url}/admin/list_all_media", json=None, params=form)
 
         return result
 
@@ -218,7 +218,7 @@ class LemmyHttp(object):
         enabled: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/totp/update", form)
+        result = post_handler(self._session, f"{self._api_url}/user/totp/update", json=form, params=None)
 
         return result
 
@@ -234,7 +234,7 @@ class LemmyHttp(object):
         comment_id: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/modlog", form)
+        result = get_handler(self._session, f"{self._api_url}/modlog", json=None, params=form)
 
         return result
 
@@ -251,7 +251,7 @@ class LemmyHttp(object):
         limit: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/search", form)
+        result = get_handler(self._session, f"{self._api_url}/search", json=None, params=form)
 
         return result
 
@@ -260,7 +260,7 @@ class LemmyHttp(object):
         q: str
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/resolve_object", form)
+        result = get_handler(self._session, f"{self._api_url}/resolve_object", json=None, params=form)
 
         return result
 
@@ -277,7 +277,7 @@ class LemmyHttp(object):
         visibility: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community", form)
+        result = post_handler(self._session, f"{self._api_url}/community", json=form, params=None)
 
         return result
 
@@ -287,7 +287,7 @@ class LemmyHttp(object):
         name: str = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/community", form)
+        result = get_handler(self._session, f"{self._api_url}/community", json=None, params=form)
 
         return result
 
@@ -304,7 +304,7 @@ class LemmyHttp(object):
         visibility: str = None
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/community", form)
+        result = put_handler(self._session, f"{self._api_url}/community", json=form, params=None)
 
         return result
 
@@ -317,7 +317,7 @@ class LemmyHttp(object):
         limit: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/community/list", form)
+        result = get_handler(self._session, f"{self._api_url}/community/list", json=None, params=form)
 
         return result
 
@@ -327,7 +327,7 @@ class LemmyHttp(object):
         follow: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/follow", form)
+        result = post_handler(self._session, f"{self._api_url}/community/follow", json=form, params=None)
 
         return result
 
@@ -337,7 +337,7 @@ class LemmyHttp(object):
         block: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/block", form)
+        result = post_handler(self._session, f"{self._api_url}/community/block", json=form, params=None)
 
         return result
 
@@ -347,7 +347,7 @@ class LemmyHttp(object):
         deleted: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/delete", form)
+        result = post_handler(self._session, f"{self._api_url}/community/delete", json=form, params=None)
 
         return result
 
@@ -358,7 +358,7 @@ class LemmyHttp(object):
         reason: str = None
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/community/hide", form)
+        result = put_handler(self._session, f"{self._api_url}/community/hide", json=form, params=None)
 
         return result
 
@@ -369,7 +369,7 @@ class LemmyHttp(object):
         reason: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/remove", form)
+        result = post_handler(self._session, f"{self._api_url}/community/remove", json=form, params=None)
 
         return result
 
@@ -379,7 +379,7 @@ class LemmyHttp(object):
         person_id: int
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/transfer", form)
+        result = post_handler(self._session, f"{self._api_url}/community/transfer", json=form, params=None)
 
         return result
 
@@ -393,7 +393,7 @@ class LemmyHttp(object):
         expires: int = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/ban_user", form)
+        result = post_handler(self._session, f"{self._api_url}/community/ban_user", json=form, params=None)
 
         return result
 
@@ -404,7 +404,7 @@ class LemmyHttp(object):
         added: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/mod", form)
+        result = post_handler(self._session, f"{self._api_url}/community/mod", json=form, params=None)
 
         return result
 
@@ -421,7 +421,7 @@ class LemmyHttp(object):
         custom_thumbnail: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post", form)
+        result = post_handler(self._session, f"{self._api_url}/post", json=form, params=None)
 
         return result
 
@@ -431,7 +431,7 @@ class LemmyHttp(object):
         comment_id: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/post", form)
+        result = get_handler(self._session, f"{self._api_url}/post", json=None, params=form)
 
         return result
 
@@ -447,7 +447,7 @@ class LemmyHttp(object):
         custom_thumbnail: str = None
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/post", form)
+        result = put_handler(self._session, f"{self._api_url}/post", json=form, params=None)
 
         return result
 
@@ -457,7 +457,7 @@ class LemmyHttp(object):
         deleted: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/delete", form)
+        result = post_handler(self._session, f"{self._api_url}/post/delete", json=form, params=None)
 
         return result
 
@@ -468,7 +468,7 @@ class LemmyHttp(object):
         reason: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/remove", form)
+        result = post_handler(self._session, f"{self._api_url}/post/remove", json=form, params=None)
 
         return result
 
@@ -478,7 +478,7 @@ class LemmyHttp(object):
         read: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/mark_as_read", form)
+        result = post_handler(self._session, f"{self._api_url}/post/mark_as_read", json=form, params=None)
 
         return result
 
@@ -488,7 +488,7 @@ class LemmyHttp(object):
         hide: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/hide", form)
+        result = post_handler(self._session, f"{self._api_url}/post/hide", json=form, params=None)
 
         return result
 
@@ -498,7 +498,7 @@ class LemmyHttp(object):
         locked: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/lock", form)
+        result = post_handler(self._session, f"{self._api_url}/post/lock", json=form, params=None)
 
         return result
 
@@ -509,7 +509,7 @@ class LemmyHttp(object):
         feature_type: str
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/feature", form)
+        result = post_handler(self._session, f"{self._api_url}/post/feature", json=form, params=None)
 
         return result
 
@@ -530,7 +530,7 @@ class LemmyHttp(object):
         page_cursor: str = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/post/list", form)
+        result = get_handler(self._session, f"{self._api_url}/post/list", json=None, params=form)
 
         return result
 
@@ -540,7 +540,7 @@ class LemmyHttp(object):
         score: int
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/like", form)
+        result = post_handler(self._session, f"{self._api_url}/post/like", json=form, params=None)
 
         return result
 
@@ -551,7 +551,7 @@ class LemmyHttp(object):
         limit: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/post/like/list", form)
+        result = get_handler(self._session, f"{self._api_url}/post/like/list", json=None, params=form)
 
         return result
 
@@ -561,7 +561,7 @@ class LemmyHttp(object):
         save: bool
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/post/save", form)
+        result = put_handler(self._session, f"{self._api_url}/post/save", json=form, params=None)
 
         return result
 
@@ -571,7 +571,7 @@ class LemmyHttp(object):
         reason: str
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/report", form)
+        result = post_handler(self._session, f"{self._api_url}/post/report", json=form, params=None)
 
         return result
 
@@ -581,7 +581,7 @@ class LemmyHttp(object):
         resolved: bool
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/post/report/resolve", form)
+        result = put_handler(self._session, f"{self._api_url}/post/report/resolve", json=form, params=None)
 
         return result
 
@@ -594,7 +594,7 @@ class LemmyHttp(object):
         post_id: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/post/report/list", form)
+        result = get_handler(self._session, f"{self._api_url}/post/report/list", json=None, params=form)
 
         return result
 
@@ -603,7 +603,7 @@ class LemmyHttp(object):
         url: str
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/post/site_metadata", form)
+        result = get_handler(self._session, f"{self._api_url}/post/site_metadata", json=None, params=form)
 
         return result
 
@@ -615,7 +615,7 @@ class LemmyHttp(object):
         language_id: int = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment", form)
+        result = post_handler(self._session, f"{self._api_url}/comment", json=form, params=None)
 
         return result
 
@@ -626,7 +626,7 @@ class LemmyHttp(object):
         language_id: int = None
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/comment", form)
+        result = put_handler(self._session, f"{self._api_url}/comment", json=form, params=None)
 
         return result
 
@@ -636,7 +636,7 @@ class LemmyHttp(object):
         deleted: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/delete", form)
+        result = post_handler(self._session, f"{self._api_url}/comment/delete", json=form, params=None)
 
         return result
 
@@ -647,7 +647,7 @@ class LemmyHttp(object):
         reason: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/remove", form)
+        result = post_handler(self._session, f"{self._api_url}/comment/remove", json=form, params=None)
 
         return result
 
@@ -657,7 +657,7 @@ class LemmyHttp(object):
         read: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/mark_as_read", form)
+        result = post_handler(self._session, f"{self._api_url}/comment/mark_as_read", json=form, params=None)
 
         return result
 
@@ -667,7 +667,7 @@ class LemmyHttp(object):
         score: int
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/like", form)
+        result = post_handler(self._session, f"{self._api_url}/comment/like", json=form, params=None)
 
         return result
 
@@ -678,7 +678,7 @@ class LemmyHttp(object):
         limit: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/comment/like/list", form)
+        result = get_handler(self._session, f"{self._api_url}/comment/like/list", json=None, params=form)
 
         return result
 
@@ -688,7 +688,7 @@ class LemmyHttp(object):
         save: bool
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/comment/save", form)
+        result = put_handler(self._session, f"{self._api_url}/comment/save", json=form, params=None)
 
         return result
 
@@ -698,7 +698,7 @@ class LemmyHttp(object):
         distinguished: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/distinguish", form)
+        result = post_handler(self._session, f"{self._api_url}/comment/distinguish", json=form, params=None)
 
         return result
 
@@ -718,7 +718,7 @@ class LemmyHttp(object):
         disliked_only: bool = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/comment/list", form)
+        result = get_handler(self._session, f"{self._api_url}/comment/list", json=None, params=form)
 
         return result
 
@@ -727,7 +727,7 @@ class LemmyHttp(object):
         id: int
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/comment", form)
+        result = get_handler(self._session, f"{self._api_url}/comment", json=None, params=form)
 
         return result
 
@@ -737,7 +737,7 @@ class LemmyHttp(object):
         reason: str
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/report", form)
+        result = post_handler(self._session, f"{self._api_url}/comment/report", json=form, params=None)
 
         return result
 
@@ -747,7 +747,7 @@ class LemmyHttp(object):
         resolved: bool
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/comment/report/resolve", form)
+        result = put_handler(self._session, f"{self._api_url}/comment/report/resolve", json=form, params=None)
 
         return result
 
@@ -760,7 +760,7 @@ class LemmyHttp(object):
         community_id: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/comment/report/list", form)
+        result = get_handler(self._session, f"{self._api_url}/comment/report/list", json=None, params=form)
 
         return result
 
@@ -772,7 +772,7 @@ class LemmyHttp(object):
         creator_id: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/private_message/list", form)
+        result = get_handler(self._session, f"{self._api_url}/private_message/list", json=None, params=form)
 
         return result
 
@@ -782,7 +782,7 @@ class LemmyHttp(object):
         recipient_id: int
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/private_message", form)
+        result = post_handler(self._session, f"{self._api_url}/private_message", json=form, params=None)
 
         return result
 
@@ -792,7 +792,7 @@ class LemmyHttp(object):
         content: str
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/private_message", form)
+        result = put_handler(self._session, f"{self._api_url}/private_message", json=form, params=None)
 
         return result
 
@@ -802,7 +802,7 @@ class LemmyHttp(object):
         deleted: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/private_message/delete", form)
+        result = post_handler(self._session, f"{self._api_url}/private_message/delete", json=form, params=None)
 
         return result
 
@@ -812,7 +812,7 @@ class LemmyHttp(object):
         read: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/private_message/mark_as_read", form)
+        result = post_handler(self._session, f"{self._api_url}/private_message/mark_as_read", json=form, params=None)
 
         return result
 
@@ -822,7 +822,7 @@ class LemmyHttp(object):
         reason: str
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/private_message/report", form)
+        result = post_handler(self._session, f"{self._api_url}/private_message/report", json=form, params=None)
 
         return result
 
@@ -832,7 +832,7 @@ class LemmyHttp(object):
         resolved: bool
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/private_message/report/resolve", form)
+        result = put_handler(self._session, f"{self._api_url}/private_message/report/resolve", json=form, params=None)
 
         return result
 
@@ -843,7 +843,7 @@ class LemmyHttp(object):
         unresolved_only: bool = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/private_message/report/list", form)
+        result = get_handler(self._session, f"{self._api_url}/private_message/report/list", json=None, params=form)
 
         return result
 
@@ -860,7 +860,7 @@ class LemmyHttp(object):
         answer: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/register", form)
+        result = post_handler(self._session, f"{self._api_url}/user/register", json=form, params=None)
 
         return result
 
@@ -871,7 +871,7 @@ class LemmyHttp(object):
         totp_2fa_token: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/login", form)
+        result = post_handler(self._session, f"{self._api_url}/user/login", json=form, params=None)
         if result.status_code == 200:
             self._session = create_session(self._headers, result.json()["jwt"])
         else:
@@ -882,7 +882,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/logout", form)
+        result = post_handler(self._session, f"{self._api_url}/user/logout", json=form, params=None)
         if result.status_code == 200:
             self._session = create_session(self._headers, None)
         return result
@@ -898,7 +898,7 @@ class LemmyHttp(object):
         saved_only: bool = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user", form)
+        result = get_handler(self._session, f"{self._api_url}/user", json=None, params=form)
 
         return result
 
@@ -910,7 +910,7 @@ class LemmyHttp(object):
         unread_only: bool = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/mention", form)
+        result = get_handler(self._session, f"{self._api_url}/user/mention", json=None, params=form)
 
         return result
 
@@ -920,7 +920,7 @@ class LemmyHttp(object):
         read: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/mention/mark_as_read", form)
+        result = post_handler(self._session, f"{self._api_url}/user/mention/mark_as_read", json=form, params=None)
 
         return result
 
@@ -932,7 +932,7 @@ class LemmyHttp(object):
         unread_only: bool = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/replies", form)
+        result = get_handler(self._session, f"{self._api_url}/user/replies", json=None, params=form)
 
         return result
 
@@ -945,7 +945,7 @@ class LemmyHttp(object):
         expires: int = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/ban", form)
+        result = post_handler(self._session, f"{self._api_url}/user/ban", json=form, params=None)
 
         return result
 
@@ -953,7 +953,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/banned", form)
+        result = get_handler(self._session, f"{self._api_url}/user/banned", json=None, params=form)
 
         return result
 
@@ -963,7 +963,7 @@ class LemmyHttp(object):
         block: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/block", form)
+        result = post_handler(self._session, f"{self._api_url}/user/block", json=form, params=None)
 
         return result
 
@@ -971,7 +971,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/get_captcha", form)
+        result = get_handler(self._session, f"{self._api_url}/user/get_captcha", json=None, params=form)
 
         return result
 
@@ -981,7 +981,7 @@ class LemmyHttp(object):
         delete_content: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/delete_account", form)
+        result = post_handler(self._session, f"{self._api_url}/user/delete_account", json=form, params=None)
 
         return result
 
@@ -990,7 +990,7 @@ class LemmyHttp(object):
         email: str
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/password_reset", form)
+        result = post_handler(self._session, f"{self._api_url}/user/password_reset", json=form, params=None)
 
         return result
 
@@ -1001,7 +1001,7 @@ class LemmyHttp(object):
         password_verify: str
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/password_change", form)
+        result = post_handler(self._session, f"{self._api_url}/user/password_change", json=form, params=None)
 
         return result
 
@@ -1009,7 +1009,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/mark_all_as_read", form)
+        result = post_handler(self._session, f"{self._api_url}/user/mark_all_as_read", json=form, params=None)
 
         return result
 
@@ -1046,7 +1046,7 @@ class LemmyHttp(object):
         show_upvote_percentage: bool = None
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/user/save_user_settings", form)
+        result = put_handler(self._session, f"{self._api_url}/user/save_user_settings", json=form, params=None)
 
         return result
 
@@ -1057,7 +1057,7 @@ class LemmyHttp(object):
         old_password: str
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/user/change_password", form)
+        result = put_handler(self._session, f"{self._api_url}/user/change_password", json=form, params=None)
 
         return result
 
@@ -1066,7 +1066,7 @@ class LemmyHttp(object):
         community_id: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/report_count", form)
+        result = get_handler(self._session, f"{self._api_url}/user/report_count", json=None, params=form)
 
         return result
 
@@ -1074,7 +1074,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/unread_count", form)
+        result = get_handler(self._session, f"{self._api_url}/user/unread_count", json=None, params=form)
 
         return result
 
@@ -1083,7 +1083,7 @@ class LemmyHttp(object):
         token: str
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/verify_email", form)
+        result = post_handler(self._session, f"{self._api_url}/user/verify_email", json=form, params=None)
 
         return result
 
@@ -1093,7 +1093,7 @@ class LemmyHttp(object):
         added: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/admin/add", form)
+        result = post_handler(self._session, f"{self._api_url}/admin/add", json=form, params=None)
 
         return result
 
@@ -1101,7 +1101,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/admin/registration_application/count", form)
+        result = get_handler(self._session, f"{self._api_url}/admin/registration_application/count", json=None, params=form)
 
         return result
 
@@ -1112,7 +1112,7 @@ class LemmyHttp(object):
         limit: int = None
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/admin/registration_application/list", form)
+        result = get_handler(self._session, f"{self._api_url}/admin/registration_application/list", json=None, params=form)
 
         return result
 
@@ -1123,7 +1123,7 @@ class LemmyHttp(object):
         deny_reason: str = None
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/admin/registration_application/approve", form)
+        result = put_handler(self._session, f"{self._api_url}/admin/registration_application/approve", json=form, params=None)
 
         return result
 
@@ -1132,7 +1132,7 @@ class LemmyHttp(object):
         person_id: int
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/admin/registration_application", form)
+        result = get_handler(self._session, f"{self._api_url}/admin/registration_application", json=None, params=form)
 
         return result
 
@@ -1142,7 +1142,7 @@ class LemmyHttp(object):
         reason: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/admin/purge/person", form)
+        result = post_handler(self._session, f"{self._api_url}/admin/purge/person", json=form, params=None)
 
         return result
 
@@ -1152,7 +1152,7 @@ class LemmyHttp(object):
         reason: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/admin/purge/community", form)
+        result = post_handler(self._session, f"{self._api_url}/admin/purge/community", json=form, params=None)
 
         return result
 
@@ -1162,7 +1162,7 @@ class LemmyHttp(object):
         reason: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/admin/purge/post", form)
+        result = post_handler(self._session, f"{self._api_url}/admin/purge/post", json=form, params=None)
 
         return result
 
@@ -1172,7 +1172,7 @@ class LemmyHttp(object):
         reason: str = None
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/admin/purge/comment", form)
+        result = post_handler(self._session, f"{self._api_url}/admin/purge/comment", json=form, params=None)
 
         return result
 
@@ -1185,7 +1185,7 @@ class LemmyHttp(object):
         keywords: list[str]
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/custom_emoji", form)
+        result = post_handler(self._session, f"{self._api_url}/custom_emoji", json=form, params=None)
 
         return result
 
@@ -1198,7 +1198,7 @@ class LemmyHttp(object):
         keywords: list[str]
     ):
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/custom_emoji", form)
+        result = put_handler(self._session, f"{self._api_url}/custom_emoji", json=form, params=None)
 
         return result
 
@@ -1207,7 +1207,7 @@ class LemmyHttp(object):
         id: int
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/custom_emoji/delete", form)
+        result = post_handler(self._session, f"{self._api_url}/custom_emoji/delete", json=form, params=None)
 
         return result
 
@@ -1215,7 +1215,7 @@ class LemmyHttp(object):
         self
     ):
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/federated_instances", form)
+        result = get_handler(self._session, f"{self._api_url}/federated_instances", json=None, params=form)
 
         return result
 
@@ -1225,6 +1225,6 @@ class LemmyHttp(object):
         block: bool
     ):
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/site/block", form)
+        result = post_handler(self._session, f"{self._api_url}/site/block", json=form, params=None)
 
         return result

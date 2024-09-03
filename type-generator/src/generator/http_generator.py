@@ -44,13 +44,14 @@ if result.status_code == 200:
         lines = []
         for method in self._methods:
             http_method = self._retrofit_match[self._domain_match.index(method.method)]
+            is_get = method.method == HttpMethod.GET
             processor = self._processors[method.name] if method.name in self._processors else ""
             line = f"""
 def {method.name}(
 {textwrap.indent(self._generate_arguments(method), self._indent_char)}
 ):
     form = create_form(locals())
-    result = {http_method}_handler(self._session, f"{{self._api_url}}{method.url}", form)
+    result = {http_method}_handler(self._session, f"{{self._api_url}}{method.url}", json={None if is_get else "form"}, params={"form" if is_get else None})
 {textwrap.indent(processor, self._indent_char)}
     return result
             """.strip()
