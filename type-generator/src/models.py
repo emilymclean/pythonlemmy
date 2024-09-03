@@ -1,26 +1,28 @@
 from enum import Enum
 
 
+class ClassType:
+    OBJECT = 1
+    VIEW = 2
+    RESPONSE = 3
+
+
 class Property(object):
     api_name: str
-    java_name: str
-    cap_java_name: str
     type: str
+    nullable: bool
 
-    def __init__(self, api_name: str, java_name: str, cap_java_name: str, type: str):
+    def __init__(self, api_name: str, type: str, nullable: bool):
         self.api_name = api_name
-        self.java_name = java_name
-        self.cap_java_name = cap_java_name
         self.type = type
+        self.nullable = nullable
 
 
 class EnumProperty(object):
     api_name: str
-    java_name: str
 
     def __init__(self, api_name: str, java_name: str):
         self.api_name = api_name
-        self.java_name = java_name
 
 
 class HttpMethod(Enum):

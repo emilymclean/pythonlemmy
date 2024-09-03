@@ -19,13 +19,15 @@ def to_enum_case(camel_case):
 
 def normalize_type(type_identifier: str) -> str:
     if type_identifier.endswith("Id"):
-        return "long"
+        return "int"
     elif type_identifier == "number":
-        return "long"
+        return "int"
     elif type_identifier == "string":
-        return "String"
+        return "str"
+    elif type_identifier == "boolean":
+        return "bool"
 
     if type_identifier.endswith("[]"):
-        return f"List<{type_identifier[:-2]}>"
+        return f"List[{type_identifier[:-2]}]"
 
     return type_identifier
