@@ -50,15 +50,15 @@ def generate_types():
 
     with open(f"{model_dir}/views.py", "w") as f:
         f.write(view_header)
-        f.write("\n\n\n".join(sorted(views)))
+        f.write("\n\n\n".join(views))
         f.write("\n")
     with open(f"{model_dir}/objects.py", "w") as f:
         f.write(object_header)
-        f.write("\n\n\n".join(sorted(objects)))
+        f.write("\n\n\n".join(objects))
         f.write("\n")
     with open(f"{model_dir}/responses.py", "w") as f:
         f.write(response_header)
-        f.write("\n\n\n".join(sorted(responses)))
+        f.write("\n\n\n".join(responses))
         f.write("\n")
 
 
