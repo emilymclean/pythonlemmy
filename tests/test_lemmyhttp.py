@@ -2,8 +2,8 @@ from datetime import datetime
 import os
 import pytest
 
-import plemmy
-from plemmy.responses import CommentResponse, PostResponse
+import pythonlemmy as plemmy
+from pythonlemmy.responses import CommentResponse, PostResponse
 
 
 COMMUNITY_ID: int = int(os.environ.get("COMMUNITY_ID"))

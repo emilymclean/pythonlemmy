@@ -3,7 +3,7 @@ import logging
 
 import requests
 
-from plemmy.types import UploadFile
+from pythonlemmy.types import UploadFile
 
 
 def create_session(headers: dict, jwt: str) -> requests.Session:

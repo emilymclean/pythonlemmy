@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 exclude = ["img*"]
 
 [project]
-name = "python-lemmy"
+name = "pythonlemmy"
 version = "{{VERSION_PLACEHOLDER}}"
 authors = [
     { name = "Travis Kessler", email = "travis.j.kessler@gmail.com" },

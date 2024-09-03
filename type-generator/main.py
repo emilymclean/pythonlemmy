@@ -8,7 +8,7 @@ from src import ModelVisitor, EnumVisitor, HttpVisitor, ClassType, ModelGenerato
 
 parser = Parser()
 parser.set_language(Language(ts_typescript.language_typescript(), "TypeScript"))
-model_dir = "../plemmy"
+model_dir = "../pythonlemmy"
 
 enum_names = []
 
