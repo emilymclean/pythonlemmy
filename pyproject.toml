@@ -6,10 +6,11 @@ build-backend = "setuptools.build_meta"
 exclude = ["img*"]
 
 [project]
-name = "plemmy"
-version = "0.4.8"
+name = "pythonlemmy"
+version = "{{VERSION_PLACEHOLDER}}"
 authors = [
     { name = "Travis Kessler", email = "travis.j.kessler@gmail.com" },
+    { name = "Emily McLean", email = "emily@mclean.lgbt" },
 ]
 description = "A Python package for accessing the LemmyHttp API"
 readme = "README.md"
@@ -25,8 +26,8 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/Fedihosting-Foundation/plemmy"
-"Bug Tracker" = "https://github.com/Fedihosting-Foundation/plemmy/issues"
+"Homepage" = "https://github.com/BenMMcLean/plemmy"
+"Bug Tracker" = "https://github.com/BenMMcLean/plemmy/issues"
 
 [tool.pytest.ini_options]
 filterwarnings = [

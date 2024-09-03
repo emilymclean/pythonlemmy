@@ -1,4 +1,4 @@
-# Plemmy: a Python package for accessing the Lemmy API
+# Pythonlemmy: a Python package for accessing the Lemmy API
 
 <img src="https://github.com/Fedihosting-Foundation/plemmy/blob/main/img/plemmy.png" alt="drawing" width="325"/>
 
@@ -6,24 +6,16 @@
 [![PyPI version](https://badge.fury.io/py/plemmy.svg)](https://badge.fury.io/py/plemmy)
 [![GitHub license](https://img.shields.io/badge/license-Apache-blue.svg)](https://raw.githubusercontent.com/Fedihosting-Foundation/plemmy/master/LICENSE.txt)
 
-Plemmy allows you to interact with any Lemmy instance using Python and the [LemmyHttp API](https://join-lemmy.org/api/classes/LemmyHttp.html).
+Pythonlemmy allows you to interact with any Lemmy instance using Python and the [LemmyHttp API](https://join-lemmy.org/api/classes/LemmyHttp.html).
 
-**WARNING:** Plemmy is still in development and needs testing!
+**WARNING:** Pythonlemmy is still in development and needs testing!
 
 ## Installation ##
-
-For the most up-to-date version of Plemmy, clone and install from the repository:
-
-```
-git clone https://github.com/Fedihosting-Foundation/plemmy
-cd plemmy
-python -m pip install .
-```
 
 A PyPI repository is updated whenever a new version is available:
 
 ```
-python -m pip install plemmy
+python -m pip install pythonlemmy
 ```
 
 ## Basic usage ##
@@ -31,7 +23,7 @@ python -m pip install plemmy
 Interact with a Lemmy instance using the _LemmyHttp_ object:
 
 ```python
-from plemmy import LemmyHttp
+from pythonlemmy import LemmyHttp
 
 # create object for Lemmy.world, log in
 srv = LemmyHttp("https://lemmy.world")
@@ -41,7 +33,7 @@ srv.login("<username_or_email>", "<password>")
 Access specific communities:
 
 ```python
-from plemmy.responses import GetCommunityResponse
+from pythonlemmy.responses import GetCommunityResponse
 
 # obtain community, parse JSON
 api_response = srv.get_community(name="Lemmy")
@@ -59,8 +51,9 @@ for person in response.moderators:
 ```
 
 Create a post:
+
 ```python
-from plemmy.responses import PostResponse
+from pythonlemmy.responses import PostResponse
 
 # create post, parse JSON
 api_response = srv.create_post(community.id, "Test post please ignore", "Body text")
