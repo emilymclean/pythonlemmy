@@ -75,19 +75,31 @@ class {self._class_name}(object):
     def _generate_constructor(self) -> str:
         lines = []
         for prop in self._properties:
+            line = ""
             if prop.type in ["bool", "str", "int", "float"]:
-                lines.append(f"""
+                line = f"""
 self.{prop.api_name} = response["{prop.api_name}"]
-                """.strip())
+                """.strip()
             elif prop.type.startswith("list"):
                 inner = prop.type[len("list["):-1]
-                lines.append(f"""
+                line = f"""
 self.{prop.api_name} = [{inner}(e) for e in response["{prop.api_name}"]]
-                """.strip())
+                """.strip()
             else:
-                lines.append(f"""
+                line = f"""
 self.{prop.api_name} = {prop.type}(response["{prop.api_name}"])
-                """.strip())
+                """.strip()
+
+            if not prop.nullable:
+                lines.append(line)
+                continue
+
+            lines.append(f"""
+if "{prop.api_name}" in response:
+{textwrap.indent(line, self._indent_char)}
+else:
+    self.{prop.api_name} = None        
+            """.strip())
 
         return "\n".join(lines)
 
