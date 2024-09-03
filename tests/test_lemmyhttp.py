@@ -52,9 +52,9 @@ def test_create_delete_post() -> None:
 
     # create post
     response_create = instance.create_post(
-        COMMUNITY_ID,
         f"Plemmy unit test {datetime.utcnow()}",
-        "Unit test body text"
+        COMMUNITY_ID,
+        body="Unit test body text"
     )
 
     # check if successful
@@ -66,7 +66,8 @@ def test_create_delete_post() -> None:
 
     # delete post
     response_delete = instance.delete_post(
-        True, post_response.post_view.post.id
+        post_response.post_view.post.id,
+        True
     )
 
     # check if successful
@@ -84,9 +85,9 @@ def test_create_delete_comment() -> None:
 
     # create post
     response_post_create = instance.create_post(
-        COMMUNITY_ID,
         f"Plemmy unit test {datetime.utcnow()}",
-        "Unit test body text"
+        COMMUNITY_ID,
+        body="Unit test body text"
     )
 
     # parse post response
@@ -116,5 +117,5 @@ def test_create_delete_comment() -> None:
 
     # delete post
     instance.delete_post(
-        True, post_response.post_view.post.id
+        post_response.post_view.post.id, True
     )
