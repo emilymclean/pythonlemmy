@@ -55,7 +55,7 @@ jobs:
    needs: [version, release]
    env: 
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
-    if: ${{ env.PYPI_API_TOKEN == '' }}
+   if: ${{ env.PYPI_API_TOKEN == '' && github.ref == 'refs/heads/main' }}
    steps:
      - name: Checkout
        uses: actions/checkout@v4
