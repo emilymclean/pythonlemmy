@@ -5,7 +5,6 @@ from tree_sitter import Node, Tree
 
 from ..models import Property, ClassType
 from ..util import normalize_type
-from ..generator.model_generator import ModelGenerator
 from .visitor import Visitor
 
 
@@ -15,17 +14,14 @@ class ModelVisitor(Visitor):
 
     class_name = ""
     class_type = ClassType.OBJECT
-    _properties: List[Property] = []
+    properties: List[Property] = []
 
     def __init__(self, tree: Tree, enums: List[str]):
         self.tree = tree
         self._enums = enums
         self.class_name = ""
         self.class_type = ClassType.OBJECT
-        self._properties = []
-
-    def _generate(self) -> str:
-        return ModelGenerator(self.class_name, self._properties, self.class_type).build()
+        self.properties = []
 
     def visit_interface_declaration(self, node: Node):
         self.class_name = node.child_by_field_name("name").text.decode(self._encoding)
@@ -43,7 +39,7 @@ class ModelVisitor(Visitor):
         name = node.child_by_field_name("name").text.decode(self._encoding)
         nullable = any(n.type == "?" for n in node.children)
 
-        self._properties.append(Property(
+        self.properties.append(Property(
             name,
             "Object",
             nullable
@@ -58,12 +54,12 @@ class ModelVisitor(Visitor):
         if type_identifier in self._enums:
             type_identifier = "str"
 
-        last_idx = len(self._properties) - 1
+        last_idx = len(self.properties) - 1
 
-        self._properties[last_idx].type = normalize_type(type_identifier)
+        self.properties[last_idx].type = normalize_type(type_identifier)
 
     def visit_generic_type(self, node: Node):
-        last_idx = len(self._properties) - 1
+        last_idx = len(self.properties) - 1
         type_identifier = node.child(0).text.decode(self._encoding)
         type_parameter = normalize_type(node.child(1).child(1).text.decode(self._encoding))
 
@@ -75,4 +71,4 @@ class ModelVisitor(Visitor):
         else:
             raise f"Unhandled Type {type_identifier}!"
 
-        self._properties[last_idx].type = out_type
+        self.properties[last_idx].type = out_type

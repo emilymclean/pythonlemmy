@@ -21,9 +21,8 @@ class Generator:
     def _generate_property_list(self) -> str:
         lines = []
         for prop in self._properties:
-            type = f"Optional[{prop.type}]" if prop.nullable else prop.type
             lines.append(f"""
-    {prop.api_name}: {type} = None
+    {prop.api_name}: {prop.wrapped()} = None
                     """.strip())
 
         return "\n".join(lines)

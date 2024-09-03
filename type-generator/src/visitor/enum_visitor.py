@@ -2,7 +2,6 @@ import textwrap
 from typing import List
 
 from tree_sitter import Node, Tree
-from ..generator.enum_generator import EnumGenerator
 from .visitor import Visitor
 from ..models import EnumProperty
 from ..util import to_enum_case
@@ -19,9 +18,6 @@ class EnumVisitor(Visitor):
         self.tree = tree
         self.enum_name = ""
         self.types = []
-
-    def _generate(self) -> str:
-        return EnumGenerator(self.enum_name, self.types).build()
 
     def visit_type_alias_declaration(self, node: Node):
         self.enum_name = node.child_by_field_name("name").text.decode(self._encoding)

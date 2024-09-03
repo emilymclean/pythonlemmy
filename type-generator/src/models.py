@@ -17,6 +17,9 @@ class Property(object):
         self.type = type
         self.nullable = nullable
 
+    def wrapped(self) -> str:
+        return self.type if not self.nullable else f"Optional[{self.type}]"
+
 
 class EnumProperty(object):
     api_name: str

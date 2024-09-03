@@ -3,8 +3,8 @@ from typing import List
 
 from tree_sitter import Node, Tree
 from ..models import HttpMethod, ApiMethod
-from ..util import to_lower_camel_case, to_camel_case, normalize_type
-from ..generator.retrofit_generator import RetrofitGenerator
+from ..util import to_snake_case, normalize_type
+from ..generator.http_generator import HttpGenerator
 from .visitor import Visitor
 
 
@@ -16,7 +16,7 @@ class HttpVisitor(Visitor):
 
     def __init__(self, tree: Tree):
         self.tree = tree
-        self._methods = []
+        self.methods = []
         self._current_name = None
         self._current_input = None
         self._current_output = None
@@ -31,7 +31,7 @@ class HttpVisitor(Visitor):
             self._current_method is not None and
             self._current_url is not None
         ):
-            self._methods.append(
+            self.methods.append(
                 ApiMethod(
                     self._current_name,
                     self._current_input,
@@ -46,10 +46,6 @@ class HttpVisitor(Visitor):
         self._current_output = None
         self._current_method = None
         self._current_url = None
-
-    def _generate(self) -> str:
-        self._push_and_reset()
-        return RetrofitGenerator(self._methods).build()
 
     def visit_method_definition(self, node: Node):
         self._push_and_reset()
@@ -67,7 +63,7 @@ class HttpVisitor(Visitor):
         ]:
             return
 
-        self._current_name = name
+        self._current_name = to_snake_case(name)
         self._accept(node.child_by_field_name("body"))
 
     def visit_function_declaration(self, node: Node):

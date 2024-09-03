@@ -10,12 +10,8 @@ class Visitor(ABC):
 
     tree: Tree
 
-    def build(self) -> str:
+    def walk(self):
         self._accept(self.tree.root_node)
-        return self._generate()
-
-    def _generate(self) -> str:
-        pass
 
     def _accept(self, node: Node):
         node_type = node.type

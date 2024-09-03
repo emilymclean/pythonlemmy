@@ -17,6 +17,10 @@ def to_enum_case(camel_case):
     return re.sub(r"([A-Z])", r"_\1", enum_str).upper()
 
 
+def to_snake_case(camel_case):
+    return re.sub(r'(?<!^)(?=[A-Z])', '_', camel_case).lower()
+
+
 def normalize_type(type_identifier: str) -> str:
     if type_identifier.endswith("Id"):
         return "int"
