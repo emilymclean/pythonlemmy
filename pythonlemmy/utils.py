@@ -97,7 +97,7 @@ def put_handler(session: requests.Session, url: str, json: dict,
     return re
 
 
-def get_handler(session: requests.Session, url: str, json: dict | None = None,
+def get_handler(session: requests.Session, url: str,
                 params: dict = None) -> requests.Response:
     """ get_handler: handles all GET operations for Plemmy
 
@@ -113,7 +113,7 @@ def get_handler(session: requests.Session, url: str, json: dict | None = None,
 
     logger = logging.getLogger(__name__)
     try:
-        re = session.get(url, json=json, params=params, timeout=30)
+        re = session.get(url, json=None, params=params, timeout=30)
         logger.debug(f"Code: {re.status_code}")
     except requests.exceptions.RequestException as ex:
         logger.error(f"GET error: {ex}")
