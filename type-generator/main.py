@@ -11,34 +11,6 @@ parser.set_language(Language(ts_typescript.language_typescript(), "TypeScript"))
 model_dir = "./test_output"
 retrofit_dir = "../src/main/java/cl/emilym/jlemmy/"
 
-view_header = """
-from typing import Optional
-
-from .objects import *
-from .utils import call_with_filtered_kwargs
-
-
-class ViewObject(object):
-    \"\"\" ViewObject: parent object to all view-related objects \"\"\"
-
-    def __init__(self, view: dict) -> None:
-        self._view = view
-        self.parse()
-""".strip()
-
-object_header = """
-from typing import Optional
-from dataclasses import dataclass
-""".strip()
-
-responses_header = """
-from typing import Optional
-import requests
-
-from .views import *
-from .objects import *
-""".strip()
-
 enum_names = []
 
 objects = []
@@ -63,19 +35,23 @@ def generate_types():
         with open(f"{current_dir()}lemmy-js-client/src/types/{file}", "r") as f:
             parse_model(f.read())
 
+    with open(f"./headers/object_header.py", "r") as f:
+        object_header = f.read()
+    with open(f"./headers/response_header.py", "r") as f:
+        response_header = f.read()
+    with open(f"./headers/view_header.py", "r") as f:
+        view_header = f.read()
+
     with open(f"{model_dir}/views.py", "w") as f:
         f.write(view_header)
-        f.write("\n\n\n")
         f.write("\n\n\n".join(views))
         f.write("\n")
     with open(f"{model_dir}/objects.py", "w") as f:
         f.write(object_header)
-        f.write("\n\n\n")
         f.write("\n\n\n".join(objects))
         f.write("\n")
     with open(f"{model_dir}/responses.py", "w") as f:
-        f.write(responses_header)
-        f.write("\n\n\n")
+        f.write(response_header)
         f.write("\n\n\n".join(responses))
         f.write("\n")
 
