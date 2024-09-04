@@ -21,10 +21,10 @@ class LocalUserView(ViewObject):
     counts: PersonAggregates = None
 
     def parse(self) -> None:
-        self.local_user = call_with_filtered_kwargs(LocalUser, self._view["local_user"])
-        self.local_user_vote_display_mode = call_with_filtered_kwargs(LocalUserVoteDisplayMode, self._view["local_user_vote_display_mode"])
-        self.person = call_with_filtered_kwargs(Person, self._view["person"])
-        self.counts = call_with_filtered_kwargs(PersonAggregates, self._view["counts"])
+        self.local_user = LocalUser(self._view["local_user"])
+        self.local_user_vote_display_mode = LocalUserVoteDisplayMode(self._view["local_user_vote_display_mode"])
+        self.person = Person(self._view["person"])
+        self.counts = PersonAggregates(self._view["counts"])
 
 
 class CommentReplyView(ViewObject):
@@ -47,13 +47,13 @@ class CommentReplyView(ViewObject):
     my_vote: Optional[int] = None
 
     def parse(self) -> None:
-        self.comment_reply = call_with_filtered_kwargs(CommentReply, self._view["comment_reply"])
-        self.comment = call_with_filtered_kwargs(Comment, self._view["comment"])
-        self.creator = call_with_filtered_kwargs(Person, self._view["creator"])
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
-        self.recipient = call_with_filtered_kwargs(Person, self._view["recipient"])
-        self.counts = call_with_filtered_kwargs(CommentAggregates, self._view["counts"])
+        self.comment_reply = CommentReply(self._view["comment_reply"])
+        self.comment = Comment(self._view["comment"])
+        self.creator = Person(self._view["creator"])
+        self.post = Post(self._view["post"])
+        self.community = Community(self._view["community"])
+        self.recipient = Person(self._view["recipient"])
+        self.counts = CommentAggregates(self._view["counts"])
         self.creator_banned_from_community = self._view["creator_banned_from_community"]
         self.banned_from_community = self._view["banned_from_community"]
         self.creator_is_moderator = self._view["creator_is_moderator"]
@@ -74,8 +74,8 @@ class CommunityFollowerView(ViewObject):
     follower: Person = None
 
     def parse(self) -> None:
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
-        self.follower = call_with_filtered_kwargs(Person, self._view["follower"])
+        self.community = Community(self._view["community"])
+        self.follower = Person(self._view["follower"])
 
 
 class VoteView(ViewObject):
@@ -86,7 +86,7 @@ class VoteView(ViewObject):
     score: int = None
 
     def parse(self) -> None:
-        self.creator = call_with_filtered_kwargs(Person, self._view["creator"])
+        self.creator = Person(self._view["creator"])
         self.creator_banned_from_community = self._view["creator_banned_from_community"]
         self.score = self._view["score"]
 
@@ -101,12 +101,12 @@ class PrivateMessageReportView(ViewObject):
     resolver: Optional[Person] = None
 
     def parse(self) -> None:
-        self.private_message_report = call_with_filtered_kwargs(PrivateMessageReport, self._view["private_message_report"])
-        self.private_message = call_with_filtered_kwargs(PrivateMessage, self._view["private_message"])
-        self.private_message_creator = call_with_filtered_kwargs(Person, self._view["private_message_creator"])
-        self.creator = call_with_filtered_kwargs(Person, self._view["creator"])
+        self.private_message_report = PrivateMessageReport(self._view["private_message_report"])
+        self.private_message = PrivateMessage(self._view["private_message"])
+        self.private_message_creator = Person(self._view["private_message_creator"])
+        self.creator = Person(self._view["creator"])
         if "resolver" in self._view.keys():
-            self.resolver = call_with_filtered_kwargs(Person, self._view["resolver"])
+            self.resolver = Person(self._view["resolver"])
         else:
             self.resolver = None
 
@@ -119,12 +119,12 @@ class ModAddView(ViewObject):
     modded_person: Person = None
 
     def parse(self) -> None:
-        self.mod_add = call_with_filtered_kwargs(ModAdd, self._view["mod_add"])
+        self.mod_add = ModAdd(self._view["mod_add"])
         if "moderator" in self._view.keys():
-            self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+            self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.modded_person = call_with_filtered_kwargs(Person, self._view["modded_person"])
+        self.modded_person = Person(self._view["modded_person"])
 
 
 class PersonView(ViewObject):
@@ -135,8 +135,8 @@ class PersonView(ViewObject):
     is_admin: bool = None
 
     def parse(self) -> None:
-        self.person = call_with_filtered_kwargs(Person, self._view["person"])
-        self.counts = call_with_filtered_kwargs(PersonAggregates, self._view["counts"])
+        self.person = Person(self._view["person"])
+        self.counts = PersonAggregates(self._view["counts"])
         self.is_admin = self._view["is_admin"]
 
 
@@ -148,12 +148,12 @@ class ModBanView(ViewObject):
     banned_person: Person = None
 
     def parse(self) -> None:
-        self.mod_ban = call_with_filtered_kwargs(ModBan, self._view["mod_ban"])
+        self.mod_ban = ModBan(self._view["mod_ban"])
         if "moderator" in self._view.keys():
-            self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+            self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.banned_person = call_with_filtered_kwargs(Person, self._view["banned_person"])
+        self.banned_person = Person(self._view["banned_person"])
 
 
 class RegistrationApplicationView(ViewObject):
@@ -165,11 +165,11 @@ class RegistrationApplicationView(ViewObject):
     admin: Optional[Person] = None
 
     def parse(self) -> None:
-        self.registration_application = call_with_filtered_kwargs(RegistrationApplication, self._view["registration_application"])
-        self.creator_local_user = call_with_filtered_kwargs(LocalUser, self._view["creator_local_user"])
-        self.creator = call_with_filtered_kwargs(Person, self._view["creator"])
+        self.registration_application = RegistrationApplication(self._view["registration_application"])
+        self.creator_local_user = LocalUser(self._view["creator_local_user"])
+        self.creator = Person(self._view["creator"])
         if "admin" in self._view.keys():
-            self.admin = call_with_filtered_kwargs(Person, self._view["admin"])
+            self.admin = Person(self._view["admin"])
         else:
             self.admin = None
 
@@ -181,8 +181,8 @@ class CommunityBlockView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.person = call_with_filtered_kwargs(Person, self._view["person"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
+        self.person = Person(self._view["person"])
+        self.community = Community(self._view["community"])
 
 
 class ModBanFromCommunityView(ViewObject):
@@ -194,13 +194,13 @@ class ModBanFromCommunityView(ViewObject):
     banned_person: Person = None
 
     def parse(self) -> None:
-        self.mod_ban_from_community = call_with_filtered_kwargs(ModBanFromCommunity, self._view["mod_ban_from_community"])
+        self.mod_ban_from_community = ModBanFromCommunity(self._view["mod_ban_from_community"])
         if "moderator" in self._view.keys():
-            self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+            self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
-        self.banned_person = call_with_filtered_kwargs(Person, self._view["banned_person"])
+        self.community = Community(self._view["community"])
+        self.banned_person = Person(self._view["banned_person"])
 
 
 class PostView(ViewObject):
@@ -224,18 +224,18 @@ class PostView(ViewObject):
     unread_comments: int = None
 
     def parse(self) -> None:
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
-        self.creator = call_with_filtered_kwargs(Person, self._view["creator"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
+        self.post = Post(self._view["post"])
+        self.creator = Person(self._view["creator"])
+        self.community = Community(self._view["community"])
         if "image_details" in self._view.keys():
-            self.image_details = call_with_filtered_kwargs(ImageDetails, self._view["image_details"])
+            self.image_details = ImageDetails(self._view["image_details"])
         else:
             self.image_details = None
         self.creator_banned_from_community = self._view["creator_banned_from_community"]
         self.banned_from_community = self._view["banned_from_community"]
         self.creator_is_moderator = self._view["creator_is_moderator"]
         self.creator_is_admin = self._view["creator_is_admin"]
-        self.counts = call_with_filtered_kwargs(PostAggregates, self._view["counts"])
+        self.counts = PostAggregates(self._view["counts"])
         self.subscribed = self._view["subscribed"]
         self.saved = self._view["saved"]
         self.read = self._view["read"]
@@ -256,10 +256,10 @@ class InstanceBlockView(ViewObject):
     site: Optional[Site] = None
 
     def parse(self) -> None:
-        self.person = call_with_filtered_kwargs(Person, self._view["person"])
-        self.instance = call_with_filtered_kwargs(Instance, self._view["instance"])
+        self.person = Person(self._view["person"])
+        self.instance = Instance(self._view["instance"])
         if "site" in self._view.keys():
-            self.site = call_with_filtered_kwargs(Site, self._view["site"])
+            self.site = Site(self._view["site"])
         else:
             self.site = None
 
@@ -272,12 +272,12 @@ class ModRemoveCommunityView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_remove_community = call_with_filtered_kwargs(ModRemoveCommunity, self._view["mod_remove_community"])
+        self.mod_remove_community = ModRemoveCommunity(self._view["mod_remove_community"])
         if "moderator" in self._view.keys():
-            self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+            self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
+        self.community = Community(self._view["community"])
 
 
 class ModHideCommunityView(ViewObject):
@@ -288,12 +288,12 @@ class ModHideCommunityView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_hide_community = call_with_filtered_kwargs(ModHideCommunity, self._view["mod_hide_community"])
+        self.mod_hide_community = ModHideCommunity(self._view["mod_hide_community"])
         if "admin" in self._view.keys():
-            self.admin = call_with_filtered_kwargs(Person, self._view["admin"])
+            self.admin = Person(self._view["admin"])
         else:
             self.admin = None
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
+        self.community = Community(self._view["community"])
 
 
 class ModRemoveCommentView(ViewObject):
@@ -307,15 +307,15 @@ class ModRemoveCommentView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_remove_comment = call_with_filtered_kwargs(ModRemoveComment, self._view["mod_remove_comment"])
+        self.mod_remove_comment = ModRemoveComment(self._view["mod_remove_comment"])
         if "moderator" in self._view.keys():
-            self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+            self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.comment = call_with_filtered_kwargs(Comment, self._view["comment"])
-        self.commenter = call_with_filtered_kwargs(Person, self._view["commenter"])
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
+        self.comment = Comment(self._view["comment"])
+        self.commenter = Person(self._view["commenter"])
+        self.post = Post(self._view["post"])
+        self.community = Community(self._view["community"])
 
 
 class AdminPurgeCommentView(ViewObject):
@@ -326,12 +326,12 @@ class AdminPurgeCommentView(ViewObject):
     post: Post = None
 
     def parse(self) -> None:
-        self.admin_purge_comment = call_with_filtered_kwargs(AdminPurgeComment, self._view["admin_purge_comment"])
+        self.admin_purge_comment = AdminPurgeComment(self._view["admin_purge_comment"])
         if "admin" in self._view.keys():
-            self.admin = call_with_filtered_kwargs(Person, self._view["admin"])
+            self.admin = Person(self._view["admin"])
         else:
             self.admin = None
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
+        self.post = Post(self._view["post"])
 
 
 class ModAddCommunityView(ViewObject):
@@ -343,13 +343,13 @@ class ModAddCommunityView(ViewObject):
     modded_person: Person = None
 
     def parse(self) -> None:
-        self.mod_add_community = call_with_filtered_kwargs(ModAddCommunity, self._view["mod_add_community"])
+        self.mod_add_community = ModAddCommunity(self._view["mod_add_community"])
         if "moderator" in self._view.keys():
-            self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+            self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
-        self.modded_person = call_with_filtered_kwargs(Person, self._view["modded_person"])
+        self.community = Community(self._view["community"])
+        self.modded_person = Person(self._view["modded_person"])
 
 
 class PersonBlockView(ViewObject):
@@ -359,8 +359,8 @@ class PersonBlockView(ViewObject):
     target: Person = None
 
     def parse(self) -> None:
-        self.person = call_with_filtered_kwargs(Person, self._view["person"])
-        self.target = call_with_filtered_kwargs(Person, self._view["target"])
+        self.person = Person(self._view["person"])
+        self.target = Person(self._view["target"])
 
 
 class CommunityModeratorView(ViewObject):
@@ -370,8 +370,8 @@ class CommunityModeratorView(ViewObject):
     moderator: Person = None
 
     def parse(self) -> None:
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
-        self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+        self.community = Community(self._view["community"])
+        self.moderator = Person(self._view["moderator"])
 
 
 class ModFeaturePostView(ViewObject):
@@ -383,13 +383,13 @@ class ModFeaturePostView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_feature_post = call_with_filtered_kwargs(ModFeaturePost, self._view["mod_feature_post"])
+        self.mod_feature_post = ModFeaturePost(self._view["mod_feature_post"])
         if "moderator" in self._view.keys():
-            self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+            self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
+        self.post = Post(self._view["post"])
+        self.community = Community(self._view["community"])
 
 
 class PrivateMessageView(ViewObject):
@@ -400,9 +400,9 @@ class PrivateMessageView(ViewObject):
     recipient: Person = None
 
     def parse(self) -> None:
-        self.private_message = call_with_filtered_kwargs(PrivateMessage, self._view["private_message"])
-        self.creator = call_with_filtered_kwargs(Person, self._view["creator"])
-        self.recipient = call_with_filtered_kwargs(Person, self._view["recipient"])
+        self.private_message = PrivateMessage(self._view["private_message"])
+        self.creator = Person(self._view["creator"])
+        self.recipient = Person(self._view["recipient"])
 
 
 class SiteView(ViewObject):
@@ -414,10 +414,10 @@ class SiteView(ViewObject):
     counts: SiteAggregates = None
 
     def parse(self) -> None:
-        self.site = call_with_filtered_kwargs(Site, self._view["site"])
-        self.local_site = call_with_filtered_kwargs(LocalSite, self._view["local_site"])
-        self.local_site_rate_limit = call_with_filtered_kwargs(LocalSiteRateLimit, self._view["local_site_rate_limit"])
-        self.counts = call_with_filtered_kwargs(SiteAggregates, self._view["counts"])
+        self.site = Site(self._view["site"])
+        self.local_site = LocalSite(self._view["local_site"])
+        self.local_site_rate_limit = LocalSiteRateLimit(self._view["local_site_rate_limit"])
+        self.counts = SiteAggregates(self._view["counts"])
 
 
 class ModLockPostView(ViewObject):
@@ -429,13 +429,13 @@ class ModLockPostView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_lock_post = call_with_filtered_kwargs(ModLockPost, self._view["mod_lock_post"])
+        self.mod_lock_post = ModLockPost(self._view["mod_lock_post"])
         if "moderator" in self._view.keys():
-            self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+            self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
+        self.post = Post(self._view["post"])
+        self.community = Community(self._view["community"])
 
 
 class MyUserInfo(ViewObject):
@@ -450,13 +450,13 @@ class MyUserInfo(ViewObject):
     discussion_languages: list[int] = None
 
     def parse(self) -> None:
-        self.local_user_view = call_with_filtered_kwargs(LocalUserView, self._view["local_user_view"])
-        self.follows = [call_with_filtered_kwargs(CommunityFollowerView, e) for e in self._view["follows"]]
-        self.moderates = [call_with_filtered_kwargs(CommunityModeratorView, e) for e in self._view["moderates"]]
-        self.community_blocks = [call_with_filtered_kwargs(CommunityBlockView, e) for e in self._view["community_blocks"]]
-        self.instance_blocks = [call_with_filtered_kwargs(InstanceBlockView, e) for e in self._view["instance_blocks"]]
-        self.person_blocks = [call_with_filtered_kwargs(PersonBlockView, e) for e in self._view["person_blocks"]]
-        self.discussion_languages = [call_with_filtered_kwargs(int, e) for e in self._view["discussion_languages"]]
+        self.local_user_view = LocalUserView(self._view["local_user_view"])
+        self.follows = [CommunityFollowerView(e) for e in self._view["follows"]]
+        self.moderates = [CommunityModeratorView(e) for e in self._view["moderates"]]
+        self.community_blocks = [CommunityBlockView(e) for e in self._view["community_blocks"]]
+        self.instance_blocks = [InstanceBlockView(e) for e in self._view["instance_blocks"]]
+        self.person_blocks = [PersonBlockView(e) for e in self._view["person_blocks"]]
+        self.discussion_languages = [int(e) for e in self._view["discussion_languages"]]
 
 
 class AdminPurgePersonView(ViewObject):
@@ -466,9 +466,9 @@ class AdminPurgePersonView(ViewObject):
     admin: Optional[Person] = None
 
     def parse(self) -> None:
-        self.admin_purge_person = call_with_filtered_kwargs(AdminPurgePerson, self._view["admin_purge_person"])
+        self.admin_purge_person = AdminPurgePerson(self._view["admin_purge_person"])
         if "admin" in self._view.keys():
-            self.admin = call_with_filtered_kwargs(Person, self._view["admin"])
+            self.admin = Person(self._view["admin"])
         else:
             self.admin = None
 
@@ -493,13 +493,13 @@ class CommentReportView(ViewObject):
     resolver: Optional[Person] = None
 
     def parse(self) -> None:
-        self.comment_report = call_with_filtered_kwargs(CommentReport, self._view["comment_report"])
-        self.comment = call_with_filtered_kwargs(Comment, self._view["comment"])
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
-        self.creator = call_with_filtered_kwargs(Person, self._view["creator"])
-        self.comment_creator = call_with_filtered_kwargs(Person, self._view["comment_creator"])
-        self.counts = call_with_filtered_kwargs(CommentAggregates, self._view["counts"])
+        self.comment_report = CommentReport(self._view["comment_report"])
+        self.comment = Comment(self._view["comment"])
+        self.post = Post(self._view["post"])
+        self.community = Community(self._view["community"])
+        self.creator = Person(self._view["creator"])
+        self.comment_creator = Person(self._view["comment_creator"])
+        self.counts = CommentAggregates(self._view["counts"])
         self.creator_banned_from_community = self._view["creator_banned_from_community"]
         self.creator_is_moderator = self._view["creator_is_moderator"]
         self.creator_is_admin = self._view["creator_is_admin"]
@@ -511,7 +511,7 @@ class CommentReportView(ViewObject):
         else:
             self.my_vote = None
         if "resolver" in self._view.keys():
-            self.resolver = call_with_filtered_kwargs(Person, self._view["resolver"])
+            self.resolver = Person(self._view["resolver"])
         else:
             self.resolver = None
 
@@ -525,13 +525,13 @@ class ModRemovePostView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_remove_post = call_with_filtered_kwargs(ModRemovePost, self._view["mod_remove_post"])
+        self.mod_remove_post = ModRemovePost(self._view["mod_remove_post"])
         if "moderator" in self._view.keys():
-            self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+            self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
+        self.post = Post(self._view["post"])
+        self.community = Community(self._view["community"])
 
 
 class CommunityView(ViewObject):
@@ -544,10 +544,10 @@ class CommunityView(ViewObject):
     banned_from_community: bool = None
 
     def parse(self) -> None:
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
+        self.community = Community(self._view["community"])
         self.subscribed = self._view["subscribed"]
         self.blocked = self._view["blocked"]
-        self.counts = call_with_filtered_kwargs(CommunityAggregates, self._view["counts"])
+        self.counts = CommunityAggregates(self._view["counts"])
         self.banned_from_community = self._view["banned_from_community"]
 
 
@@ -558,9 +558,9 @@ class AdminPurgeCommunityView(ViewObject):
     admin: Optional[Person] = None
 
     def parse(self) -> None:
-        self.admin_purge_community = call_with_filtered_kwargs(AdminPurgeCommunity, self._view["admin_purge_community"])
+        self.admin_purge_community = AdminPurgeCommunity(self._view["admin_purge_community"])
         if "admin" in self._view.keys():
-            self.admin = call_with_filtered_kwargs(Person, self._view["admin"])
+            self.admin = Person(self._view["admin"])
         else:
             self.admin = None
 
@@ -573,12 +573,12 @@ class AdminPurgePostView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.admin_purge_post = call_with_filtered_kwargs(AdminPurgePost, self._view["admin_purge_post"])
+        self.admin_purge_post = AdminPurgePost(self._view["admin_purge_post"])
         if "admin" in self._view.keys():
-            self.admin = call_with_filtered_kwargs(Person, self._view["admin"])
+            self.admin = Person(self._view["admin"])
         else:
             self.admin = None
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
+        self.community = Community(self._view["community"])
 
 
 class ModTransferCommunityView(ViewObject):
@@ -590,13 +590,13 @@ class ModTransferCommunityView(ViewObject):
     modded_person: Person = None
 
     def parse(self) -> None:
-        self.mod_transfer_community = call_with_filtered_kwargs(ModTransferCommunity, self._view["mod_transfer_community"])
+        self.mod_transfer_community = ModTransferCommunity(self._view["mod_transfer_community"])
         if "moderator" in self._view.keys():
-            self.moderator = call_with_filtered_kwargs(Person, self._view["moderator"])
+            self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
-        self.modded_person = call_with_filtered_kwargs(Person, self._view["modded_person"])
+        self.community = Community(self._view["community"])
+        self.modded_person = Person(self._view["modded_person"])
 
 
 class LocalImageView(ViewObject):
@@ -606,8 +606,8 @@ class LocalImageView(ViewObject):
     person: Person = None
 
     def parse(self) -> None:
-        self.local_image = call_with_filtered_kwargs(LocalImage, self._view["local_image"])
-        self.person = call_with_filtered_kwargs(Person, self._view["person"])
+        self.local_image = LocalImage(self._view["local_image"])
+        self.person = Person(self._view["person"])
 
 
 class PersonMentionView(ViewObject):
@@ -630,13 +630,13 @@ class PersonMentionView(ViewObject):
     my_vote: Optional[int] = None
 
     def parse(self) -> None:
-        self.person_mention = call_with_filtered_kwargs(PersonMention, self._view["person_mention"])
-        self.comment = call_with_filtered_kwargs(Comment, self._view["comment"])
-        self.creator = call_with_filtered_kwargs(Person, self._view["creator"])
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
-        self.recipient = call_with_filtered_kwargs(Person, self._view["recipient"])
-        self.counts = call_with_filtered_kwargs(CommentAggregates, self._view["counts"])
+        self.person_mention = PersonMention(self._view["person_mention"])
+        self.comment = Comment(self._view["comment"])
+        self.creator = Person(self._view["creator"])
+        self.post = Post(self._view["post"])
+        self.community = Community(self._view["community"])
+        self.recipient = Person(self._view["recipient"])
+        self.counts = CommentAggregates(self._view["counts"])
         self.creator_banned_from_community = self._view["creator_banned_from_community"]
         self.banned_from_community = self._view["banned_from_community"]
         self.creator_is_moderator = self._view["creator_is_moderator"]
@@ -657,8 +657,8 @@ class CustomEmojiView(ViewObject):
     keywords: list[CustomEmojiKeyword] = None
 
     def parse(self) -> None:
-        self.custom_emoji = call_with_filtered_kwargs(CustomEmoji, self._view["custom_emoji"])
-        self.keywords = [call_with_filtered_kwargs(CustomEmojiKeyword, e) for e in self._view["keywords"]]
+        self.custom_emoji = CustomEmoji(self._view["custom_emoji"])
+        self.keywords = [CustomEmojiKeyword(e) for e in self._view["keywords"]]
 
 
 class CommentView(ViewObject):
@@ -679,11 +679,11 @@ class CommentView(ViewObject):
     my_vote: Optional[int] = None
 
     def parse(self) -> None:
-        self.comment = call_with_filtered_kwargs(Comment, self._view["comment"])
-        self.creator = call_with_filtered_kwargs(Person, self._view["creator"])
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
-        self.counts = call_with_filtered_kwargs(CommentAggregates, self._view["counts"])
+        self.comment = Comment(self._view["comment"])
+        self.creator = Person(self._view["creator"])
+        self.post = Post(self._view["post"])
+        self.community = Community(self._view["community"])
+        self.counts = CommentAggregates(self._view["counts"])
         self.creator_banned_from_community = self._view["creator_banned_from_community"]
         self.banned_from_community = self._view["banned_from_community"]
         self.creator_is_moderator = self._view["creator_is_moderator"]
@@ -719,11 +719,11 @@ class PostReportView(ViewObject):
     resolver: Optional[Person] = None
 
     def parse(self) -> None:
-        self.post_report = call_with_filtered_kwargs(PostReport, self._view["post_report"])
-        self.post = call_with_filtered_kwargs(Post, self._view["post"])
-        self.community = call_with_filtered_kwargs(Community, self._view["community"])
-        self.creator = call_with_filtered_kwargs(Person, self._view["creator"])
-        self.post_creator = call_with_filtered_kwargs(Person, self._view["post_creator"])
+        self.post_report = PostReport(self._view["post_report"])
+        self.post = Post(self._view["post"])
+        self.community = Community(self._view["community"])
+        self.creator = Person(self._view["creator"])
+        self.post_creator = Person(self._view["post_creator"])
         self.creator_banned_from_community = self._view["creator_banned_from_community"]
         self.creator_is_moderator = self._view["creator_is_moderator"]
         self.creator_is_admin = self._view["creator_is_admin"]
@@ -737,8 +737,8 @@ class PostReportView(ViewObject):
         else:
             self.my_vote = None
         self.unread_comments = self._view["unread_comments"]
-        self.counts = call_with_filtered_kwargs(PostAggregates, self._view["counts"])
+        self.counts = PostAggregates(self._view["counts"])
         if "resolver" in self._view.keys():
-            self.resolver = call_with_filtered_kwargs(Person, self._view["resolver"])
+            self.resolver = Person(self._view["resolver"])
         else:
             self.resolver = None
