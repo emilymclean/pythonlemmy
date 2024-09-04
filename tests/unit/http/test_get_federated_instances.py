@@ -32,7 +32,6 @@ class TestGetFederatedInstances(unittest.TestCase):
         # Assert
         self.assertEqual(response.json(), fixture)
         response_data = GetFederatedInstancesResponse(response)
-        print(response_data.federated_instances.linked)
         self.assertIsNotNone(response_data.federated_instances)
         self.assertEqual(2, len(response_data.federated_instances.linked))
 
@@ -54,7 +53,6 @@ class TestGetFederatedInstances(unittest.TestCase):
 
         # Assert
         response_data = GetFederatedInstancesResponse(response)
-        print(response_data.__dict__)
         self.assertIsNotNone(response_data.federated_instances)
         self.assertEqual(0, len(response_data.federated_instances.linked))
 
