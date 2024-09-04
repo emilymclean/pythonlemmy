@@ -72,4 +72,4 @@ Full documentation is on its way, but in the meantime check out our source code 
 
 ## Reporting issues, making contributions, etc. ##
 
-Don't hesitate to report a bug or unexpected results! Want to contribute? Make a pull request. Contact [@tjkessler](https://github.com/tjkessler) with any questions.
+Don't hesitate to report a bug or unexpected results! Want to contribute? Make a pull request.
