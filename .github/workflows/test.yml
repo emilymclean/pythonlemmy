@@ -29,6 +29,12 @@ jobs:
           pip install -r requirements.txt
           pip install .
       - name: Test with pytest
+        env:
+          COMMUNITY_ID: ${{ secrets.COMMUNITY_ID }}
+          COMMUNITY_NAME: ${{ secrets.COMMUNITY_NAME }}
+          INSTANCE_URL: ${{ secrets.INSTANCE_URL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          USERNAME: ${{ secrets.USERNAME }}
         run: |
           pip install pytest pytest-cov
           python -m pytest tests/integration/ tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
