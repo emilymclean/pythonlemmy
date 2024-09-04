@@ -130,7 +130,6 @@ Returns:
             schema_property = schema_properties[property.api_name] if property.api_name in schema_properties else None
             description = ""
             if schema_property is not None:
-                print(type(schema_property.cls))
                 if schema_property.description is not None:
                     description = f": {schema_property.description}"
                 elif type(schema_property.cls) is ModelEnumDataImpl:
