@@ -1,3 +1,26 @@
 -i https://pypi.org/simple
+camel-case-switcher==2.1.0 ; python_version >= '3.6'
+certifi==2024.8.30 ; python_version >= '3.6'
+charset-normalizer==3.3.2 ; python_full_version >= '3.7.0'
+dataclasses-json==0.5.14 ; python_version < '3.13' and python_version >= '3.7'
+functional-python==0.3.1
+http-server-base==2.0.10 ; python_full_version >= '3.6.0'
+idna==3.8 ; python_version >= '3.6'
+jinja2==3.1.4 ; python_version >= '3.7'
+license==0.1a3
+markupsafe==2.1.5 ; python_version >= '3.7'
+marshmallow==3.22.0 ; python_version >= '3.8'
+mypy-extensions==1.0.0 ; python_version >= '3.5'
+openapi-parser==0.2.6
+packaging==24.1 ; python_version >= '3.8'
+parse==1.19.1
+pyyaml==5.3.1
+regex==2024.7.24 ; python_version >= '3.8'
+requests==2.32.3
+stringcase==1.2.0
+tornado==6.4.1 ; python_version >= '3.8'
 tree-sitter==0.21.3
 tree-sitter-typescript==0.21.1
+typing-extensions==4.12.2 ; python_version >= '3.8'
+typing-inspect==0.7.1
+urllib3==2.2.2 ; python_version >= '3.8'

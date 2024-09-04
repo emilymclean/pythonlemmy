@@ -4,6 +4,8 @@ from dataclasses import dataclass
 
 @dataclass
 class ListCommunities:
+    """https://join-lemmy.org/api/interfaces/ListCommunities.html"""
+    
     type_: Optional[str] = None
     sort: Optional[str] = None
     show_nsfw: Optional[bool] = None
@@ -13,6 +15,8 @@ class ListCommunities:
 
 @dataclass
 class RegistrationApplication:
+    """https://join-lemmy.org/api/interfaces/RegistrationApplication.html"""
+    
     id: int = None
     local_user_id: int = None
     answer: str = None
@@ -23,6 +27,8 @@ class RegistrationApplication:
 
 @dataclass
 class AdminPurgeComment:
+    """https://join-lemmy.org/api/interfaces/AdminPurgeComment.html"""
+    
     id: int = None
     admin_person_id: int = None
     post_id: int = None
@@ -32,6 +38,8 @@ class AdminPurgeComment:
 
 @dataclass
 class CreateSite:
+    """https://join-lemmy.org/api/interfaces/CreateSite.html"""
+    
     name: str = None
     sidebar: Optional[str] = None
     description: Optional[str] = None
@@ -78,12 +86,16 @@ class CreateSite:
 
 @dataclass
 class DeleteComment:
+    """https://join-lemmy.org/api/interfaces/DeleteComment.html"""
+    
     comment_id: int = None
     deleted: bool = None
 
 
 @dataclass
 class CreateCommunity:
+    """https://join-lemmy.org/api/interfaces/CreateCommunity.html"""
+    
     name: str = None
     title: str = None
     description: Optional[str] = None
@@ -97,6 +109,8 @@ class CreateCommunity:
 
 @dataclass
 class AdminPurgeCommunity:
+    """https://join-lemmy.org/api/interfaces/AdminPurgeCommunity.html"""
+    
     id: int = None
     admin_person_id: int = None
     reason: Optional[str] = None
@@ -105,6 +119,8 @@ class AdminPurgeCommunity:
 
 @dataclass
 class ModRemoveCommunity:
+    """https://join-lemmy.org/api/interfaces/ModRemoveCommunity.html"""
+    
     id: int = None
     mod_person_id: int = None
     community_id: int = None
@@ -115,6 +131,8 @@ class ModRemoveCommunity:
 
 @dataclass
 class LocalSiteUrlBlocklist:
+    """https://join-lemmy.org/api/interfaces/LocalSiteUrlBlocklist.html"""
+    
     id: int = None
     url: str = None
     published: str = None
@@ -123,6 +141,8 @@ class LocalSiteUrlBlocklist:
 
 @dataclass
 class PostReport:
+    """https://join-lemmy.org/api/interfaces/PostReport.html"""
+    
     id: int = None
     creator_id: int = None
     post_id: int = None
@@ -138,6 +158,8 @@ class PostReport:
 
 @dataclass
 class CommentAggregates:
+    """https://join-lemmy.org/api/interfaces/CommentAggregates.html"""
+    
     comment_id: int = None
     score: int = None
     upvotes: int = None
@@ -148,6 +170,8 @@ class CommentAggregates:
 
 @dataclass
 class FeaturePost:
+    """https://join-lemmy.org/api/interfaces/FeaturePost.html"""
+    
     post_id: int = None
     featured: bool = None
     feature_type: str = None
@@ -155,11 +179,15 @@ class FeaturePost:
 
 @dataclass
 class GetSiteMetadata:
+    """https://join-lemmy.org/api/interfaces/GetSiteMetadata.html"""
+    
     url: str = None
 
 
 @dataclass
 class ModLockPost:
+    """https://join-lemmy.org/api/interfaces/ModLockPost.html"""
+    
     id: int = None
     mod_person_id: int = None
     post_id: int = None
@@ -169,18 +197,24 @@ class ModLockPost:
 
 @dataclass
 class ResolveCommentReport:
+    """https://join-lemmy.org/api/interfaces/ResolveCommentReport.html"""
+    
     report_id: int = None
     resolved: bool = None
 
 
 @dataclass
 class DeleteCommunity:
+    """https://join-lemmy.org/api/interfaces/DeleteCommunity.html"""
+    
     community_id: int = None
     deleted: bool = None
 
 
 @dataclass
 class GetPersonMentions:
+    """https://join-lemmy.org/api/interfaces/GetPersonMentions.html"""
+    
     sort: Optional[str] = None
     page: Optional[int] = None
     limit: Optional[int] = None
@@ -189,6 +223,8 @@ class GetPersonMentions:
 
 @dataclass
 class ModHideCommunity:
+    """https://join-lemmy.org/api/interfaces/ModHideCommunity.html"""
+    
     id: int = None
     community_id: int = None
     mod_person_id: int = None
@@ -199,6 +235,8 @@ class ModHideCommunity:
 
 @dataclass
 class HideCommunity:
+    """https://join-lemmy.org/api/interfaces/HideCommunity.html"""
+    
     community_id: int = None
     hidden: bool = None
     reason: Optional[str] = None
@@ -206,6 +244,8 @@ class HideCommunity:
 
 @dataclass
 class RemoveCommunity:
+    """https://join-lemmy.org/api/interfaces/RemoveCommunity.html"""
+    
     community_id: int = None
     removed: bool = None
     reason: Optional[str] = None
@@ -213,6 +253,8 @@ class RemoveCommunity:
 
 @dataclass
 class EditComment:
+    """https://join-lemmy.org/api/interfaces/EditComment.html"""
+    
     comment_id: int = None
     content: Optional[str] = None
     language_id: Optional[int] = None
@@ -220,6 +262,8 @@ class EditComment:
 
 @dataclass
 class EditCustomEmoji:
+    """https://join-lemmy.org/api/interfaces/EditCustomEmoji.html"""
+    
     id: int = None
     category: str = None
     image_url: str = None
@@ -229,6 +273,8 @@ class EditCustomEmoji:
 
 @dataclass
 class PersonMention:
+    """https://join-lemmy.org/api/interfaces/PersonMention.html"""
+    
     id: int = None
     recipient_id: int = None
     comment_id: int = None
@@ -238,18 +284,24 @@ class PersonMention:
 
 @dataclass
 class HidePost:
+    """https://join-lemmy.org/api/interfaces/HidePost.html"""
+    
     post_ids: list[int] = None
     hide: bool = None
 
 
 @dataclass
 class CreatePrivateMessageReport:
+    """https://join-lemmy.org/api/interfaces/CreatePrivateMessageReport.html"""
+    
     private_message_id: int = None
     reason: str = None
 
 
 @dataclass
 class ReadableFederationState:
+    """https://join-lemmy.org/api/interfaces/ReadableFederationState.html"""
+    
     instance_id: int = None
     last_successful_id: Optional[int] = None
     last_successful_published_time: Optional[str] = None
@@ -260,6 +312,8 @@ class ReadableFederationState:
 
 @dataclass
 class Login:
+    """https://join-lemmy.org/api/interfaces/Login.html"""
+    
     username_or_email: str = None
     password: str = None
     totp_2fa_token: Optional[str] = None
@@ -267,12 +321,16 @@ class Login:
 
 @dataclass
 class BlockInstance:
+    """https://join-lemmy.org/api/interfaces/BlockInstance.html"""
+    
     instance_id: int = None
     block: bool = None
 
 
 @dataclass
 class LoginToken:
+    """https://join-lemmy.org/api/interfaces/LoginToken.html"""
+    
     user_id: int = None
     published: str = None
     ip: Optional[str] = None
@@ -281,6 +339,8 @@ class LoginToken:
 
 @dataclass
 class PasswordChangeAfterReset:
+    """https://join-lemmy.org/api/interfaces/PasswordChangeAfterReset.html"""
+    
     token: str = None
     password: str = None
     password_verify: str = None
@@ -288,6 +348,8 @@ class PasswordChangeAfterReset:
 
 @dataclass
 class LocalUser:
+    """https://join-lemmy.org/api/interfaces/LocalUser.html"""
+    
     id: int = None
     person_id: int = None
     email: Optional[str] = None
@@ -317,6 +379,8 @@ class LocalUser:
 
 @dataclass
 class PersonAggregates:
+    """https://join-lemmy.org/api/interfaces/PersonAggregates.html"""
+    
     person_id: int = None
     post_count: int = None
     comment_count: int = None
@@ -324,12 +388,16 @@ class PersonAggregates:
 
 @dataclass
 class MarkCommentReplyAsRead:
+    """https://join-lemmy.org/api/interfaces/MarkCommentReplyAsRead.html"""
+    
     comment_reply_id: int = None
     read: bool = None
 
 
 @dataclass
 class Search:
+    """https://join-lemmy.org/api/interfaces/Search.html"""
+    
     q: str = None
     community_id: Optional[int] = None
     community_name: Optional[str] = None
@@ -343,6 +411,8 @@ class Search:
 
 @dataclass
 class LocalUserVoteDisplayMode:
+    """https://join-lemmy.org/api/interfaces/LocalUserVoteDisplayMode.html"""
+    
     local_user_id: int = None
     score: bool = None
     upvotes: bool = None
@@ -352,12 +422,16 @@ class LocalUserVoteDisplayMode:
 
 @dataclass
 class LockPost:
+    """https://join-lemmy.org/api/interfaces/LockPost.html"""
+    
     post_id: int = None
     locked: bool = None
 
 
 @dataclass
 class ChangePassword:
+    """https://join-lemmy.org/api/interfaces/ChangePassword.html"""
+    
     new_password: str = None
     new_password_verify: str = None
     old_password: str = None
@@ -365,16 +439,22 @@ class ChangePassword:
 
 @dataclass
 class ResolveObject:
+    """https://join-lemmy.org/api/interfaces/ResolveObject.html"""
+    
     q: str = None
 
 
 @dataclass
 class VerifyEmail:
+    """https://join-lemmy.org/api/interfaces/VerifyEmail.html"""
+    
     token: str = None
 
 
 @dataclass
 class ModAddCommunity:
+    """https://join-lemmy.org/api/interfaces/ModAddCommunity.html"""
+    
     id: int = None
     mod_person_id: int = None
     other_person_id: int = None
@@ -385,12 +465,16 @@ class ModAddCommunity:
 
 @dataclass
 class BlockPerson:
+    """https://join-lemmy.org/api/interfaces/BlockPerson.html"""
+    
     person_id: int = None
     block: bool = None
 
 
 @dataclass
 class ListPrivateMessageReports:
+    """https://join-lemmy.org/api/interfaces/ListPrivateMessageReports.html"""
+    
     page: Optional[int] = None
     limit: Optional[int] = None
     unresolved_only: Optional[bool] = None
@@ -398,6 +482,8 @@ class ListPrivateMessageReports:
 
 @dataclass
 class SiteAggregates:
+    """https://join-lemmy.org/api/interfaces/SiteAggregates.html"""
+    
     site_id: int = None
     users: int = None
     posts: int = None
@@ -411,12 +497,16 @@ class SiteAggregates:
 
 @dataclass
 class CreatePostReport:
+    """https://join-lemmy.org/api/interfaces/CreatePostReport.html"""
+    
     post_id: int = None
     reason: str = None
 
 
 @dataclass
 class CustomEmoji:
+    """https://join-lemmy.org/api/interfaces/CustomEmoji.html"""
+    
     id: int = None
     local_site_id: int = None
     shortcode: str = None
@@ -429,12 +519,16 @@ class CustomEmoji:
 
 @dataclass
 class PurgePost:
+    """https://join-lemmy.org/api/interfaces/PurgePost.html"""
+    
     post_id: int = None
     reason: Optional[str] = None
 
 
 @dataclass
 class PostAggregates:
+    """https://join-lemmy.org/api/interfaces/PostAggregates.html"""
+    
     post_id: int = None
     comments: int = None
     score: int = None
@@ -446,6 +540,8 @@ class PostAggregates:
 
 @dataclass
 class Language:
+    """https://join-lemmy.org/api/interfaces/Language.html"""
+    
     id: int = None
     code: str = None
     name: str = None
@@ -453,17 +549,23 @@ class Language:
 
 @dataclass
 class GetReportCount:
+    """https://join-lemmy.org/api/interfaces/GetReportCount.html"""
+    
     community_id: Optional[int] = None
 
 
 @dataclass
 class DeletePrivateMessage:
+    """https://join-lemmy.org/api/interfaces/DeletePrivateMessage.html"""
+    
     private_message_id: int = None
     deleted: bool = None
 
 
 @dataclass
 class Community:
+    """https://join-lemmy.org/api/interfaces/Community.html"""
+    
     id: int = None
     name: str = None
     title: str = None
@@ -485,6 +587,8 @@ class Community:
 
 @dataclass
 class ListPostReports:
+    """https://join-lemmy.org/api/interfaces/ListPostReports.html"""
+    
     page: Optional[int] = None
     limit: Optional[int] = None
     unresolved_only: Optional[bool] = None
@@ -494,6 +598,8 @@ class ListPostReports:
 
 @dataclass
 class ModFeaturePost:
+    """https://join-lemmy.org/api/interfaces/ModFeaturePost.html"""
+    
     id: int = None
     mod_person_id: int = None
     post_id: int = None
@@ -504,6 +610,8 @@ class ModFeaturePost:
 
 @dataclass
 class GetPersonDetails:
+    """https://join-lemmy.org/api/interfaces/GetPersonDetails.html"""
+    
     person_id: Optional[int] = None
     username: Optional[str] = None
     sort: Optional[str] = None
@@ -515,6 +623,8 @@ class GetPersonDetails:
 
 @dataclass
 class AddModToCommunity:
+    """https://join-lemmy.org/api/interfaces/AddModToCommunity.html"""
+    
     community_id: int = None
     person_id: int = None
     added: bool = None
@@ -522,6 +632,8 @@ class AddModToCommunity:
 
 @dataclass
 class Site:
+    """https://join-lemmy.org/api/interfaces/Site.html"""
+    
     id: int = None
     name: str = None
     sidebar: Optional[str] = None
@@ -540,6 +652,8 @@ class Site:
 
 @dataclass
 class ApproveRegistrationApplication:
+    """https://join-lemmy.org/api/interfaces/ApproveRegistrationApplication.html"""
+    
     id: int = None
     approve: bool = None
     deny_reason: Optional[str] = None
@@ -547,6 +661,8 @@ class ApproveRegistrationApplication:
 
 @dataclass
 class EditPost:
+    """https://join-lemmy.org/api/interfaces/EditPost.html"""
+    
     post_id: int = None
     name: Optional[str] = None
     url: Optional[str] = None
@@ -559,18 +675,24 @@ class EditPost:
 
 @dataclass
 class GetPost:
+    """https://join-lemmy.org/api/interfaces/GetPost.html"""
+    
     id: Optional[int] = None
     comment_id: Optional[int] = None
 
 
 @dataclass
 class FollowCommunity:
+    """https://join-lemmy.org/api/interfaces/FollowCommunity.html"""
+    
     community_id: int = None
     follow: bool = None
 
 
 @dataclass
 class GetPrivateMessages:
+    """https://join-lemmy.org/api/interfaces/GetPrivateMessages.html"""
+    
     unread_only: Optional[bool] = None
     page: Optional[int] = None
     limit: Optional[int] = None
@@ -579,6 +701,8 @@ class GetPrivateMessages:
 
 @dataclass
 class ModBan:
+    """https://join-lemmy.org/api/interfaces/ModBan.html"""
+    
     id: int = None
     mod_person_id: int = None
     other_person_id: int = None
@@ -590,6 +714,8 @@ class ModBan:
 
 @dataclass
 class Tagline:
+    """https://join-lemmy.org/api/interfaces/Tagline.html"""
+    
     id: int = None
     local_site_id: int = None
     content: str = None
@@ -599,6 +725,8 @@ class Tagline:
 
 @dataclass
 class RemoveComment:
+    """https://join-lemmy.org/api/interfaces/RemoveComment.html"""
+    
     comment_id: int = None
     removed: bool = None
     reason: Optional[str] = None
@@ -606,24 +734,32 @@ class RemoveComment:
 
 @dataclass
 class UpdateTotp:
+    """https://join-lemmy.org/api/interfaces/UpdateTotp.html"""
+    
     totp_token: str = None
     enabled: bool = None
 
 
 @dataclass
 class MarkPostAsRead:
+    """https://join-lemmy.org/api/interfaces/MarkPostAsRead.html"""
+    
     post_ids: list[int] = None
     read: bool = None
 
 
 @dataclass
 class ResolvePrivateMessageReport:
+    """https://join-lemmy.org/api/interfaces/ResolvePrivateMessageReport.html"""
+    
     report_id: int = None
     resolved: bool = None
 
 
 @dataclass
 class LinkMetadata:
+    """https://join-lemmy.org/api/interfaces/LinkMetadata.html"""
+    
     title: Optional[str] = None
     description: Optional[str] = None
     image: Optional[str] = None
@@ -633,6 +769,8 @@ class LinkMetadata:
 
 @dataclass
 class PrivateMessage:
+    """https://join-lemmy.org/api/interfaces/PrivateMessage.html"""
+    
     id: int = None
     creator_id: int = None
     recipient_id: int = None
@@ -647,18 +785,24 @@ class PrivateMessage:
 
 @dataclass
 class DeletePost:
+    """https://join-lemmy.org/api/interfaces/DeletePost.html"""
+    
     post_id: int = None
     deleted: bool = None
 
 
 @dataclass
 class PurgeComment:
+    """https://join-lemmy.org/api/interfaces/PurgeComment.html"""
+    
     comment_id: int = None
     reason: Optional[str] = None
 
 
 @dataclass
 class CreatePost:
+    """https://join-lemmy.org/api/interfaces/CreatePost.html"""
+    
     name: str = None
     community_id: int = None
     url: Optional[str] = None
@@ -672,6 +816,8 @@ class CreatePost:
 
 @dataclass
 class CreateCustomEmoji:
+    """https://join-lemmy.org/api/interfaces/CreateCustomEmoji.html"""
+    
     category: str = None
     shortcode: str = None
     image_url: str = None
@@ -681,6 +827,8 @@ class CreateCustomEmoji:
 
 @dataclass
 class InstanceWithFederationState:
+    """https://join-lemmy.org/api/interfaces/InstanceWithFederationState.html"""
+    
     id: int = None
     domain: str = None
     published: str = None
@@ -692,6 +840,8 @@ class InstanceWithFederationState:
 
 @dataclass
 class CommunityAggregates:
+    """https://join-lemmy.org/api/interfaces/CommunityAggregates.html"""
+    
     community_id: int = None
     subscribers: int = None
     posts: int = None
@@ -706,6 +856,8 @@ class CommunityAggregates:
 
 @dataclass
 class LocalImage:
+    """https://join-lemmy.org/api/interfaces/LocalImage.html"""
+    
     local_user_id: Optional[int] = None
     pictrs_alias: str = None
     pictrs_delete_token: str = None
@@ -714,6 +866,8 @@ class LocalImage:
 
 @dataclass
 class EditCommunity:
+    """https://join-lemmy.org/api/interfaces/EditCommunity.html"""
+    
     community_id: int = None
     title: Optional[str] = None
     description: Optional[str] = None
@@ -727,6 +881,8 @@ class EditCommunity:
 
 @dataclass
 class ListPostLikes:
+    """https://join-lemmy.org/api/interfaces/ListPostLikes.html"""
+    
     post_id: int = None
     page: Optional[int] = None
     limit: Optional[int] = None
@@ -734,6 +890,8 @@ class ListPostLikes:
 
 @dataclass
 class CommentReply:
+    """https://join-lemmy.org/api/interfaces/CommentReply.html"""
+    
     id: int = None
     recipient_id: int = None
     comment_id: int = None
@@ -743,6 +901,8 @@ class CommentReply:
 
 @dataclass
 class ModRemovePost:
+    """https://join-lemmy.org/api/interfaces/ModRemovePost.html"""
+    
     id: int = None
     mod_person_id: int = None
     post_id: int = None
@@ -753,6 +913,8 @@ class ModRemovePost:
 
 @dataclass
 class BanFromCommunity:
+    """https://join-lemmy.org/api/interfaces/BanFromCommunity.html"""
+    
     community_id: int = None
     person_id: int = None
     ban: bool = None
@@ -763,12 +925,16 @@ class BanFromCommunity:
 
 @dataclass
 class CreatePostLike:
+    """https://join-lemmy.org/api/interfaces/CreatePostLike.html"""
+    
     post_id: int = None
     score: int = None
 
 
 @dataclass
 class RemovePost:
+    """https://join-lemmy.org/api/interfaces/RemovePost.html"""
+    
     post_id: int = None
     removed: bool = None
     reason: Optional[str] = None
@@ -776,12 +942,16 @@ class RemovePost:
 
 @dataclass
 class EditPrivateMessage:
+    """https://join-lemmy.org/api/interfaces/EditPrivateMessage.html"""
+    
     private_message_id: int = None
     content: str = None
 
 
 @dataclass
 class ImageDetails:
+    """https://join-lemmy.org/api/interfaces/ImageDetails.html"""
+    
     link: str = None
     width: int = None
     height: int = None
@@ -790,6 +960,8 @@ class ImageDetails:
 
 @dataclass
 class GetModlog:
+    """https://join-lemmy.org/api/interfaces/GetModlog.html"""
+    
     mod_person_id: Optional[int] = None
     community_id: Optional[int] = None
     page: Optional[int] = None
@@ -802,6 +974,8 @@ class GetModlog:
 
 @dataclass
 class SaveUserSettings:
+    """https://join-lemmy.org/api/interfaces/SaveUserSettings.html"""
+    
     show_nsfw: Optional[bool] = None
     blur_nsfw: Optional[bool] = None
     auto_expand: Optional[bool] = None
@@ -835,12 +1009,16 @@ class SaveUserSettings:
 
 @dataclass
 class CreatePrivateMessage:
+    """https://join-lemmy.org/api/interfaces/CreatePrivateMessage.html"""
+    
     content: str = None
     recipient_id: int = None
 
 
 @dataclass
 class LocalSiteRateLimit:
+    """https://join-lemmy.org/api/interfaces/LocalSiteRateLimit.html"""
+    
     local_site_id: int = None
     message: int = None
     message_per_second: int = None
@@ -862,6 +1040,8 @@ class LocalSiteRateLimit:
 
 @dataclass
 class ListCommentLikes:
+    """https://join-lemmy.org/api/interfaces/ListCommentLikes.html"""
+    
     comment_id: int = None
     page: Optional[int] = None
     limit: Optional[int] = None
@@ -869,18 +1049,24 @@ class ListCommentLikes:
 
 @dataclass
 class SaveComment:
+    """https://join-lemmy.org/api/interfaces/SaveComment.html"""
+    
     comment_id: int = None
     save: bool = None
 
 
 @dataclass
 class ListMedia:
+    """https://join-lemmy.org/api/interfaces/ListMedia.html"""
+    
     page: Optional[int] = None
     limit: Optional[int] = None
 
 
 @dataclass
 class LocalSite:
+    """https://join-lemmy.org/api/interfaces/LocalSite.html"""
+    
     id: int = None
     site_id: int = None
     site_setup: bool = None
@@ -911,12 +1097,16 @@ class LocalSite:
 
 @dataclass
 class CustomEmojiKeyword:
+    """https://join-lemmy.org/api/interfaces/CustomEmojiKeyword.html"""
+    
     custom_emoji_id: int = None
     keyword: str = None
 
 
 @dataclass
 class ModlogListParams:
+    """https://join-lemmy.org/api/interfaces/ModlogListParams.html"""
+    
     community_id: Optional[int] = None
     mod_person_id: Optional[int] = None
     other_person_id: Optional[int] = None
@@ -929,6 +1119,8 @@ class ModlogListParams:
 
 @dataclass
 class ModRemoveComment:
+    """https://join-lemmy.org/api/interfaces/ModRemoveComment.html"""
+    
     id: int = None
     mod_person_id: int = None
     comment_id: int = None
@@ -939,6 +1131,8 @@ class ModRemoveComment:
 
 @dataclass
 class GetComments:
+    """https://join-lemmy.org/api/interfaces/GetComments.html"""
+    
     type_: Optional[str] = None
     sort: Optional[str] = None
     max_depth: Optional[int] = None
@@ -955,6 +1149,8 @@ class GetComments:
 
 @dataclass
 class ModBanFromCommunity:
+    """https://join-lemmy.org/api/interfaces/ModBanFromCommunity.html"""
+    
     id: int = None
     mod_person_id: int = None
     other_person_id: int = None
@@ -967,18 +1163,24 @@ class ModBanFromCommunity:
 
 @dataclass
 class MarkPersonMentionAsRead:
+    """https://join-lemmy.org/api/interfaces/MarkPersonMentionAsRead.html"""
+    
     person_mention_id: int = None
     read: bool = None
 
 
 @dataclass
 class GetCommunity:
+    """https://join-lemmy.org/api/interfaces/GetCommunity.html"""
+    
     id: Optional[int] = None
     name: Optional[str] = None
 
 
 @dataclass
 class PrivateMessageReport:
+    """https://join-lemmy.org/api/interfaces/PrivateMessageReport.html"""
+    
     id: int = None
     creator_id: int = None
     private_message_id: int = None
@@ -992,29 +1194,39 @@ class PrivateMessageReport:
 
 @dataclass
 class SavePost:
+    """https://join-lemmy.org/api/interfaces/SavePost.html"""
+    
     post_id: int = None
     save: bool = None
 
 
 @dataclass
 class PasswordReset:
+    """https://join-lemmy.org/api/interfaces/PasswordReset.html"""
+    
     email: str = None
 
 
 @dataclass
 class CreateCommentReport:
+    """https://join-lemmy.org/api/interfaces/CreateCommentReport.html"""
+    
     comment_id: int = None
     reason: str = None
 
 
 @dataclass
 class CreateCommentLike:
+    """https://join-lemmy.org/api/interfaces/CreateCommentLike.html"""
+    
     comment_id: int = None
     score: int = None
 
 
 @dataclass
 class Register:
+    """https://join-lemmy.org/api/interfaces/Register.html"""
+    
     username: str = None
     password: str = None
     password_verify: str = None
@@ -1028,6 +1240,8 @@ class Register:
 
 @dataclass
 class FederatedInstances:
+    """https://join-lemmy.org/api/interfaces/FederatedInstances.html"""
+    
     linked: list[InstanceWithFederationState] = None
     allowed: list[InstanceWithFederationState] = None
     blocked: list[InstanceWithFederationState] = None
@@ -1035,35 +1249,47 @@ class FederatedInstances:
 
 @dataclass
 class DeleteAccount:
+    """https://join-lemmy.org/api/interfaces/DeleteAccount.html"""
+    
     password: str = None
     delete_content: bool = None
 
 
 @dataclass
 class MarkPrivateMessageAsRead:
+    """https://join-lemmy.org/api/interfaces/MarkPrivateMessageAsRead.html"""
+    
     private_message_id: int = None
     read: bool = None
 
 
 @dataclass
 class GetComment:
+    """https://join-lemmy.org/api/interfaces/GetComment.html"""
+    
     id: int = None
 
 
 @dataclass
 class PurgeCommunity:
+    """https://join-lemmy.org/api/interfaces/PurgeCommunity.html"""
+    
     community_id: int = None
     reason: Optional[str] = None
 
 
 @dataclass
 class AddAdmin:
+    """https://join-lemmy.org/api/interfaces/AddAdmin.html"""
+    
     person_id: int = None
     added: bool = None
 
 
 @dataclass
 class ModTransferCommunity:
+    """https://join-lemmy.org/api/interfaces/ModTransferCommunity.html"""
+    
     id: int = None
     mod_person_id: int = None
     other_person_id: int = None
@@ -1073,6 +1299,8 @@ class ModTransferCommunity:
 
 @dataclass
 class Person:
+    """https://join-lemmy.org/api/interfaces/Person.html"""
+    
     id: int = None
     name: str = None
     display_name: Optional[str] = None
@@ -1093,6 +1321,8 @@ class Person:
 
 @dataclass
 class Comment:
+    """https://join-lemmy.org/api/interfaces/Comment.html"""
+    
     id: int = None
     creator_id: int = None
     post_id: int = None
@@ -1110,6 +1340,8 @@ class Comment:
 
 @dataclass
 class OpenGraphData:
+    """https://join-lemmy.org/api/interfaces/OpenGraphData.html"""
+    
     title: Optional[str] = None
     description: Optional[str] = None
     image: Optional[str] = None
@@ -1118,18 +1350,24 @@ class OpenGraphData:
 
 @dataclass
 class PurgePerson:
+    """https://join-lemmy.org/api/interfaces/PurgePerson.html"""
+    
     person_id: int = None
     reason: Optional[str] = None
 
 
 @dataclass
 class BlockCommunity:
+    """https://join-lemmy.org/api/interfaces/BlockCommunity.html"""
+    
     community_id: int = None
     block: bool = None
 
 
 @dataclass
 class AdminPurgePost:
+    """https://join-lemmy.org/api/interfaces/AdminPurgePost.html"""
+    
     id: int = None
     admin_person_id: int = None
     community_id: int = None
@@ -1139,12 +1377,16 @@ class AdminPurgePost:
 
 @dataclass
 class ResolvePostReport:
+    """https://join-lemmy.org/api/interfaces/ResolvePostReport.html"""
+    
     report_id: int = None
     resolved: bool = None
 
 
 @dataclass
 class CreateComment:
+    """https://join-lemmy.org/api/interfaces/CreateComment.html"""
+    
     content: str = None
     post_id: int = None
     parent_id: Optional[int] = None
@@ -1153,6 +1395,8 @@ class CreateComment:
 
 @dataclass
 class ListRegistrationApplications:
+    """https://join-lemmy.org/api/interfaces/ListRegistrationApplications.html"""
+    
     unread_only: Optional[bool] = None
     page: Optional[int] = None
     limit: Optional[int] = None
@@ -1160,12 +1404,16 @@ class ListRegistrationApplications:
 
 @dataclass
 class DistinguishComment:
+    """https://join-lemmy.org/api/interfaces/DistinguishComment.html"""
+    
     comment_id: int = None
     distinguished: bool = None
 
 
 @dataclass
 class CommentReport:
+    """https://join-lemmy.org/api/interfaces/CommentReport.html"""
+    
     id: int = None
     creator_id: int = None
     comment_id: int = None
@@ -1179,11 +1427,15 @@ class CommentReport:
 
 @dataclass
 class DeleteCustomEmoji:
+    """https://join-lemmy.org/api/interfaces/DeleteCustomEmoji.html"""
+    
     id: int = None
 
 
 @dataclass
 class BanPerson:
+    """https://join-lemmy.org/api/interfaces/BanPerson.html"""
+    
     person_id: int = None
     ban: bool = None
     remove_data: Optional[bool] = None
@@ -1193,6 +1445,8 @@ class BanPerson:
 
 @dataclass
 class ListCommentReports:
+    """https://join-lemmy.org/api/interfaces/ListCommentReports.html"""
+    
     comment_id: Optional[int] = None
     page: Optional[int] = None
     limit: Optional[int] = None
@@ -1202,6 +1456,8 @@ class ListCommentReports:
 
 @dataclass
 class ModAdd:
+    """https://join-lemmy.org/api/interfaces/ModAdd.html"""
+    
     id: int = None
     mod_person_id: int = None
     other_person_id: int = None
@@ -1211,6 +1467,8 @@ class ModAdd:
 
 @dataclass
 class EditSite:
+    """https://join-lemmy.org/api/interfaces/EditSite.html"""
+    
     name: Optional[str] = None
     sidebar: Optional[str] = None
     description: Optional[str] = None
@@ -1259,6 +1517,8 @@ class EditSite:
 
 @dataclass
 class Instance:
+    """https://join-lemmy.org/api/interfaces/Instance.html"""
+    
     id: int = None
     domain: str = None
     published: str = None
@@ -1269,6 +1529,8 @@ class Instance:
 
 @dataclass
 class Post:
+    """https://join-lemmy.org/api/interfaces/Post.html"""
+    
     id: int = None
     name: str = None
     url: Optional[str] = None
@@ -1296,6 +1558,8 @@ class Post:
 
 @dataclass
 class GetPosts:
+    """https://join-lemmy.org/api/interfaces/GetPosts.html"""
+    
     type_: Optional[str] = None
     sort: Optional[str] = None
     page: Optional[int] = None
@@ -1313,11 +1577,15 @@ class GetPosts:
 
 @dataclass
 class GetRegistrationApplication:
+    """https://join-lemmy.org/api/interfaces/GetRegistrationApplication.html"""
+    
     person_id: int = None
 
 
 @dataclass
 class GetReplies:
+    """https://join-lemmy.org/api/interfaces/GetReplies.html"""
+    
     sort: Optional[str] = None
     page: Optional[int] = None
     limit: Optional[int] = None
@@ -1326,6 +1594,8 @@ class GetReplies:
 
 @dataclass
 class AdminPurgePerson:
+    """https://join-lemmy.org/api/interfaces/AdminPurgePerson.html"""
+    
     id: int = None
     admin_person_id: int = None
     reason: Optional[str] = None
@@ -1334,5 +1604,7 @@ class AdminPurgePerson:
 
 @dataclass
 class TransferCommunity:
+    """https://join-lemmy.org/api/interfaces/TransferCommunity.html"""
+    
     community_id: int = None
     person_id: int = None

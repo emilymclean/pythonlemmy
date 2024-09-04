@@ -2,11 +2,12 @@
 
 <img src="https://github.com/Fedihosting-Foundation/plemmy/blob/main/img/plemmy.png" alt="drawing" width="325"/>
 
-[![GitHub version](https://badge.fury.io/gh/Fedihosting-Foundation%2Fplemmy.svg)](https://badge.fury.io/gh/Fedihosting-Foundation%2Fplemmy)
-[![PyPI version](https://badge.fury.io/py/plemmy.svg)](https://badge.fury.io/py/plemmy)
+[![PyPI version](https://badge.fury.io/py/pythonlemmy.svg)](https://badge.fury.io/py/plemmy)
 [![GitHub license](https://img.shields.io/badge/license-Apache-blue.svg)](https://raw.githubusercontent.com/Fedihosting-Foundation/plemmy/master/LICENSE.txt)
 
 Pythonlemmy allows you to interact with any Lemmy instance using Python and the [LemmyHttp API](https://join-lemmy.org/api/classes/LemmyHttp.html).
+
+Pythonlemmy is a fork of [plemmy](https://github.com/Fedihosting-Foundation/plemmy) that uses automatic code generation to keep the models and client as up to date as possible. The aim is to maintain an interface similar to plemmy.
 
 **WARNING:** Pythonlemmy is still in development and needs testing!
 
@@ -71,4 +72,10 @@ Full documentation is on its way, but in the meantime check out our source code 
 
 ## Reporting issues, making contributions, etc. ##
 
-Don't hesitate to report a bug or unexpected results! Want to contribute? Make a pull request. Contact [@tjkessler](https://github.com/tjkessler) with any questions.
+Don't hesitate to report a bug or unexpected results! Want to contribute? Make a pull request.
+
+## Credits
+
+Pythonlemmy is a fork of [plemmy](https://github.com/Fedihosting-Foundation/plemmy), and credit for the structure and supporting functionality goes to its authors.
+The client files (objects, views, responses, and lemmyhttp methods) are generated from parsing the source files of the [lemmy-js-client](https://github.com/LemmyNet/lemmy-js-client) project.
+Documentation is automatically generated using the [lemmy_openapi_spec](https://github.com/MV-GH/lemmy_openapi_spec) project.

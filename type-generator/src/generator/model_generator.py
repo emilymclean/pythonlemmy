@@ -53,6 +53,8 @@ class ObjectModelGenerator(Generator):
         return f"""
 @dataclass
 class {self._class_name}:
+    \"\"\"https://join-lemmy.org/api/interfaces/{self._class_name}.html\"\"\"
+    
 {textwrap.indent(self._generate_property_list(), self._indent_char)}
         """.strip()
 
@@ -65,6 +67,8 @@ class ResponseModelGenerator(Generator):
     def build(self) -> str:
         return f"""
 class {self._class_name}(object):
+    \"\"\"https://join-lemmy.org/api/interfaces/{self._class_name}.html\"\"\"
+
 {textwrap.indent(self._generate_property_list(), self._indent_char)}
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -111,6 +115,8 @@ class ViewModelGenerator(Generator):
     def build(self) -> str:
         return f"""
 class {self._class_name}(ViewObject):
+    \"\"\"https://join-lemmy.org/api/interfaces/{self._class_name}.html\"\"\"
+
 {textwrap.indent(self._generate_property_list(), self._indent_char)}
 
     def parse(self) -> None:

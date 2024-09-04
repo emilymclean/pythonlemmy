@@ -4,8 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-tree-sitter = "*"
-tree-sitter-typescript = "*"
+tree-sitter = "==0.21.3"
+tree-sitter-typescript = "==0.21.1"
+openapi-parser = "*"
+requests = "*"
 
 [dev-packages]
 
