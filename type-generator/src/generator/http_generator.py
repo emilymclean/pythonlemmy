@@ -1,8 +1,8 @@
 import textwrap
 from typing import List, Optional
 
-from openapi_parser.model import ModelEndpoint, ModelSchema
-from openapi_parser.parser import OpenApiParser
+from openapi_parser.model import ModelEndpoint, ModelSchema, ModelEnumData
+from openapi_parser.parser import OpenApiParser, ModelEnumDataImpl
 from tree_sitter import Parser, Language
 import tree_sitter_typescript as ts_typescript
 
@@ -94,8 +94,18 @@ def {method.name}(
 
         endpoint = url.endpoints[method_rest]
 
+        input_args_docs = self._generate_input(endpoint, properties)
+        input_args_string = f"""
+Args:
+{textwrap.indent(input_args_docs, self._indent_char)}
+        """.strip() if input_args_docs is not None else ""
+
         return f"""
 \"\"\" {endpoint.summary}
+{input_args_string}
+
+Returns:
+    requests.Response: result of API call (wrap in {method.output} if successful)
 \"\"\"
         """.strip()
 
@@ -103,8 +113,8 @@ def {method.name}(
         content_type = 'application/json'
 
         schema_ref = (list(endpoint.all_parameters)[0].schema if len(endpoint.all_parameters) > 0 else
-                  endpoint.request_body.content[content_type].schema
-                  if endpoint.request_body is not None else None)
+                      endpoint.request_body.content[content_type].schema
+                      if endpoint.request_body is not None else None)
 
         if schema_ref is None:
             return None
@@ -118,7 +128,15 @@ def {method.name}(
         lines = []
         for property in properties:
             schema_property = schema_properties[property.api_name] if property.api_name in schema_properties else None
-            description = f" -- {schema_property.description}" if schema_property is not None and schema_property.description is not None else ""
+            description = ""
+            if schema_property is not None:
+                print(type(schema_property.cls))
+                if schema_property.description is not None:
+                    description = f": {schema_property.description}"
+                elif type(schema_property.cls) is ModelEnumDataImpl:
+                    description = f": Possible values [{', '.join(schema_property.cls.possible_values)}]"
+                else:
+                    description = f": {schema_property.summary}"
 
             lines.append(f"{property.api_name}{description}")
 
