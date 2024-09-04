@@ -131,6 +131,11 @@ class {self._class_name}(ViewObject):
                 line = f"""
 self.{prop.api_name} = self._view["{prop.api_name}"]
                 """.strip()
+            elif prop.type.startswith("list"):
+                inner = prop.type[len("list["):-1]
+                line = f"""
+self.{prop.api_name} = [call_with_filtered_kwargs({inner}, e) for e in self._view["{prop.api_name}"]]
+                """.strip()
             else:
                 line = f"""
 self.{prop.api_name} = call_with_filtered_kwargs({prop.type}, self._view["{prop.api_name}"])
