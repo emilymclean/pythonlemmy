@@ -401,12 +401,12 @@ class MyUserInfo(ViewObject):
 
     def parse(self) -> None:
         self.local_user_view = call_with_filtered_kwargs(LocalUserView, self._view["local_user_view"])
-        self.follows = call_with_filtered_kwargs(list[CommunityFollowerView], self._view["follows"])
-        self.moderates = call_with_filtered_kwargs(list[CommunityModeratorView], self._view["moderates"])
-        self.community_blocks = call_with_filtered_kwargs(list[CommunityBlockView], self._view["community_blocks"])
-        self.instance_blocks = call_with_filtered_kwargs(list[InstanceBlockView], self._view["instance_blocks"])
-        self.person_blocks = call_with_filtered_kwargs(list[PersonBlockView], self._view["person_blocks"])
-        self.discussion_languages = call_with_filtered_kwargs(list[int], self._view["discussion_languages"])
+        self.follows = [call_with_filtered_kwargs(CommunityFollowerView, e) for e in self._view["follows"]]
+        self.moderates = [call_with_filtered_kwargs(CommunityModeratorView, e) for e in self._view["moderates"]]
+        self.community_blocks = [call_with_filtered_kwargs(CommunityBlockView, e) for e in self._view["community_blocks"]]
+        self.instance_blocks = [call_with_filtered_kwargs(InstanceBlockView, e) for e in self._view["instance_blocks"]]
+        self.person_blocks = [call_with_filtered_kwargs(PersonBlockView, e) for e in self._view["person_blocks"]]
+        self.discussion_languages = [call_with_filtered_kwargs(int, e) for e in self._view["discussion_languages"]]
 
 
 class AdminPurgePersonView(ViewObject):
@@ -588,7 +588,7 @@ class CustomEmojiView(ViewObject):
 
     def parse(self) -> None:
         self.custom_emoji = call_with_filtered_kwargs(CustomEmoji, self._view["custom_emoji"])
-        self.keywords = call_with_filtered_kwargs(list[CustomEmojiKeyword], self._view["keywords"])
+        self.keywords = [call_with_filtered_kwargs(CustomEmojiKeyword, e) for e in self._view["keywords"]]
 
 
 class CommentView(ViewObject):
