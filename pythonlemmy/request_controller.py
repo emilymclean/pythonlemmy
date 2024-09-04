@@ -97,6 +97,8 @@ class RequestController:
         try:
             re = call()
             self.logger.debug(f"Code: {re.status_code}")
+            if re.status_code >= 300:
+                self.logger.error(f"Error response: {re.text}")
         except requests.exceptions.RequestException as ex:
             self.logger.error(f"GET error: {ex}")
             return None
