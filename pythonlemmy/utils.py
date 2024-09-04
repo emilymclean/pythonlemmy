@@ -1,5 +1,6 @@
 import inspect
 import logging
+from typing import Optional
 
 import requests
 
@@ -97,7 +98,7 @@ def put_handler(session: requests.Session, url: str, json: dict,
     return re
 
 
-def get_handler(session: requests.Session, url: str, json: dict | None = None,
+def get_handler(session: requests.Session, url: str, json: Optional[dict] = None,
                 params: dict = None) -> requests.Response:
     """ get_handler: handles all GET operations for Plemmy
 
