@@ -31,6 +31,7 @@ class TestGetComment(unittest.TestCase):
         self.assertIsNotNone(response_data.comment_view)
         self.assertEqual(2, len(response_data.recipient_ids))
         self.assertEqual(1, response_data.recipient_ids[0])
+        self.assertEqual(False, response_data.comment_view.comment.distinguished)
 
 
 if __name__ == '__main__':
