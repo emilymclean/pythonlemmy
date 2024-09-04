@@ -2,19 +2,25 @@ import os
 import sys
 from typing import Optional, Tuple
 
+import requests
+import yaml
+from openapi_parser.parser import OpenApiParser
 from tree_sitter import Parser, Language
 import tree_sitter_typescript as ts_typescript
 from src import ModelVisitor, EnumVisitor, HttpVisitor, ClassType, ModelGenerator, HttpGenerator
 
 parser = Parser()
 parser.set_language(Language(ts_typescript.language_typescript(), "TypeScript"))
-model_dir = "../pythonlemmy"
+# model_dir = "../pythonlemmy"
+model_dir = "./test_output"
 
 enum_names = []
 
 objects = []
 responses = []
 views = []
+
+openapi_docs = "https://raw.githubusercontent.com/MV-GH/lemmy_openapi_spec/master/lemmy_spec.yaml"
 
 
 def list_enums():
@@ -105,16 +111,30 @@ def generate_http():
 
 def parse_http() -> str:
     types_dir = f"{current_dir()}lemmy-js-client/src/types/"
+    docs = get_docs()
+
     with open(f"{current_dir()}lemmy-js-client/src/http.ts", "r") as f:
         tree = parser.parse(bytes(f.read(), "utf-8"))
         visitor = HttpVisitor(tree)
         visitor.walk()
-        result = HttpGenerator(visitor.methods, types_dir, enum_names).build()
+        result = HttpGenerator(visitor.methods, types_dir, enum_names, docs).build()
         return result
 
 
 def current_dir():
     return sys.argv[0][:-len("main.py")]
+
+
+def get_docs() -> Optional[OpenApiParser]:
+    if openapi_docs is None:
+        return None
+
+    content = requests.get(openapi_docs).text
+
+    openapi_parser = OpenApiParser(yaml.safe_load(content))
+    openapi_parser.load_all()
+
+    return openapi_parser
 
 
 if __name__ == '__main__':
