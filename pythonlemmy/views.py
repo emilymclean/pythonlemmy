@@ -13,6 +13,8 @@ class ViewObject(object):
 
 
 class LocalUserView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/LocalUserView.html"""
+
     local_user: LocalUser = None
     local_user_vote_display_mode: LocalUserVoteDisplayMode = None
     person: Person = None
@@ -26,6 +28,8 @@ class LocalUserView(ViewObject):
 
 
 class CommentReplyView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/CommentReplyView.html"""
+
     comment_reply: CommentReply = None
     comment: Comment = None
     creator: Person = None
@@ -64,6 +68,8 @@ class CommentReplyView(ViewObject):
 
 
 class CommunityFollowerView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/CommunityFollowerView.html"""
+
     community: Community = None
     follower: Person = None
 
@@ -73,6 +79,8 @@ class CommunityFollowerView(ViewObject):
 
 
 class VoteView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/VoteView.html"""
+
     creator: Person = None
     creator_banned_from_community: bool = None
     score: int = None
@@ -84,6 +92,8 @@ class VoteView(ViewObject):
 
 
 class PrivateMessageReportView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/PrivateMessageReportView.html"""
+
     private_message_report: PrivateMessageReport = None
     private_message: PrivateMessage = None
     private_message_creator: Person = None
@@ -102,6 +112,8 @@ class PrivateMessageReportView(ViewObject):
 
 
 class ModAddView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModAddView.html"""
+
     mod_add: ModAdd = None
     moderator: Optional[Person] = None
     modded_person: Person = None
@@ -116,6 +128,8 @@ class ModAddView(ViewObject):
 
 
 class PersonView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/PersonView.html"""
+
     person: Person = None
     counts: PersonAggregates = None
     is_admin: bool = None
@@ -127,6 +141,8 @@ class PersonView(ViewObject):
 
 
 class ModBanView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModBanView.html"""
+
     mod_ban: ModBan = None
     moderator: Optional[Person] = None
     banned_person: Person = None
@@ -141,6 +157,8 @@ class ModBanView(ViewObject):
 
 
 class RegistrationApplicationView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/RegistrationApplicationView.html"""
+
     registration_application: RegistrationApplication = None
     creator_local_user: LocalUser = None
     creator: Person = None
@@ -157,6 +175,8 @@ class RegistrationApplicationView(ViewObject):
 
 
 class CommunityBlockView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/CommunityBlockView.html"""
+
     person: Person = None
     community: Community = None
 
@@ -166,6 +186,8 @@ class CommunityBlockView(ViewObject):
 
 
 class ModBanFromCommunityView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModBanFromCommunityView.html"""
+
     mod_ban_from_community: ModBanFromCommunity = None
     moderator: Optional[Person] = None
     community: Community = None
@@ -182,6 +204,8 @@ class ModBanFromCommunityView(ViewObject):
 
 
 class PostView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/PostView.html"""
+
     post: Post = None
     creator: Person = None
     community: Community = None
@@ -225,6 +249,8 @@ class PostView(ViewObject):
 
 
 class InstanceBlockView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/InstanceBlockView.html"""
+
     person: Person = None
     instance: Instance = None
     site: Optional[Site] = None
@@ -239,6 +265,8 @@ class InstanceBlockView(ViewObject):
 
 
 class ModRemoveCommunityView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModRemoveCommunityView.html"""
+
     mod_remove_community: ModRemoveCommunity = None
     moderator: Optional[Person] = None
     community: Community = None
@@ -253,6 +281,8 @@ class ModRemoveCommunityView(ViewObject):
 
 
 class ModHideCommunityView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModHideCommunityView.html"""
+
     mod_hide_community: ModHideCommunity = None
     admin: Optional[Person] = None
     community: Community = None
@@ -267,6 +297,8 @@ class ModHideCommunityView(ViewObject):
 
 
 class ModRemoveCommentView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModRemoveCommentView.html"""
+
     mod_remove_comment: ModRemoveComment = None
     moderator: Optional[Person] = None
     comment: Comment = None
@@ -287,6 +319,8 @@ class ModRemoveCommentView(ViewObject):
 
 
 class AdminPurgeCommentView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/AdminPurgeCommentView.html"""
+
     admin_purge_comment: AdminPurgeComment = None
     admin: Optional[Person] = None
     post: Post = None
@@ -301,6 +335,8 @@ class AdminPurgeCommentView(ViewObject):
 
 
 class ModAddCommunityView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModAddCommunityView.html"""
+
     mod_add_community: ModAddCommunity = None
     moderator: Optional[Person] = None
     community: Community = None
@@ -317,6 +353,8 @@ class ModAddCommunityView(ViewObject):
 
 
 class PersonBlockView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/PersonBlockView.html"""
+
     person: Person = None
     target: Person = None
 
@@ -326,6 +364,8 @@ class PersonBlockView(ViewObject):
 
 
 class CommunityModeratorView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/CommunityModeratorView.html"""
+
     community: Community = None
     moderator: Person = None
 
@@ -335,6 +375,8 @@ class CommunityModeratorView(ViewObject):
 
 
 class ModFeaturePostView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModFeaturePostView.html"""
+
     mod_feature_post: ModFeaturePost = None
     moderator: Optional[Person] = None
     post: Post = None
@@ -351,6 +393,8 @@ class ModFeaturePostView(ViewObject):
 
 
 class PrivateMessageView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/PrivateMessageView.html"""
+
     private_message: PrivateMessage = None
     creator: Person = None
     recipient: Person = None
@@ -362,6 +406,8 @@ class PrivateMessageView(ViewObject):
 
 
 class SiteView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/SiteView.html"""
+
     site: Site = None
     local_site: LocalSite = None
     local_site_rate_limit: LocalSiteRateLimit = None
@@ -375,6 +421,8 @@ class SiteView(ViewObject):
 
 
 class ModLockPostView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModLockPostView.html"""
+
     mod_lock_post: ModLockPost = None
     moderator: Optional[Person] = None
     post: Post = None
@@ -391,6 +439,8 @@ class ModLockPostView(ViewObject):
 
 
 class MyUserInfo(ViewObject):
+    """https://join-lemmy.org/api/interfaces/MyUserInfo.html"""
+
     local_user_view: LocalUserView = None
     follows: list[CommunityFollowerView] = None
     moderates: list[CommunityModeratorView] = None
@@ -410,6 +460,8 @@ class MyUserInfo(ViewObject):
 
 
 class AdminPurgePersonView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/AdminPurgePersonView.html"""
+
     admin_purge_person: AdminPurgePerson = None
     admin: Optional[Person] = None
 
@@ -422,6 +474,8 @@ class AdminPurgePersonView(ViewObject):
 
 
 class CommentReportView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/CommentReportView.html"""
+
     comment_report: CommentReport = None
     comment: Comment = None
     post: Post = None
@@ -463,6 +517,8 @@ class CommentReportView(ViewObject):
 
 
 class ModRemovePostView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModRemovePostView.html"""
+
     mod_remove_post: ModRemovePost = None
     moderator: Optional[Person] = None
     post: Post = None
@@ -479,6 +535,8 @@ class ModRemovePostView(ViewObject):
 
 
 class CommunityView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/CommunityView.html"""
+
     community: Community = None
     subscribed: str = None
     blocked: bool = None
@@ -494,6 +552,8 @@ class CommunityView(ViewObject):
 
 
 class AdminPurgeCommunityView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/AdminPurgeCommunityView.html"""
+
     admin_purge_community: AdminPurgeCommunity = None
     admin: Optional[Person] = None
 
@@ -506,6 +566,8 @@ class AdminPurgeCommunityView(ViewObject):
 
 
 class AdminPurgePostView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/AdminPurgePostView.html"""
+
     admin_purge_post: AdminPurgePost = None
     admin: Optional[Person] = None
     community: Community = None
@@ -520,6 +582,8 @@ class AdminPurgePostView(ViewObject):
 
 
 class ModTransferCommunityView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/ModTransferCommunityView.html"""
+
     mod_transfer_community: ModTransferCommunity = None
     moderator: Optional[Person] = None
     community: Community = None
@@ -536,6 +600,8 @@ class ModTransferCommunityView(ViewObject):
 
 
 class LocalImageView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/LocalImageView.html"""
+
     local_image: LocalImage = None
     person: Person = None
 
@@ -545,6 +611,8 @@ class LocalImageView(ViewObject):
 
 
 class PersonMentionView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/PersonMentionView.html"""
+
     person_mention: PersonMention = None
     comment: Comment = None
     creator: Person = None
@@ -583,6 +651,8 @@ class PersonMentionView(ViewObject):
 
 
 class CustomEmojiView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/CustomEmojiView.html"""
+
     custom_emoji: CustomEmoji = None
     keywords: list[CustomEmojiKeyword] = None
 
@@ -592,6 +662,8 @@ class CustomEmojiView(ViewObject):
 
 
 class CommentView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/CommentView.html"""
+
     comment: Comment = None
     creator: Person = None
     post: Post = None
@@ -626,6 +698,8 @@ class CommentView(ViewObject):
 
 
 class PostReportView(ViewObject):
+    """https://join-lemmy.org/api/interfaces/PostReportView.html"""
+
     post_report: PostReport = None
     post: Post = None
     community: Community = None

@@ -6,6 +6,8 @@ from .objects import *
 
 
 class CaptchaResponse(object):
+    """https://join-lemmy.org/api/interfaces/CaptchaResponse.html"""
+
     png: str = None
     wav: str = None
     uuid: str = None
@@ -18,6 +20,8 @@ class CaptchaResponse(object):
 
 
 class BannedPersonsResponse(object):
+    """https://join-lemmy.org/api/interfaces/BannedPersonsResponse.html"""
+
     banned: list[PersonView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -26,6 +30,8 @@ class BannedPersonsResponse(object):
 
 
 class ListMediaResponse(object):
+    """https://join-lemmy.org/api/interfaces/ListMediaResponse.html"""
+
     images: list[LocalImageView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -34,6 +40,8 @@ class ListMediaResponse(object):
 
 
 class UpdateTotpResponse(object):
+    """https://join-lemmy.org/api/interfaces/UpdateTotpResponse.html"""
+
     enabled: bool = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -42,6 +50,8 @@ class UpdateTotpResponse(object):
 
 
 class CommentReportResponse(object):
+    """https://join-lemmy.org/api/interfaces/CommentReportResponse.html"""
+
     comment_report_view: CommentReportView = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -50,6 +60,8 @@ class CommentReportResponse(object):
 
 
 class GetCommunityResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetCommunityResponse.html"""
+
     community_view: CommunityView = None
     site: Optional[Site] = None
     moderators: list[CommunityModeratorView] = None
@@ -67,6 +79,8 @@ class GetCommunityResponse(object):
 
 
 class GetPostsResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetPostsResponse.html"""
+
     posts: list[PostView] = None
     next_page: Optional[str] = None
 
@@ -80,6 +94,8 @@ class GetPostsResponse(object):
 
 
 class CommunityResponse(object):
+    """https://join-lemmy.org/api/interfaces/CommunityResponse.html"""
+
     community_view: CommunityView = None
     discussion_languages: list[int] = None
 
@@ -90,6 +106,8 @@ class CommunityResponse(object):
 
 
 class GetCommentsResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetCommentsResponse.html"""
+
     comments: list[CommentView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -98,6 +116,8 @@ class GetCommentsResponse(object):
 
 
 class SearchResponse(object):
+    """https://join-lemmy.org/api/interfaces/SearchResponse.html"""
+
     type_: str = None
     comments: list[CommentView] = None
     posts: list[PostView] = None
@@ -114,6 +134,8 @@ class SearchResponse(object):
 
 
 class PrivateMessageResponse(object):
+    """https://join-lemmy.org/api/interfaces/PrivateMessageResponse.html"""
+
     private_message_view: PrivateMessageView = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -122,6 +144,8 @@ class PrivateMessageResponse(object):
 
 
 class AddModToCommunityResponse(object):
+    """https://join-lemmy.org/api/interfaces/AddModToCommunityResponse.html"""
+
     moderators: list[CommunityModeratorView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -130,6 +154,8 @@ class AddModToCommunityResponse(object):
 
 
 class GetReportCountResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetReportCountResponse.html"""
+
     community_id: Optional[int] = None
     comment_reports: int = None
     post_reports: int = None
@@ -150,6 +176,8 @@ class GetReportCountResponse(object):
 
 
 class PostReportResponse(object):
+    """https://join-lemmy.org/api/interfaces/PostReportResponse.html"""
+
     post_report_view: PostReportView = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -158,6 +186,8 @@ class PostReportResponse(object):
 
 
 class RegistrationApplicationResponse(object):
+    """https://join-lemmy.org/api/interfaces/RegistrationApplicationResponse.html"""
+
     registration_application: RegistrationApplicationView = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -166,6 +196,8 @@ class RegistrationApplicationResponse(object):
 
 
 class GetSiteResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetSiteResponse.html"""
+
     site_view: SiteView = None
     admins: list[PersonView] = None
     version: str = None
@@ -193,6 +225,8 @@ class GetSiteResponse(object):
 
 
 class GetCaptchaResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetCaptchaResponse.html"""
+
     ok: Optional[CaptchaResponse] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -204,6 +238,8 @@ class GetCaptchaResponse(object):
 
 
 class PersonMentionResponse(object):
+    """https://join-lemmy.org/api/interfaces/PersonMentionResponse.html"""
+
     person_mention_view: PersonMentionView = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -212,6 +248,8 @@ class PersonMentionResponse(object):
 
 
 class GetModlogResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetModlogResponse.html"""
+
     removed_posts: list[ModRemovePostView] = None
     locked_posts: list[ModLockPostView] = None
     featured_posts: list[ModFeaturePostView] = None
@@ -248,6 +286,8 @@ class GetModlogResponse(object):
 
 
 class SuccessResponse(object):
+    """https://join-lemmy.org/api/interfaces/SuccessResponse.html"""
+
     success: bool = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -256,6 +296,8 @@ class SuccessResponse(object):
 
 
 class ListRegistrationApplicationsResponse(object):
+    """https://join-lemmy.org/api/interfaces/ListRegistrationApplicationsResponse.html"""
+
     registration_applications: list[RegistrationApplicationView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -264,6 +306,8 @@ class ListRegistrationApplicationsResponse(object):
 
 
 class BlockInstanceResponse(object):
+    """https://join-lemmy.org/api/interfaces/BlockInstanceResponse.html"""
+
     blocked: bool = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -272,6 +316,8 @@ class BlockInstanceResponse(object):
 
 
 class ResolveObjectResponse(object):
+    """https://join-lemmy.org/api/interfaces/ResolveObjectResponse.html"""
+
     comment: Optional[CommentView] = None
     post: Optional[PostView] = None
     community: Optional[CommunityView] = None
@@ -298,6 +344,8 @@ class ResolveObjectResponse(object):
 
 
 class PrivateMessageReportResponse(object):
+    """https://join-lemmy.org/api/interfaces/PrivateMessageReportResponse.html"""
+
     private_message_report_view: PrivateMessageReportView = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -306,6 +354,8 @@ class PrivateMessageReportResponse(object):
 
 
 class SiteResponse(object):
+    """https://join-lemmy.org/api/interfaces/SiteResponse.html"""
+
     site_view: SiteView = None
     taglines: list[Tagline] = None
 
@@ -316,6 +366,8 @@ class SiteResponse(object):
 
 
 class ListPostReportsResponse(object):
+    """https://join-lemmy.org/api/interfaces/ListPostReportsResponse.html"""
+
     post_reports: list[PostReportView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -324,6 +376,8 @@ class ListPostReportsResponse(object):
 
 
 class BlockCommunityResponse(object):
+    """https://join-lemmy.org/api/interfaces/BlockCommunityResponse.html"""
+
     community_view: CommunityView = None
     blocked: bool = None
 
@@ -334,6 +388,8 @@ class BlockCommunityResponse(object):
 
 
 class PrivateMessagesResponse(object):
+    """https://join-lemmy.org/api/interfaces/PrivateMessagesResponse.html"""
+
     private_messages: list[PrivateMessageView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -342,6 +398,8 @@ class PrivateMessagesResponse(object):
 
 
 class LoginResponse(object):
+    """https://join-lemmy.org/api/interfaces/LoginResponse.html"""
+
     jwt: Optional[str] = None
     registration_created: bool = None
     verify_email_sent: bool = None
@@ -357,6 +415,8 @@ class LoginResponse(object):
 
 
 class GetUnreadCountResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetUnreadCountResponse.html"""
+
     replies: int = None
     mentions: int = None
     private_messages: int = None
@@ -369,6 +429,8 @@ class GetUnreadCountResponse(object):
 
 
 class BanFromCommunityResponse(object):
+    """https://join-lemmy.org/api/interfaces/BanFromCommunityResponse.html"""
+
     person_view: PersonView = None
     banned: bool = None
 
@@ -379,6 +441,8 @@ class BanFromCommunityResponse(object):
 
 
 class CommentReplyResponse(object):
+    """https://join-lemmy.org/api/interfaces/CommentReplyResponse.html"""
+
     comment_reply_view: CommentReplyView = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -387,6 +451,8 @@ class CommentReplyResponse(object):
 
 
 class ListPostLikesResponse(object):
+    """https://join-lemmy.org/api/interfaces/ListPostLikesResponse.html"""
+
     post_likes: list[VoteView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -395,6 +461,8 @@ class ListPostLikesResponse(object):
 
 
 class ListCommentReportsResponse(object):
+    """https://join-lemmy.org/api/interfaces/ListCommentReportsResponse.html"""
+
     comment_reports: list[CommentReportView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -403,6 +471,8 @@ class ListCommentReportsResponse(object):
 
 
 class GetSiteMetadataResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetSiteMetadataResponse.html"""
+
     metadata: LinkMetadata = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -411,6 +481,8 @@ class GetSiteMetadataResponse(object):
 
 
 class BanPersonResponse(object):
+    """https://join-lemmy.org/api/interfaces/BanPersonResponse.html"""
+
     person_view: PersonView = None
     banned: bool = None
 
@@ -421,6 +493,8 @@ class BanPersonResponse(object):
 
 
 class CommentResponse(object):
+    """https://join-lemmy.org/api/interfaces/CommentResponse.html"""
+
     comment_view: CommentView = None
     recipient_ids: list[int] = None
 
@@ -431,6 +505,8 @@ class CommentResponse(object):
 
 
 class GetRepliesResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetRepliesResponse.html"""
+
     replies: list[CommentReplyView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -439,6 +515,8 @@ class GetRepliesResponse(object):
 
 
 class GetUnreadRegistrationApplicationCountResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetUnreadRegistrationApplicationCountResponse.html"""
+
     registration_applications: int = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -447,6 +525,8 @@ class GetUnreadRegistrationApplicationCountResponse(object):
 
 
 class CustomEmojiResponse(object):
+    """https://join-lemmy.org/api/interfaces/CustomEmojiResponse.html"""
+
     custom_emoji: CustomEmojiView = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -455,6 +535,8 @@ class CustomEmojiResponse(object):
 
 
 class GetPersonDetailsResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetPersonDetailsResponse.html"""
+
     person_view: PersonView = None
     site: Optional[Site] = None
     comments: list[CommentView] = None
@@ -474,6 +556,8 @@ class GetPersonDetailsResponse(object):
 
 
 class ListCommunitiesResponse(object):
+    """https://join-lemmy.org/api/interfaces/ListCommunitiesResponse.html"""
+
     communities: list[CommunityView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -482,6 +566,8 @@ class ListCommunitiesResponse(object):
 
 
 class GetPersonMentionsResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetPersonMentionsResponse.html"""
+
     mentions: list[PersonMentionView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -490,6 +576,8 @@ class GetPersonMentionsResponse(object):
 
 
 class AddAdminResponse(object):
+    """https://join-lemmy.org/api/interfaces/AddAdminResponse.html"""
+
     admins: list[PersonView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -498,6 +586,8 @@ class AddAdminResponse(object):
 
 
 class GetFederatedInstancesResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetFederatedInstancesResponse.html"""
+
     federated_instances: Optional[FederatedInstances] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -509,6 +599,8 @@ class GetFederatedInstancesResponse(object):
 
 
 class PostResponse(object):
+    """https://join-lemmy.org/api/interfaces/PostResponse.html"""
+
     post_view: PostView = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -517,6 +609,8 @@ class PostResponse(object):
 
 
 class GenerateTotpSecretResponse(object):
+    """https://join-lemmy.org/api/interfaces/GenerateTotpSecretResponse.html"""
+
     totp_secret_url: str = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -525,6 +619,8 @@ class GenerateTotpSecretResponse(object):
 
 
 class ListPrivateMessageReportsResponse(object):
+    """https://join-lemmy.org/api/interfaces/ListPrivateMessageReportsResponse.html"""
+
     private_message_reports: list[PrivateMessageReportView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
@@ -533,6 +629,8 @@ class ListPrivateMessageReportsResponse(object):
 
 
 class BlockPersonResponse(object):
+    """https://join-lemmy.org/api/interfaces/BlockPersonResponse.html"""
+
     person_view: PersonView = None
     blocked: bool = None
 
@@ -543,6 +641,8 @@ class BlockPersonResponse(object):
 
 
 class GetPostResponse(object):
+    """https://join-lemmy.org/api/interfaces/GetPostResponse.html"""
+
     post_view: PostView = None
     community_view: CommunityView = None
     moderators: list[CommunityModeratorView] = None
@@ -557,6 +657,8 @@ class GetPostResponse(object):
 
 
 class ListCommentLikesResponse(object):
+    """https://join-lemmy.org/api/interfaces/ListCommentLikesResponse.html"""
+
     comment_likes: list[VoteView] = None
 
     def __init__(self, api_response: requests.Response) -> None:
