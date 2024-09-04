@@ -1,11 +1,9 @@
 import logging
 
 import requests
-from typing import List, Optional
 
-from .types import File
-from .utils import create_session, post_handler, put_handler, get_handler, \
-    create_form, file_handler
+from .request_controller import RequestController
+from .utils import create_form
 
 API_VERSION = "v3"
 
@@ -30,8 +28,9 @@ class LemmyHttp(object):
 
         self._base_url = base_url
         self._api_url = base_url + f"/api/{API_VERSION}"
-        self._headers = headers
-        self._session = create_session(self._headers, jwt)
+        self._request_controller = RequestController(headers)
+        if jwt is not None:
+            self._request_controller.create_session(jwt)
         self.logger = logging.getLogger(__name__)
 
     def get_site(
@@ -44,7 +43,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetSiteResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/site", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/site", json=None, params=form)
 
         return result
 
@@ -142,7 +141,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SiteResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/site", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/site", json=form, params=None)
 
         return result
 
@@ -244,7 +243,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SiteResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/site", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/site", json=form, params=None)
 
         return result
 
@@ -258,7 +257,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetSiteResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/leave_admin", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/leave_admin", json=form, params=None)
 
         return result
 
@@ -272,7 +271,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GenerateTotpSecretResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/totp/generate", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/totp/generate", json=form, params=None)
 
         return result
 
@@ -286,7 +285,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in str if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/export_settings", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/user/export_settings", json=None, params=form)
 
         return result
 
@@ -300,7 +299,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/import_settings", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/import_settings", json=form, params=None)
 
         return result
 
@@ -314,7 +313,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in List[LoginToken] if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/list_logins", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/user/list_logins", json=None, params=form)
 
         return result
 
@@ -328,7 +327,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/validate_auth", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/user/validate_auth", json=None, params=form)
 
         return result
 
@@ -346,7 +345,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in ListMediaResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/account/list_media", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/account/list_media", json=None, params=form)
 
         return result
 
@@ -364,7 +363,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in ListMediaResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/admin/list_all_media", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/admin/list_all_media", json=None, params=form)
 
         return result
 
@@ -382,7 +381,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in UpdateTotpResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/totp/update", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/totp/update", json=form, params=None)
 
         return result
 
@@ -412,7 +411,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetModlogResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/modlog", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/modlog", json=None, params=form)
 
         return result
 
@@ -444,7 +443,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SearchResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/search", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/search", json=None, params=form)
 
         return result
 
@@ -460,7 +459,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in ResolveObjectResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/resolve_object", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/resolve_object", json=None, params=form)
 
         return result
 
@@ -492,7 +491,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommunityResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/community", json=form, params=None)
 
         return result
 
@@ -510,7 +509,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetCommunityResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/community", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/community", json=None, params=form)
 
         return result
 
@@ -542,7 +541,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommunityResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/community", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/community", json=form, params=None)
 
         return result
 
@@ -566,7 +565,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in ListCommunitiesResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/community/list", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/community/list", json=None, params=form)
 
         return result
 
@@ -584,7 +583,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommunityResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/follow", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/community/follow", json=form, params=None)
 
         return result
 
@@ -602,7 +601,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in BlockCommunityResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/block", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/community/block", json=form, params=None)
 
         return result
 
@@ -620,7 +619,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommunityResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/delete", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/community/delete", json=form, params=None)
 
         return result
 
@@ -640,7 +639,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/community/hide", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/community/hide", json=form, params=None)
 
         return result
 
@@ -660,7 +659,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommunityResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/remove", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/community/remove", json=form, params=None)
 
         return result
 
@@ -678,7 +677,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetCommunityResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/transfer", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/community/transfer", json=form, params=None)
 
         return result
 
@@ -704,7 +703,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in BanFromCommunityResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/ban_user", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/community/ban_user", json=form, params=None)
 
         return result
 
@@ -724,7 +723,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in AddModToCommunityResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/community/mod", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/community/mod", json=form, params=None)
 
         return result
 
@@ -756,7 +755,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PostResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/post", json=form, params=None)
 
         return result
 
@@ -774,7 +773,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetPostResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/post", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/post", json=None, params=form)
 
         return result
 
@@ -804,7 +803,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PostResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/post", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/post", json=form, params=None)
 
         return result
 
@@ -822,7 +821,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PostResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/delete", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/post/delete", json=form, params=None)
 
         return result
 
@@ -842,7 +841,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PostResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/remove", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/post/remove", json=form, params=None)
 
         return result
 
@@ -860,7 +859,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/mark_as_read", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/post/mark_as_read", json=form, params=None)
 
         return result
 
@@ -878,7 +877,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/hide", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/post/hide", json=form, params=None)
 
         return result
 
@@ -896,7 +895,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PostResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/lock", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/post/lock", json=form, params=None)
 
         return result
 
@@ -916,7 +915,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PostResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/feature", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/post/feature", json=form, params=None)
 
         return result
 
@@ -956,7 +955,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetPostsResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/post/list", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/post/list", json=None, params=form)
 
         return result
 
@@ -974,7 +973,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PostResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/like", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/post/like", json=form, params=None)
 
         return result
 
@@ -994,7 +993,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in ListPostLikesResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/post/like/list", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/post/like/list", json=None, params=form)
 
         return result
 
@@ -1012,7 +1011,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PostResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/post/save", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/post/save", json=form, params=None)
 
         return result
 
@@ -1030,7 +1029,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PostReportResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/post/report", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/post/report", json=form, params=None)
 
         return result
 
@@ -1048,7 +1047,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PostReportResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/post/report/resolve", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/post/report/resolve", json=form, params=None)
 
         return result
 
@@ -1072,7 +1071,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in ListPostReportsResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/post/report/list", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/post/report/list", json=None, params=form)
 
         return result
 
@@ -1088,7 +1087,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetSiteMetadataResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/post/site_metadata", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/post/site_metadata", json=None, params=form)
 
         return result
 
@@ -1110,7 +1109,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/comment", json=form, params=None)
 
         return result
 
@@ -1130,7 +1129,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/comment", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/comment", json=form, params=None)
 
         return result
 
@@ -1148,7 +1147,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/delete", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/comment/delete", json=form, params=None)
 
         return result
 
@@ -1168,7 +1167,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/remove", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/comment/remove", json=form, params=None)
 
         return result
 
@@ -1186,7 +1185,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentReplyResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/mark_as_read", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/comment/mark_as_read", json=form, params=None)
 
         return result
 
@@ -1204,7 +1203,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/like", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/comment/like", json=form, params=None)
 
         return result
 
@@ -1224,7 +1223,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in ListCommentLikesResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/comment/like/list", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/comment/like/list", json=None, params=form)
 
         return result
 
@@ -1242,7 +1241,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/comment/save", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/comment/save", json=form, params=None)
 
         return result
 
@@ -1260,7 +1259,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/distinguish", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/comment/distinguish", json=form, params=None)
 
         return result
 
@@ -1298,7 +1297,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetCommentsResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/comment/list", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/comment/list", json=None, params=form)
 
         return result
 
@@ -1314,7 +1313,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/comment", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/comment", json=None, params=form)
 
         return result
 
@@ -1332,7 +1331,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentReportResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/comment/report", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/comment/report", json=form, params=None)
 
         return result
 
@@ -1350,7 +1349,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CommentReportResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/comment/report/resolve", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/comment/report/resolve", json=form, params=None)
 
         return result
 
@@ -1374,7 +1373,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in ListCommentReportsResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/comment/report/list", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/comment/report/list", json=None, params=form)
 
         return result
 
@@ -1396,7 +1395,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PrivateMessagesResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/private_message/list", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/private_message/list", json=None, params=form)
 
         return result
 
@@ -1414,7 +1413,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PrivateMessageResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/private_message", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/private_message", json=form, params=None)
 
         return result
 
@@ -1432,7 +1431,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PrivateMessageResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/private_message", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/private_message", json=form, params=None)
 
         return result
 
@@ -1450,7 +1449,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PrivateMessageResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/private_message/delete", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/private_message/delete", json=form, params=None)
 
         return result
 
@@ -1468,7 +1467,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PrivateMessageResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/private_message/mark_as_read", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/private_message/mark_as_read", json=form, params=None)
 
         return result
 
@@ -1486,7 +1485,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PrivateMessageReportResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/private_message/report", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/private_message/report", json=form, params=None)
 
         return result
 
@@ -1504,7 +1503,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PrivateMessageReportResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/private_message/report/resolve", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/private_message/report/resolve", json=form, params=None)
 
         return result
 
@@ -1524,7 +1523,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in ListPrivateMessageReportsResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/private_message/report/list", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/private_message/report/list", json=None, params=form)
 
         return result
 
@@ -1556,7 +1555,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in LoginResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/register", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/register", json=form, params=None)
 
         return result
 
@@ -1576,9 +1575,9 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in LoginResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/login", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/login", json=form, params=None)
         if result.status_code == 200:
-            self._session = create_session(self._headers, result.json()["jwt"])
+            self._request_controller.create_session(result.json()["jwt"])
         else:
             raise Exception("Login failed with status code: " + str(result.status_code))
         return result
@@ -1593,9 +1592,9 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/logout", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/logout", json=form, params=None)
         if result.status_code == 200:
-            self._session = create_session(self._headers, None)
+            self._request_controller.create_session(None)
         return result
 
     def get_person_details(
@@ -1622,7 +1621,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetPersonDetailsResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/user", json=None, params=form)
 
         return result
 
@@ -1644,7 +1643,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetPersonMentionsResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/mention", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/user/mention", json=None, params=form)
 
         return result
 
@@ -1662,7 +1661,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in PersonMentionResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/mention/mark_as_read", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/mention/mark_as_read", json=form, params=None)
 
         return result
 
@@ -1684,7 +1683,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetRepliesResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/replies", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/user/replies", json=None, params=form)
 
         return result
 
@@ -1708,7 +1707,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in BanPersonResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/ban", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/ban", json=form, params=None)
 
         return result
 
@@ -1722,7 +1721,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in BannedPersonsResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/banned", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/user/banned", json=None, params=form)
 
         return result
 
@@ -1740,7 +1739,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in BlockPersonResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/block", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/block", json=form, params=None)
 
         return result
 
@@ -1754,7 +1753,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetCaptchaResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/get_captcha", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/user/get_captcha", json=None, params=form)
 
         return result
 
@@ -1772,7 +1771,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/delete_account", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/delete_account", json=form, params=None)
 
         return result
 
@@ -1788,7 +1787,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/password_reset", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/password_reset", json=form, params=None)
 
         return result
 
@@ -1808,7 +1807,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/password_change", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/password_change", json=form, params=None)
 
         return result
 
@@ -1822,7 +1821,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetRepliesResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/mark_all_as_read", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/mark_all_as_read", json=form, params=None)
 
         return result
 
@@ -1894,7 +1893,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/user/save_user_settings", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/user/save_user_settings", json=form, params=None)
 
         return result
 
@@ -1914,7 +1913,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in LoginResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/user/change_password", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/user/change_password", json=form, params=None)
 
         return result
 
@@ -1930,7 +1929,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetReportCountResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/report_count", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/user/report_count", json=None, params=form)
 
         return result
 
@@ -1944,7 +1943,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetUnreadCountResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/user/unread_count", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/user/unread_count", json=None, params=form)
 
         return result
 
@@ -1960,7 +1959,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/user/verify_email", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/user/verify_email", json=form, params=None)
 
         return result
 
@@ -1978,7 +1977,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in AddAdminResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/admin/add", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/admin/add", json=form, params=None)
 
         return result
 
@@ -1992,7 +1991,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetUnreadRegistrationApplicationCountResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/admin/registration_application/count", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/admin/registration_application/count", json=None, params=form)
 
         return result
 
@@ -2012,7 +2011,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in ListRegistrationApplicationsResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/admin/registration_application/list", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/admin/registration_application/list", json=None, params=form)
 
         return result
 
@@ -2032,7 +2031,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in RegistrationApplicationResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/admin/registration_application/approve", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/admin/registration_application/approve", json=form, params=None)
 
         return result
 
@@ -2042,7 +2041,7 @@ class LemmyHttp(object):
     ):
 
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/admin/registration_application", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/admin/registration_application", json=None, params=form)
 
         return result
 
@@ -2060,7 +2059,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/admin/purge/person", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/admin/purge/person", json=form, params=None)
 
         return result
 
@@ -2078,7 +2077,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/admin/purge/community", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/admin/purge/community", json=form, params=None)
 
         return result
 
@@ -2096,7 +2095,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/admin/purge/post", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/admin/purge/post", json=form, params=None)
 
         return result
 
@@ -2114,7 +2113,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/admin/purge/comment", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/admin/purge/comment", json=form, params=None)
 
         return result
 
@@ -2138,7 +2137,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CustomEmojiResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/custom_emoji", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/custom_emoji", json=form, params=None)
 
         return result
 
@@ -2162,7 +2161,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in CustomEmojiResponse if successful)
         """
         form = create_form(locals())
-        result = put_handler(self._session, f"{self._api_url}/custom_emoji", json=form, params=None)
+        result = self._request_controller.put_handler(f"{self._api_url}/custom_emoji", json=form, params=None)
 
         return result
 
@@ -2178,7 +2177,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in SuccessResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/custom_emoji/delete", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/custom_emoji/delete", json=form, params=None)
 
         return result
 
@@ -2192,7 +2191,7 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in GetFederatedInstancesResponse if successful)
         """
         form = create_form(locals())
-        result = get_handler(self._session, f"{self._api_url}/federated_instances", json=None, params=form)
+        result = self._request_controller.get_handler(f"{self._api_url}/federated_instances", json=None, params=form)
 
         return result
 
@@ -2210,6 +2209,6 @@ class LemmyHttp(object):
             requests.Response: result of API call (wrap in BlockInstanceResponse if successful)
         """
         form = create_form(locals())
-        result = post_handler(self._session, f"{self._api_url}/site/block", json=form, params=None)
+        result = self._request_controller.post_handler(f"{self._api_url}/site/block", json=form, params=None)
 
         return result
