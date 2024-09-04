@@ -13,7 +13,7 @@ class RequestController:
 
     def __init__(self, headers: Optional[dict] = None):
         self._headers = headers
-        self._session = self.create_session(None)
+        self.create_session(None)
         self.logger = logging.getLogger(__name__)
 
     def create_session(self, jwt: Optional[str]):
@@ -33,6 +33,7 @@ class RequestController:
             session.headers.update(self._headers)
         if jwt is not None:
             session.cookies.set("jwt", jwt)
+
         self._session = session
 
     def post_handler(self, url: str, json: dict, params: dict = None) -> requests.Response:
