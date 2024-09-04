@@ -34,6 +34,7 @@ class TestGetFederatedInstances(unittest.TestCase):
         response_data = GetFederatedInstancesResponse(response)
         self.assertIsNotNone(response_data.federated_instances)
         self.assertEqual(2, len(response_data.federated_instances.linked))
+        self.assertEqual(3, response_data.federated_instances.linked[0].id)
 
     @patch('pythonlemmy.lemmyhttp.RequestController')
     def test_get_federated_instances_no_federated_instances(self, MockRequestController):
