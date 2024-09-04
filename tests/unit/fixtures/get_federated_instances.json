@@ -1,0 +1,19 @@
+{
+  "federated_instances": {
+    "linked": [
+      {
+        "id": 3,
+        "domain": "toot.thewalkingdeaf.net",
+        "published": "2023-02-03T08:30:22.290067Z"
+      },
+      {
+        "id": 232726,
+        "domain": "lemmy.143420.xyz",
+        "published": "2023-07-10T01:41:54.325682Z",
+        "updated": "2023-07-10T01:41:54.325349Z"
+      }
+    ],
+    "allowed": [],
+    "blocked": []
+  }
+}

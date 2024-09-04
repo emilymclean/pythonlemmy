@@ -37,7 +37,7 @@ class ModelGenerator(Generator):
 
     def build(self) -> str:
         if self._class_type is ClassType.OBJECT:
-            return ObjectModelGenerator(self._class_name, self._properties).build()
+            return ViewModelGenerator(self._class_name, self._properties).build()
         if self._class_type is ClassType.RESPONSE:
             return ResponseModelGenerator(self._class_name, self._properties).build()
         if self._class_type is ClassType.VIEW:
@@ -109,12 +109,14 @@ else:
 
 
 class ViewModelGenerator(Generator):
+    check_all = False
+
     def __init__(self, class_name: str, properties: List[Property]):
         super().__init__(class_name, properties)
 
     def build(self) -> str:
         return f"""
-class {self._class_name}(ViewObject):
+class {self._class_name}(ParsableObject):
     \"\"\"https://join-lemmy.org/api/interfaces/{self._class_name}.html\"\"\"
 
 {textwrap.indent(self._generate_property_list(), self._indent_char)}
@@ -131,11 +133,16 @@ class {self._class_name}(ViewObject):
                 line = f"""
 self.{prop.api_name} = self._view["{prop.api_name}"]
                 """.strip()
+            elif prop.type.startswith("list"):
+                inner = prop.type[len("list["):-1]
+                line = f"""
+self.{prop.api_name} = [{inner}(e) for e in self._view["{prop.api_name}"]]
+                """.strip()
             else:
                 line = f"""
-self.{prop.api_name} = call_with_filtered_kwargs({prop.type}, self._view["{prop.api_name}"])
+self.{prop.api_name} = {prop.type}(self._view["{prop.api_name}"])
                 """.strip()
-            if not prop.nullable:
+            if not prop.nullable and not self.check_all:
                 lines.append(line)
                 continue
 
