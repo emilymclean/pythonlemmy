@@ -1,18 +1,10 @@
 from typing import Optional
 
 from .objects import *
-from .utils import call_with_filtered_kwargs
+from .utils import call_with_filtered_kwarg
+from .types import ParsableObjects
 
-
-class ViewObject(object):
-    """ ViewObject: parent object to all view-related objects """
-
-    def __init__(self, view: dict) -> None:
-        self._view = view
-        self.parse()
-
-
-class LocalUserView(ViewObject):
+class LocalUserView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/LocalUserView.html"""
 
     local_user: LocalUser = None
@@ -21,13 +13,25 @@ class LocalUserView(ViewObject):
     counts: PersonAggregates = None
 
     def parse(self) -> None:
-        self.local_user = LocalUser(self._view["local_user"])
-        self.local_user_vote_display_mode = LocalUserVoteDisplayMode(self._view["local_user_vote_display_mode"])
-        self.person = Person(self._view["person"])
-        self.counts = PersonAggregates(self._view["counts"])
+        if "local_user" in self._view.keys():
+            self.local_user = LocalUser(self._view["local_user"])
+        else:
+            self.local_user = None
+        if "local_user_vote_display_mode" in self._view.keys():
+            self.local_user_vote_display_mode = LocalUserVoteDisplayMode(self._view["local_user_vote_display_mode"])
+        else:
+            self.local_user_vote_display_mode = None
+        if "person" in self._view.keys():
+            self.person = Person(self._view["person"])
+        else:
+            self.person = None
+        if "counts" in self._view.keys():
+            self.counts = PersonAggregates(self._view["counts"])
+        else:
+            self.counts = None
 
 
-class CommentReplyView(ViewObject):
+class CommentReplyView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/CommentReplyView.html"""
 
     comment_reply: CommentReply = None
@@ -47,38 +51,86 @@ class CommentReplyView(ViewObject):
     my_vote: Optional[int] = None
 
     def parse(self) -> None:
-        self.comment_reply = CommentReply(self._view["comment_reply"])
-        self.comment = Comment(self._view["comment"])
-        self.creator = Person(self._view["creator"])
-        self.post = Post(self._view["post"])
-        self.community = Community(self._view["community"])
-        self.recipient = Person(self._view["recipient"])
-        self.counts = CommentAggregates(self._view["counts"])
-        self.creator_banned_from_community = self._view["creator_banned_from_community"]
-        self.banned_from_community = self._view["banned_from_community"]
-        self.creator_is_moderator = self._view["creator_is_moderator"]
-        self.creator_is_admin = self._view["creator_is_admin"]
-        self.subscribed = self._view["subscribed"]
-        self.saved = self._view["saved"]
-        self.creator_blocked = self._view["creator_blocked"]
+        if "comment_reply" in self._view.keys():
+            self.comment_reply = CommentReply(self._view["comment_reply"])
+        else:
+            self.comment_reply = None
+        if "comment" in self._view.keys():
+            self.comment = Comment(self._view["comment"])
+        else:
+            self.comment = None
+        if "creator" in self._view.keys():
+            self.creator = Person(self._view["creator"])
+        else:
+            self.creator = None
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "recipient" in self._view.keys():
+            self.recipient = Person(self._view["recipient"])
+        else:
+            self.recipient = None
+        if "counts" in self._view.keys():
+            self.counts = CommentAggregates(self._view["counts"])
+        else:
+            self.counts = None
+        if "creator_banned_from_community" in self._view.keys():
+            self.creator_banned_from_community = self._view["creator_banned_from_community"]
+        else:
+            self.creator_banned_from_community = None
+        if "banned_from_community" in self._view.keys():
+            self.banned_from_community = self._view["banned_from_community"]
+        else:
+            self.banned_from_community = None
+        if "creator_is_moderator" in self._view.keys():
+            self.creator_is_moderator = self._view["creator_is_moderator"]
+        else:
+            self.creator_is_moderator = None
+        if "creator_is_admin" in self._view.keys():
+            self.creator_is_admin = self._view["creator_is_admin"]
+        else:
+            self.creator_is_admin = None
+        if "subscribed" in self._view.keys():
+            self.subscribed = self._view["subscribed"]
+        else:
+            self.subscribed = None
+        if "saved" in self._view.keys():
+            self.saved = self._view["saved"]
+        else:
+            self.saved = None
+        if "creator_blocked" in self._view.keys():
+            self.creator_blocked = self._view["creator_blocked"]
+        else:
+            self.creator_blocked = None
         if "my_vote" in self._view.keys():
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
 
 
-class CommunityFollowerView(ViewObject):
+class CommunityFollowerView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/CommunityFollowerView.html"""
 
     community: Community = None
     follower: Person = None
 
     def parse(self) -> None:
-        self.community = Community(self._view["community"])
-        self.follower = Person(self._view["follower"])
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "follower" in self._view.keys():
+            self.follower = Person(self._view["follower"])
+        else:
+            self.follower = None
 
 
-class VoteView(ViewObject):
+class VoteView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/VoteView.html"""
 
     creator: Person = None
@@ -86,12 +138,21 @@ class VoteView(ViewObject):
     score: int = None
 
     def parse(self) -> None:
-        self.creator = Person(self._view["creator"])
-        self.creator_banned_from_community = self._view["creator_banned_from_community"]
-        self.score = self._view["score"]
+        if "creator" in self._view.keys():
+            self.creator = Person(self._view["creator"])
+        else:
+            self.creator = None
+        if "creator_banned_from_community" in self._view.keys():
+            self.creator_banned_from_community = self._view["creator_banned_from_community"]
+        else:
+            self.creator_banned_from_community = None
+        if "score" in self._view.keys():
+            self.score = self._view["score"]
+        else:
+            self.score = None
 
 
-class PrivateMessageReportView(ViewObject):
+class PrivateMessageReportView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/PrivateMessageReportView.html"""
 
     private_message_report: PrivateMessageReport = None
@@ -101,17 +162,29 @@ class PrivateMessageReportView(ViewObject):
     resolver: Optional[Person] = None
 
     def parse(self) -> None:
-        self.private_message_report = PrivateMessageReport(self._view["private_message_report"])
-        self.private_message = PrivateMessage(self._view["private_message"])
-        self.private_message_creator = Person(self._view["private_message_creator"])
-        self.creator = Person(self._view["creator"])
+        if "private_message_report" in self._view.keys():
+            self.private_message_report = PrivateMessageReport(self._view["private_message_report"])
+        else:
+            self.private_message_report = None
+        if "private_message" in self._view.keys():
+            self.private_message = PrivateMessage(self._view["private_message"])
+        else:
+            self.private_message = None
+        if "private_message_creator" in self._view.keys():
+            self.private_message_creator = Person(self._view["private_message_creator"])
+        else:
+            self.private_message_creator = None
+        if "creator" in self._view.keys():
+            self.creator = Person(self._view["creator"])
+        else:
+            self.creator = None
         if "resolver" in self._view.keys():
             self.resolver = Person(self._view["resolver"])
         else:
             self.resolver = None
 
 
-class ModAddView(ViewObject):
+class ModAddView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModAddView.html"""
 
     mod_add: ModAdd = None
@@ -119,15 +192,21 @@ class ModAddView(ViewObject):
     modded_person: Person = None
 
     def parse(self) -> None:
-        self.mod_add = ModAdd(self._view["mod_add"])
+        if "mod_add" in self._view.keys():
+            self.mod_add = ModAdd(self._view["mod_add"])
+        else:
+            self.mod_add = None
         if "moderator" in self._view.keys():
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.modded_person = Person(self._view["modded_person"])
+        if "modded_person" in self._view.keys():
+            self.modded_person = Person(self._view["modded_person"])
+        else:
+            self.modded_person = None
 
 
-class PersonView(ViewObject):
+class PersonView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/PersonView.html"""
 
     person: Person = None
@@ -135,12 +214,21 @@ class PersonView(ViewObject):
     is_admin: bool = None
 
     def parse(self) -> None:
-        self.person = Person(self._view["person"])
-        self.counts = PersonAggregates(self._view["counts"])
-        self.is_admin = self._view["is_admin"]
+        if "person" in self._view.keys():
+            self.person = Person(self._view["person"])
+        else:
+            self.person = None
+        if "counts" in self._view.keys():
+            self.counts = PersonAggregates(self._view["counts"])
+        else:
+            self.counts = None
+        if "is_admin" in self._view.keys():
+            self.is_admin = self._view["is_admin"]
+        else:
+            self.is_admin = None
 
 
-class ModBanView(ViewObject):
+class ModBanView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModBanView.html"""
 
     mod_ban: ModBan = None
@@ -148,15 +236,21 @@ class ModBanView(ViewObject):
     banned_person: Person = None
 
     def parse(self) -> None:
-        self.mod_ban = ModBan(self._view["mod_ban"])
+        if "mod_ban" in self._view.keys():
+            self.mod_ban = ModBan(self._view["mod_ban"])
+        else:
+            self.mod_ban = None
         if "moderator" in self._view.keys():
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.banned_person = Person(self._view["banned_person"])
+        if "banned_person" in self._view.keys():
+            self.banned_person = Person(self._view["banned_person"])
+        else:
+            self.banned_person = None
 
 
-class RegistrationApplicationView(ViewObject):
+class RegistrationApplicationView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/RegistrationApplicationView.html"""
 
     registration_application: RegistrationApplication = None
@@ -165,27 +259,42 @@ class RegistrationApplicationView(ViewObject):
     admin: Optional[Person] = None
 
     def parse(self) -> None:
-        self.registration_application = RegistrationApplication(self._view["registration_application"])
-        self.creator_local_user = LocalUser(self._view["creator_local_user"])
-        self.creator = Person(self._view["creator"])
+        if "registration_application" in self._view.keys():
+            self.registration_application = RegistrationApplication(self._view["registration_application"])
+        else:
+            self.registration_application = None
+        if "creator_local_user" in self._view.keys():
+            self.creator_local_user = LocalUser(self._view["creator_local_user"])
+        else:
+            self.creator_local_user = None
+        if "creator" in self._view.keys():
+            self.creator = Person(self._view["creator"])
+        else:
+            self.creator = None
         if "admin" in self._view.keys():
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
 
 
-class CommunityBlockView(ViewObject):
+class CommunityBlockView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/CommunityBlockView.html"""
 
     person: Person = None
     community: Community = None
 
     def parse(self) -> None:
-        self.person = Person(self._view["person"])
-        self.community = Community(self._view["community"])
+        if "person" in self._view.keys():
+            self.person = Person(self._view["person"])
+        else:
+            self.person = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
 
 
-class ModBanFromCommunityView(ViewObject):
+class ModBanFromCommunityView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModBanFromCommunityView.html"""
 
     mod_ban_from_community: ModBanFromCommunity = None
@@ -194,16 +303,25 @@ class ModBanFromCommunityView(ViewObject):
     banned_person: Person = None
 
     def parse(self) -> None:
-        self.mod_ban_from_community = ModBanFromCommunity(self._view["mod_ban_from_community"])
+        if "mod_ban_from_community" in self._view.keys():
+            self.mod_ban_from_community = ModBanFromCommunity(self._view["mod_ban_from_community"])
+        else:
+            self.mod_ban_from_community = None
         if "moderator" in self._view.keys():
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.community = Community(self._view["community"])
-        self.banned_person = Person(self._view["banned_person"])
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "banned_person" in self._view.keys():
+            self.banned_person = Person(self._view["banned_person"])
+        else:
+            self.banned_person = None
 
 
-class PostView(ViewObject):
+class PostView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/PostView.html"""
 
     post: Post = None
@@ -224,31 +342,73 @@ class PostView(ViewObject):
     unread_comments: int = None
 
     def parse(self) -> None:
-        self.post = Post(self._view["post"])
-        self.creator = Person(self._view["creator"])
-        self.community = Community(self._view["community"])
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
+        if "creator" in self._view.keys():
+            self.creator = Person(self._view["creator"])
+        else:
+            self.creator = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
         if "image_details" in self._view.keys():
             self.image_details = ImageDetails(self._view["image_details"])
         else:
             self.image_details = None
-        self.creator_banned_from_community = self._view["creator_banned_from_community"]
-        self.banned_from_community = self._view["banned_from_community"]
-        self.creator_is_moderator = self._view["creator_is_moderator"]
-        self.creator_is_admin = self._view["creator_is_admin"]
-        self.counts = PostAggregates(self._view["counts"])
-        self.subscribed = self._view["subscribed"]
-        self.saved = self._view["saved"]
-        self.read = self._view["read"]
-        self.hidden = self._view["hidden"]
-        self.creator_blocked = self._view["creator_blocked"]
+        if "creator_banned_from_community" in self._view.keys():
+            self.creator_banned_from_community = self._view["creator_banned_from_community"]
+        else:
+            self.creator_banned_from_community = None
+        if "banned_from_community" in self._view.keys():
+            self.banned_from_community = self._view["banned_from_community"]
+        else:
+            self.banned_from_community = None
+        if "creator_is_moderator" in self._view.keys():
+            self.creator_is_moderator = self._view["creator_is_moderator"]
+        else:
+            self.creator_is_moderator = None
+        if "creator_is_admin" in self._view.keys():
+            self.creator_is_admin = self._view["creator_is_admin"]
+        else:
+            self.creator_is_admin = None
+        if "counts" in self._view.keys():
+            self.counts = PostAggregates(self._view["counts"])
+        else:
+            self.counts = None
+        if "subscribed" in self._view.keys():
+            self.subscribed = self._view["subscribed"]
+        else:
+            self.subscribed = None
+        if "saved" in self._view.keys():
+            self.saved = self._view["saved"]
+        else:
+            self.saved = None
+        if "read" in self._view.keys():
+            self.read = self._view["read"]
+        else:
+            self.read = None
+        if "hidden" in self._view.keys():
+            self.hidden = self._view["hidden"]
+        else:
+            self.hidden = None
+        if "creator_blocked" in self._view.keys():
+            self.creator_blocked = self._view["creator_blocked"]
+        else:
+            self.creator_blocked = None
         if "my_vote" in self._view.keys():
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
-        self.unread_comments = self._view["unread_comments"]
+        if "unread_comments" in self._view.keys():
+            self.unread_comments = self._view["unread_comments"]
+        else:
+            self.unread_comments = None
 
 
-class InstanceBlockView(ViewObject):
+class InstanceBlockView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/InstanceBlockView.html"""
 
     person: Person = None
@@ -256,15 +416,21 @@ class InstanceBlockView(ViewObject):
     site: Optional[Site] = None
 
     def parse(self) -> None:
-        self.person = Person(self._view["person"])
-        self.instance = Instance(self._view["instance"])
+        if "person" in self._view.keys():
+            self.person = Person(self._view["person"])
+        else:
+            self.person = None
+        if "instance" in self._view.keys():
+            self.instance = Instance(self._view["instance"])
+        else:
+            self.instance = None
         if "site" in self._view.keys():
             self.site = Site(self._view["site"])
         else:
             self.site = None
 
 
-class ModRemoveCommunityView(ViewObject):
+class ModRemoveCommunityView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModRemoveCommunityView.html"""
 
     mod_remove_community: ModRemoveCommunity = None
@@ -272,15 +438,21 @@ class ModRemoveCommunityView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_remove_community = ModRemoveCommunity(self._view["mod_remove_community"])
+        if "mod_remove_community" in self._view.keys():
+            self.mod_remove_community = ModRemoveCommunity(self._view["mod_remove_community"])
+        else:
+            self.mod_remove_community = None
         if "moderator" in self._view.keys():
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.community = Community(self._view["community"])
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
 
 
-class ModHideCommunityView(ViewObject):
+class ModHideCommunityView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModHideCommunityView.html"""
 
     mod_hide_community: ModHideCommunity = None
@@ -288,15 +460,21 @@ class ModHideCommunityView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_hide_community = ModHideCommunity(self._view["mod_hide_community"])
+        if "mod_hide_community" in self._view.keys():
+            self.mod_hide_community = ModHideCommunity(self._view["mod_hide_community"])
+        else:
+            self.mod_hide_community = None
         if "admin" in self._view.keys():
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
-        self.community = Community(self._view["community"])
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
 
 
-class ModRemoveCommentView(ViewObject):
+class ModRemoveCommentView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModRemoveCommentView.html"""
 
     mod_remove_comment: ModRemoveComment = None
@@ -307,18 +485,33 @@ class ModRemoveCommentView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_remove_comment = ModRemoveComment(self._view["mod_remove_comment"])
+        if "mod_remove_comment" in self._view.keys():
+            self.mod_remove_comment = ModRemoveComment(self._view["mod_remove_comment"])
+        else:
+            self.mod_remove_comment = None
         if "moderator" in self._view.keys():
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.comment = Comment(self._view["comment"])
-        self.commenter = Person(self._view["commenter"])
-        self.post = Post(self._view["post"])
-        self.community = Community(self._view["community"])
+        if "comment" in self._view.keys():
+            self.comment = Comment(self._view["comment"])
+        else:
+            self.comment = None
+        if "commenter" in self._view.keys():
+            self.commenter = Person(self._view["commenter"])
+        else:
+            self.commenter = None
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
 
 
-class AdminPurgeCommentView(ViewObject):
+class AdminPurgeCommentView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/AdminPurgeCommentView.html"""
 
     admin_purge_comment: AdminPurgeComment = None
@@ -326,15 +519,21 @@ class AdminPurgeCommentView(ViewObject):
     post: Post = None
 
     def parse(self) -> None:
-        self.admin_purge_comment = AdminPurgeComment(self._view["admin_purge_comment"])
+        if "admin_purge_comment" in self._view.keys():
+            self.admin_purge_comment = AdminPurgeComment(self._view["admin_purge_comment"])
+        else:
+            self.admin_purge_comment = None
         if "admin" in self._view.keys():
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
-        self.post = Post(self._view["post"])
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
 
 
-class ModAddCommunityView(ViewObject):
+class ModAddCommunityView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModAddCommunityView.html"""
 
     mod_add_community: ModAddCommunity = None
@@ -343,38 +542,59 @@ class ModAddCommunityView(ViewObject):
     modded_person: Person = None
 
     def parse(self) -> None:
-        self.mod_add_community = ModAddCommunity(self._view["mod_add_community"])
+        if "mod_add_community" in self._view.keys():
+            self.mod_add_community = ModAddCommunity(self._view["mod_add_community"])
+        else:
+            self.mod_add_community = None
         if "moderator" in self._view.keys():
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.community = Community(self._view["community"])
-        self.modded_person = Person(self._view["modded_person"])
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "modded_person" in self._view.keys():
+            self.modded_person = Person(self._view["modded_person"])
+        else:
+            self.modded_person = None
 
 
-class PersonBlockView(ViewObject):
+class PersonBlockView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/PersonBlockView.html"""
 
     person: Person = None
     target: Person = None
 
     def parse(self) -> None:
-        self.person = Person(self._view["person"])
-        self.target = Person(self._view["target"])
+        if "person" in self._view.keys():
+            self.person = Person(self._view["person"])
+        else:
+            self.person = None
+        if "target" in self._view.keys():
+            self.target = Person(self._view["target"])
+        else:
+            self.target = None
 
 
-class CommunityModeratorView(ViewObject):
+class CommunityModeratorView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/CommunityModeratorView.html"""
 
     community: Community = None
     moderator: Person = None
 
     def parse(self) -> None:
-        self.community = Community(self._view["community"])
-        self.moderator = Person(self._view["moderator"])
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "moderator" in self._view.keys():
+            self.moderator = Person(self._view["moderator"])
+        else:
+            self.moderator = None
 
 
-class ModFeaturePostView(ViewObject):
+class ModFeaturePostView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModFeaturePostView.html"""
 
     mod_feature_post: ModFeaturePost = None
@@ -383,16 +603,25 @@ class ModFeaturePostView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_feature_post = ModFeaturePost(self._view["mod_feature_post"])
+        if "mod_feature_post" in self._view.keys():
+            self.mod_feature_post = ModFeaturePost(self._view["mod_feature_post"])
+        else:
+            self.mod_feature_post = None
         if "moderator" in self._view.keys():
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.post = Post(self._view["post"])
-        self.community = Community(self._view["community"])
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
 
 
-class PrivateMessageView(ViewObject):
+class PrivateMessageView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/PrivateMessageView.html"""
 
     private_message: PrivateMessage = None
@@ -400,12 +629,21 @@ class PrivateMessageView(ViewObject):
     recipient: Person = None
 
     def parse(self) -> None:
-        self.private_message = PrivateMessage(self._view["private_message"])
-        self.creator = Person(self._view["creator"])
-        self.recipient = Person(self._view["recipient"])
+        if "private_message" in self._view.keys():
+            self.private_message = PrivateMessage(self._view["private_message"])
+        else:
+            self.private_message = None
+        if "creator" in self._view.keys():
+            self.creator = Person(self._view["creator"])
+        else:
+            self.creator = None
+        if "recipient" in self._view.keys():
+            self.recipient = Person(self._view["recipient"])
+        else:
+            self.recipient = None
 
 
-class SiteView(ViewObject):
+class SiteView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/SiteView.html"""
 
     site: Site = None
@@ -414,13 +652,25 @@ class SiteView(ViewObject):
     counts: SiteAggregates = None
 
     def parse(self) -> None:
-        self.site = Site(self._view["site"])
-        self.local_site = LocalSite(self._view["local_site"])
-        self.local_site_rate_limit = LocalSiteRateLimit(self._view["local_site_rate_limit"])
-        self.counts = SiteAggregates(self._view["counts"])
+        if "site" in self._view.keys():
+            self.site = Site(self._view["site"])
+        else:
+            self.site = None
+        if "local_site" in self._view.keys():
+            self.local_site = LocalSite(self._view["local_site"])
+        else:
+            self.local_site = None
+        if "local_site_rate_limit" in self._view.keys():
+            self.local_site_rate_limit = LocalSiteRateLimit(self._view["local_site_rate_limit"])
+        else:
+            self.local_site_rate_limit = None
+        if "counts" in self._view.keys():
+            self.counts = SiteAggregates(self._view["counts"])
+        else:
+            self.counts = None
 
 
-class ModLockPostView(ViewObject):
+class ModLockPostView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModLockPostView.html"""
 
     mod_lock_post: ModLockPost = None
@@ -429,16 +679,25 @@ class ModLockPostView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_lock_post = ModLockPost(self._view["mod_lock_post"])
+        if "mod_lock_post" in self._view.keys():
+            self.mod_lock_post = ModLockPost(self._view["mod_lock_post"])
+        else:
+            self.mod_lock_post = None
         if "moderator" in self._view.keys():
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.post = Post(self._view["post"])
-        self.community = Community(self._view["community"])
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
 
 
-class MyUserInfo(ViewObject):
+class MyUserInfo(ParsableObject):
     """https://join-lemmy.org/api/interfaces/MyUserInfo.html"""
 
     local_user_view: LocalUserView = None
@@ -450,30 +709,54 @@ class MyUserInfo(ViewObject):
     discussion_languages: list[int] = None
 
     def parse(self) -> None:
-        self.local_user_view = LocalUserView(self._view["local_user_view"])
-        self.follows = [CommunityFollowerView(e) for e in self._view["follows"]]
-        self.moderates = [CommunityModeratorView(e) for e in self._view["moderates"]]
-        self.community_blocks = [CommunityBlockView(e) for e in self._view["community_blocks"]]
-        self.instance_blocks = [InstanceBlockView(e) for e in self._view["instance_blocks"]]
-        self.person_blocks = [PersonBlockView(e) for e in self._view["person_blocks"]]
-        self.discussion_languages = [int(e) for e in self._view["discussion_languages"]]
+        if "local_user_view" in self._view.keys():
+            self.local_user_view = LocalUserView(self._view["local_user_view"])
+        else:
+            self.local_user_view = None
+        if "follows" in self._view.keys():
+            self.follows = [CommunityFollowerView(e) for e in self._view["follows"]]
+        else:
+            self.follows = None
+        if "moderates" in self._view.keys():
+            self.moderates = [CommunityModeratorView(e) for e in self._view["moderates"]]
+        else:
+            self.moderates = None
+        if "community_blocks" in self._view.keys():
+            self.community_blocks = [CommunityBlockView(e) for e in self._view["community_blocks"]]
+        else:
+            self.community_blocks = None
+        if "instance_blocks" in self._view.keys():
+            self.instance_blocks = [InstanceBlockView(e) for e in self._view["instance_blocks"]]
+        else:
+            self.instance_blocks = None
+        if "person_blocks" in self._view.keys():
+            self.person_blocks = [PersonBlockView(e) for e in self._view["person_blocks"]]
+        else:
+            self.person_blocks = None
+        if "discussion_languages" in self._view.keys():
+            self.discussion_languages = [int(e) for e in self._view["discussion_languages"]]
+        else:
+            self.discussion_languages = None
 
 
-class AdminPurgePersonView(ViewObject):
+class AdminPurgePersonView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/AdminPurgePersonView.html"""
 
     admin_purge_person: AdminPurgePerson = None
     admin: Optional[Person] = None
 
     def parse(self) -> None:
-        self.admin_purge_person = AdminPurgePerson(self._view["admin_purge_person"])
+        if "admin_purge_person" in self._view.keys():
+            self.admin_purge_person = AdminPurgePerson(self._view["admin_purge_person"])
+        else:
+            self.admin_purge_person = None
         if "admin" in self._view.keys():
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
 
 
-class CommentReportView(ViewObject):
+class CommentReportView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/CommentReportView.html"""
 
     comment_report: CommentReport = None
@@ -493,19 +776,58 @@ class CommentReportView(ViewObject):
     resolver: Optional[Person] = None
 
     def parse(self) -> None:
-        self.comment_report = CommentReport(self._view["comment_report"])
-        self.comment = Comment(self._view["comment"])
-        self.post = Post(self._view["post"])
-        self.community = Community(self._view["community"])
-        self.creator = Person(self._view["creator"])
-        self.comment_creator = Person(self._view["comment_creator"])
-        self.counts = CommentAggregates(self._view["counts"])
-        self.creator_banned_from_community = self._view["creator_banned_from_community"]
-        self.creator_is_moderator = self._view["creator_is_moderator"]
-        self.creator_is_admin = self._view["creator_is_admin"]
-        self.creator_blocked = self._view["creator_blocked"]
-        self.subscribed = self._view["subscribed"]
-        self.saved = self._view["saved"]
+        if "comment_report" in self._view.keys():
+            self.comment_report = CommentReport(self._view["comment_report"])
+        else:
+            self.comment_report = None
+        if "comment" in self._view.keys():
+            self.comment = Comment(self._view["comment"])
+        else:
+            self.comment = None
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "creator" in self._view.keys():
+            self.creator = Person(self._view["creator"])
+        else:
+            self.creator = None
+        if "comment_creator" in self._view.keys():
+            self.comment_creator = Person(self._view["comment_creator"])
+        else:
+            self.comment_creator = None
+        if "counts" in self._view.keys():
+            self.counts = CommentAggregates(self._view["counts"])
+        else:
+            self.counts = None
+        if "creator_banned_from_community" in self._view.keys():
+            self.creator_banned_from_community = self._view["creator_banned_from_community"]
+        else:
+            self.creator_banned_from_community = None
+        if "creator_is_moderator" in self._view.keys():
+            self.creator_is_moderator = self._view["creator_is_moderator"]
+        else:
+            self.creator_is_moderator = None
+        if "creator_is_admin" in self._view.keys():
+            self.creator_is_admin = self._view["creator_is_admin"]
+        else:
+            self.creator_is_admin = None
+        if "creator_blocked" in self._view.keys():
+            self.creator_blocked = self._view["creator_blocked"]
+        else:
+            self.creator_blocked = None
+        if "subscribed" in self._view.keys():
+            self.subscribed = self._view["subscribed"]
+        else:
+            self.subscribed = None
+        if "saved" in self._view.keys():
+            self.saved = self._view["saved"]
+        else:
+            self.saved = None
         if "my_vote" in self._view.keys():
             self.my_vote = self._view["my_vote"]
         else:
@@ -516,7 +838,7 @@ class CommentReportView(ViewObject):
             self.resolver = None
 
 
-class ModRemovePostView(ViewObject):
+class ModRemovePostView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModRemovePostView.html"""
 
     mod_remove_post: ModRemovePost = None
@@ -525,16 +847,25 @@ class ModRemovePostView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.mod_remove_post = ModRemovePost(self._view["mod_remove_post"])
+        if "mod_remove_post" in self._view.keys():
+            self.mod_remove_post = ModRemovePost(self._view["mod_remove_post"])
+        else:
+            self.mod_remove_post = None
         if "moderator" in self._view.keys():
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.post = Post(self._view["post"])
-        self.community = Community(self._view["community"])
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
 
 
-class CommunityView(ViewObject):
+class CommunityView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/CommunityView.html"""
 
     community: Community = None
@@ -544,28 +875,46 @@ class CommunityView(ViewObject):
     banned_from_community: bool = None
 
     def parse(self) -> None:
-        self.community = Community(self._view["community"])
-        self.subscribed = self._view["subscribed"]
-        self.blocked = self._view["blocked"]
-        self.counts = CommunityAggregates(self._view["counts"])
-        self.banned_from_community = self._view["banned_from_community"]
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "subscribed" in self._view.keys():
+            self.subscribed = self._view["subscribed"]
+        else:
+            self.subscribed = None
+        if "blocked" in self._view.keys():
+            self.blocked = self._view["blocked"]
+        else:
+            self.blocked = None
+        if "counts" in self._view.keys():
+            self.counts = CommunityAggregates(self._view["counts"])
+        else:
+            self.counts = None
+        if "banned_from_community" in self._view.keys():
+            self.banned_from_community = self._view["banned_from_community"]
+        else:
+            self.banned_from_community = None
 
 
-class AdminPurgeCommunityView(ViewObject):
+class AdminPurgeCommunityView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/AdminPurgeCommunityView.html"""
 
     admin_purge_community: AdminPurgeCommunity = None
     admin: Optional[Person] = None
 
     def parse(self) -> None:
-        self.admin_purge_community = AdminPurgeCommunity(self._view["admin_purge_community"])
+        if "admin_purge_community" in self._view.keys():
+            self.admin_purge_community = AdminPurgeCommunity(self._view["admin_purge_community"])
+        else:
+            self.admin_purge_community = None
         if "admin" in self._view.keys():
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
 
 
-class AdminPurgePostView(ViewObject):
+class AdminPurgePostView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/AdminPurgePostView.html"""
 
     admin_purge_post: AdminPurgePost = None
@@ -573,15 +922,21 @@ class AdminPurgePostView(ViewObject):
     community: Community = None
 
     def parse(self) -> None:
-        self.admin_purge_post = AdminPurgePost(self._view["admin_purge_post"])
+        if "admin_purge_post" in self._view.keys():
+            self.admin_purge_post = AdminPurgePost(self._view["admin_purge_post"])
+        else:
+            self.admin_purge_post = None
         if "admin" in self._view.keys():
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
-        self.community = Community(self._view["community"])
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
 
 
-class ModTransferCommunityView(ViewObject):
+class ModTransferCommunityView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/ModTransferCommunityView.html"""
 
     mod_transfer_community: ModTransferCommunity = None
@@ -590,27 +945,42 @@ class ModTransferCommunityView(ViewObject):
     modded_person: Person = None
 
     def parse(self) -> None:
-        self.mod_transfer_community = ModTransferCommunity(self._view["mod_transfer_community"])
+        if "mod_transfer_community" in self._view.keys():
+            self.mod_transfer_community = ModTransferCommunity(self._view["mod_transfer_community"])
+        else:
+            self.mod_transfer_community = None
         if "moderator" in self._view.keys():
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
-        self.community = Community(self._view["community"])
-        self.modded_person = Person(self._view["modded_person"])
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "modded_person" in self._view.keys():
+            self.modded_person = Person(self._view["modded_person"])
+        else:
+            self.modded_person = None
 
 
-class LocalImageView(ViewObject):
+class LocalImageView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/LocalImageView.html"""
 
     local_image: LocalImage = None
     person: Person = None
 
     def parse(self) -> None:
-        self.local_image = LocalImage(self._view["local_image"])
-        self.person = Person(self._view["person"])
+        if "local_image" in self._view.keys():
+            self.local_image = LocalImage(self._view["local_image"])
+        else:
+            self.local_image = None
+        if "person" in self._view.keys():
+            self.person = Person(self._view["person"])
+        else:
+            self.person = None
 
 
-class PersonMentionView(ViewObject):
+class PersonMentionView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/PersonMentionView.html"""
 
     person_mention: PersonMention = None
@@ -630,38 +1000,86 @@ class PersonMentionView(ViewObject):
     my_vote: Optional[int] = None
 
     def parse(self) -> None:
-        self.person_mention = PersonMention(self._view["person_mention"])
-        self.comment = Comment(self._view["comment"])
-        self.creator = Person(self._view["creator"])
-        self.post = Post(self._view["post"])
-        self.community = Community(self._view["community"])
-        self.recipient = Person(self._view["recipient"])
-        self.counts = CommentAggregates(self._view["counts"])
-        self.creator_banned_from_community = self._view["creator_banned_from_community"]
-        self.banned_from_community = self._view["banned_from_community"]
-        self.creator_is_moderator = self._view["creator_is_moderator"]
-        self.creator_is_admin = self._view["creator_is_admin"]
-        self.subscribed = self._view["subscribed"]
-        self.saved = self._view["saved"]
-        self.creator_blocked = self._view["creator_blocked"]
+        if "person_mention" in self._view.keys():
+            self.person_mention = PersonMention(self._view["person_mention"])
+        else:
+            self.person_mention = None
+        if "comment" in self._view.keys():
+            self.comment = Comment(self._view["comment"])
+        else:
+            self.comment = None
+        if "creator" in self._view.keys():
+            self.creator = Person(self._view["creator"])
+        else:
+            self.creator = None
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "recipient" in self._view.keys():
+            self.recipient = Person(self._view["recipient"])
+        else:
+            self.recipient = None
+        if "counts" in self._view.keys():
+            self.counts = CommentAggregates(self._view["counts"])
+        else:
+            self.counts = None
+        if "creator_banned_from_community" in self._view.keys():
+            self.creator_banned_from_community = self._view["creator_banned_from_community"]
+        else:
+            self.creator_banned_from_community = None
+        if "banned_from_community" in self._view.keys():
+            self.banned_from_community = self._view["banned_from_community"]
+        else:
+            self.banned_from_community = None
+        if "creator_is_moderator" in self._view.keys():
+            self.creator_is_moderator = self._view["creator_is_moderator"]
+        else:
+            self.creator_is_moderator = None
+        if "creator_is_admin" in self._view.keys():
+            self.creator_is_admin = self._view["creator_is_admin"]
+        else:
+            self.creator_is_admin = None
+        if "subscribed" in self._view.keys():
+            self.subscribed = self._view["subscribed"]
+        else:
+            self.subscribed = None
+        if "saved" in self._view.keys():
+            self.saved = self._view["saved"]
+        else:
+            self.saved = None
+        if "creator_blocked" in self._view.keys():
+            self.creator_blocked = self._view["creator_blocked"]
+        else:
+            self.creator_blocked = None
         if "my_vote" in self._view.keys():
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
 
 
-class CustomEmojiView(ViewObject):
+class CustomEmojiView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/CustomEmojiView.html"""
 
     custom_emoji: CustomEmoji = None
     keywords: list[CustomEmojiKeyword] = None
 
     def parse(self) -> None:
-        self.custom_emoji = CustomEmoji(self._view["custom_emoji"])
-        self.keywords = [CustomEmojiKeyword(e) for e in self._view["keywords"]]
+        if "custom_emoji" in self._view.keys():
+            self.custom_emoji = CustomEmoji(self._view["custom_emoji"])
+        else:
+            self.custom_emoji = None
+        if "keywords" in self._view.keys():
+            self.keywords = [CustomEmojiKeyword(e) for e in self._view["keywords"]]
+        else:
+            self.keywords = None
 
 
-class CommentView(ViewObject):
+class CommentView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/CommentView.html"""
 
     comment: Comment = None
@@ -679,25 +1097,61 @@ class CommentView(ViewObject):
     my_vote: Optional[int] = None
 
     def parse(self) -> None:
-        self.comment = Comment(self._view["comment"])
-        self.creator = Person(self._view["creator"])
-        self.post = Post(self._view["post"])
-        self.community = Community(self._view["community"])
-        self.counts = CommentAggregates(self._view["counts"])
-        self.creator_banned_from_community = self._view["creator_banned_from_community"]
-        self.banned_from_community = self._view["banned_from_community"]
-        self.creator_is_moderator = self._view["creator_is_moderator"]
-        self.creator_is_admin = self._view["creator_is_admin"]
-        self.subscribed = self._view["subscribed"]
-        self.saved = self._view["saved"]
-        self.creator_blocked = self._view["creator_blocked"]
+        if "comment" in self._view.keys():
+            self.comment = Comment(self._view["comment"])
+        else:
+            self.comment = None
+        if "creator" in self._view.keys():
+            self.creator = Person(self._view["creator"])
+        else:
+            self.creator = None
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "counts" in self._view.keys():
+            self.counts = CommentAggregates(self._view["counts"])
+        else:
+            self.counts = None
+        if "creator_banned_from_community" in self._view.keys():
+            self.creator_banned_from_community = self._view["creator_banned_from_community"]
+        else:
+            self.creator_banned_from_community = None
+        if "banned_from_community" in self._view.keys():
+            self.banned_from_community = self._view["banned_from_community"]
+        else:
+            self.banned_from_community = None
+        if "creator_is_moderator" in self._view.keys():
+            self.creator_is_moderator = self._view["creator_is_moderator"]
+        else:
+            self.creator_is_moderator = None
+        if "creator_is_admin" in self._view.keys():
+            self.creator_is_admin = self._view["creator_is_admin"]
+        else:
+            self.creator_is_admin = None
+        if "subscribed" in self._view.keys():
+            self.subscribed = self._view["subscribed"]
+        else:
+            self.subscribed = None
+        if "saved" in self._view.keys():
+            self.saved = self._view["saved"]
+        else:
+            self.saved = None
+        if "creator_blocked" in self._view.keys():
+            self.creator_blocked = self._view["creator_blocked"]
+        else:
+            self.creator_blocked = None
         if "my_vote" in self._view.keys():
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
 
 
-class PostReportView(ViewObject):
+class PostReportView(ParsableObject):
     """https://join-lemmy.org/api/interfaces/PostReportView.html"""
 
     post_report: PostReport = None
@@ -719,25 +1173,70 @@ class PostReportView(ViewObject):
     resolver: Optional[Person] = None
 
     def parse(self) -> None:
-        self.post_report = PostReport(self._view["post_report"])
-        self.post = Post(self._view["post"])
-        self.community = Community(self._view["community"])
-        self.creator = Person(self._view["creator"])
-        self.post_creator = Person(self._view["post_creator"])
-        self.creator_banned_from_community = self._view["creator_banned_from_community"]
-        self.creator_is_moderator = self._view["creator_is_moderator"]
-        self.creator_is_admin = self._view["creator_is_admin"]
-        self.subscribed = self._view["subscribed"]
-        self.saved = self._view["saved"]
-        self.read = self._view["read"]
-        self.hidden = self._view["hidden"]
-        self.creator_blocked = self._view["creator_blocked"]
+        if "post_report" in self._view.keys():
+            self.post_report = PostReport(self._view["post_report"])
+        else:
+            self.post_report = None
+        if "post" in self._view.keys():
+            self.post = Post(self._view["post"])
+        else:
+            self.post = None
+        if "community" in self._view.keys():
+            self.community = Community(self._view["community"])
+        else:
+            self.community = None
+        if "creator" in self._view.keys():
+            self.creator = Person(self._view["creator"])
+        else:
+            self.creator = None
+        if "post_creator" in self._view.keys():
+            self.post_creator = Person(self._view["post_creator"])
+        else:
+            self.post_creator = None
+        if "creator_banned_from_community" in self._view.keys():
+            self.creator_banned_from_community = self._view["creator_banned_from_community"]
+        else:
+            self.creator_banned_from_community = None
+        if "creator_is_moderator" in self._view.keys():
+            self.creator_is_moderator = self._view["creator_is_moderator"]
+        else:
+            self.creator_is_moderator = None
+        if "creator_is_admin" in self._view.keys():
+            self.creator_is_admin = self._view["creator_is_admin"]
+        else:
+            self.creator_is_admin = None
+        if "subscribed" in self._view.keys():
+            self.subscribed = self._view["subscribed"]
+        else:
+            self.subscribed = None
+        if "saved" in self._view.keys():
+            self.saved = self._view["saved"]
+        else:
+            self.saved = None
+        if "read" in self._view.keys():
+            self.read = self._view["read"]
+        else:
+            self.read = None
+        if "hidden" in self._view.keys():
+            self.hidden = self._view["hidden"]
+        else:
+            self.hidden = None
+        if "creator_blocked" in self._view.keys():
+            self.creator_blocked = self._view["creator_blocked"]
+        else:
+            self.creator_blocked = None
         if "my_vote" in self._view.keys():
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
-        self.unread_comments = self._view["unread_comments"]
-        self.counts = PostAggregates(self._view["counts"])
+        if "unread_comments" in self._view.keys():
+            self.unread_comments = self._view["unread_comments"]
+        else:
+            self.unread_comments = None
+        if "counts" in self._view.keys():
+            self.counts = PostAggregates(self._view["counts"])
+        else:
+            self.counts = None
         if "resolver" in self._view.keys():
             self.resolver = Person(self._view["resolver"])
         else:

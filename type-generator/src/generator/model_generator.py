@@ -109,12 +109,14 @@ else:
 
 
 class ViewModelGenerator(Generator):
+    check_all = False
+
     def __init__(self, class_name: str, properties: List[Property]):
         super().__init__(class_name, properties)
 
     def build(self) -> str:
         return f"""
-class {self._class_name}(ViewObject):
+class {self._class_name}(ParsableObject):
     \"\"\"https://join-lemmy.org/api/interfaces/{self._class_name}.html\"\"\"
 
 {textwrap.indent(self._generate_property_list(), self._indent_char)}
@@ -140,7 +142,7 @@ self.{prop.api_name} = [{inner}(e) for e in self._view["{prop.api_name}"]]
                 line = f"""
 self.{prop.api_name} = {prop.type}(self._view["{prop.api_name}"])
                 """.strip()
-            if not prop.nullable:
+            if not prop.nullable and not self.check_all:
                 lines.append(line)
                 continue
 
