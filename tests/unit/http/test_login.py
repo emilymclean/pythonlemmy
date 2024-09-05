@@ -42,8 +42,7 @@ class TestLogin(unittest.TestCase):
         self.assertEqual(response.json(), fixture)
         response_data = LoginResponse(response)
         self.assertIsNotNone(response_data.jwt is not None)
-        mock_request_controller.create_session.assert_called_with("jwt")\
-
+        mock_request_controller.create_session.assert_called_with("jwt")
 
     @patch('pythonlemmy.lemmyhttp.RequestController')
     def test_login_failure(self, MockRequestController):

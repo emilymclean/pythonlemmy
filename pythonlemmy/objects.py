@@ -13,23 +13,23 @@ class ListCommunities(ParsableObject):
     limit: Optional[int] = None
 
     def parse(self) -> None:
-        if "type_" in self._view.keys():
+        if "type_" in self._view:
             self.type_ = self._view["type_"]
         else:
             self.type_ = None
-        if "sort" in self._view.keys():
+        if "sort" in self._view:
             self.sort = self._view["sort"]
         else:
             self.sort = None
-        if "show_nsfw" in self._view.keys():
+        if "show_nsfw" in self._view:
             self.show_nsfw = self._view["show_nsfw"]
         else:
             self.show_nsfw = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
@@ -49,11 +49,11 @@ class RegistrationApplication(ParsableObject):
         self.id = self._view["id"]
         self.local_user_id = self._view["local_user_id"]
         self.answer = self._view["answer"]
-        if "admin_id" in self._view.keys():
+        if "admin_id" in self._view:
             self.admin_id = self._view["admin_id"]
         else:
             self.admin_id = None
-        if "deny_reason" in self._view.keys():
+        if "deny_reason" in self._view:
             self.deny_reason = self._view["deny_reason"]
         else:
             self.deny_reason = None
@@ -73,7 +73,7 @@ class AdminPurgeComment(ParsableObject):
         self.id = self._view["id"]
         self.admin_person_id = self._view["admin_person_id"]
         self.post_id = self._view["post_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -128,167 +128,167 @@ class CreateSite(ParsableObject):
 
     def parse(self) -> None:
         self.name = self._view["name"]
-        if "sidebar" in self._view.keys():
+        if "sidebar" in self._view:
             self.sidebar = self._view["sidebar"]
         else:
             self.sidebar = None
-        if "description" in self._view.keys():
+        if "description" in self._view:
             self.description = self._view["description"]
         else:
             self.description = None
-        if "icon" in self._view.keys():
+        if "icon" in self._view:
             self.icon = self._view["icon"]
         else:
             self.icon = None
-        if "banner" in self._view.keys():
+        if "banner" in self._view:
             self.banner = self._view["banner"]
         else:
             self.banner = None
-        if "enable_downvotes" in self._view.keys():
+        if "enable_downvotes" in self._view:
             self.enable_downvotes = self._view["enable_downvotes"]
         else:
             self.enable_downvotes = None
-        if "enable_nsfw" in self._view.keys():
+        if "enable_nsfw" in self._view:
             self.enable_nsfw = self._view["enable_nsfw"]
         else:
             self.enable_nsfw = None
-        if "community_creation_admin_only" in self._view.keys():
+        if "community_creation_admin_only" in self._view:
             self.community_creation_admin_only = self._view["community_creation_admin_only"]
         else:
             self.community_creation_admin_only = None
-        if "require_email_verification" in self._view.keys():
+        if "require_email_verification" in self._view:
             self.require_email_verification = self._view["require_email_verification"]
         else:
             self.require_email_verification = None
-        if "application_question" in self._view.keys():
+        if "application_question" in self._view:
             self.application_question = self._view["application_question"]
         else:
             self.application_question = None
-        if "private_instance" in self._view.keys():
+        if "private_instance" in self._view:
             self.private_instance = self._view["private_instance"]
         else:
             self.private_instance = None
-        if "default_theme" in self._view.keys():
+        if "default_theme" in self._view:
             self.default_theme = self._view["default_theme"]
         else:
             self.default_theme = None
-        if "default_post_listing_type" in self._view.keys():
+        if "default_post_listing_type" in self._view:
             self.default_post_listing_type = self._view["default_post_listing_type"]
         else:
             self.default_post_listing_type = None
-        if "default_sort_type" in self._view.keys():
+        if "default_sort_type" in self._view:
             self.default_sort_type = self._view["default_sort_type"]
         else:
             self.default_sort_type = None
-        if "legal_information" in self._view.keys():
+        if "legal_information" in self._view:
             self.legal_information = self._view["legal_information"]
         else:
             self.legal_information = None
-        if "application_email_admins" in self._view.keys():
+        if "application_email_admins" in self._view:
             self.application_email_admins = self._view["application_email_admins"]
         else:
             self.application_email_admins = None
-        if "hide_modlog_mod_names" in self._view.keys():
+        if "hide_modlog_mod_names" in self._view:
             self.hide_modlog_mod_names = self._view["hide_modlog_mod_names"]
         else:
             self.hide_modlog_mod_names = None
-        if "discussion_languages" in self._view.keys():
-            self.discussion_languages = [int(e) for e in self._view["discussion_languages"]]
+        if "discussion_languages" in self._view:
+            self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
         else:
             self.discussion_languages = None
-        if "slur_filter_regex" in self._view.keys():
+        if "slur_filter_regex" in self._view:
             self.slur_filter_regex = self._view["slur_filter_regex"]
         else:
             self.slur_filter_regex = None
-        if "actor_name_max_length" in self._view.keys():
+        if "actor_name_max_length" in self._view:
             self.actor_name_max_length = self._view["actor_name_max_length"]
         else:
             self.actor_name_max_length = None
-        if "rate_limit_message" in self._view.keys():
+        if "rate_limit_message" in self._view:
             self.rate_limit_message = self._view["rate_limit_message"]
         else:
             self.rate_limit_message = None
-        if "rate_limit_message_per_second" in self._view.keys():
+        if "rate_limit_message_per_second" in self._view:
             self.rate_limit_message_per_second = self._view["rate_limit_message_per_second"]
         else:
             self.rate_limit_message_per_second = None
-        if "rate_limit_post" in self._view.keys():
+        if "rate_limit_post" in self._view:
             self.rate_limit_post = self._view["rate_limit_post"]
         else:
             self.rate_limit_post = None
-        if "rate_limit_post_per_second" in self._view.keys():
+        if "rate_limit_post_per_second" in self._view:
             self.rate_limit_post_per_second = self._view["rate_limit_post_per_second"]
         else:
             self.rate_limit_post_per_second = None
-        if "rate_limit_register" in self._view.keys():
+        if "rate_limit_register" in self._view:
             self.rate_limit_register = self._view["rate_limit_register"]
         else:
             self.rate_limit_register = None
-        if "rate_limit_register_per_second" in self._view.keys():
+        if "rate_limit_register_per_second" in self._view:
             self.rate_limit_register_per_second = self._view["rate_limit_register_per_second"]
         else:
             self.rate_limit_register_per_second = None
-        if "rate_limit_image" in self._view.keys():
+        if "rate_limit_image" in self._view:
             self.rate_limit_image = self._view["rate_limit_image"]
         else:
             self.rate_limit_image = None
-        if "rate_limit_image_per_second" in self._view.keys():
+        if "rate_limit_image_per_second" in self._view:
             self.rate_limit_image_per_second = self._view["rate_limit_image_per_second"]
         else:
             self.rate_limit_image_per_second = None
-        if "rate_limit_comment" in self._view.keys():
+        if "rate_limit_comment" in self._view:
             self.rate_limit_comment = self._view["rate_limit_comment"]
         else:
             self.rate_limit_comment = None
-        if "rate_limit_comment_per_second" in self._view.keys():
+        if "rate_limit_comment_per_second" in self._view:
             self.rate_limit_comment_per_second = self._view["rate_limit_comment_per_second"]
         else:
             self.rate_limit_comment_per_second = None
-        if "rate_limit_search" in self._view.keys():
+        if "rate_limit_search" in self._view:
             self.rate_limit_search = self._view["rate_limit_search"]
         else:
             self.rate_limit_search = None
-        if "rate_limit_search_per_second" in self._view.keys():
+        if "rate_limit_search_per_second" in self._view:
             self.rate_limit_search_per_second = self._view["rate_limit_search_per_second"]
         else:
             self.rate_limit_search_per_second = None
-        if "federation_enabled" in self._view.keys():
+        if "federation_enabled" in self._view:
             self.federation_enabled = self._view["federation_enabled"]
         else:
             self.federation_enabled = None
-        if "federation_debug" in self._view.keys():
+        if "federation_debug" in self._view:
             self.federation_debug = self._view["federation_debug"]
         else:
             self.federation_debug = None
-        if "captcha_enabled" in self._view.keys():
+        if "captcha_enabled" in self._view:
             self.captcha_enabled = self._view["captcha_enabled"]
         else:
             self.captcha_enabled = None
-        if "captcha_difficulty" in self._view.keys():
+        if "captcha_difficulty" in self._view:
             self.captcha_difficulty = self._view["captcha_difficulty"]
         else:
             self.captcha_difficulty = None
-        if "allowed_instances" in self._view.keys():
-            self.allowed_instances = [str(e) for e in self._view["allowed_instances"]]
+        if "allowed_instances" in self._view:
+            self.allowed_instances = [e0 for e0 in self._view["allowed_instances"]]
         else:
             self.allowed_instances = None
-        if "blocked_instances" in self._view.keys():
-            self.blocked_instances = [str(e) for e in self._view["blocked_instances"]]
+        if "blocked_instances" in self._view:
+            self.blocked_instances = [e0 for e0 in self._view["blocked_instances"]]
         else:
             self.blocked_instances = None
-        if "taglines" in self._view.keys():
-            self.taglines = [str(e) for e in self._view["taglines"]]
+        if "taglines" in self._view:
+            self.taglines = [e0 for e0 in self._view["taglines"]]
         else:
             self.taglines = None
-        if "registration_mode" in self._view.keys():
+        if "registration_mode" in self._view:
             self.registration_mode = self._view["registration_mode"]
         else:
             self.registration_mode = None
-        if "content_warning" in self._view.keys():
+        if "content_warning" in self._view:
             self.content_warning = self._view["content_warning"]
         else:
             self.content_warning = None
-        if "default_post_listing_mode" in self._view.keys():
+        if "default_post_listing_mode" in self._view:
             self.default_post_listing_mode = self._view["default_post_listing_mode"]
         else:
             self.default_post_listing_mode = None
@@ -321,31 +321,31 @@ class CreateCommunity(ParsableObject):
     def parse(self) -> None:
         self.name = self._view["name"]
         self.title = self._view["title"]
-        if "description" in self._view.keys():
+        if "description" in self._view:
             self.description = self._view["description"]
         else:
             self.description = None
-        if "icon" in self._view.keys():
+        if "icon" in self._view:
             self.icon = self._view["icon"]
         else:
             self.icon = None
-        if "banner" in self._view.keys():
+        if "banner" in self._view:
             self.banner = self._view["banner"]
         else:
             self.banner = None
-        if "nsfw" in self._view.keys():
+        if "nsfw" in self._view:
             self.nsfw = self._view["nsfw"]
         else:
             self.nsfw = None
-        if "posting_restricted_to_mods" in self._view.keys():
+        if "posting_restricted_to_mods" in self._view:
             self.posting_restricted_to_mods = self._view["posting_restricted_to_mods"]
         else:
             self.posting_restricted_to_mods = None
-        if "discussion_languages" in self._view.keys():
-            self.discussion_languages = [int(e) for e in self._view["discussion_languages"]]
+        if "discussion_languages" in self._view:
+            self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
         else:
             self.discussion_languages = None
-        if "visibility" in self._view.keys():
+        if "visibility" in self._view:
             self.visibility = self._view["visibility"]
         else:
             self.visibility = None
@@ -362,7 +362,7 @@ class AdminPurgeCommunity(ParsableObject):
     def parse(self) -> None:
         self.id = self._view["id"]
         self.admin_person_id = self._view["admin_person_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -383,7 +383,7 @@ class ModRemoveCommunity(ParsableObject):
         self.id = self._view["id"]
         self.mod_person_id = self._view["mod_person_id"]
         self.community_id = self._view["community_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -403,7 +403,7 @@ class LocalSiteUrlBlocklist(ParsableObject):
         self.id = self._view["id"]
         self.url = self._view["url"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -429,22 +429,22 @@ class PostReport(ParsableObject):
         self.creator_id = self._view["creator_id"]
         self.post_id = self._view["post_id"]
         self.original_post_name = self._view["original_post_name"]
-        if "original_post_url" in self._view.keys():
+        if "original_post_url" in self._view:
             self.original_post_url = self._view["original_post_url"]
         else:
             self.original_post_url = None
-        if "original_post_body" in self._view.keys():
+        if "original_post_body" in self._view:
             self.original_post_body = self._view["original_post_body"]
         else:
             self.original_post_body = None
         self.reason = self._view["reason"]
         self.resolved = self._view["resolved"]
-        if "resolver_id" in self._view.keys():
+        if "resolver_id" in self._view:
             self.resolver_id = self._view["resolver_id"]
         else:
             self.resolver_id = None
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -539,19 +539,19 @@ class GetPersonMentions(ParsableObject):
     unread_only: Optional[bool] = None
 
     def parse(self) -> None:
-        if "sort" in self._view.keys():
+        if "sort" in self._view:
             self.sort = self._view["sort"]
         else:
             self.sort = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
-        if "unread_only" in self._view.keys():
+        if "unread_only" in self._view:
             self.unread_only = self._view["unread_only"]
         else:
             self.unread_only = None
@@ -572,7 +572,7 @@ class ModHideCommunity(ParsableObject):
         self.community_id = self._view["community_id"]
         self.mod_person_id = self._view["mod_person_id"]
         self.when_ = self._view["when_"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -589,7 +589,7 @@ class HideCommunity(ParsableObject):
     def parse(self) -> None:
         self.community_id = self._view["community_id"]
         self.hidden = self._view["hidden"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -605,7 +605,7 @@ class RemoveCommunity(ParsableObject):
     def parse(self) -> None:
         self.community_id = self._view["community_id"]
         self.removed = self._view["removed"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -620,11 +620,11 @@ class EditComment(ParsableObject):
 
     def parse(self) -> None:
         self.comment_id = self._view["comment_id"]
-        if "content" in self._view.keys():
+        if "content" in self._view:
             self.content = self._view["content"]
         else:
             self.content = None
-        if "language_id" in self._view.keys():
+        if "language_id" in self._view:
             self.language_id = self._view["language_id"]
         else:
             self.language_id = None
@@ -644,7 +644,7 @@ class EditCustomEmoji(ParsableObject):
         self.category = self._view["category"]
         self.image_url = self._view["image_url"]
         self.alt_text = self._view["alt_text"]
-        self.keywords = [str(e) for e in self._view["keywords"]]
+        self.keywords = [e0 for e0 in self._view["keywords"]]
 
 
 class PersonMention(ParsableObject):
@@ -671,7 +671,7 @@ class HidePost(ParsableObject):
     hide: bool = None
 
     def parse(self) -> None:
-        self.post_ids = [int(e) for e in self._view["post_ids"]]
+        self.post_ids = [e0 for e0 in self._view["post_ids"]]
         self.hide = self._view["hide"]
 
 
@@ -698,20 +698,20 @@ class ReadableFederationState(ParsableObject):
 
     def parse(self) -> None:
         self.instance_id = self._view["instance_id"]
-        if "last_successful_id" in self._view.keys():
+        if "last_successful_id" in self._view:
             self.last_successful_id = self._view["last_successful_id"]
         else:
             self.last_successful_id = None
-        if "last_successful_published_time" in self._view.keys():
+        if "last_successful_published_time" in self._view:
             self.last_successful_published_time = self._view["last_successful_published_time"]
         else:
             self.last_successful_published_time = None
         self.fail_count = self._view["fail_count"]
-        if "last_retry" in self._view.keys():
+        if "last_retry" in self._view:
             self.last_retry = self._view["last_retry"]
         else:
             self.last_retry = None
-        if "next_retry" in self._view.keys():
+        if "next_retry" in self._view:
             self.next_retry = self._view["next_retry"]
         else:
             self.next_retry = None
@@ -727,7 +727,7 @@ class Login(ParsableObject):
     def parse(self) -> None:
         self.username_or_email = self._view["username_or_email"]
         self.password = self._view["password"]
-        if "totp_2fa_token" in self._view.keys():
+        if "totp_2fa_token" in self._view:
             self.totp_2fa_token = self._view["totp_2fa_token"]
         else:
             self.totp_2fa_token = None
@@ -755,11 +755,11 @@ class LoginToken(ParsableObject):
     def parse(self) -> None:
         self.user_id = self._view["user_id"]
         self.published = self._view["published"]
-        if "ip" in self._view.keys():
+        if "ip" in self._view:
             self.ip = self._view["ip"]
         else:
             self.ip = None
-        if "user_agent" in self._view.keys():
+        if "user_agent" in self._view:
             self.user_agent = self._view["user_agent"]
         else:
             self.user_agent = None
@@ -810,7 +810,7 @@ class LocalUser(ParsableObject):
     def parse(self) -> None:
         self.id = self._view["id"]
         self.person_id = self._view["person_id"]
-        if "email" in self._view.keys():
+        if "email" in self._view:
             self.email = self._view["email"]
         else:
             self.email = None
@@ -877,35 +877,35 @@ class Search(ParsableObject):
 
     def parse(self) -> None:
         self.q = self._view["q"]
-        if "community_id" in self._view.keys():
+        if "community_id" in self._view:
             self.community_id = self._view["community_id"]
         else:
             self.community_id = None
-        if "community_name" in self._view.keys():
+        if "community_name" in self._view:
             self.community_name = self._view["community_name"]
         else:
             self.community_name = None
-        if "creator_id" in self._view.keys():
+        if "creator_id" in self._view:
             self.creator_id = self._view["creator_id"]
         else:
             self.creator_id = None
-        if "type_" in self._view.keys():
+        if "type_" in self._view:
             self.type_ = self._view["type_"]
         else:
             self.type_ = None
-        if "sort" in self._view.keys():
+        if "sort" in self._view:
             self.sort = self._view["sort"]
         else:
             self.sort = None
-        if "listing_type" in self._view.keys():
+        if "listing_type" in self._view:
             self.listing_type = self._view["listing_type"]
         else:
             self.listing_type = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
@@ -1008,15 +1008,15 @@ class ListPrivateMessageReports(ParsableObject):
     unresolved_only: Optional[bool] = None
 
     def parse(self) -> None:
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
-        if "unresolved_only" in self._view.keys():
+        if "unresolved_only" in self._view:
             self.unresolved_only = self._view["unresolved_only"]
         else:
             self.unresolved_only = None
@@ -1078,7 +1078,7 @@ class CustomEmoji(ParsableObject):
         self.alt_text = self._view["alt_text"]
         self.category = self._view["category"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -1092,7 +1092,7 @@ class PurgePost(ParsableObject):
 
     def parse(self) -> None:
         self.post_id = self._view["post_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -1138,7 +1138,7 @@ class GetReportCount(ParsableObject):
     community_id: Optional[int] = None
 
     def parse(self) -> None:
-        if "community_id" in self._view.keys():
+        if "community_id" in self._view:
             self.community_id = self._view["community_id"]
         else:
             self.community_id = None
@@ -1180,13 +1180,13 @@ class Community(ParsableObject):
         self.id = self._view["id"]
         self.name = self._view["name"]
         self.title = self._view["title"]
-        if "description" in self._view.keys():
+        if "description" in self._view:
             self.description = self._view["description"]
         else:
             self.description = None
         self.removed = self._view["removed"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -1194,11 +1194,11 @@ class Community(ParsableObject):
         self.nsfw = self._view["nsfw"]
         self.actor_id = self._view["actor_id"]
         self.local = self._view["local"]
-        if "icon" in self._view.keys():
+        if "icon" in self._view:
             self.icon = self._view["icon"]
         else:
             self.icon = None
-        if "banner" in self._view.keys():
+        if "banner" in self._view:
             self.banner = self._view["banner"]
         else:
             self.banner = None
@@ -1218,23 +1218,23 @@ class ListPostReports(ParsableObject):
     post_id: Optional[int] = None
 
     def parse(self) -> None:
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
-        if "unresolved_only" in self._view.keys():
+        if "unresolved_only" in self._view:
             self.unresolved_only = self._view["unresolved_only"]
         else:
             self.unresolved_only = None
-        if "community_id" in self._view.keys():
+        if "community_id" in self._view:
             self.community_id = self._view["community_id"]
         else:
             self.community_id = None
-        if "post_id" in self._view.keys():
+        if "post_id" in self._view:
             self.post_id = self._view["post_id"]
         else:
             self.post_id = None
@@ -1271,31 +1271,31 @@ class GetPersonDetails(ParsableObject):
     saved_only: Optional[bool] = None
 
     def parse(self) -> None:
-        if "person_id" in self._view.keys():
+        if "person_id" in self._view:
             self.person_id = self._view["person_id"]
         else:
             self.person_id = None
-        if "username" in self._view.keys():
+        if "username" in self._view:
             self.username = self._view["username"]
         else:
             self.username = None
-        if "sort" in self._view.keys():
+        if "sort" in self._view:
             self.sort = self._view["sort"]
         else:
             self.sort = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
-        if "community_id" in self._view.keys():
+        if "community_id" in self._view:
             self.community_id = self._view["community_id"]
         else:
             self.community_id = None
-        if "saved_only" in self._view.keys():
+        if "saved_only" in self._view:
             self.saved_only = self._view["saved_only"]
         else:
             self.saved_only = None
@@ -1335,24 +1335,24 @@ class Site(ParsableObject):
     def parse(self) -> None:
         self.id = self._view["id"]
         self.name = self._view["name"]
-        if "sidebar" in self._view.keys():
+        if "sidebar" in self._view:
             self.sidebar = self._view["sidebar"]
         else:
             self.sidebar = None
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
-        if "icon" in self._view.keys():
+        if "icon" in self._view:
             self.icon = self._view["icon"]
         else:
             self.icon = None
-        if "banner" in self._view.keys():
+        if "banner" in self._view:
             self.banner = self._view["banner"]
         else:
             self.banner = None
-        if "description" in self._view.keys():
+        if "description" in self._view:
             self.description = self._view["description"]
         else:
             self.description = None
@@ -1361,7 +1361,7 @@ class Site(ParsableObject):
         self.inbox_url = self._view["inbox_url"]
         self.public_key = self._view["public_key"]
         self.instance_id = self._view["instance_id"]
-        if "content_warning" in self._view.keys():
+        if "content_warning" in self._view:
             self.content_warning = self._view["content_warning"]
         else:
             self.content_warning = None
@@ -1377,7 +1377,7 @@ class ApproveRegistrationApplication(ParsableObject):
     def parse(self) -> None:
         self.id = self._view["id"]
         self.approve = self._view["approve"]
-        if "deny_reason" in self._view.keys():
+        if "deny_reason" in self._view:
             self.deny_reason = self._view["deny_reason"]
         else:
             self.deny_reason = None
@@ -1397,31 +1397,31 @@ class EditPost(ParsableObject):
 
     def parse(self) -> None:
         self.post_id = self._view["post_id"]
-        if "name" in self._view.keys():
+        if "name" in self._view:
             self.name = self._view["name"]
         else:
             self.name = None
-        if "url" in self._view.keys():
+        if "url" in self._view:
             self.url = self._view["url"]
         else:
             self.url = None
-        if "body" in self._view.keys():
+        if "body" in self._view:
             self.body = self._view["body"]
         else:
             self.body = None
-        if "alt_text" in self._view.keys():
+        if "alt_text" in self._view:
             self.alt_text = self._view["alt_text"]
         else:
             self.alt_text = None
-        if "nsfw" in self._view.keys():
+        if "nsfw" in self._view:
             self.nsfw = self._view["nsfw"]
         else:
             self.nsfw = None
-        if "language_id" in self._view.keys():
+        if "language_id" in self._view:
             self.language_id = self._view["language_id"]
         else:
             self.language_id = None
-        if "custom_thumbnail" in self._view.keys():
+        if "custom_thumbnail" in self._view:
             self.custom_thumbnail = self._view["custom_thumbnail"]
         else:
             self.custom_thumbnail = None
@@ -1434,11 +1434,11 @@ class GetPost(ParsableObject):
     comment_id: Optional[int] = None
 
     def parse(self) -> None:
-        if "id" in self._view.keys():
+        if "id" in self._view:
             self.id = self._view["id"]
         else:
             self.id = None
-        if "comment_id" in self._view.keys():
+        if "comment_id" in self._view:
             self.comment_id = self._view["comment_id"]
         else:
             self.comment_id = None
@@ -1464,19 +1464,19 @@ class GetPrivateMessages(ParsableObject):
     creator_id: Optional[int] = None
 
     def parse(self) -> None:
-        if "unread_only" in self._view.keys():
+        if "unread_only" in self._view:
             self.unread_only = self._view["unread_only"]
         else:
             self.unread_only = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
-        if "creator_id" in self._view.keys():
+        if "creator_id" in self._view:
             self.creator_id = self._view["creator_id"]
         else:
             self.creator_id = None
@@ -1497,12 +1497,12 @@ class ModBan(ParsableObject):
         self.id = self._view["id"]
         self.mod_person_id = self._view["mod_person_id"]
         self.other_person_id = self._view["other_person_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
         self.banned = self._view["banned"]
-        if "expires" in self._view.keys():
+        if "expires" in self._view:
             self.expires = self._view["expires"]
         else:
             self.expires = None
@@ -1523,7 +1523,7 @@ class Tagline(ParsableObject):
         self.local_site_id = self._view["local_site_id"]
         self.content = self._view["content"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -1539,7 +1539,7 @@ class RemoveComment(ParsableObject):
     def parse(self) -> None:
         self.comment_id = self._view["comment_id"]
         self.removed = self._view["removed"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -1563,7 +1563,7 @@ class MarkPostAsRead(ParsableObject):
     read: bool = None
 
     def parse(self) -> None:
-        self.post_ids = [int(e) for e in self._view["post_ids"]]
+        self.post_ids = [e0 for e0 in self._view["post_ids"]]
         self.read = self._view["read"]
 
 
@@ -1588,23 +1588,23 @@ class LinkMetadata(ParsableObject):
     content_type: Optional[str] = None
 
     def parse(self) -> None:
-        if "title" in self._view.keys():
+        if "title" in self._view:
             self.title = self._view["title"]
         else:
             self.title = None
-        if "description" in self._view.keys():
+        if "description" in self._view:
             self.description = self._view["description"]
         else:
             self.description = None
-        if "image" in self._view.keys():
+        if "image" in self._view:
             self.image = self._view["image"]
         else:
             self.image = None
-        if "embed_video_url" in self._view.keys():
+        if "embed_video_url" in self._view:
             self.embed_video_url = self._view["embed_video_url"]
         else:
             self.embed_video_url = None
-        if "content_type" in self._view.keys():
+        if "content_type" in self._view:
             self.content_type = self._view["content_type"]
         else:
             self.content_type = None
@@ -1632,7 +1632,7 @@ class PrivateMessage(ParsableObject):
         self.deleted = self._view["deleted"]
         self.read = self._view["read"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -1659,7 +1659,7 @@ class PurgeComment(ParsableObject):
 
     def parse(self) -> None:
         self.comment_id = self._view["comment_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -1681,31 +1681,31 @@ class CreatePost(ParsableObject):
     def parse(self) -> None:
         self.name = self._view["name"]
         self.community_id = self._view["community_id"]
-        if "url" in self._view.keys():
+        if "url" in self._view:
             self.url = self._view["url"]
         else:
             self.url = None
-        if "body" in self._view.keys():
+        if "body" in self._view:
             self.body = self._view["body"]
         else:
             self.body = None
-        if "alt_text" in self._view.keys():
+        if "alt_text" in self._view:
             self.alt_text = self._view["alt_text"]
         else:
             self.alt_text = None
-        if "honeypot" in self._view.keys():
+        if "honeypot" in self._view:
             self.honeypot = self._view["honeypot"]
         else:
             self.honeypot = None
-        if "nsfw" in self._view.keys():
+        if "nsfw" in self._view:
             self.nsfw = self._view["nsfw"]
         else:
             self.nsfw = None
-        if "language_id" in self._view.keys():
+        if "language_id" in self._view:
             self.language_id = self._view["language_id"]
         else:
             self.language_id = None
-        if "custom_thumbnail" in self._view.keys():
+        if "custom_thumbnail" in self._view:
             self.custom_thumbnail = self._view["custom_thumbnail"]
         else:
             self.custom_thumbnail = None
@@ -1725,7 +1725,7 @@ class CreateCustomEmoji(ParsableObject):
         self.shortcode = self._view["shortcode"]
         self.image_url = self._view["image_url"]
         self.alt_text = self._view["alt_text"]
-        self.keywords = [str(e) for e in self._view["keywords"]]
+        self.keywords = [e0 for e0 in self._view["keywords"]]
 
 
 class InstanceWithFederationState(ParsableObject):
@@ -1743,19 +1743,19 @@ class InstanceWithFederationState(ParsableObject):
         self.id = self._view["id"]
         self.domain = self._view["domain"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
-        if "software" in self._view.keys():
+        if "software" in self._view:
             self.software = self._view["software"]
         else:
             self.software = None
-        if "version" in self._view.keys():
+        if "version" in self._view:
             self.version = self._view["version"]
         else:
             self.version = None
-        if "federation_state" in self._view.keys():
+        if "federation_state" in self._view:
             self.federation_state = ReadableFederationState(self._view["federation_state"])
         else:
             self.federation_state = None
@@ -1797,7 +1797,7 @@ class LocalImage(ParsableObject):
     published: str = None
 
     def parse(self) -> None:
-        if "local_user_id" in self._view.keys():
+        if "local_user_id" in self._view:
             self.local_user_id = self._view["local_user_id"]
         else:
             self.local_user_id = None
@@ -1821,35 +1821,35 @@ class EditCommunity(ParsableObject):
 
     def parse(self) -> None:
         self.community_id = self._view["community_id"]
-        if "title" in self._view.keys():
+        if "title" in self._view:
             self.title = self._view["title"]
         else:
             self.title = None
-        if "description" in self._view.keys():
+        if "description" in self._view:
             self.description = self._view["description"]
         else:
             self.description = None
-        if "icon" in self._view.keys():
+        if "icon" in self._view:
             self.icon = self._view["icon"]
         else:
             self.icon = None
-        if "banner" in self._view.keys():
+        if "banner" in self._view:
             self.banner = self._view["banner"]
         else:
             self.banner = None
-        if "nsfw" in self._view.keys():
+        if "nsfw" in self._view:
             self.nsfw = self._view["nsfw"]
         else:
             self.nsfw = None
-        if "posting_restricted_to_mods" in self._view.keys():
+        if "posting_restricted_to_mods" in self._view:
             self.posting_restricted_to_mods = self._view["posting_restricted_to_mods"]
         else:
             self.posting_restricted_to_mods = None
-        if "discussion_languages" in self._view.keys():
-            self.discussion_languages = [int(e) for e in self._view["discussion_languages"]]
+        if "discussion_languages" in self._view:
+            self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
         else:
             self.discussion_languages = None
-        if "visibility" in self._view.keys():
+        if "visibility" in self._view:
             self.visibility = self._view["visibility"]
         else:
             self.visibility = None
@@ -1864,11 +1864,11 @@ class ListPostLikes(ParsableObject):
 
     def parse(self) -> None:
         self.post_id = self._view["post_id"]
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
@@ -1905,7 +1905,7 @@ class ModRemovePost(ParsableObject):
         self.id = self._view["id"]
         self.mod_person_id = self._view["mod_person_id"]
         self.post_id = self._view["post_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -1927,15 +1927,15 @@ class BanFromCommunity(ParsableObject):
         self.community_id = self._view["community_id"]
         self.person_id = self._view["person_id"]
         self.ban = self._view["ban"]
-        if "remove_data" in self._view.keys():
+        if "remove_data" in self._view:
             self.remove_data = self._view["remove_data"]
         else:
             self.remove_data = None
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
-        if "expires" in self._view.keys():
+        if "expires" in self._view:
             self.expires = self._view["expires"]
         else:
             self.expires = None
@@ -1962,7 +1962,7 @@ class RemovePost(ParsableObject):
     def parse(self) -> None:
         self.post_id = self._view["post_id"]
         self.removed = self._view["removed"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -2007,35 +2007,35 @@ class GetModlog(ParsableObject):
     comment_id: Optional[int] = None
 
     def parse(self) -> None:
-        if "mod_person_id" in self._view.keys():
+        if "mod_person_id" in self._view:
             self.mod_person_id = self._view["mod_person_id"]
         else:
             self.mod_person_id = None
-        if "community_id" in self._view.keys():
+        if "community_id" in self._view:
             self.community_id = self._view["community_id"]
         else:
             self.community_id = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
-        if "type_" in self._view.keys():
+        if "type_" in self._view:
             self.type_ = self._view["type_"]
         else:
             self.type_ = None
-        if "other_person_id" in self._view.keys():
+        if "other_person_id" in self._view:
             self.other_person_id = self._view["other_person_id"]
         else:
             self.other_person_id = None
-        if "post_id" in self._view.keys():
+        if "post_id" in self._view:
             self.post_id = self._view["post_id"]
         else:
             self.post_id = None
-        if "comment_id" in self._view.keys():
+        if "comment_id" in self._view:
             self.comment_id = self._view["comment_id"]
         else:
             self.comment_id = None
@@ -2075,119 +2075,119 @@ class SaveUserSettings(ParsableObject):
     show_upvote_percentage: Optional[bool] = None
 
     def parse(self) -> None:
-        if "show_nsfw" in self._view.keys():
+        if "show_nsfw" in self._view:
             self.show_nsfw = self._view["show_nsfw"]
         else:
             self.show_nsfw = None
-        if "blur_nsfw" in self._view.keys():
+        if "blur_nsfw" in self._view:
             self.blur_nsfw = self._view["blur_nsfw"]
         else:
             self.blur_nsfw = None
-        if "auto_expand" in self._view.keys():
+        if "auto_expand" in self._view:
             self.auto_expand = self._view["auto_expand"]
         else:
             self.auto_expand = None
-        if "theme" in self._view.keys():
+        if "theme" in self._view:
             self.theme = self._view["theme"]
         else:
             self.theme = None
-        if "default_sort_type" in self._view.keys():
+        if "default_sort_type" in self._view:
             self.default_sort_type = self._view["default_sort_type"]
         else:
             self.default_sort_type = None
-        if "default_listing_type" in self._view.keys():
+        if "default_listing_type" in self._view:
             self.default_listing_type = self._view["default_listing_type"]
         else:
             self.default_listing_type = None
-        if "interface_language" in self._view.keys():
+        if "interface_language" in self._view:
             self.interface_language = self._view["interface_language"]
         else:
             self.interface_language = None
-        if "avatar" in self._view.keys():
+        if "avatar" in self._view:
             self.avatar = self._view["avatar"]
         else:
             self.avatar = None
-        if "banner" in self._view.keys():
+        if "banner" in self._view:
             self.banner = self._view["banner"]
         else:
             self.banner = None
-        if "display_name" in self._view.keys():
+        if "display_name" in self._view:
             self.display_name = self._view["display_name"]
         else:
             self.display_name = None
-        if "email" in self._view.keys():
+        if "email" in self._view:
             self.email = self._view["email"]
         else:
             self.email = None
-        if "bio" in self._view.keys():
+        if "bio" in self._view:
             self.bio = self._view["bio"]
         else:
             self.bio = None
-        if "matrix_user_id" in self._view.keys():
+        if "matrix_user_id" in self._view:
             self.matrix_user_id = self._view["matrix_user_id"]
         else:
             self.matrix_user_id = None
-        if "show_avatars" in self._view.keys():
+        if "show_avatars" in self._view:
             self.show_avatars = self._view["show_avatars"]
         else:
             self.show_avatars = None
-        if "send_notifications_to_email" in self._view.keys():
+        if "send_notifications_to_email" in self._view:
             self.send_notifications_to_email = self._view["send_notifications_to_email"]
         else:
             self.send_notifications_to_email = None
-        if "bot_account" in self._view.keys():
+        if "bot_account" in self._view:
             self.bot_account = self._view["bot_account"]
         else:
             self.bot_account = None
-        if "show_bot_accounts" in self._view.keys():
+        if "show_bot_accounts" in self._view:
             self.show_bot_accounts = self._view["show_bot_accounts"]
         else:
             self.show_bot_accounts = None
-        if "show_read_posts" in self._view.keys():
+        if "show_read_posts" in self._view:
             self.show_read_posts = self._view["show_read_posts"]
         else:
             self.show_read_posts = None
-        if "discussion_languages" in self._view.keys():
-            self.discussion_languages = [int(e) for e in self._view["discussion_languages"]]
+        if "discussion_languages" in self._view:
+            self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
         else:
             self.discussion_languages = None
-        if "open_links_in_new_tab" in self._view.keys():
+        if "open_links_in_new_tab" in self._view:
             self.open_links_in_new_tab = self._view["open_links_in_new_tab"]
         else:
             self.open_links_in_new_tab = None
-        if "infinite_scroll_enabled" in self._view.keys():
+        if "infinite_scroll_enabled" in self._view:
             self.infinite_scroll_enabled = self._view["infinite_scroll_enabled"]
         else:
             self.infinite_scroll_enabled = None
-        if "post_listing_mode" in self._view.keys():
+        if "post_listing_mode" in self._view:
             self.post_listing_mode = self._view["post_listing_mode"]
         else:
             self.post_listing_mode = None
-        if "enable_keyboard_navigation" in self._view.keys():
+        if "enable_keyboard_navigation" in self._view:
             self.enable_keyboard_navigation = self._view["enable_keyboard_navigation"]
         else:
             self.enable_keyboard_navigation = None
-        if "enable_animated_images" in self._view.keys():
+        if "enable_animated_images" in self._view:
             self.enable_animated_images = self._view["enable_animated_images"]
         else:
             self.enable_animated_images = None
-        if "collapse_bot_comments" in self._view.keys():
+        if "collapse_bot_comments" in self._view:
             self.collapse_bot_comments = self._view["collapse_bot_comments"]
         else:
             self.collapse_bot_comments = None
-        if "show_scores" in self._view.keys():
+        if "show_scores" in self._view:
             self.show_scores = self._view["show_scores"]
         else:
             self.show_scores = None
-        if "show_upvotes" in self._view.keys():
+        if "show_upvotes" in self._view:
             self.show_upvotes = self._view["show_upvotes"]
         else:
             self.show_upvotes = None
-        if "show_downvotes" in self._view.keys():
+        if "show_downvotes" in self._view:
             self.show_downvotes = self._view["show_downvotes"]
         else:
             self.show_downvotes = None
-        if "show_upvote_percentage" in self._view.keys():
+        if "show_upvote_percentage" in self._view:
             self.show_upvote_percentage = self._view["show_upvote_percentage"]
         else:
             self.show_upvote_percentage = None
@@ -2240,7 +2240,7 @@ class LocalSiteRateLimit(ParsableObject):
         self.search = self._view["search"]
         self.search_per_second = self._view["search_per_second"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -2257,11 +2257,11 @@ class ListCommentLikes(ParsableObject):
 
     def parse(self) -> None:
         self.comment_id = self._view["comment_id"]
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
@@ -2285,11 +2285,11 @@ class ListMedia(ParsableObject):
     limit: Optional[int] = None
 
     def parse(self) -> None:
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
@@ -2333,20 +2333,20 @@ class LocalSite(ParsableObject):
         self.enable_nsfw = self._view["enable_nsfw"]
         self.community_creation_admin_only = self._view["community_creation_admin_only"]
         self.require_email_verification = self._view["require_email_verification"]
-        if "application_question" in self._view.keys():
+        if "application_question" in self._view:
             self.application_question = self._view["application_question"]
         else:
             self.application_question = None
         self.private_instance = self._view["private_instance"]
         self.default_theme = self._view["default_theme"]
         self.default_post_listing_type = self._view["default_post_listing_type"]
-        if "legal_information" in self._view.keys():
+        if "legal_information" in self._view:
             self.legal_information = self._view["legal_information"]
         else:
             self.legal_information = None
         self.hide_modlog_mod_names = self._view["hide_modlog_mod_names"]
         self.application_email_admins = self._view["application_email_admins"]
-        if "slur_filter_regex" in self._view.keys():
+        if "slur_filter_regex" in self._view:
             self.slur_filter_regex = self._view["slur_filter_regex"]
         else:
             self.slur_filter_regex = None
@@ -2355,7 +2355,7 @@ class LocalSite(ParsableObject):
         self.captcha_enabled = self._view["captcha_enabled"]
         self.captcha_difficulty = self._view["captcha_difficulty"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -2390,31 +2390,31 @@ class ModlogListParams(ParsableObject):
     hide_modlog_names: bool = None
 
     def parse(self) -> None:
-        if "community_id" in self._view.keys():
+        if "community_id" in self._view:
             self.community_id = self._view["community_id"]
         else:
             self.community_id = None
-        if "mod_person_id" in self._view.keys():
+        if "mod_person_id" in self._view:
             self.mod_person_id = self._view["mod_person_id"]
         else:
             self.mod_person_id = None
-        if "other_person_id" in self._view.keys():
+        if "other_person_id" in self._view:
             self.other_person_id = self._view["other_person_id"]
         else:
             self.other_person_id = None
-        if "post_id" in self._view.keys():
+        if "post_id" in self._view:
             self.post_id = self._view["post_id"]
         else:
             self.post_id = None
-        if "comment_id" in self._view.keys():
+        if "comment_id" in self._view:
             self.comment_id = self._view["comment_id"]
         else:
             self.comment_id = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
@@ -2435,7 +2435,7 @@ class ModRemoveComment(ParsableObject):
         self.id = self._view["id"]
         self.mod_person_id = self._view["mod_person_id"]
         self.comment_id = self._view["comment_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -2460,51 +2460,51 @@ class GetComments(ParsableObject):
     disliked_only: Optional[bool] = None
 
     def parse(self) -> None:
-        if "type_" in self._view.keys():
+        if "type_" in self._view:
             self.type_ = self._view["type_"]
         else:
             self.type_ = None
-        if "sort" in self._view.keys():
+        if "sort" in self._view:
             self.sort = self._view["sort"]
         else:
             self.sort = None
-        if "max_depth" in self._view.keys():
+        if "max_depth" in self._view:
             self.max_depth = self._view["max_depth"]
         else:
             self.max_depth = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
-        if "community_id" in self._view.keys():
+        if "community_id" in self._view:
             self.community_id = self._view["community_id"]
         else:
             self.community_id = None
-        if "community_name" in self._view.keys():
+        if "community_name" in self._view:
             self.community_name = self._view["community_name"]
         else:
             self.community_name = None
-        if "post_id" in self._view.keys():
+        if "post_id" in self._view:
             self.post_id = self._view["post_id"]
         else:
             self.post_id = None
-        if "parent_id" in self._view.keys():
+        if "parent_id" in self._view:
             self.parent_id = self._view["parent_id"]
         else:
             self.parent_id = None
-        if "saved_only" in self._view.keys():
+        if "saved_only" in self._view:
             self.saved_only = self._view["saved_only"]
         else:
             self.saved_only = None
-        if "liked_only" in self._view.keys():
+        if "liked_only" in self._view:
             self.liked_only = self._view["liked_only"]
         else:
             self.liked_only = None
-        if "disliked_only" in self._view.keys():
+        if "disliked_only" in self._view:
             self.disliked_only = self._view["disliked_only"]
         else:
             self.disliked_only = None
@@ -2527,12 +2527,12 @@ class ModBanFromCommunity(ParsableObject):
         self.mod_person_id = self._view["mod_person_id"]
         self.other_person_id = self._view["other_person_id"]
         self.community_id = self._view["community_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
         self.banned = self._view["banned"]
-        if "expires" in self._view.keys():
+        if "expires" in self._view:
             self.expires = self._view["expires"]
         else:
             self.expires = None
@@ -2557,11 +2557,11 @@ class GetCommunity(ParsableObject):
     name: Optional[str] = None
 
     def parse(self) -> None:
-        if "id" in self._view.keys():
+        if "id" in self._view:
             self.id = self._view["id"]
         else:
             self.id = None
-        if "name" in self._view.keys():
+        if "name" in self._view:
             self.name = self._view["name"]
         else:
             self.name = None
@@ -2587,12 +2587,12 @@ class PrivateMessageReport(ParsableObject):
         self.original_pm_text = self._view["original_pm_text"]
         self.reason = self._view["reason"]
         self.resolved = self._view["resolved"]
-        if "resolver_id" in self._view.keys():
+        if "resolver_id" in self._view:
             self.resolver_id = self._view["resolver_id"]
         else:
             self.resolver_id = None
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -2657,27 +2657,27 @@ class Register(ParsableObject):
         self.username = self._view["username"]
         self.password = self._view["password"]
         self.password_verify = self._view["password_verify"]
-        if "show_nsfw" in self._view.keys():
+        if "show_nsfw" in self._view:
             self.show_nsfw = self._view["show_nsfw"]
         else:
             self.show_nsfw = None
-        if "email" in self._view.keys():
+        if "email" in self._view:
             self.email = self._view["email"]
         else:
             self.email = None
-        if "captcha_uuid" in self._view.keys():
+        if "captcha_uuid" in self._view:
             self.captcha_uuid = self._view["captcha_uuid"]
         else:
             self.captcha_uuid = None
-        if "captcha_answer" in self._view.keys():
+        if "captcha_answer" in self._view:
             self.captcha_answer = self._view["captcha_answer"]
         else:
             self.captcha_answer = None
-        if "honeypot" in self._view.keys():
+        if "honeypot" in self._view:
             self.honeypot = self._view["honeypot"]
         else:
             self.honeypot = None
-        if "answer" in self._view.keys():
+        if "answer" in self._view:
             self.answer = self._view["answer"]
         else:
             self.answer = None
@@ -2691,9 +2691,9 @@ class FederatedInstances(ParsableObject):
     blocked: list[InstanceWithFederationState] = None
 
     def parse(self) -> None:
-        self.linked = [InstanceWithFederationState(e) for e in self._view["linked"]]
-        self.allowed = [InstanceWithFederationState(e) for e in self._view["allowed"]]
-        self.blocked = [InstanceWithFederationState(e) for e in self._view["blocked"]]
+        self.linked = [InstanceWithFederationState(e0) for e0 in self._view["linked"]]
+        self.allowed = [InstanceWithFederationState(e0) for e0 in self._view["allowed"]]
+        self.blocked = [InstanceWithFederationState(e0) for e0 in self._view["blocked"]]
 
 
 class DeleteAccount(ParsableObject):
@@ -2735,7 +2735,7 @@ class PurgeCommunity(ParsableObject):
 
     def parse(self) -> None:
         self.community_id = self._view["community_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -2792,37 +2792,37 @@ class Person(ParsableObject):
     def parse(self) -> None:
         self.id = self._view["id"]
         self.name = self._view["name"]
-        if "display_name" in self._view.keys():
+        if "display_name" in self._view:
             self.display_name = self._view["display_name"]
         else:
             self.display_name = None
-        if "avatar" in self._view.keys():
+        if "avatar" in self._view:
             self.avatar = self._view["avatar"]
         else:
             self.avatar = None
         self.banned = self._view["banned"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
         self.actor_id = self._view["actor_id"]
-        if "bio" in self._view.keys():
+        if "bio" in self._view:
             self.bio = self._view["bio"]
         else:
             self.bio = None
         self.local = self._view["local"]
-        if "banner" in self._view.keys():
+        if "banner" in self._view:
             self.banner = self._view["banner"]
         else:
             self.banner = None
         self.deleted = self._view["deleted"]
-        if "matrix_user_id" in self._view.keys():
+        if "matrix_user_id" in self._view:
             self.matrix_user_id = self._view["matrix_user_id"]
         else:
             self.matrix_user_id = None
         self.bot_account = self._view["bot_account"]
-        if "ban_expires" in self._view.keys():
+        if "ban_expires" in self._view:
             self.ban_expires = self._view["ban_expires"]
         else:
             self.ban_expires = None
@@ -2853,7 +2853,7 @@ class Comment(ParsableObject):
         self.content = self._view["content"]
         self.removed = self._view["removed"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -2874,19 +2874,19 @@ class OpenGraphData(ParsableObject):
     embed_video_url: Optional[str] = None
 
     def parse(self) -> None:
-        if "title" in self._view.keys():
+        if "title" in self._view:
             self.title = self._view["title"]
         else:
             self.title = None
-        if "description" in self._view.keys():
+        if "description" in self._view:
             self.description = self._view["description"]
         else:
             self.description = None
-        if "image" in self._view.keys():
+        if "image" in self._view:
             self.image = self._view["image"]
         else:
             self.image = None
-        if "embed_video_url" in self._view.keys():
+        if "embed_video_url" in self._view:
             self.embed_video_url = self._view["embed_video_url"]
         else:
             self.embed_video_url = None
@@ -2900,7 +2900,7 @@ class PurgePerson(ParsableObject):
 
     def parse(self) -> None:
         self.person_id = self._view["person_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -2930,7 +2930,7 @@ class AdminPurgePost(ParsableObject):
         self.id = self._view["id"]
         self.admin_person_id = self._view["admin_person_id"]
         self.community_id = self._view["community_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
@@ -2959,11 +2959,11 @@ class CreateComment(ParsableObject):
     def parse(self) -> None:
         self.content = self._view["content"]
         self.post_id = self._view["post_id"]
-        if "parent_id" in self._view.keys():
+        if "parent_id" in self._view:
             self.parent_id = self._view["parent_id"]
         else:
             self.parent_id = None
-        if "language_id" in self._view.keys():
+        if "language_id" in self._view:
             self.language_id = self._view["language_id"]
         else:
             self.language_id = None
@@ -2977,15 +2977,15 @@ class ListRegistrationApplications(ParsableObject):
     limit: Optional[int] = None
 
     def parse(self) -> None:
-        if "unread_only" in self._view.keys():
+        if "unread_only" in self._view:
             self.unread_only = self._view["unread_only"]
         else:
             self.unread_only = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
@@ -3022,12 +3022,12 @@ class CommentReport(ParsableObject):
         self.original_comment_text = self._view["original_comment_text"]
         self.reason = self._view["reason"]
         self.resolved = self._view["resolved"]
-        if "resolver_id" in self._view.keys():
+        if "resolver_id" in self._view:
             self.resolver_id = self._view["resolver_id"]
         else:
             self.resolver_id = None
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
@@ -3054,15 +3054,15 @@ class BanPerson(ParsableObject):
     def parse(self) -> None:
         self.person_id = self._view["person_id"]
         self.ban = self._view["ban"]
-        if "remove_data" in self._view.keys():
+        if "remove_data" in self._view:
             self.remove_data = self._view["remove_data"]
         else:
             self.remove_data = None
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None
-        if "expires" in self._view.keys():
+        if "expires" in self._view:
             self.expires = self._view["expires"]
         else:
             self.expires = None
@@ -3078,23 +3078,23 @@ class ListCommentReports(ParsableObject):
     community_id: Optional[int] = None
 
     def parse(self) -> None:
-        if "comment_id" in self._view.keys():
+        if "comment_id" in self._view:
             self.comment_id = self._view["comment_id"]
         else:
             self.comment_id = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
-        if "unresolved_only" in self._view.keys():
+        if "unresolved_only" in self._view:
             self.unresolved_only = self._view["unresolved_only"]
         else:
             self.unresolved_only = None
-        if "community_id" in self._view.keys():
+        if "community_id" in self._view:
             self.community_id = self._view["community_id"]
         else:
             self.community_id = None
@@ -3166,179 +3166,179 @@ class EditSite(ParsableObject):
     default_post_listing_mode: Optional[str] = None
 
     def parse(self) -> None:
-        if "name" in self._view.keys():
+        if "name" in self._view:
             self.name = self._view["name"]
         else:
             self.name = None
-        if "sidebar" in self._view.keys():
+        if "sidebar" in self._view:
             self.sidebar = self._view["sidebar"]
         else:
             self.sidebar = None
-        if "description" in self._view.keys():
+        if "description" in self._view:
             self.description = self._view["description"]
         else:
             self.description = None
-        if "icon" in self._view.keys():
+        if "icon" in self._view:
             self.icon = self._view["icon"]
         else:
             self.icon = None
-        if "banner" in self._view.keys():
+        if "banner" in self._view:
             self.banner = self._view["banner"]
         else:
             self.banner = None
-        if "enable_downvotes" in self._view.keys():
+        if "enable_downvotes" in self._view:
             self.enable_downvotes = self._view["enable_downvotes"]
         else:
             self.enable_downvotes = None
-        if "enable_nsfw" in self._view.keys():
+        if "enable_nsfw" in self._view:
             self.enable_nsfw = self._view["enable_nsfw"]
         else:
             self.enable_nsfw = None
-        if "community_creation_admin_only" in self._view.keys():
+        if "community_creation_admin_only" in self._view:
             self.community_creation_admin_only = self._view["community_creation_admin_only"]
         else:
             self.community_creation_admin_only = None
-        if "require_email_verification" in self._view.keys():
+        if "require_email_verification" in self._view:
             self.require_email_verification = self._view["require_email_verification"]
         else:
             self.require_email_verification = None
-        if "application_question" in self._view.keys():
+        if "application_question" in self._view:
             self.application_question = self._view["application_question"]
         else:
             self.application_question = None
-        if "private_instance" in self._view.keys():
+        if "private_instance" in self._view:
             self.private_instance = self._view["private_instance"]
         else:
             self.private_instance = None
-        if "default_theme" in self._view.keys():
+        if "default_theme" in self._view:
             self.default_theme = self._view["default_theme"]
         else:
             self.default_theme = None
-        if "default_post_listing_type" in self._view.keys():
+        if "default_post_listing_type" in self._view:
             self.default_post_listing_type = self._view["default_post_listing_type"]
         else:
             self.default_post_listing_type = None
-        if "default_sort_type" in self._view.keys():
+        if "default_sort_type" in self._view:
             self.default_sort_type = self._view["default_sort_type"]
         else:
             self.default_sort_type = None
-        if "legal_information" in self._view.keys():
+        if "legal_information" in self._view:
             self.legal_information = self._view["legal_information"]
         else:
             self.legal_information = None
-        if "application_email_admins" in self._view.keys():
+        if "application_email_admins" in self._view:
             self.application_email_admins = self._view["application_email_admins"]
         else:
             self.application_email_admins = None
-        if "hide_modlog_mod_names" in self._view.keys():
+        if "hide_modlog_mod_names" in self._view:
             self.hide_modlog_mod_names = self._view["hide_modlog_mod_names"]
         else:
             self.hide_modlog_mod_names = None
-        if "discussion_languages" in self._view.keys():
-            self.discussion_languages = [int(e) for e in self._view["discussion_languages"]]
+        if "discussion_languages" in self._view:
+            self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
         else:
             self.discussion_languages = None
-        if "slur_filter_regex" in self._view.keys():
+        if "slur_filter_regex" in self._view:
             self.slur_filter_regex = self._view["slur_filter_regex"]
         else:
             self.slur_filter_regex = None
-        if "actor_name_max_length" in self._view.keys():
+        if "actor_name_max_length" in self._view:
             self.actor_name_max_length = self._view["actor_name_max_length"]
         else:
             self.actor_name_max_length = None
-        if "rate_limit_message" in self._view.keys():
+        if "rate_limit_message" in self._view:
             self.rate_limit_message = self._view["rate_limit_message"]
         else:
             self.rate_limit_message = None
-        if "rate_limit_message_per_second" in self._view.keys():
+        if "rate_limit_message_per_second" in self._view:
             self.rate_limit_message_per_second = self._view["rate_limit_message_per_second"]
         else:
             self.rate_limit_message_per_second = None
-        if "rate_limit_post" in self._view.keys():
+        if "rate_limit_post" in self._view:
             self.rate_limit_post = self._view["rate_limit_post"]
         else:
             self.rate_limit_post = None
-        if "rate_limit_post_per_second" in self._view.keys():
+        if "rate_limit_post_per_second" in self._view:
             self.rate_limit_post_per_second = self._view["rate_limit_post_per_second"]
         else:
             self.rate_limit_post_per_second = None
-        if "rate_limit_register" in self._view.keys():
+        if "rate_limit_register" in self._view:
             self.rate_limit_register = self._view["rate_limit_register"]
         else:
             self.rate_limit_register = None
-        if "rate_limit_register_per_second" in self._view.keys():
+        if "rate_limit_register_per_second" in self._view:
             self.rate_limit_register_per_second = self._view["rate_limit_register_per_second"]
         else:
             self.rate_limit_register_per_second = None
-        if "rate_limit_image" in self._view.keys():
+        if "rate_limit_image" in self._view:
             self.rate_limit_image = self._view["rate_limit_image"]
         else:
             self.rate_limit_image = None
-        if "rate_limit_image_per_second" in self._view.keys():
+        if "rate_limit_image_per_second" in self._view:
             self.rate_limit_image_per_second = self._view["rate_limit_image_per_second"]
         else:
             self.rate_limit_image_per_second = None
-        if "rate_limit_comment" in self._view.keys():
+        if "rate_limit_comment" in self._view:
             self.rate_limit_comment = self._view["rate_limit_comment"]
         else:
             self.rate_limit_comment = None
-        if "rate_limit_comment_per_second" in self._view.keys():
+        if "rate_limit_comment_per_second" in self._view:
             self.rate_limit_comment_per_second = self._view["rate_limit_comment_per_second"]
         else:
             self.rate_limit_comment_per_second = None
-        if "rate_limit_search" in self._view.keys():
+        if "rate_limit_search" in self._view:
             self.rate_limit_search = self._view["rate_limit_search"]
         else:
             self.rate_limit_search = None
-        if "rate_limit_search_per_second" in self._view.keys():
+        if "rate_limit_search_per_second" in self._view:
             self.rate_limit_search_per_second = self._view["rate_limit_search_per_second"]
         else:
             self.rate_limit_search_per_second = None
-        if "federation_enabled" in self._view.keys():
+        if "federation_enabled" in self._view:
             self.federation_enabled = self._view["federation_enabled"]
         else:
             self.federation_enabled = None
-        if "federation_debug" in self._view.keys():
+        if "federation_debug" in self._view:
             self.federation_debug = self._view["federation_debug"]
         else:
             self.federation_debug = None
-        if "captcha_enabled" in self._view.keys():
+        if "captcha_enabled" in self._view:
             self.captcha_enabled = self._view["captcha_enabled"]
         else:
             self.captcha_enabled = None
-        if "captcha_difficulty" in self._view.keys():
+        if "captcha_difficulty" in self._view:
             self.captcha_difficulty = self._view["captcha_difficulty"]
         else:
             self.captcha_difficulty = None
-        if "allowed_instances" in self._view.keys():
-            self.allowed_instances = [str(e) for e in self._view["allowed_instances"]]
+        if "allowed_instances" in self._view:
+            self.allowed_instances = [e0 for e0 in self._view["allowed_instances"]]
         else:
             self.allowed_instances = None
-        if "blocked_instances" in self._view.keys():
-            self.blocked_instances = [str(e) for e in self._view["blocked_instances"]]
+        if "blocked_instances" in self._view:
+            self.blocked_instances = [e0 for e0 in self._view["blocked_instances"]]
         else:
             self.blocked_instances = None
-        if "blocked_urls" in self._view.keys():
-            self.blocked_urls = [str(e) for e in self._view["blocked_urls"]]
+        if "blocked_urls" in self._view:
+            self.blocked_urls = [e0 for e0 in self._view["blocked_urls"]]
         else:
             self.blocked_urls = None
-        if "taglines" in self._view.keys():
-            self.taglines = [str(e) for e in self._view["taglines"]]
+        if "taglines" in self._view:
+            self.taglines = [e0 for e0 in self._view["taglines"]]
         else:
             self.taglines = None
-        if "registration_mode" in self._view.keys():
+        if "registration_mode" in self._view:
             self.registration_mode = self._view["registration_mode"]
         else:
             self.registration_mode = None
-        if "reports_email_admins" in self._view.keys():
+        if "reports_email_admins" in self._view:
             self.reports_email_admins = self._view["reports_email_admins"]
         else:
             self.reports_email_admins = None
-        if "content_warning" in self._view.keys():
+        if "content_warning" in self._view:
             self.content_warning = self._view["content_warning"]
         else:
             self.content_warning = None
-        if "default_post_listing_mode" in self._view.keys():
+        if "default_post_listing_mode" in self._view:
             self.default_post_listing_mode = self._view["default_post_listing_mode"]
         else:
             self.default_post_listing_mode = None
@@ -3358,15 +3358,15 @@ class Instance(ParsableObject):
         self.id = self._view["id"]
         self.domain = self._view["domain"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
-        if "software" in self._view.keys():
+        if "software" in self._view:
             self.software = self._view["software"]
         else:
             self.software = None
-        if "version" in self._view.keys():
+        if "version" in self._view:
             self.version = self._view["version"]
         else:
             self.version = None
@@ -3402,11 +3402,11 @@ class Post(ParsableObject):
     def parse(self) -> None:
         self.id = self._view["id"]
         self.name = self._view["name"]
-        if "url" in self._view.keys():
+        if "url" in self._view:
             self.url = self._view["url"]
         else:
             self.url = None
-        if "body" in self._view.keys():
+        if "body" in self._view:
             self.body = self._view["body"]
         else:
             self.body = None
@@ -3415,38 +3415,38 @@ class Post(ParsableObject):
         self.removed = self._view["removed"]
         self.locked = self._view["locked"]
         self.published = self._view["published"]
-        if "updated" in self._view.keys():
+        if "updated" in self._view:
             self.updated = self._view["updated"]
         else:
             self.updated = None
         self.deleted = self._view["deleted"]
         self.nsfw = self._view["nsfw"]
-        if "embed_title" in self._view.keys():
+        if "embed_title" in self._view:
             self.embed_title = self._view["embed_title"]
         else:
             self.embed_title = None
-        if "embed_description" in self._view.keys():
+        if "embed_description" in self._view:
             self.embed_description = self._view["embed_description"]
         else:
             self.embed_description = None
-        if "thumbnail_url" in self._view.keys():
+        if "thumbnail_url" in self._view:
             self.thumbnail_url = self._view["thumbnail_url"]
         else:
             self.thumbnail_url = None
         self.ap_id = self._view["ap_id"]
         self.local = self._view["local"]
-        if "embed_video_url" in self._view.keys():
+        if "embed_video_url" in self._view:
             self.embed_video_url = self._view["embed_video_url"]
         else:
             self.embed_video_url = None
         self.language_id = self._view["language_id"]
         self.featured_community = self._view["featured_community"]
         self.featured_local = self._view["featured_local"]
-        if "url_content_type" in self._view.keys():
+        if "url_content_type" in self._view:
             self.url_content_type = self._view["url_content_type"]
         else:
             self.url_content_type = None
-        if "alt_text" in self._view.keys():
+        if "alt_text" in self._view:
             self.alt_text = self._view["alt_text"]
         else:
             self.alt_text = None
@@ -3470,55 +3470,55 @@ class GetPosts(ParsableObject):
     page_cursor: Optional[str] = None
 
     def parse(self) -> None:
-        if "type_" in self._view.keys():
+        if "type_" in self._view:
             self.type_ = self._view["type_"]
         else:
             self.type_ = None
-        if "sort" in self._view.keys():
+        if "sort" in self._view:
             self.sort = self._view["sort"]
         else:
             self.sort = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
-        if "community_id" in self._view.keys():
+        if "community_id" in self._view:
             self.community_id = self._view["community_id"]
         else:
             self.community_id = None
-        if "community_name" in self._view.keys():
+        if "community_name" in self._view:
             self.community_name = self._view["community_name"]
         else:
             self.community_name = None
-        if "saved_only" in self._view.keys():
+        if "saved_only" in self._view:
             self.saved_only = self._view["saved_only"]
         else:
             self.saved_only = None
-        if "liked_only" in self._view.keys():
+        if "liked_only" in self._view:
             self.liked_only = self._view["liked_only"]
         else:
             self.liked_only = None
-        if "disliked_only" in self._view.keys():
+        if "disliked_only" in self._view:
             self.disliked_only = self._view["disliked_only"]
         else:
             self.disliked_only = None
-        if "show_hidden" in self._view.keys():
+        if "show_hidden" in self._view:
             self.show_hidden = self._view["show_hidden"]
         else:
             self.show_hidden = None
-        if "show_read" in self._view.keys():
+        if "show_read" in self._view:
             self.show_read = self._view["show_read"]
         else:
             self.show_read = None
-        if "show_nsfw" in self._view.keys():
+        if "show_nsfw" in self._view:
             self.show_nsfw = self._view["show_nsfw"]
         else:
             self.show_nsfw = None
-        if "page_cursor" in self._view.keys():
+        if "page_cursor" in self._view:
             self.page_cursor = self._view["page_cursor"]
         else:
             self.page_cursor = None
@@ -3542,19 +3542,19 @@ class GetReplies(ParsableObject):
     unread_only: Optional[bool] = None
 
     def parse(self) -> None:
-        if "sort" in self._view.keys():
+        if "sort" in self._view:
             self.sort = self._view["sort"]
         else:
             self.sort = None
-        if "page" in self._view.keys():
+        if "page" in self._view:
             self.page = self._view["page"]
         else:
             self.page = None
-        if "limit" in self._view.keys():
+        if "limit" in self._view:
             self.limit = self._view["limit"]
         else:
             self.limit = None
-        if "unread_only" in self._view.keys():
+        if "unread_only" in self._view:
             self.unread_only = self._view["unread_only"]
         else:
             self.unread_only = None
@@ -3571,7 +3571,7 @@ class AdminPurgePerson(ParsableObject):
     def parse(self) -> None:
         self.id = self._view["id"]
         self.admin_person_id = self._view["admin_person_id"]
-        if "reason" in self._view.keys():
+        if "reason" in self._view:
             self.reason = self._view["reason"]
         else:
             self.reason = None

@@ -53,7 +53,7 @@ class CommentReplyView(ParsableObject):
         self.subscribed = self._view["subscribed"]
         self.saved = self._view["saved"]
         self.creator_blocked = self._view["creator_blocked"]
-        if "my_vote" in self._view.keys():
+        if "my_vote" in self._view:
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
@@ -97,7 +97,7 @@ class PrivateMessageReportView(ParsableObject):
         self.private_message = PrivateMessage(self._view["private_message"])
         self.private_message_creator = Person(self._view["private_message_creator"])
         self.creator = Person(self._view["creator"])
-        if "resolver" in self._view.keys():
+        if "resolver" in self._view:
             self.resolver = Person(self._view["resolver"])
         else:
             self.resolver = None
@@ -112,7 +112,7 @@ class ModAddView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_add = ModAdd(self._view["mod_add"])
-        if "moderator" in self._view.keys():
+        if "moderator" in self._view:
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
@@ -141,7 +141,7 @@ class ModBanView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_ban = ModBan(self._view["mod_ban"])
-        if "moderator" in self._view.keys():
+        if "moderator" in self._view:
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
@@ -160,7 +160,7 @@ class RegistrationApplicationView(ParsableObject):
         self.registration_application = RegistrationApplication(self._view["registration_application"])
         self.creator_local_user = LocalUser(self._view["creator_local_user"])
         self.creator = Person(self._view["creator"])
-        if "admin" in self._view.keys():
+        if "admin" in self._view:
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
@@ -187,7 +187,7 @@ class ModBanFromCommunityView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_ban_from_community = ModBanFromCommunity(self._view["mod_ban_from_community"])
-        if "moderator" in self._view.keys():
+        if "moderator" in self._view:
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
@@ -219,7 +219,7 @@ class PostView(ParsableObject):
         self.post = Post(self._view["post"])
         self.creator = Person(self._view["creator"])
         self.community = Community(self._view["community"])
-        if "image_details" in self._view.keys():
+        if "image_details" in self._view:
             self.image_details = ImageDetails(self._view["image_details"])
         else:
             self.image_details = None
@@ -233,7 +233,7 @@ class PostView(ParsableObject):
         self.read = self._view["read"]
         self.hidden = self._view["hidden"]
         self.creator_blocked = self._view["creator_blocked"]
-        if "my_vote" in self._view.keys():
+        if "my_vote" in self._view:
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
@@ -250,7 +250,7 @@ class InstanceBlockView(ParsableObject):
     def parse(self) -> None:
         self.person = Person(self._view["person"])
         self.instance = Instance(self._view["instance"])
-        if "site" in self._view.keys():
+        if "site" in self._view:
             self.site = Site(self._view["site"])
         else:
             self.site = None
@@ -265,7 +265,7 @@ class ModRemoveCommunityView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_remove_community = ModRemoveCommunity(self._view["mod_remove_community"])
-        if "moderator" in self._view.keys():
+        if "moderator" in self._view:
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
@@ -281,7 +281,7 @@ class ModHideCommunityView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_hide_community = ModHideCommunity(self._view["mod_hide_community"])
-        if "admin" in self._view.keys():
+        if "admin" in self._view:
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
@@ -300,7 +300,7 @@ class ModRemoveCommentView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_remove_comment = ModRemoveComment(self._view["mod_remove_comment"])
-        if "moderator" in self._view.keys():
+        if "moderator" in self._view:
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
@@ -319,7 +319,7 @@ class AdminPurgeCommentView(ParsableObject):
 
     def parse(self) -> None:
         self.admin_purge_comment = AdminPurgeComment(self._view["admin_purge_comment"])
-        if "admin" in self._view.keys():
+        if "admin" in self._view:
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
@@ -336,7 +336,7 @@ class ModAddCommunityView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_add_community = ModAddCommunity(self._view["mod_add_community"])
-        if "moderator" in self._view.keys():
+        if "moderator" in self._view:
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
@@ -376,7 +376,7 @@ class ModFeaturePostView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_feature_post = ModFeaturePost(self._view["mod_feature_post"])
-        if "moderator" in self._view.keys():
+        if "moderator" in self._view:
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
@@ -422,7 +422,7 @@ class ModLockPostView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_lock_post = ModLockPost(self._view["mod_lock_post"])
-        if "moderator" in self._view.keys():
+        if "moderator" in self._view:
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
@@ -443,12 +443,12 @@ class MyUserInfo(ParsableObject):
 
     def parse(self) -> None:
         self.local_user_view = LocalUserView(self._view["local_user_view"])
-        self.follows = [CommunityFollowerView(e) for e in self._view["follows"]]
-        self.moderates = [CommunityModeratorView(e) for e in self._view["moderates"]]
-        self.community_blocks = [CommunityBlockView(e) for e in self._view["community_blocks"]]
-        self.instance_blocks = [InstanceBlockView(e) for e in self._view["instance_blocks"]]
-        self.person_blocks = [PersonBlockView(e) for e in self._view["person_blocks"]]
-        self.discussion_languages = [int(e) for e in self._view["discussion_languages"]]
+        self.follows = [CommunityFollowerView(e0) for e0 in self._view["follows"]]
+        self.moderates = [CommunityModeratorView(e0) for e0 in self._view["moderates"]]
+        self.community_blocks = [CommunityBlockView(e0) for e0 in self._view["community_blocks"]]
+        self.instance_blocks = [InstanceBlockView(e0) for e0 in self._view["instance_blocks"]]
+        self.person_blocks = [PersonBlockView(e0) for e0 in self._view["person_blocks"]]
+        self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
 
 
 class AdminPurgePersonView(ParsableObject):
@@ -459,7 +459,7 @@ class AdminPurgePersonView(ParsableObject):
 
     def parse(self) -> None:
         self.admin_purge_person = AdminPurgePerson(self._view["admin_purge_person"])
-        if "admin" in self._view.keys():
+        if "admin" in self._view:
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
@@ -498,11 +498,11 @@ class CommentReportView(ParsableObject):
         self.creator_blocked = self._view["creator_blocked"]
         self.subscribed = self._view["subscribed"]
         self.saved = self._view["saved"]
-        if "my_vote" in self._view.keys():
+        if "my_vote" in self._view:
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
-        if "resolver" in self._view.keys():
+        if "resolver" in self._view:
             self.resolver = Person(self._view["resolver"])
         else:
             self.resolver = None
@@ -518,7 +518,7 @@ class ModRemovePostView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_remove_post = ModRemovePost(self._view["mod_remove_post"])
-        if "moderator" in self._view.keys():
+        if "moderator" in self._view:
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
@@ -551,7 +551,7 @@ class AdminPurgeCommunityView(ParsableObject):
 
     def parse(self) -> None:
         self.admin_purge_community = AdminPurgeCommunity(self._view["admin_purge_community"])
-        if "admin" in self._view.keys():
+        if "admin" in self._view:
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
@@ -566,7 +566,7 @@ class AdminPurgePostView(ParsableObject):
 
     def parse(self) -> None:
         self.admin_purge_post = AdminPurgePost(self._view["admin_purge_post"])
-        if "admin" in self._view.keys():
+        if "admin" in self._view:
             self.admin = Person(self._view["admin"])
         else:
             self.admin = None
@@ -583,7 +583,7 @@ class ModTransferCommunityView(ParsableObject):
 
     def parse(self) -> None:
         self.mod_transfer_community = ModTransferCommunity(self._view["mod_transfer_community"])
-        if "moderator" in self._view.keys():
+        if "moderator" in self._view:
             self.moderator = Person(self._view["moderator"])
         else:
             self.moderator = None
@@ -636,7 +636,7 @@ class PersonMentionView(ParsableObject):
         self.subscribed = self._view["subscribed"]
         self.saved = self._view["saved"]
         self.creator_blocked = self._view["creator_blocked"]
-        if "my_vote" in self._view.keys():
+        if "my_vote" in self._view:
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
@@ -650,7 +650,7 @@ class CustomEmojiView(ParsableObject):
 
     def parse(self) -> None:
         self.custom_emoji = CustomEmoji(self._view["custom_emoji"])
-        self.keywords = [CustomEmojiKeyword(e) for e in self._view["keywords"]]
+        self.keywords = [CustomEmojiKeyword(e0) for e0 in self._view["keywords"]]
 
 
 class CommentView(ParsableObject):
@@ -683,7 +683,7 @@ class CommentView(ParsableObject):
         self.subscribed = self._view["subscribed"]
         self.saved = self._view["saved"]
         self.creator_blocked = self._view["creator_blocked"]
-        if "my_vote" in self._view.keys():
+        if "my_vote" in self._view:
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
@@ -724,13 +724,13 @@ class PostReportView(ParsableObject):
         self.read = self._view["read"]
         self.hidden = self._view["hidden"]
         self.creator_blocked = self._view["creator_blocked"]
-        if "my_vote" in self._view.keys():
+        if "my_vote" in self._view:
             self.my_vote = self._view["my_vote"]
         else:
             self.my_vote = None
         self.unread_comments = self._view["unread_comments"]
         self.counts = PostAggregates(self._view["counts"])
-        if "resolver" in self._view.keys():
+        if "resolver" in self._view:
             self.resolver = Person(self._view["resolver"])
         else:
             self.resolver = None

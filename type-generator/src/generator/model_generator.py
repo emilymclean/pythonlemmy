@@ -1,6 +1,6 @@
 import textwrap
 from datetime import datetime, timezone
-from typing import List
+from typing import List, Optional
 
 from ..models import Property, ClassType
 
@@ -26,6 +26,37 @@ class Generator:
                     """.strip())
 
         return "\n".join(lines)
+
+    def _i_property_handler(self, pname: str, ptype: str, depth: int = 0) -> str:
+        line = ""
+        if ptype in ["bool", "str", "int", "float"]:
+            line = f"""
+{pname}
+                        """.strip()
+        elif ptype.startswith("list"):
+            inner = ptype[len("list["):-1]
+            line = f"""
+[{self._i_property_handler(f"e{depth}", inner, depth+1)} for e{depth} in {pname}]
+                    """.strip()
+        else:
+            line = f"""
+{ptype}({pname})
+                        """.strip()
+
+        return line
+
+    def _property_handler(self, prop: Property, source_name: str) -> str:
+        line = self._i_property_handler(f"{source_name}[\"{prop.api_name}\"]", prop.type)
+
+        if not prop.nullable:
+            return f"self.{prop.api_name} = {line}"
+
+        return f"""
+if "{prop.api_name}" in {source_name}:
+    self.{prop.api_name} = {line}
+else:
+    self.{prop.api_name} = None        
+                        """.strip()
 
 
 class ModelGenerator(Generator):
@@ -79,31 +110,7 @@ class {self._class_name}(object):
     def _generate_constructor(self) -> str:
         lines = []
         for prop in self._properties:
-            line = ""
-            if prop.type in ["bool", "str", "int", "float"]:
-                line = f"""
-self.{prop.api_name} = response["{prop.api_name}"]
-                """.strip()
-            elif prop.type.startswith("list"):
-                inner = prop.type[len("list["):-1]
-                line = f"""
-self.{prop.api_name} = [{inner}(e) for e in response["{prop.api_name}"]]
-                """.strip()
-            else:
-                line = f"""
-self.{prop.api_name} = {prop.type}(response["{prop.api_name}"])
-                """.strip()
-
-            if not prop.nullable:
-                lines.append(line)
-                continue
-
-            lines.append(f"""
-if "{prop.api_name}" in response:
-{textwrap.indent(line, self._indent_char)}
-else:
-    self.{prop.api_name} = None        
-            """.strip())
+            lines.append(self._property_handler(prop, 'response'))
 
         return "\n".join(lines)
 
@@ -128,29 +135,6 @@ class {self._class_name}(ParsableObject):
     def _generate_parse(self) -> str:
         lines = []
         for prop in self._properties:
-            line = ""
-            if prop.type in ["bool", "str", "int", "float"]:
-                line = f"""
-self.{prop.api_name} = self._view["{prop.api_name}"]
-                """.strip()
-            elif prop.type.startswith("list"):
-                inner = prop.type[len("list["):-1]
-                line = f"""
-self.{prop.api_name} = [{inner}(e) for e in self._view["{prop.api_name}"]]
-                """.strip()
-            else:
-                line = f"""
-self.{prop.api_name} = {prop.type}(self._view["{prop.api_name}"])
-                """.strip()
-            if not prop.nullable and not self.check_all:
-                lines.append(line)
-                continue
-
-            lines.append(f"""
-if "{prop.api_name}" in self._view.keys():
-{textwrap.indent(line, self._indent_char)}
-else:
-    self.{prop.api_name} = None      
-""".strip())
+            lines.append(self._property_handler(prop, 'self._view'))
 
         return "\n".join(lines)

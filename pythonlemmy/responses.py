@@ -26,7 +26,7 @@ class BannedPersonsResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.banned = [PersonView(e) for e in response["banned"]]
+        self.banned = [PersonView(e0) for e0 in response["banned"]]
 
 
 class ListMediaResponse(object):
@@ -36,7 +36,7 @@ class ListMediaResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.images = [LocalImageView(e) for e in response["images"]]
+        self.images = [LocalImageView(e0) for e0 in response["images"]]
 
 
 class UpdateTotpResponse(object):
@@ -74,8 +74,8 @@ class GetCommunityResponse(object):
             self.site = Site(response["site"])
         else:
             self.site = None
-        self.moderators = [CommunityModeratorView(e) for e in response["moderators"]]
-        self.discussion_languages = [int(e) for e in response["discussion_languages"]]
+        self.moderators = [CommunityModeratorView(e0) for e0 in response["moderators"]]
+        self.discussion_languages = [e0 for e0 in response["discussion_languages"]]
 
 
 class GetPostsResponse(object):
@@ -86,7 +86,7 @@ class GetPostsResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.posts = [PostView(e) for e in response["posts"]]
+        self.posts = [PostView(e0) for e0 in response["posts"]]
         if "next_page" in response:
             self.next_page = response["next_page"]
         else:
@@ -102,7 +102,7 @@ class CommunityResponse(object):
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
         self.community_view = CommunityView(response["community_view"])
-        self.discussion_languages = [int(e) for e in response["discussion_languages"]]
+        self.discussion_languages = [e0 for e0 in response["discussion_languages"]]
 
 
 class GetCommentsResponse(object):
@@ -112,7 +112,7 @@ class GetCommentsResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.comments = [CommentView(e) for e in response["comments"]]
+        self.comments = [CommentView(e0) for e0 in response["comments"]]
 
 
 class SearchResponse(object):
@@ -127,10 +127,10 @@ class SearchResponse(object):
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
         self.type_ = response["type_"]
-        self.comments = [CommentView(e) for e in response["comments"]]
-        self.posts = [PostView(e) for e in response["posts"]]
-        self.communities = [CommunityView(e) for e in response["communities"]]
-        self.users = [PersonView(e) for e in response["users"]]
+        self.comments = [CommentView(e0) for e0 in response["comments"]]
+        self.posts = [PostView(e0) for e0 in response["posts"]]
+        self.communities = [CommunityView(e0) for e0 in response["communities"]]
+        self.users = [PersonView(e0) for e0 in response["users"]]
 
 
 class PrivateMessageResponse(object):
@@ -150,7 +150,7 @@ class AddModToCommunityResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.moderators = [CommunityModeratorView(e) for e in response["moderators"]]
+        self.moderators = [CommunityModeratorView(e0) for e0 in response["moderators"]]
 
 
 class GetReportCountResponse(object):
@@ -211,17 +211,17 @@ class GetSiteResponse(object):
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
         self.site_view = SiteView(response["site_view"])
-        self.admins = [PersonView(e) for e in response["admins"]]
+        self.admins = [PersonView(e0) for e0 in response["admins"]]
         self.version = response["version"]
         if "my_user" in response:
             self.my_user = MyUserInfo(response["my_user"])
         else:
             self.my_user = None
-        self.all_languages = [Language(e) for e in response["all_languages"]]
-        self.discussion_languages = [int(e) for e in response["discussion_languages"]]
-        self.taglines = [Tagline(e) for e in response["taglines"]]
-        self.custom_emojis = [CustomEmojiView(e) for e in response["custom_emojis"]]
-        self.blocked_urls = [LocalSiteUrlBlocklist(e) for e in response["blocked_urls"]]
+        self.all_languages = [Language(e0) for e0 in response["all_languages"]]
+        self.discussion_languages = [e0 for e0 in response["discussion_languages"]]
+        self.taglines = [Tagline(e0) for e0 in response["taglines"]]
+        self.custom_emojis = [CustomEmojiView(e0) for e0 in response["custom_emojis"]]
+        self.blocked_urls = [LocalSiteUrlBlocklist(e0) for e0 in response["blocked_urls"]]
 
 
 class GetCaptchaResponse(object):
@@ -268,21 +268,21 @@ class GetModlogResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.removed_posts = [ModRemovePostView(e) for e in response["removed_posts"]]
-        self.locked_posts = [ModLockPostView(e) for e in response["locked_posts"]]
-        self.featured_posts = [ModFeaturePostView(e) for e in response["featured_posts"]]
-        self.removed_comments = [ModRemoveCommentView(e) for e in response["removed_comments"]]
-        self.removed_communities = [ModRemoveCommunityView(e) for e in response["removed_communities"]]
-        self.banned_from_community = [ModBanFromCommunityView(e) for e in response["banned_from_community"]]
-        self.banned = [ModBanView(e) for e in response["banned"]]
-        self.added_to_community = [ModAddCommunityView(e) for e in response["added_to_community"]]
-        self.transferred_to_community = [ModTransferCommunityView(e) for e in response["transferred_to_community"]]
-        self.added = [ModAddView(e) for e in response["added"]]
-        self.admin_purged_persons = [AdminPurgePersonView(e) for e in response["admin_purged_persons"]]
-        self.admin_purged_communities = [AdminPurgeCommunityView(e) for e in response["admin_purged_communities"]]
-        self.admin_purged_posts = [AdminPurgePostView(e) for e in response["admin_purged_posts"]]
-        self.admin_purged_comments = [AdminPurgeCommentView(e) for e in response["admin_purged_comments"]]
-        self.hidden_communities = [ModHideCommunityView(e) for e in response["hidden_communities"]]
+        self.removed_posts = [ModRemovePostView(e0) for e0 in response["removed_posts"]]
+        self.locked_posts = [ModLockPostView(e0) for e0 in response["locked_posts"]]
+        self.featured_posts = [ModFeaturePostView(e0) for e0 in response["featured_posts"]]
+        self.removed_comments = [ModRemoveCommentView(e0) for e0 in response["removed_comments"]]
+        self.removed_communities = [ModRemoveCommunityView(e0) for e0 in response["removed_communities"]]
+        self.banned_from_community = [ModBanFromCommunityView(e0) for e0 in response["banned_from_community"]]
+        self.banned = [ModBanView(e0) for e0 in response["banned"]]
+        self.added_to_community = [ModAddCommunityView(e0) for e0 in response["added_to_community"]]
+        self.transferred_to_community = [ModTransferCommunityView(e0) for e0 in response["transferred_to_community"]]
+        self.added = [ModAddView(e0) for e0 in response["added"]]
+        self.admin_purged_persons = [AdminPurgePersonView(e0) for e0 in response["admin_purged_persons"]]
+        self.admin_purged_communities = [AdminPurgeCommunityView(e0) for e0 in response["admin_purged_communities"]]
+        self.admin_purged_posts = [AdminPurgePostView(e0) for e0 in response["admin_purged_posts"]]
+        self.admin_purged_comments = [AdminPurgeCommentView(e0) for e0 in response["admin_purged_comments"]]
+        self.hidden_communities = [ModHideCommunityView(e0) for e0 in response["hidden_communities"]]
 
 
 class SuccessResponse(object):
@@ -302,7 +302,7 @@ class ListRegistrationApplicationsResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.registration_applications = [RegistrationApplicationView(e) for e in response["registration_applications"]]
+        self.registration_applications = [RegistrationApplicationView(e0) for e0 in response["registration_applications"]]
 
 
 class BlockInstanceResponse(object):
@@ -362,7 +362,7 @@ class SiteResponse(object):
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
         self.site_view = SiteView(response["site_view"])
-        self.taglines = [Tagline(e) for e in response["taglines"]]
+        self.taglines = [Tagline(e0) for e0 in response["taglines"]]
 
 
 class ListPostReportsResponse(object):
@@ -372,7 +372,7 @@ class ListPostReportsResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.post_reports = [PostReportView(e) for e in response["post_reports"]]
+        self.post_reports = [PostReportView(e0) for e0 in response["post_reports"]]
 
 
 class BlockCommunityResponse(object):
@@ -394,7 +394,7 @@ class PrivateMessagesResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.private_messages = [PrivateMessageView(e) for e in response["private_messages"]]
+        self.private_messages = [PrivateMessageView(e0) for e0 in response["private_messages"]]
 
 
 class LoginResponse(object):
@@ -457,7 +457,7 @@ class ListPostLikesResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.post_likes = [VoteView(e) for e in response["post_likes"]]
+        self.post_likes = [VoteView(e0) for e0 in response["post_likes"]]
 
 
 class ListCommentReportsResponse(object):
@@ -467,7 +467,7 @@ class ListCommentReportsResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.comment_reports = [CommentReportView(e) for e in response["comment_reports"]]
+        self.comment_reports = [CommentReportView(e0) for e0 in response["comment_reports"]]
 
 
 class GetSiteMetadataResponse(object):
@@ -501,7 +501,7 @@ class CommentResponse(object):
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
         self.comment_view = CommentView(response["comment_view"])
-        self.recipient_ids = [int(e) for e in response["recipient_ids"]]
+        self.recipient_ids = [e0 for e0 in response["recipient_ids"]]
 
 
 class GetRepliesResponse(object):
@@ -511,7 +511,7 @@ class GetRepliesResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.replies = [CommentReplyView(e) for e in response["replies"]]
+        self.replies = [CommentReplyView(e0) for e0 in response["replies"]]
 
 
 class GetUnreadRegistrationApplicationCountResponse(object):
@@ -550,9 +550,9 @@ class GetPersonDetailsResponse(object):
             self.site = Site(response["site"])
         else:
             self.site = None
-        self.comments = [CommentView(e) for e in response["comments"]]
-        self.posts = [PostView(e) for e in response["posts"]]
-        self.moderates = [CommunityModeratorView(e) for e in response["moderates"]]
+        self.comments = [CommentView(e0) for e0 in response["comments"]]
+        self.posts = [PostView(e0) for e0 in response["posts"]]
+        self.moderates = [CommunityModeratorView(e0) for e0 in response["moderates"]]
 
 
 class ListCommunitiesResponse(object):
@@ -562,7 +562,7 @@ class ListCommunitiesResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.communities = [CommunityView(e) for e in response["communities"]]
+        self.communities = [CommunityView(e0) for e0 in response["communities"]]
 
 
 class GetPersonMentionsResponse(object):
@@ -572,7 +572,7 @@ class GetPersonMentionsResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.mentions = [PersonMentionView(e) for e in response["mentions"]]
+        self.mentions = [PersonMentionView(e0) for e0 in response["mentions"]]
 
 
 class AddAdminResponse(object):
@@ -582,7 +582,7 @@ class AddAdminResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.admins = [PersonView(e) for e in response["admins"]]
+        self.admins = [PersonView(e0) for e0 in response["admins"]]
 
 
 class GetFederatedInstancesResponse(object):
@@ -625,7 +625,7 @@ class ListPrivateMessageReportsResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.private_message_reports = [PrivateMessageReportView(e) for e in response["private_message_reports"]]
+        self.private_message_reports = [PrivateMessageReportView(e0) for e0 in response["private_message_reports"]]
 
 
 class BlockPersonResponse(object):
@@ -652,8 +652,8 @@ class GetPostResponse(object):
         response = api_response.json()
         self.post_view = PostView(response["post_view"])
         self.community_view = CommunityView(response["community_view"])
-        self.moderators = [CommunityModeratorView(e) for e in response["moderators"]]
-        self.cross_posts = [PostView(e) for e in response["cross_posts"]]
+        self.moderators = [CommunityModeratorView(e0) for e0 in response["moderators"]]
+        self.cross_posts = [PostView(e0) for e0 in response["cross_posts"]]
 
 
 class ListCommentLikesResponse(object):
@@ -663,4 +663,4 @@ class ListCommentLikesResponse(object):
 
     def __init__(self, api_response: requests.Response) -> None:
         response = api_response.json()
-        self.comment_likes = [VoteView(e) for e in response["comment_likes"]]
+        self.comment_likes = [VoteView(e0) for e0 in response["comment_likes"]]
