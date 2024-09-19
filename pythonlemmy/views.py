@@ -16,10 +16,10 @@ class LocalUserView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                local_user=LocalUser.parse(data["local_user"]),
-                local_user_vote_display_mode=LocalUserVoteDisplayMode.parse(data["local_user_vote_display_mode"]),
-                person=Person.parse(data["person"]),
-                counts=PersonAggregates.parse(data["counts"])
+            local_user=LocalUser.parse(data["local_user"]),
+            local_user_vote_display_mode=LocalUserVoteDisplayMode.parse(data["local_user_vote_display_mode"]),
+            person=Person.parse(data["person"]),
+            counts=PersonAggregates.parse(data["counts"])
         )
 
 
@@ -46,21 +46,21 @@ class CommentReplyView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_reply=CommentReply.parse(data["comment_reply"]),
-                comment=Comment.parse(data["comment"]),
-                creator=Person.parse(data["creator"]),
-                post=Post.parse(data["post"]),
-                community=Community.parse(data["community"]),
-                recipient=Person.parse(data["recipient"]),
-                counts=CommentAggregates.parse(data["counts"]),
-                creator_banned_from_community=data["creator_banned_from_community"],
-                banned_from_community=data["banned_from_community"],
-                creator_is_moderator=data["creator_is_moderator"],
-                creator_is_admin=data["creator_is_admin"],
-                subscribed=data["subscribed"],
-                saved=data["saved"],
-                creator_blocked=data["creator_blocked"],
-                my_vote=data["my_vote"] if "my_vote" in data else None
+            comment_reply=CommentReply.parse(data["comment_reply"]),
+            comment=Comment.parse(data["comment"]),
+            creator=Person.parse(data["creator"]),
+            post=Post.parse(data["post"]),
+            community=Community.parse(data["community"]),
+            recipient=Person.parse(data["recipient"]),
+            counts=CommentAggregates.parse(data["counts"]),
+            creator_banned_from_community=data["creator_banned_from_community"],
+            banned_from_community=data["banned_from_community"],
+            creator_is_moderator=data["creator_is_moderator"],
+            creator_is_admin=data["creator_is_admin"],
+            subscribed=data["subscribed"],
+            saved=data["saved"],
+            creator_blocked=data["creator_blocked"],
+            my_vote=data["my_vote"] if "my_vote" in data else None
         )
 
 
@@ -74,8 +74,8 @@ class CommunityFollowerView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community=Community.parse(data["community"]),
-                follower=Person.parse(data["follower"])
+            community=Community.parse(data["community"]),
+            follower=Person.parse(data["follower"])
         )
 
 
@@ -90,9 +90,9 @@ class VoteView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                creator=Person.parse(data["creator"]),
-                creator_banned_from_community=data["creator_banned_from_community"],
-                score=data["score"]
+            creator=Person.parse(data["creator"]),
+            creator_banned_from_community=data["creator_banned_from_community"],
+            score=data["score"]
         )
 
 
@@ -109,11 +109,11 @@ class PrivateMessageReportView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                private_message_report=PrivateMessageReport.parse(data["private_message_report"]),
-                private_message=PrivateMessage.parse(data["private_message"]),
-                private_message_creator=Person.parse(data["private_message_creator"]),
-                creator=Person.parse(data["creator"]),
-                resolver=Person.parse(data["resolver"]) if "resolver" in data else None
+            private_message_report=PrivateMessageReport.parse(data["private_message_report"]),
+            private_message=PrivateMessage.parse(data["private_message"]),
+            private_message_creator=Person.parse(data["private_message_creator"]),
+            creator=Person.parse(data["creator"]),
+            resolver=Person.parse(data["resolver"]) if "resolver" in data else None
         )
 
 
@@ -128,9 +128,9 @@ class ModAddView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_add=ModAdd.parse(data["mod_add"]),
-                moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
-                modded_person=Person.parse(data["modded_person"])
+            mod_add=ModAdd.parse(data["mod_add"]),
+            moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
+            modded_person=Person.parse(data["modded_person"])
         )
 
 
@@ -145,9 +145,9 @@ class PersonView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person=Person.parse(data["person"]),
-                counts=PersonAggregates.parse(data["counts"]),
-                is_admin=data["is_admin"]
+            person=Person.parse(data["person"]),
+            counts=PersonAggregates.parse(data["counts"]),
+            is_admin=data["is_admin"]
         )
 
 
@@ -162,9 +162,9 @@ class ModBanView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_ban=ModBan.parse(data["mod_ban"]),
-                moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
-                banned_person=Person.parse(data["banned_person"])
+            mod_ban=ModBan.parse(data["mod_ban"]),
+            moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
+            banned_person=Person.parse(data["banned_person"])
         )
 
 
@@ -180,10 +180,10 @@ class RegistrationApplicationView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                registration_application=RegistrationApplication.parse(data["registration_application"]),
-                creator_local_user=LocalUser.parse(data["creator_local_user"]),
-                creator=Person.parse(data["creator"]),
-                admin=Person.parse(data["admin"]) if "admin" in data else None
+            registration_application=RegistrationApplication.parse(data["registration_application"]),
+            creator_local_user=LocalUser.parse(data["creator_local_user"]),
+            creator=Person.parse(data["creator"]),
+            admin=Person.parse(data["admin"]) if "admin" in data else None
         )
 
 
@@ -197,8 +197,8 @@ class CommunityBlockView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person=Person.parse(data["person"]),
-                community=Community.parse(data["community"])
+            person=Person.parse(data["person"]),
+            community=Community.parse(data["community"])
         )
 
 
@@ -214,10 +214,10 @@ class ModBanFromCommunityView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_ban_from_community=ModBanFromCommunity.parse(data["mod_ban_from_community"]),
-                moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
-                community=Community.parse(data["community"]),
-                banned_person=Person.parse(data["banned_person"])
+            mod_ban_from_community=ModBanFromCommunity.parse(data["mod_ban_from_community"]),
+            moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
+            community=Community.parse(data["community"]),
+            banned_person=Person.parse(data["banned_person"])
         )
 
 
@@ -245,22 +245,22 @@ class PostView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post=Post.parse(data["post"]),
-                creator=Person.parse(data["creator"]),
-                community=Community.parse(data["community"]),
-                image_details=ImageDetails.parse(data["image_details"]) if "image_details" in data else None,
-                creator_banned_from_community=data["creator_banned_from_community"],
-                banned_from_community=data["banned_from_community"],
-                creator_is_moderator=data["creator_is_moderator"],
-                creator_is_admin=data["creator_is_admin"],
-                counts=PostAggregates.parse(data["counts"]),
-                subscribed=data["subscribed"],
-                saved=data["saved"],
-                read=data["read"],
-                hidden=data["hidden"],
-                creator_blocked=data["creator_blocked"],
-                my_vote=data["my_vote"] if "my_vote" in data else None,
-                unread_comments=data["unread_comments"]
+            post=Post.parse(data["post"]),
+            creator=Person.parse(data["creator"]),
+            community=Community.parse(data["community"]),
+            image_details=ImageDetails.parse(data["image_details"]) if "image_details" in data else None,
+            creator_banned_from_community=data["creator_banned_from_community"],
+            banned_from_community=data["banned_from_community"],
+            creator_is_moderator=data["creator_is_moderator"],
+            creator_is_admin=data["creator_is_admin"],
+            counts=PostAggregates.parse(data["counts"]),
+            subscribed=data["subscribed"],
+            saved=data["saved"],
+            read=data["read"],
+            hidden=data["hidden"],
+            creator_blocked=data["creator_blocked"],
+            my_vote=data["my_vote"] if "my_vote" in data else None,
+            unread_comments=data["unread_comments"]
         )
 
 
@@ -275,9 +275,9 @@ class InstanceBlockView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person=Person.parse(data["person"]),
-                instance=Instance.parse(data["instance"]),
-                site=Site.parse(data["site"]) if "site" in data else None
+            person=Person.parse(data["person"]),
+            instance=Instance.parse(data["instance"]),
+            site=Site.parse(data["site"]) if "site" in data else None
         )
 
 
@@ -292,9 +292,9 @@ class ModRemoveCommunityView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_remove_community=ModRemoveCommunity.parse(data["mod_remove_community"]),
-                moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
-                community=Community.parse(data["community"])
+            mod_remove_community=ModRemoveCommunity.parse(data["mod_remove_community"]),
+            moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
+            community=Community.parse(data["community"])
         )
 
 
@@ -309,9 +309,9 @@ class ModHideCommunityView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_hide_community=ModHideCommunity.parse(data["mod_hide_community"]),
-                admin=Person.parse(data["admin"]) if "admin" in data else None,
-                community=Community.parse(data["community"])
+            mod_hide_community=ModHideCommunity.parse(data["mod_hide_community"]),
+            admin=Person.parse(data["admin"]) if "admin" in data else None,
+            community=Community.parse(data["community"])
         )
 
 
@@ -329,12 +329,12 @@ class ModRemoveCommentView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_remove_comment=ModRemoveComment.parse(data["mod_remove_comment"]),
-                moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
-                comment=Comment.parse(data["comment"]),
-                commenter=Person.parse(data["commenter"]),
-                post=Post.parse(data["post"]),
-                community=Community.parse(data["community"])
+            mod_remove_comment=ModRemoveComment.parse(data["mod_remove_comment"]),
+            moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
+            comment=Comment.parse(data["comment"]),
+            commenter=Person.parse(data["commenter"]),
+            post=Post.parse(data["post"]),
+            community=Community.parse(data["community"])
         )
 
 
@@ -349,9 +349,9 @@ class AdminPurgeCommentView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                admin_purge_comment=AdminPurgeComment.parse(data["admin_purge_comment"]),
-                admin=Person.parse(data["admin"]) if "admin" in data else None,
-                post=Post.parse(data["post"])
+            admin_purge_comment=AdminPurgeComment.parse(data["admin_purge_comment"]),
+            admin=Person.parse(data["admin"]) if "admin" in data else None,
+            post=Post.parse(data["post"])
         )
 
 
@@ -367,10 +367,10 @@ class ModAddCommunityView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_add_community=ModAddCommunity.parse(data["mod_add_community"]),
-                moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
-                community=Community.parse(data["community"]),
-                modded_person=Person.parse(data["modded_person"])
+            mod_add_community=ModAddCommunity.parse(data["mod_add_community"]),
+            moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
+            community=Community.parse(data["community"]),
+            modded_person=Person.parse(data["modded_person"])
         )
 
 
@@ -384,8 +384,8 @@ class PersonBlockView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person=Person.parse(data["person"]),
-                target=Person.parse(data["target"])
+            person=Person.parse(data["person"]),
+            target=Person.parse(data["target"])
         )
 
 
@@ -399,8 +399,8 @@ class CommunityModeratorView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community=Community.parse(data["community"]),
-                moderator=Person.parse(data["moderator"])
+            community=Community.parse(data["community"]),
+            moderator=Person.parse(data["moderator"])
         )
 
 
@@ -416,10 +416,10 @@ class ModFeaturePostView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_feature_post=ModFeaturePost.parse(data["mod_feature_post"]),
-                moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
-                post=Post.parse(data["post"]),
-                community=Community.parse(data["community"])
+            mod_feature_post=ModFeaturePost.parse(data["mod_feature_post"]),
+            moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
+            post=Post.parse(data["post"]),
+            community=Community.parse(data["community"])
         )
 
 
@@ -434,9 +434,9 @@ class PrivateMessageView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                private_message=PrivateMessage.parse(data["private_message"]),
-                creator=Person.parse(data["creator"]),
-                recipient=Person.parse(data["recipient"])
+            private_message=PrivateMessage.parse(data["private_message"]),
+            creator=Person.parse(data["creator"]),
+            recipient=Person.parse(data["recipient"])
         )
 
 
@@ -452,10 +452,10 @@ class SiteView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                site=Site.parse(data["site"]),
-                local_site=LocalSite.parse(data["local_site"]),
-                local_site_rate_limit=LocalSiteRateLimit.parse(data["local_site_rate_limit"]),
-                counts=SiteAggregates.parse(data["counts"])
+            site=Site.parse(data["site"]),
+            local_site=LocalSite.parse(data["local_site"]),
+            local_site_rate_limit=LocalSiteRateLimit.parse(data["local_site_rate_limit"]),
+            counts=SiteAggregates.parse(data["counts"])
         )
 
 
@@ -471,10 +471,10 @@ class ModLockPostView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_lock_post=ModLockPost.parse(data["mod_lock_post"]),
-                moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
-                post=Post.parse(data["post"]),
-                community=Community.parse(data["community"])
+            mod_lock_post=ModLockPost.parse(data["mod_lock_post"]),
+            moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
+            post=Post.parse(data["post"]),
+            community=Community.parse(data["community"])
         )
 
 
@@ -493,13 +493,13 @@ class MyUserInfo:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                local_user_view=LocalUserView.parse(data["local_user_view"]),
-                follows=[CommunityFollowerView.parse(e0) for e0 in data["follows"]],
-                moderates=[CommunityModeratorView.parse(e0) for e0 in data["moderates"]],
-                community_blocks=[CommunityBlockView.parse(e0) for e0 in data["community_blocks"]],
-                instance_blocks=[InstanceBlockView.parse(e0) for e0 in data["instance_blocks"]],
-                person_blocks=[PersonBlockView.parse(e0) for e0 in data["person_blocks"]],
-                discussion_languages=[e0 for e0 in data["discussion_languages"]]
+            local_user_view=LocalUserView.parse(data["local_user_view"]),
+            follows=[CommunityFollowerView.parse(e0) for e0 in data["follows"]],
+            moderates=[CommunityModeratorView.parse(e0) for e0 in data["moderates"]],
+            community_blocks=[CommunityBlockView.parse(e0) for e0 in data["community_blocks"]],
+            instance_blocks=[InstanceBlockView.parse(e0) for e0 in data["instance_blocks"]],
+            person_blocks=[PersonBlockView.parse(e0) for e0 in data["person_blocks"]],
+            discussion_languages=[e0 for e0 in data["discussion_languages"]]
         )
 
 
@@ -513,8 +513,8 @@ class AdminPurgePersonView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                admin_purge_person=AdminPurgePerson.parse(data["admin_purge_person"]),
-                admin=Person.parse(data["admin"]) if "admin" in data else None
+            admin_purge_person=AdminPurgePerson.parse(data["admin_purge_person"]),
+            admin=Person.parse(data["admin"]) if "admin" in data else None
         )
 
 
@@ -541,21 +541,21 @@ class CommentReportView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_report=CommentReport.parse(data["comment_report"]),
-                comment=Comment.parse(data["comment"]),
-                post=Post.parse(data["post"]),
-                community=Community.parse(data["community"]),
-                creator=Person.parse(data["creator"]),
-                comment_creator=Person.parse(data["comment_creator"]),
-                counts=CommentAggregates.parse(data["counts"]),
-                creator_banned_from_community=data["creator_banned_from_community"],
-                creator_is_moderator=data["creator_is_moderator"],
-                creator_is_admin=data["creator_is_admin"],
-                creator_blocked=data["creator_blocked"],
-                subscribed=data["subscribed"],
-                saved=data["saved"],
-                my_vote=data["my_vote"] if "my_vote" in data else None,
-                resolver=Person.parse(data["resolver"]) if "resolver" in data else None
+            comment_report=CommentReport.parse(data["comment_report"]),
+            comment=Comment.parse(data["comment"]),
+            post=Post.parse(data["post"]),
+            community=Community.parse(data["community"]),
+            creator=Person.parse(data["creator"]),
+            comment_creator=Person.parse(data["comment_creator"]),
+            counts=CommentAggregates.parse(data["counts"]),
+            creator_banned_from_community=data["creator_banned_from_community"],
+            creator_is_moderator=data["creator_is_moderator"],
+            creator_is_admin=data["creator_is_admin"],
+            creator_blocked=data["creator_blocked"],
+            subscribed=data["subscribed"],
+            saved=data["saved"],
+            my_vote=data["my_vote"] if "my_vote" in data else None,
+            resolver=Person.parse(data["resolver"]) if "resolver" in data else None
         )
 
 
@@ -571,10 +571,10 @@ class ModRemovePostView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_remove_post=ModRemovePost.parse(data["mod_remove_post"]),
-                moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
-                post=Post.parse(data["post"]),
-                community=Community.parse(data["community"])
+            mod_remove_post=ModRemovePost.parse(data["mod_remove_post"]),
+            moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
+            post=Post.parse(data["post"]),
+            community=Community.parse(data["community"])
         )
 
 
@@ -591,11 +591,11 @@ class CommunityView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community=Community.parse(data["community"]),
-                subscribed=data["subscribed"],
-                blocked=data["blocked"],
-                counts=CommunityAggregates.parse(data["counts"]),
-                banned_from_community=data["banned_from_community"]
+            community=Community.parse(data["community"]),
+            subscribed=data["subscribed"],
+            blocked=data["blocked"],
+            counts=CommunityAggregates.parse(data["counts"]),
+            banned_from_community=data["banned_from_community"]
         )
 
 
@@ -609,8 +609,8 @@ class AdminPurgeCommunityView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                admin_purge_community=AdminPurgeCommunity.parse(data["admin_purge_community"]),
-                admin=Person.parse(data["admin"]) if "admin" in data else None
+            admin_purge_community=AdminPurgeCommunity.parse(data["admin_purge_community"]),
+            admin=Person.parse(data["admin"]) if "admin" in data else None
         )
 
 
@@ -625,9 +625,9 @@ class AdminPurgePostView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                admin_purge_post=AdminPurgePost.parse(data["admin_purge_post"]),
-                admin=Person.parse(data["admin"]) if "admin" in data else None,
-                community=Community.parse(data["community"])
+            admin_purge_post=AdminPurgePost.parse(data["admin_purge_post"]),
+            admin=Person.parse(data["admin"]) if "admin" in data else None,
+            community=Community.parse(data["community"])
         )
 
 
@@ -643,10 +643,10 @@ class ModTransferCommunityView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_transfer_community=ModTransferCommunity.parse(data["mod_transfer_community"]),
-                moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
-                community=Community.parse(data["community"]),
-                modded_person=Person.parse(data["modded_person"])
+            mod_transfer_community=ModTransferCommunity.parse(data["mod_transfer_community"]),
+            moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
+            community=Community.parse(data["community"]),
+            modded_person=Person.parse(data["modded_person"])
         )
 
 
@@ -660,8 +660,8 @@ class LocalImageView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                local_image=LocalImage.parse(data["local_image"]),
-                person=Person.parse(data["person"])
+            local_image=LocalImage.parse(data["local_image"]),
+            person=Person.parse(data["person"])
         )
 
 
@@ -688,21 +688,21 @@ class PersonMentionView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person_mention=PersonMention.parse(data["person_mention"]),
-                comment=Comment.parse(data["comment"]),
-                creator=Person.parse(data["creator"]),
-                post=Post.parse(data["post"]),
-                community=Community.parse(data["community"]),
-                recipient=Person.parse(data["recipient"]),
-                counts=CommentAggregates.parse(data["counts"]),
-                creator_banned_from_community=data["creator_banned_from_community"],
-                banned_from_community=data["banned_from_community"],
-                creator_is_moderator=data["creator_is_moderator"],
-                creator_is_admin=data["creator_is_admin"],
-                subscribed=data["subscribed"],
-                saved=data["saved"],
-                creator_blocked=data["creator_blocked"],
-                my_vote=data["my_vote"] if "my_vote" in data else None
+            person_mention=PersonMention.parse(data["person_mention"]),
+            comment=Comment.parse(data["comment"]),
+            creator=Person.parse(data["creator"]),
+            post=Post.parse(data["post"]),
+            community=Community.parse(data["community"]),
+            recipient=Person.parse(data["recipient"]),
+            counts=CommentAggregates.parse(data["counts"]),
+            creator_banned_from_community=data["creator_banned_from_community"],
+            banned_from_community=data["banned_from_community"],
+            creator_is_moderator=data["creator_is_moderator"],
+            creator_is_admin=data["creator_is_admin"],
+            subscribed=data["subscribed"],
+            saved=data["saved"],
+            creator_blocked=data["creator_blocked"],
+            my_vote=data["my_vote"] if "my_vote" in data else None
         )
 
 
@@ -716,8 +716,8 @@ class CustomEmojiView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                custom_emoji=CustomEmoji.parse(data["custom_emoji"]),
-                keywords=[CustomEmojiKeyword.parse(e0) for e0 in data["keywords"]]
+            custom_emoji=CustomEmoji.parse(data["custom_emoji"]),
+            keywords=[CustomEmojiKeyword.parse(e0) for e0 in data["keywords"]]
         )
 
 
@@ -742,19 +742,19 @@ class CommentView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment=Comment.parse(data["comment"]),
-                creator=Person.parse(data["creator"]),
-                post=Post.parse(data["post"]),
-                community=Community.parse(data["community"]),
-                counts=CommentAggregates.parse(data["counts"]),
-                creator_banned_from_community=data["creator_banned_from_community"],
-                banned_from_community=data["banned_from_community"],
-                creator_is_moderator=data["creator_is_moderator"],
-                creator_is_admin=data["creator_is_admin"],
-                subscribed=data["subscribed"],
-                saved=data["saved"],
-                creator_blocked=data["creator_blocked"],
-                my_vote=data["my_vote"] if "my_vote" in data else None
+            comment=Comment.parse(data["comment"]),
+            creator=Person.parse(data["creator"]),
+            post=Post.parse(data["post"]),
+            community=Community.parse(data["community"]),
+            counts=CommentAggregates.parse(data["counts"]),
+            creator_banned_from_community=data["creator_banned_from_community"],
+            banned_from_community=data["banned_from_community"],
+            creator_is_moderator=data["creator_is_moderator"],
+            creator_is_admin=data["creator_is_admin"],
+            subscribed=data["subscribed"],
+            saved=data["saved"],
+            creator_blocked=data["creator_blocked"],
+            my_vote=data["my_vote"] if "my_vote" in data else None
         )
 
 
@@ -783,21 +783,21 @@ class PostReportView:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_report=PostReport.parse(data["post_report"]),
-                post=Post.parse(data["post"]),
-                community=Community.parse(data["community"]),
-                creator=Person.parse(data["creator"]),
-                post_creator=Person.parse(data["post_creator"]),
-                creator_banned_from_community=data["creator_banned_from_community"],
-                creator_is_moderator=data["creator_is_moderator"],
-                creator_is_admin=data["creator_is_admin"],
-                subscribed=data["subscribed"],
-                saved=data["saved"],
-                read=data["read"],
-                hidden=data["hidden"],
-                creator_blocked=data["creator_blocked"],
-                my_vote=data["my_vote"] if "my_vote" in data else None,
-                unread_comments=data["unread_comments"],
-                counts=PostAggregates.parse(data["counts"]),
-                resolver=Person.parse(data["resolver"]) if "resolver" in data else None
+            post_report=PostReport.parse(data["post_report"]),
+            post=Post.parse(data["post"]),
+            community=Community.parse(data["community"]),
+            creator=Person.parse(data["creator"]),
+            post_creator=Person.parse(data["post_creator"]),
+            creator_banned_from_community=data["creator_banned_from_community"],
+            creator_is_moderator=data["creator_is_moderator"],
+            creator_is_admin=data["creator_is_admin"],
+            subscribed=data["subscribed"],
+            saved=data["saved"],
+            read=data["read"],
+            hidden=data["hidden"],
+            creator_blocked=data["creator_blocked"],
+            my_vote=data["my_vote"] if "my_vote" in data else None,
+            unread_comments=data["unread_comments"],
+            counts=PostAggregates.parse(data["counts"]),
+            resolver=Person.parse(data["resolver"]) if "resolver" in data else None
         )

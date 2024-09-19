@@ -92,7 +92,7 @@ class {self._class_name}:
     def _generate_cls_parse(self) -> str:
         lines = []
         for prop in self._properties:
-            lines.append(f"{self._indent_char}{self._property_handler(prop, 'data', f'{prop.api_name}=')}")
+            lines.append(f"{self._property_handler(prop, 'data', f'{prop.api_name}=')}")
 
         lines = ",\n".join(lines)
 

@@ -14,11 +14,11 @@ class ListCommunities:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                type_=data["type_"] if "type_" in data else None,
-                sort=data["sort"] if "sort" in data else None,
-                show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None
+            type_=data["type_"] if "type_" in data else None,
+            sort=data["sort"] if "sort" in data else None,
+            show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None
         )
 
 
@@ -36,12 +36,12 @@ class RegistrationApplication:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                local_user_id=data["local_user_id"],
-                answer=data["answer"],
-                admin_id=data["admin_id"] if "admin_id" in data else None,
-                deny_reason=data["deny_reason"] if "deny_reason" in data else None,
-                published=data["published"]
+            id=data["id"],
+            local_user_id=data["local_user_id"],
+            answer=data["answer"],
+            admin_id=data["admin_id"] if "admin_id" in data else None,
+            deny_reason=data["deny_reason"] if "deny_reason" in data else None,
+            published=data["published"]
         )
 
 
@@ -58,11 +58,11 @@ class AdminPurgeComment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                admin_person_id=data["admin_person_id"],
-                post_id=data["post_id"],
-                reason=data["reason"] if "reason" in data else None,
-                when_=data["when_"]
+            id=data["id"],
+            admin_person_id=data["admin_person_id"],
+            post_id=data["post_id"],
+            reason=data["reason"] if "reason" in data else None,
+            when_=data["when_"]
         )
 
 
@@ -116,48 +116,48 @@ class CreateSite:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                name=data["name"],
-                sidebar=data["sidebar"] if "sidebar" in data else None,
-                description=data["description"] if "description" in data else None,
-                icon=data["icon"] if "icon" in data else None,
-                banner=data["banner"] if "banner" in data else None,
-                enable_downvotes=data["enable_downvotes"] if "enable_downvotes" in data else None,
-                enable_nsfw=data["enable_nsfw"] if "enable_nsfw" in data else None,
-                community_creation_admin_only=data["community_creation_admin_only"] if "community_creation_admin_only" in data else None,
-                require_email_verification=data["require_email_verification"] if "require_email_verification" in data else None,
-                application_question=data["application_question"] if "application_question" in data else None,
-                private_instance=data["private_instance"] if "private_instance" in data else None,
-                default_theme=data["default_theme"] if "default_theme" in data else None,
-                default_post_listing_type=data["default_post_listing_type"] if "default_post_listing_type" in data else None,
-                default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
-                legal_information=data["legal_information"] if "legal_information" in data else None,
-                application_email_admins=data["application_email_admins"] if "application_email_admins" in data else None,
-                hide_modlog_mod_names=data["hide_modlog_mod_names"] if "hide_modlog_mod_names" in data else None,
-                discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
-                slur_filter_regex=data["slur_filter_regex"] if "slur_filter_regex" in data else None,
-                actor_name_max_length=data["actor_name_max_length"] if "actor_name_max_length" in data else None,
-                rate_limit_message=data["rate_limit_message"] if "rate_limit_message" in data else None,
-                rate_limit_message_per_second=data["rate_limit_message_per_second"] if "rate_limit_message_per_second" in data else None,
-                rate_limit_post=data["rate_limit_post"] if "rate_limit_post" in data else None,
-                rate_limit_post_per_second=data["rate_limit_post_per_second"] if "rate_limit_post_per_second" in data else None,
-                rate_limit_register=data["rate_limit_register"] if "rate_limit_register" in data else None,
-                rate_limit_register_per_second=data["rate_limit_register_per_second"] if "rate_limit_register_per_second" in data else None,
-                rate_limit_image=data["rate_limit_image"] if "rate_limit_image" in data else None,
-                rate_limit_image_per_second=data["rate_limit_image_per_second"] if "rate_limit_image_per_second" in data else None,
-                rate_limit_comment=data["rate_limit_comment"] if "rate_limit_comment" in data else None,
-                rate_limit_comment_per_second=data["rate_limit_comment_per_second"] if "rate_limit_comment_per_second" in data else None,
-                rate_limit_search=data["rate_limit_search"] if "rate_limit_search" in data else None,
-                rate_limit_search_per_second=data["rate_limit_search_per_second"] if "rate_limit_search_per_second" in data else None,
-                federation_enabled=data["federation_enabled"] if "federation_enabled" in data else None,
-                federation_debug=data["federation_debug"] if "federation_debug" in data else None,
-                captcha_enabled=data["captcha_enabled"] if "captcha_enabled" in data else None,
-                captcha_difficulty=data["captcha_difficulty"] if "captcha_difficulty" in data else None,
-                allowed_instances=[e0 for e0 in data["allowed_instances"]] if "allowed_instances" in data else None,
-                blocked_instances=[e0 for e0 in data["blocked_instances"]] if "blocked_instances" in data else None,
-                taglines=[e0 for e0 in data["taglines"]] if "taglines" in data else None,
-                registration_mode=data["registration_mode"] if "registration_mode" in data else None,
-                content_warning=data["content_warning"] if "content_warning" in data else None,
-                default_post_listing_mode=data["default_post_listing_mode"] if "default_post_listing_mode" in data else None
+            name=data["name"],
+            sidebar=data["sidebar"] if "sidebar" in data else None,
+            description=data["description"] if "description" in data else None,
+            icon=data["icon"] if "icon" in data else None,
+            banner=data["banner"] if "banner" in data else None,
+            enable_downvotes=data["enable_downvotes"] if "enable_downvotes" in data else None,
+            enable_nsfw=data["enable_nsfw"] if "enable_nsfw" in data else None,
+            community_creation_admin_only=data["community_creation_admin_only"] if "community_creation_admin_only" in data else None,
+            require_email_verification=data["require_email_verification"] if "require_email_verification" in data else None,
+            application_question=data["application_question"] if "application_question" in data else None,
+            private_instance=data["private_instance"] if "private_instance" in data else None,
+            default_theme=data["default_theme"] if "default_theme" in data else None,
+            default_post_listing_type=data["default_post_listing_type"] if "default_post_listing_type" in data else None,
+            default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
+            legal_information=data["legal_information"] if "legal_information" in data else None,
+            application_email_admins=data["application_email_admins"] if "application_email_admins" in data else None,
+            hide_modlog_mod_names=data["hide_modlog_mod_names"] if "hide_modlog_mod_names" in data else None,
+            discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
+            slur_filter_regex=data["slur_filter_regex"] if "slur_filter_regex" in data else None,
+            actor_name_max_length=data["actor_name_max_length"] if "actor_name_max_length" in data else None,
+            rate_limit_message=data["rate_limit_message"] if "rate_limit_message" in data else None,
+            rate_limit_message_per_second=data["rate_limit_message_per_second"] if "rate_limit_message_per_second" in data else None,
+            rate_limit_post=data["rate_limit_post"] if "rate_limit_post" in data else None,
+            rate_limit_post_per_second=data["rate_limit_post_per_second"] if "rate_limit_post_per_second" in data else None,
+            rate_limit_register=data["rate_limit_register"] if "rate_limit_register" in data else None,
+            rate_limit_register_per_second=data["rate_limit_register_per_second"] if "rate_limit_register_per_second" in data else None,
+            rate_limit_image=data["rate_limit_image"] if "rate_limit_image" in data else None,
+            rate_limit_image_per_second=data["rate_limit_image_per_second"] if "rate_limit_image_per_second" in data else None,
+            rate_limit_comment=data["rate_limit_comment"] if "rate_limit_comment" in data else None,
+            rate_limit_comment_per_second=data["rate_limit_comment_per_second"] if "rate_limit_comment_per_second" in data else None,
+            rate_limit_search=data["rate_limit_search"] if "rate_limit_search" in data else None,
+            rate_limit_search_per_second=data["rate_limit_search_per_second"] if "rate_limit_search_per_second" in data else None,
+            federation_enabled=data["federation_enabled"] if "federation_enabled" in data else None,
+            federation_debug=data["federation_debug"] if "federation_debug" in data else None,
+            captcha_enabled=data["captcha_enabled"] if "captcha_enabled" in data else None,
+            captcha_difficulty=data["captcha_difficulty"] if "captcha_difficulty" in data else None,
+            allowed_instances=[e0 for e0 in data["allowed_instances"]] if "allowed_instances" in data else None,
+            blocked_instances=[e0 for e0 in data["blocked_instances"]] if "blocked_instances" in data else None,
+            taglines=[e0 for e0 in data["taglines"]] if "taglines" in data else None,
+            registration_mode=data["registration_mode"] if "registration_mode" in data else None,
+            content_warning=data["content_warning"] if "content_warning" in data else None,
+            default_post_listing_mode=data["default_post_listing_mode"] if "default_post_listing_mode" in data else None
         )
 
 
@@ -171,8 +171,8 @@ class DeleteComment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"],
-                deleted=data["deleted"]
+            comment_id=data["comment_id"],
+            deleted=data["deleted"]
         )
 
 
@@ -193,15 +193,15 @@ class CreateCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                name=data["name"],
-                title=data["title"],
-                description=data["description"] if "description" in data else None,
-                icon=data["icon"] if "icon" in data else None,
-                banner=data["banner"] if "banner" in data else None,
-                nsfw=data["nsfw"] if "nsfw" in data else None,
-                posting_restricted_to_mods=data["posting_restricted_to_mods"] if "posting_restricted_to_mods" in data else None,
-                discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
-                visibility=data["visibility"] if "visibility" in data else None
+            name=data["name"],
+            title=data["title"],
+            description=data["description"] if "description" in data else None,
+            icon=data["icon"] if "icon" in data else None,
+            banner=data["banner"] if "banner" in data else None,
+            nsfw=data["nsfw"] if "nsfw" in data else None,
+            posting_restricted_to_mods=data["posting_restricted_to_mods"] if "posting_restricted_to_mods" in data else None,
+            discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
+            visibility=data["visibility"] if "visibility" in data else None
         )
 
 
@@ -217,10 +217,10 @@ class AdminPurgeCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                admin_person_id=data["admin_person_id"],
-                reason=data["reason"] if "reason" in data else None,
-                when_=data["when_"]
+            id=data["id"],
+            admin_person_id=data["admin_person_id"],
+            reason=data["reason"] if "reason" in data else None,
+            when_=data["when_"]
         )
 
 
@@ -238,12 +238,12 @@ class ModRemoveCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                mod_person_id=data["mod_person_id"],
-                community_id=data["community_id"],
-                reason=data["reason"] if "reason" in data else None,
-                removed=data["removed"],
-                when_=data["when_"]
+            id=data["id"],
+            mod_person_id=data["mod_person_id"],
+            community_id=data["community_id"],
+            reason=data["reason"] if "reason" in data else None,
+            removed=data["removed"],
+            when_=data["when_"]
         )
 
 
@@ -259,10 +259,10 @@ class LocalSiteUrlBlocklist:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                url=data["url"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None
+            id=data["id"],
+            url=data["url"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None
         )
 
 
@@ -285,17 +285,17 @@ class PostReport:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                creator_id=data["creator_id"],
-                post_id=data["post_id"],
-                original_post_name=data["original_post_name"],
-                original_post_url=data["original_post_url"] if "original_post_url" in data else None,
-                original_post_body=data["original_post_body"] if "original_post_body" in data else None,
-                reason=data["reason"],
-                resolved=data["resolved"],
-                resolver_id=data["resolver_id"] if "resolver_id" in data else None,
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None
+            id=data["id"],
+            creator_id=data["creator_id"],
+            post_id=data["post_id"],
+            original_post_name=data["original_post_name"],
+            original_post_url=data["original_post_url"] if "original_post_url" in data else None,
+            original_post_body=data["original_post_body"] if "original_post_body" in data else None,
+            reason=data["reason"],
+            resolved=data["resolved"],
+            resolver_id=data["resolver_id"] if "resolver_id" in data else None,
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None
         )
 
 
@@ -313,12 +313,12 @@ class CommentAggregates:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"],
-                score=data["score"],
-                upvotes=data["upvotes"],
-                downvotes=data["downvotes"],
-                published=data["published"],
-                child_count=data["child_count"]
+            comment_id=data["comment_id"],
+            score=data["score"],
+            upvotes=data["upvotes"],
+            downvotes=data["downvotes"],
+            published=data["published"],
+            child_count=data["child_count"]
         )
 
 
@@ -333,9 +333,9 @@ class FeaturePost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                featured=data["featured"],
-                feature_type=data["feature_type"]
+            post_id=data["post_id"],
+            featured=data["featured"],
+            feature_type=data["feature_type"]
         )
 
 
@@ -348,7 +348,7 @@ class GetSiteMetadata:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                url=data["url"]
+            url=data["url"]
         )
 
 
@@ -365,11 +365,11 @@ class ModLockPost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                mod_person_id=data["mod_person_id"],
-                post_id=data["post_id"],
-                locked=data["locked"],
-                when_=data["when_"]
+            id=data["id"],
+            mod_person_id=data["mod_person_id"],
+            post_id=data["post_id"],
+            locked=data["locked"],
+            when_=data["when_"]
         )
 
 
@@ -383,8 +383,8 @@ class ResolveCommentReport:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                report_id=data["report_id"],
-                resolved=data["resolved"]
+            report_id=data["report_id"],
+            resolved=data["resolved"]
         )
 
 
@@ -398,8 +398,8 @@ class DeleteCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                deleted=data["deleted"]
+            community_id=data["community_id"],
+            deleted=data["deleted"]
         )
 
 
@@ -415,10 +415,10 @@ class GetPersonMentions:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                sort=data["sort"] if "sort" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                unread_only=data["unread_only"] if "unread_only" in data else None
+            sort=data["sort"] if "sort" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            unread_only=data["unread_only"] if "unread_only" in data else None
         )
 
 
@@ -436,12 +436,12 @@ class ModHideCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                community_id=data["community_id"],
-                mod_person_id=data["mod_person_id"],
-                when_=data["when_"],
-                reason=data["reason"] if "reason" in data else None,
-                hidden=data["hidden"]
+            id=data["id"],
+            community_id=data["community_id"],
+            mod_person_id=data["mod_person_id"],
+            when_=data["when_"],
+            reason=data["reason"] if "reason" in data else None,
+            hidden=data["hidden"]
         )
 
 
@@ -456,9 +456,9 @@ class HideCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                hidden=data["hidden"],
-                reason=data["reason"] if "reason" in data else None
+            community_id=data["community_id"],
+            hidden=data["hidden"],
+            reason=data["reason"] if "reason" in data else None
         )
 
 
@@ -473,9 +473,9 @@ class RemoveCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                removed=data["removed"],
-                reason=data["reason"] if "reason" in data else None
+            community_id=data["community_id"],
+            removed=data["removed"],
+            reason=data["reason"] if "reason" in data else None
         )
 
 
@@ -490,9 +490,9 @@ class EditComment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"],
-                content=data["content"] if "content" in data else None,
-                language_id=data["language_id"] if "language_id" in data else None
+            comment_id=data["comment_id"],
+            content=data["content"] if "content" in data else None,
+            language_id=data["language_id"] if "language_id" in data else None
         )
 
 
@@ -509,11 +509,11 @@ class EditCustomEmoji:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                category=data["category"],
-                image_url=data["image_url"],
-                alt_text=data["alt_text"],
-                keywords=[e0 for e0 in data["keywords"]]
+            id=data["id"],
+            category=data["category"],
+            image_url=data["image_url"],
+            alt_text=data["alt_text"],
+            keywords=[e0 for e0 in data["keywords"]]
         )
 
 
@@ -530,11 +530,11 @@ class PersonMention:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                recipient_id=data["recipient_id"],
-                comment_id=data["comment_id"],
-                read=data["read"],
-                published=data["published"]
+            id=data["id"],
+            recipient_id=data["recipient_id"],
+            comment_id=data["comment_id"],
+            read=data["read"],
+            published=data["published"]
         )
 
 
@@ -548,8 +548,8 @@ class HidePost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_ids=[e0 for e0 in data["post_ids"]],
-                hide=data["hide"]
+            post_ids=[e0 for e0 in data["post_ids"]],
+            hide=data["hide"]
         )
 
 
@@ -563,8 +563,8 @@ class CreatePrivateMessageReport:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                private_message_id=data["private_message_id"],
-                reason=data["reason"]
+            private_message_id=data["private_message_id"],
+            reason=data["reason"]
         )
 
 
@@ -582,12 +582,12 @@ class ReadableFederationState:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                instance_id=data["instance_id"],
-                last_successful_id=data["last_successful_id"] if "last_successful_id" in data else None,
-                last_successful_published_time=data["last_successful_published_time"] if "last_successful_published_time" in data else None,
-                fail_count=data["fail_count"],
-                last_retry=data["last_retry"] if "last_retry" in data else None,
-                next_retry=data["next_retry"] if "next_retry" in data else None
+            instance_id=data["instance_id"],
+            last_successful_id=data["last_successful_id"] if "last_successful_id" in data else None,
+            last_successful_published_time=data["last_successful_published_time"] if "last_successful_published_time" in data else None,
+            fail_count=data["fail_count"],
+            last_retry=data["last_retry"] if "last_retry" in data else None,
+            next_retry=data["next_retry"] if "next_retry" in data else None
         )
 
 
@@ -602,9 +602,9 @@ class Login:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                username_or_email=data["username_or_email"],
-                password=data["password"],
-                totp_2fa_token=data["totp_2fa_token"] if "totp_2fa_token" in data else None
+            username_or_email=data["username_or_email"],
+            password=data["password"],
+            totp_2fa_token=data["totp_2fa_token"] if "totp_2fa_token" in data else None
         )
 
 
@@ -618,8 +618,8 @@ class BlockInstance:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                instance_id=data["instance_id"],
-                block=data["block"]
+            instance_id=data["instance_id"],
+            block=data["block"]
         )
 
 
@@ -635,10 +635,10 @@ class LoginToken:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                user_id=data["user_id"],
-                published=data["published"],
-                ip=data["ip"] if "ip" in data else None,
-                user_agent=data["user_agent"] if "user_agent" in data else None
+            user_id=data["user_id"],
+            published=data["published"],
+            ip=data["ip"] if "ip" in data else None,
+            user_agent=data["user_agent"] if "user_agent" in data else None
         )
 
 
@@ -653,9 +653,9 @@ class PasswordChangeAfterReset:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                token=data["token"],
-                password=data["password"],
-                password_verify=data["password_verify"]
+            token=data["token"],
+            password=data["password"],
+            password_verify=data["password_verify"]
         )
 
 
@@ -692,31 +692,31 @@ class LocalUser:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                person_id=data["person_id"],
-                email=data["email"] if "email" in data else None,
-                show_nsfw=data["show_nsfw"],
-                theme=data["theme"],
-                default_sort_type=data["default_sort_type"],
-                default_listing_type=data["default_listing_type"],
-                interface_language=data["interface_language"],
-                show_avatars=data["show_avatars"],
-                send_notifications_to_email=data["send_notifications_to_email"],
-                show_scores=data["show_scores"],
-                show_bot_accounts=data["show_bot_accounts"],
-                show_read_posts=data["show_read_posts"],
-                email_verified=data["email_verified"],
-                accepted_application=data["accepted_application"],
-                open_links_in_new_tab=data["open_links_in_new_tab"],
-                blur_nsfw=data["blur_nsfw"],
-                auto_expand=data["auto_expand"],
-                infinite_scroll_enabled=data["infinite_scroll_enabled"],
-                admin=data["admin"],
-                post_listing_mode=data["post_listing_mode"],
-                totp_2fa_enabled=data["totp_2fa_enabled"],
-                enable_keyboard_navigation=data["enable_keyboard_navigation"],
-                enable_animated_images=data["enable_animated_images"],
-                collapse_bot_comments=data["collapse_bot_comments"]
+            id=data["id"],
+            person_id=data["person_id"],
+            email=data["email"] if "email" in data else None,
+            show_nsfw=data["show_nsfw"],
+            theme=data["theme"],
+            default_sort_type=data["default_sort_type"],
+            default_listing_type=data["default_listing_type"],
+            interface_language=data["interface_language"],
+            show_avatars=data["show_avatars"],
+            send_notifications_to_email=data["send_notifications_to_email"],
+            show_scores=data["show_scores"],
+            show_bot_accounts=data["show_bot_accounts"],
+            show_read_posts=data["show_read_posts"],
+            email_verified=data["email_verified"],
+            accepted_application=data["accepted_application"],
+            open_links_in_new_tab=data["open_links_in_new_tab"],
+            blur_nsfw=data["blur_nsfw"],
+            auto_expand=data["auto_expand"],
+            infinite_scroll_enabled=data["infinite_scroll_enabled"],
+            admin=data["admin"],
+            post_listing_mode=data["post_listing_mode"],
+            totp_2fa_enabled=data["totp_2fa_enabled"],
+            enable_keyboard_navigation=data["enable_keyboard_navigation"],
+            enable_animated_images=data["enable_animated_images"],
+            collapse_bot_comments=data["collapse_bot_comments"]
         )
 
 
@@ -731,9 +731,9 @@ class PersonAggregates:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person_id=data["person_id"],
-                post_count=data["post_count"],
-                comment_count=data["comment_count"]
+            person_id=data["person_id"],
+            post_count=data["post_count"],
+            comment_count=data["comment_count"]
         )
 
 
@@ -747,8 +747,8 @@ class MarkCommentReplyAsRead:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_reply_id=data["comment_reply_id"],
-                read=data["read"]
+            comment_reply_id=data["comment_reply_id"],
+            read=data["read"]
         )
 
 
@@ -769,15 +769,15 @@ class Search:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                q=data["q"],
-                community_id=data["community_id"] if "community_id" in data else None,
-                community_name=data["community_name"] if "community_name" in data else None,
-                creator_id=data["creator_id"] if "creator_id" in data else None,
-                type_=data["type_"] if "type_" in data else None,
-                sort=data["sort"] if "sort" in data else None,
-                listing_type=data["listing_type"] if "listing_type" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None
+            q=data["q"],
+            community_id=data["community_id"] if "community_id" in data else None,
+            community_name=data["community_name"] if "community_name" in data else None,
+            creator_id=data["creator_id"] if "creator_id" in data else None,
+            type_=data["type_"] if "type_" in data else None,
+            sort=data["sort"] if "sort" in data else None,
+            listing_type=data["listing_type"] if "listing_type" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None
         )
 
 
@@ -794,11 +794,11 @@ class LocalUserVoteDisplayMode:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                local_user_id=data["local_user_id"],
-                score=data["score"],
-                upvotes=data["upvotes"],
-                downvotes=data["downvotes"],
-                upvote_percentage=data["upvote_percentage"]
+            local_user_id=data["local_user_id"],
+            score=data["score"],
+            upvotes=data["upvotes"],
+            downvotes=data["downvotes"],
+            upvote_percentage=data["upvote_percentage"]
         )
 
 
@@ -812,8 +812,8 @@ class LockPost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                locked=data["locked"]
+            post_id=data["post_id"],
+            locked=data["locked"]
         )
 
 
@@ -828,9 +828,9 @@ class ChangePassword:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                new_password=data["new_password"],
-                new_password_verify=data["new_password_verify"],
-                old_password=data["old_password"]
+            new_password=data["new_password"],
+            new_password_verify=data["new_password_verify"],
+            old_password=data["old_password"]
         )
 
 
@@ -843,7 +843,7 @@ class ResolveObject:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                q=data["q"]
+            q=data["q"]
         )
 
 
@@ -856,7 +856,7 @@ class VerifyEmail:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                token=data["token"]
+            token=data["token"]
         )
 
 
@@ -874,12 +874,12 @@ class ModAddCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                mod_person_id=data["mod_person_id"],
-                other_person_id=data["other_person_id"],
-                community_id=data["community_id"],
-                removed=data["removed"],
-                when_=data["when_"]
+            id=data["id"],
+            mod_person_id=data["mod_person_id"],
+            other_person_id=data["other_person_id"],
+            community_id=data["community_id"],
+            removed=data["removed"],
+            when_=data["when_"]
         )
 
 
@@ -893,8 +893,8 @@ class BlockPerson:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person_id=data["person_id"],
-                block=data["block"]
+            person_id=data["person_id"],
+            block=data["block"]
         )
 
 
@@ -909,9 +909,9 @@ class ListPrivateMessageReports:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                unresolved_only=data["unresolved_only"] if "unresolved_only" in data else None
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            unresolved_only=data["unresolved_only"] if "unresolved_only" in data else None
         )
 
 
@@ -932,15 +932,15 @@ class SiteAggregates:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                site_id=data["site_id"],
-                users=data["users"],
-                posts=data["posts"],
-                comments=data["comments"],
-                communities=data["communities"],
-                users_active_day=data["users_active_day"],
-                users_active_week=data["users_active_week"],
-                users_active_month=data["users_active_month"],
-                users_active_half_year=data["users_active_half_year"]
+            site_id=data["site_id"],
+            users=data["users"],
+            posts=data["posts"],
+            comments=data["comments"],
+            communities=data["communities"],
+            users_active_day=data["users_active_day"],
+            users_active_week=data["users_active_week"],
+            users_active_month=data["users_active_month"],
+            users_active_half_year=data["users_active_half_year"]
         )
 
 
@@ -954,8 +954,8 @@ class CreatePostReport:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                reason=data["reason"]
+            post_id=data["post_id"],
+            reason=data["reason"]
         )
 
 
@@ -975,14 +975,14 @@ class CustomEmoji:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                local_site_id=data["local_site_id"],
-                shortcode=data["shortcode"],
-                image_url=data["image_url"],
-                alt_text=data["alt_text"],
-                category=data["category"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None
+            id=data["id"],
+            local_site_id=data["local_site_id"],
+            shortcode=data["shortcode"],
+            image_url=data["image_url"],
+            alt_text=data["alt_text"],
+            category=data["category"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None
         )
 
 
@@ -996,8 +996,8 @@ class PurgePost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                reason=data["reason"] if "reason" in data else None
+            post_id=data["post_id"],
+            reason=data["reason"] if "reason" in data else None
         )
 
 
@@ -1016,13 +1016,13 @@ class PostAggregates:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                comments=data["comments"],
-                score=data["score"],
-                upvotes=data["upvotes"],
-                downvotes=data["downvotes"],
-                published=data["published"],
-                newest_comment_time=data["newest_comment_time"]
+            post_id=data["post_id"],
+            comments=data["comments"],
+            score=data["score"],
+            upvotes=data["upvotes"],
+            downvotes=data["downvotes"],
+            published=data["published"],
+            newest_comment_time=data["newest_comment_time"]
         )
 
 
@@ -1037,9 +1037,9 @@ class Language:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                code=data["code"],
-                name=data["name"]
+            id=data["id"],
+            code=data["code"],
+            name=data["name"]
         )
 
 
@@ -1052,7 +1052,7 @@ class GetReportCount:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"] if "community_id" in data else None
+            community_id=data["community_id"] if "community_id" in data else None
         )
 
 
@@ -1066,8 +1066,8 @@ class DeletePrivateMessage:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                private_message_id=data["private_message_id"],
-                deleted=data["deleted"]
+            private_message_id=data["private_message_id"],
+            deleted=data["deleted"]
         )
 
 
@@ -1096,23 +1096,23 @@ class Community:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                name=data["name"],
-                title=data["title"],
-                description=data["description"] if "description" in data else None,
-                removed=data["removed"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None,
-                deleted=data["deleted"],
-                nsfw=data["nsfw"],
-                actor_id=data["actor_id"],
-                local=data["local"],
-                icon=data["icon"] if "icon" in data else None,
-                banner=data["banner"] if "banner" in data else None,
-                hidden=data["hidden"],
-                posting_restricted_to_mods=data["posting_restricted_to_mods"],
-                instance_id=data["instance_id"],
-                visibility=data["visibility"]
+            id=data["id"],
+            name=data["name"],
+            title=data["title"],
+            description=data["description"] if "description" in data else None,
+            removed=data["removed"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None,
+            deleted=data["deleted"],
+            nsfw=data["nsfw"],
+            actor_id=data["actor_id"],
+            local=data["local"],
+            icon=data["icon"] if "icon" in data else None,
+            banner=data["banner"] if "banner" in data else None,
+            hidden=data["hidden"],
+            posting_restricted_to_mods=data["posting_restricted_to_mods"],
+            instance_id=data["instance_id"],
+            visibility=data["visibility"]
         )
 
 
@@ -1129,11 +1129,11 @@ class ListPostReports:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                unresolved_only=data["unresolved_only"] if "unresolved_only" in data else None,
-                community_id=data["community_id"] if "community_id" in data else None,
-                post_id=data["post_id"] if "post_id" in data else None
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            unresolved_only=data["unresolved_only"] if "unresolved_only" in data else None,
+            community_id=data["community_id"] if "community_id" in data else None,
+            post_id=data["post_id"] if "post_id" in data else None
         )
 
 
@@ -1151,12 +1151,12 @@ class ModFeaturePost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                mod_person_id=data["mod_person_id"],
-                post_id=data["post_id"],
-                featured=data["featured"],
-                when_=data["when_"],
-                is_featured_community=data["is_featured_community"]
+            id=data["id"],
+            mod_person_id=data["mod_person_id"],
+            post_id=data["post_id"],
+            featured=data["featured"],
+            when_=data["when_"],
+            is_featured_community=data["is_featured_community"]
         )
 
 
@@ -1175,13 +1175,13 @@ class GetPersonDetails:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person_id=data["person_id"] if "person_id" in data else None,
-                username=data["username"] if "username" in data else None,
-                sort=data["sort"] if "sort" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                community_id=data["community_id"] if "community_id" in data else None,
-                saved_only=data["saved_only"] if "saved_only" in data else None
+            person_id=data["person_id"] if "person_id" in data else None,
+            username=data["username"] if "username" in data else None,
+            sort=data["sort"] if "sort" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            community_id=data["community_id"] if "community_id" in data else None,
+            saved_only=data["saved_only"] if "saved_only" in data else None
         )
 
 
@@ -1196,9 +1196,9 @@ class AddModToCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                person_id=data["person_id"],
-                added=data["added"]
+            community_id=data["community_id"],
+            person_id=data["person_id"],
+            added=data["added"]
         )
 
 
@@ -1224,20 +1224,20 @@ class Site:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                name=data["name"],
-                sidebar=data["sidebar"] if "sidebar" in data else None,
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None,
-                icon=data["icon"] if "icon" in data else None,
-                banner=data["banner"] if "banner" in data else None,
-                description=data["description"] if "description" in data else None,
-                actor_id=data["actor_id"],
-                last_refreshed_at=data["last_refreshed_at"],
-                inbox_url=data["inbox_url"],
-                public_key=data["public_key"],
-                instance_id=data["instance_id"],
-                content_warning=data["content_warning"] if "content_warning" in data else None
+            id=data["id"],
+            name=data["name"],
+            sidebar=data["sidebar"] if "sidebar" in data else None,
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None,
+            icon=data["icon"] if "icon" in data else None,
+            banner=data["banner"] if "banner" in data else None,
+            description=data["description"] if "description" in data else None,
+            actor_id=data["actor_id"],
+            last_refreshed_at=data["last_refreshed_at"],
+            inbox_url=data["inbox_url"],
+            public_key=data["public_key"],
+            instance_id=data["instance_id"],
+            content_warning=data["content_warning"] if "content_warning" in data else None
         )
 
 
@@ -1252,9 +1252,9 @@ class ApproveRegistrationApplication:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                approve=data["approve"],
-                deny_reason=data["deny_reason"] if "deny_reason" in data else None
+            id=data["id"],
+            approve=data["approve"],
+            deny_reason=data["deny_reason"] if "deny_reason" in data else None
         )
 
 
@@ -1274,14 +1274,14 @@ class EditPost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                name=data["name"] if "name" in data else None,
-                url=data["url"] if "url" in data else None,
-                body=data["body"] if "body" in data else None,
-                alt_text=data["alt_text"] if "alt_text" in data else None,
-                nsfw=data["nsfw"] if "nsfw" in data else None,
-                language_id=data["language_id"] if "language_id" in data else None,
-                custom_thumbnail=data["custom_thumbnail"] if "custom_thumbnail" in data else None
+            post_id=data["post_id"],
+            name=data["name"] if "name" in data else None,
+            url=data["url"] if "url" in data else None,
+            body=data["body"] if "body" in data else None,
+            alt_text=data["alt_text"] if "alt_text" in data else None,
+            nsfw=data["nsfw"] if "nsfw" in data else None,
+            language_id=data["language_id"] if "language_id" in data else None,
+            custom_thumbnail=data["custom_thumbnail"] if "custom_thumbnail" in data else None
         )
 
 
@@ -1295,8 +1295,8 @@ class GetPost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"] if "id" in data else None,
-                comment_id=data["comment_id"] if "comment_id" in data else None
+            id=data["id"] if "id" in data else None,
+            comment_id=data["comment_id"] if "comment_id" in data else None
         )
 
 
@@ -1310,8 +1310,8 @@ class FollowCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                follow=data["follow"]
+            community_id=data["community_id"],
+            follow=data["follow"]
         )
 
 
@@ -1327,10 +1327,10 @@ class GetPrivateMessages:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                unread_only=data["unread_only"] if "unread_only" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                creator_id=data["creator_id"] if "creator_id" in data else None
+            unread_only=data["unread_only"] if "unread_only" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            creator_id=data["creator_id"] if "creator_id" in data else None
         )
 
 
@@ -1349,13 +1349,13 @@ class ModBan:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                mod_person_id=data["mod_person_id"],
-                other_person_id=data["other_person_id"],
-                reason=data["reason"] if "reason" in data else None,
-                banned=data["banned"],
-                expires=data["expires"] if "expires" in data else None,
-                when_=data["when_"]
+            id=data["id"],
+            mod_person_id=data["mod_person_id"],
+            other_person_id=data["other_person_id"],
+            reason=data["reason"] if "reason" in data else None,
+            banned=data["banned"],
+            expires=data["expires"] if "expires" in data else None,
+            when_=data["when_"]
         )
 
 
@@ -1372,11 +1372,11 @@ class Tagline:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                local_site_id=data["local_site_id"],
-                content=data["content"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None
+            id=data["id"],
+            local_site_id=data["local_site_id"],
+            content=data["content"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None
         )
 
 
@@ -1391,9 +1391,9 @@ class RemoveComment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"],
-                removed=data["removed"],
-                reason=data["reason"] if "reason" in data else None
+            comment_id=data["comment_id"],
+            removed=data["removed"],
+            reason=data["reason"] if "reason" in data else None
         )
 
 
@@ -1407,8 +1407,8 @@ class UpdateTotp:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                totp_token=data["totp_token"],
-                enabled=data["enabled"]
+            totp_token=data["totp_token"],
+            enabled=data["enabled"]
         )
 
 
@@ -1422,8 +1422,8 @@ class MarkPostAsRead:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_ids=[e0 for e0 in data["post_ids"]],
-                read=data["read"]
+            post_ids=[e0 for e0 in data["post_ids"]],
+            read=data["read"]
         )
 
 
@@ -1437,8 +1437,8 @@ class ResolvePrivateMessageReport:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                report_id=data["report_id"],
-                resolved=data["resolved"]
+            report_id=data["report_id"],
+            resolved=data["resolved"]
         )
 
 
@@ -1455,11 +1455,11 @@ class LinkMetadata:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                title=data["title"] if "title" in data else None,
-                description=data["description"] if "description" in data else None,
-                image=data["image"] if "image" in data else None,
-                embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None,
-                content_type=data["content_type"] if "content_type" in data else None
+            title=data["title"] if "title" in data else None,
+            description=data["description"] if "description" in data else None,
+            image=data["image"] if "image" in data else None,
+            embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None,
+            content_type=data["content_type"] if "content_type" in data else None
         )
 
 
@@ -1481,16 +1481,16 @@ class PrivateMessage:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                creator_id=data["creator_id"],
-                recipient_id=data["recipient_id"],
-                content=data["content"],
-                deleted=data["deleted"],
-                read=data["read"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None,
-                ap_id=data["ap_id"],
-                local=data["local"]
+            id=data["id"],
+            creator_id=data["creator_id"],
+            recipient_id=data["recipient_id"],
+            content=data["content"],
+            deleted=data["deleted"],
+            read=data["read"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None,
+            ap_id=data["ap_id"],
+            local=data["local"]
         )
 
 
@@ -1504,8 +1504,8 @@ class DeletePost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                deleted=data["deleted"]
+            post_id=data["post_id"],
+            deleted=data["deleted"]
         )
 
 
@@ -1519,8 +1519,8 @@ class PurgeComment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"],
-                reason=data["reason"] if "reason" in data else None
+            comment_id=data["comment_id"],
+            reason=data["reason"] if "reason" in data else None
         )
 
 
@@ -1541,15 +1541,15 @@ class CreatePost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                name=data["name"],
-                community_id=data["community_id"],
-                url=data["url"] if "url" in data else None,
-                body=data["body"] if "body" in data else None,
-                alt_text=data["alt_text"] if "alt_text" in data else None,
-                honeypot=data["honeypot"] if "honeypot" in data else None,
-                nsfw=data["nsfw"] if "nsfw" in data else None,
-                language_id=data["language_id"] if "language_id" in data else None,
-                custom_thumbnail=data["custom_thumbnail"] if "custom_thumbnail" in data else None
+            name=data["name"],
+            community_id=data["community_id"],
+            url=data["url"] if "url" in data else None,
+            body=data["body"] if "body" in data else None,
+            alt_text=data["alt_text"] if "alt_text" in data else None,
+            honeypot=data["honeypot"] if "honeypot" in data else None,
+            nsfw=data["nsfw"] if "nsfw" in data else None,
+            language_id=data["language_id"] if "language_id" in data else None,
+            custom_thumbnail=data["custom_thumbnail"] if "custom_thumbnail" in data else None
         )
 
 
@@ -1566,11 +1566,11 @@ class CreateCustomEmoji:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                category=data["category"],
-                shortcode=data["shortcode"],
-                image_url=data["image_url"],
-                alt_text=data["alt_text"],
-                keywords=[e0 for e0 in data["keywords"]]
+            category=data["category"],
+            shortcode=data["shortcode"],
+            image_url=data["image_url"],
+            alt_text=data["alt_text"],
+            keywords=[e0 for e0 in data["keywords"]]
         )
 
 
@@ -1589,13 +1589,13 @@ class InstanceWithFederationState:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                domain=data["domain"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None,
-                software=data["software"] if "software" in data else None,
-                version=data["version"] if "version" in data else None,
-                federation_state=ReadableFederationState.parse(data["federation_state"]) if "federation_state" in data else None
+            id=data["id"],
+            domain=data["domain"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None,
+            software=data["software"] if "software" in data else None,
+            version=data["version"] if "version" in data else None,
+            federation_state=ReadableFederationState.parse(data["federation_state"]) if "federation_state" in data else None
         )
 
 
@@ -1617,16 +1617,16 @@ class CommunityAggregates:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                subscribers=data["subscribers"],
-                posts=data["posts"],
-                comments=data["comments"],
-                published=data["published"],
-                users_active_day=data["users_active_day"],
-                users_active_week=data["users_active_week"],
-                users_active_month=data["users_active_month"],
-                users_active_half_year=data["users_active_half_year"],
-                subscribers_local=data["subscribers_local"]
+            community_id=data["community_id"],
+            subscribers=data["subscribers"],
+            posts=data["posts"],
+            comments=data["comments"],
+            published=data["published"],
+            users_active_day=data["users_active_day"],
+            users_active_week=data["users_active_week"],
+            users_active_month=data["users_active_month"],
+            users_active_half_year=data["users_active_half_year"],
+            subscribers_local=data["subscribers_local"]
         )
 
 
@@ -1642,10 +1642,10 @@ class LocalImage:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                local_user_id=data["local_user_id"] if "local_user_id" in data else None,
-                pictrs_alias=data["pictrs_alias"],
-                pictrs_delete_token=data["pictrs_delete_token"],
-                published=data["published"]
+            local_user_id=data["local_user_id"] if "local_user_id" in data else None,
+            pictrs_alias=data["pictrs_alias"],
+            pictrs_delete_token=data["pictrs_delete_token"],
+            published=data["published"]
         )
 
 
@@ -1666,15 +1666,15 @@ class EditCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                title=data["title"] if "title" in data else None,
-                description=data["description"] if "description" in data else None,
-                icon=data["icon"] if "icon" in data else None,
-                banner=data["banner"] if "banner" in data else None,
-                nsfw=data["nsfw"] if "nsfw" in data else None,
-                posting_restricted_to_mods=data["posting_restricted_to_mods"] if "posting_restricted_to_mods" in data else None,
-                discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
-                visibility=data["visibility"] if "visibility" in data else None
+            community_id=data["community_id"],
+            title=data["title"] if "title" in data else None,
+            description=data["description"] if "description" in data else None,
+            icon=data["icon"] if "icon" in data else None,
+            banner=data["banner"] if "banner" in data else None,
+            nsfw=data["nsfw"] if "nsfw" in data else None,
+            posting_restricted_to_mods=data["posting_restricted_to_mods"] if "posting_restricted_to_mods" in data else None,
+            discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
+            visibility=data["visibility"] if "visibility" in data else None
         )
 
 
@@ -1689,9 +1689,9 @@ class ListPostLikes:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None
+            post_id=data["post_id"],
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None
         )
 
 
@@ -1708,11 +1708,11 @@ class CommentReply:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                recipient_id=data["recipient_id"],
-                comment_id=data["comment_id"],
-                read=data["read"],
-                published=data["published"]
+            id=data["id"],
+            recipient_id=data["recipient_id"],
+            comment_id=data["comment_id"],
+            read=data["read"],
+            published=data["published"]
         )
 
 
@@ -1730,12 +1730,12 @@ class ModRemovePost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                mod_person_id=data["mod_person_id"],
-                post_id=data["post_id"],
-                reason=data["reason"] if "reason" in data else None,
-                removed=data["removed"],
-                when_=data["when_"]
+            id=data["id"],
+            mod_person_id=data["mod_person_id"],
+            post_id=data["post_id"],
+            reason=data["reason"] if "reason" in data else None,
+            removed=data["removed"],
+            when_=data["when_"]
         )
 
 
@@ -1753,12 +1753,12 @@ class BanFromCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                person_id=data["person_id"],
-                ban=data["ban"],
-                remove_data=data["remove_data"] if "remove_data" in data else None,
-                reason=data["reason"] if "reason" in data else None,
-                expires=data["expires"] if "expires" in data else None
+            community_id=data["community_id"],
+            person_id=data["person_id"],
+            ban=data["ban"],
+            remove_data=data["remove_data"] if "remove_data" in data else None,
+            reason=data["reason"] if "reason" in data else None,
+            expires=data["expires"] if "expires" in data else None
         )
 
 
@@ -1772,8 +1772,8 @@ class CreatePostLike:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                score=data["score"]
+            post_id=data["post_id"],
+            score=data["score"]
         )
 
 
@@ -1788,9 +1788,9 @@ class RemovePost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                removed=data["removed"],
-                reason=data["reason"] if "reason" in data else None
+            post_id=data["post_id"],
+            removed=data["removed"],
+            reason=data["reason"] if "reason" in data else None
         )
 
 
@@ -1804,8 +1804,8 @@ class EditPrivateMessage:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                private_message_id=data["private_message_id"],
-                content=data["content"]
+            private_message_id=data["private_message_id"],
+            content=data["content"]
         )
 
 
@@ -1821,10 +1821,10 @@ class ImageDetails:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                link=data["link"],
-                width=data["width"],
-                height=data["height"],
-                content_type=data["content_type"]
+            link=data["link"],
+            width=data["width"],
+            height=data["height"],
+            content_type=data["content_type"]
         )
 
 
@@ -1844,14 +1844,14 @@ class GetModlog:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                mod_person_id=data["mod_person_id"] if "mod_person_id" in data else None,
-                community_id=data["community_id"] if "community_id" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                type_=data["type_"] if "type_" in data else None,
-                other_person_id=data["other_person_id"] if "other_person_id" in data else None,
-                post_id=data["post_id"] if "post_id" in data else None,
-                comment_id=data["comment_id"] if "comment_id" in data else None
+            mod_person_id=data["mod_person_id"] if "mod_person_id" in data else None,
+            community_id=data["community_id"] if "community_id" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            type_=data["type_"] if "type_" in data else None,
+            other_person_id=data["other_person_id"] if "other_person_id" in data else None,
+            post_id=data["post_id"] if "post_id" in data else None,
+            comment_id=data["comment_id"] if "comment_id" in data else None
         )
 
 
@@ -1892,35 +1892,35 @@ class SaveUserSettings:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
-                blur_nsfw=data["blur_nsfw"] if "blur_nsfw" in data else None,
-                auto_expand=data["auto_expand"] if "auto_expand" in data else None,
-                theme=data["theme"] if "theme" in data else None,
-                default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
-                default_listing_type=data["default_listing_type"] if "default_listing_type" in data else None,
-                interface_language=data["interface_language"] if "interface_language" in data else None,
-                avatar=data["avatar"] if "avatar" in data else None,
-                banner=data["banner"] if "banner" in data else None,
-                display_name=data["display_name"] if "display_name" in data else None,
-                email=data["email"] if "email" in data else None,
-                bio=data["bio"] if "bio" in data else None,
-                matrix_user_id=data["matrix_user_id"] if "matrix_user_id" in data else None,
-                show_avatars=data["show_avatars"] if "show_avatars" in data else None,
-                send_notifications_to_email=data["send_notifications_to_email"] if "send_notifications_to_email" in data else None,
-                bot_account=data["bot_account"] if "bot_account" in data else None,
-                show_bot_accounts=data["show_bot_accounts"] if "show_bot_accounts" in data else None,
-                show_read_posts=data["show_read_posts"] if "show_read_posts" in data else None,
-                discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
-                open_links_in_new_tab=data["open_links_in_new_tab"] if "open_links_in_new_tab" in data else None,
-                infinite_scroll_enabled=data["infinite_scroll_enabled"] if "infinite_scroll_enabled" in data else None,
-                post_listing_mode=data["post_listing_mode"] if "post_listing_mode" in data else None,
-                enable_keyboard_navigation=data["enable_keyboard_navigation"] if "enable_keyboard_navigation" in data else None,
-                enable_animated_images=data["enable_animated_images"] if "enable_animated_images" in data else None,
-                collapse_bot_comments=data["collapse_bot_comments"] if "collapse_bot_comments" in data else None,
-                show_scores=data["show_scores"] if "show_scores" in data else None,
-                show_upvotes=data["show_upvotes"] if "show_upvotes" in data else None,
-                show_downvotes=data["show_downvotes"] if "show_downvotes" in data else None,
-                show_upvote_percentage=data["show_upvote_percentage"] if "show_upvote_percentage" in data else None
+            show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
+            blur_nsfw=data["blur_nsfw"] if "blur_nsfw" in data else None,
+            auto_expand=data["auto_expand"] if "auto_expand" in data else None,
+            theme=data["theme"] if "theme" in data else None,
+            default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
+            default_listing_type=data["default_listing_type"] if "default_listing_type" in data else None,
+            interface_language=data["interface_language"] if "interface_language" in data else None,
+            avatar=data["avatar"] if "avatar" in data else None,
+            banner=data["banner"] if "banner" in data else None,
+            display_name=data["display_name"] if "display_name" in data else None,
+            email=data["email"] if "email" in data else None,
+            bio=data["bio"] if "bio" in data else None,
+            matrix_user_id=data["matrix_user_id"] if "matrix_user_id" in data else None,
+            show_avatars=data["show_avatars"] if "show_avatars" in data else None,
+            send_notifications_to_email=data["send_notifications_to_email"] if "send_notifications_to_email" in data else None,
+            bot_account=data["bot_account"] if "bot_account" in data else None,
+            show_bot_accounts=data["show_bot_accounts"] if "show_bot_accounts" in data else None,
+            show_read_posts=data["show_read_posts"] if "show_read_posts" in data else None,
+            discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
+            open_links_in_new_tab=data["open_links_in_new_tab"] if "open_links_in_new_tab" in data else None,
+            infinite_scroll_enabled=data["infinite_scroll_enabled"] if "infinite_scroll_enabled" in data else None,
+            post_listing_mode=data["post_listing_mode"] if "post_listing_mode" in data else None,
+            enable_keyboard_navigation=data["enable_keyboard_navigation"] if "enable_keyboard_navigation" in data else None,
+            enable_animated_images=data["enable_animated_images"] if "enable_animated_images" in data else None,
+            collapse_bot_comments=data["collapse_bot_comments"] if "collapse_bot_comments" in data else None,
+            show_scores=data["show_scores"] if "show_scores" in data else None,
+            show_upvotes=data["show_upvotes"] if "show_upvotes" in data else None,
+            show_downvotes=data["show_downvotes"] if "show_downvotes" in data else None,
+            show_upvote_percentage=data["show_upvote_percentage"] if "show_upvote_percentage" in data else None
         )
 
 
@@ -1934,8 +1934,8 @@ class CreatePrivateMessage:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                content=data["content"],
-                recipient_id=data["recipient_id"]
+            content=data["content"],
+            recipient_id=data["recipient_id"]
         )
 
 
@@ -1964,23 +1964,23 @@ class LocalSiteRateLimit:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                local_site_id=data["local_site_id"],
-                message=data["message"],
-                message_per_second=data["message_per_second"],
-                post=data["post"],
-                post_per_second=data["post_per_second"],
-                register=data["register"],
-                register_per_second=data["register_per_second"],
-                image=data["image"],
-                image_per_second=data["image_per_second"],
-                comment=data["comment"],
-                comment_per_second=data["comment_per_second"],
-                search=data["search"],
-                search_per_second=data["search_per_second"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None,
-                import_user_settings=data["import_user_settings"],
-                import_user_settings_per_second=data["import_user_settings_per_second"]
+            local_site_id=data["local_site_id"],
+            message=data["message"],
+            message_per_second=data["message_per_second"],
+            post=data["post"],
+            post_per_second=data["post_per_second"],
+            register=data["register"],
+            register_per_second=data["register_per_second"],
+            image=data["image"],
+            image_per_second=data["image_per_second"],
+            comment=data["comment"],
+            comment_per_second=data["comment_per_second"],
+            search=data["search"],
+            search_per_second=data["search_per_second"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None,
+            import_user_settings=data["import_user_settings"],
+            import_user_settings_per_second=data["import_user_settings_per_second"]
         )
 
 
@@ -1995,9 +1995,9 @@ class ListCommentLikes:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"],
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None
+            comment_id=data["comment_id"],
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None
         )
 
 
@@ -2011,8 +2011,8 @@ class SaveComment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"],
-                save=data["save"]
+            comment_id=data["comment_id"],
+            save=data["save"]
         )
 
 
@@ -2026,8 +2026,8 @@ class ListMedia:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None
         )
 
 
@@ -2065,32 +2065,32 @@ class LocalSite:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                site_id=data["site_id"],
-                site_setup=data["site_setup"],
-                enable_downvotes=data["enable_downvotes"],
-                enable_nsfw=data["enable_nsfw"],
-                community_creation_admin_only=data["community_creation_admin_only"],
-                require_email_verification=data["require_email_verification"],
-                application_question=data["application_question"] if "application_question" in data else None,
-                private_instance=data["private_instance"],
-                default_theme=data["default_theme"],
-                default_post_listing_type=data["default_post_listing_type"],
-                legal_information=data["legal_information"] if "legal_information" in data else None,
-                hide_modlog_mod_names=data["hide_modlog_mod_names"],
-                application_email_admins=data["application_email_admins"],
-                slur_filter_regex=data["slur_filter_regex"] if "slur_filter_regex" in data else None,
-                actor_name_max_length=data["actor_name_max_length"],
-                federation_enabled=data["federation_enabled"],
-                captcha_enabled=data["captcha_enabled"],
-                captcha_difficulty=data["captcha_difficulty"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None,
-                registration_mode=data["registration_mode"],
-                reports_email_admins=data["reports_email_admins"],
-                federation_signed_fetch=data["federation_signed_fetch"],
-                default_post_listing_mode=data["default_post_listing_mode"],
-                default_sort_type=data["default_sort_type"]
+            id=data["id"],
+            site_id=data["site_id"],
+            site_setup=data["site_setup"],
+            enable_downvotes=data["enable_downvotes"],
+            enable_nsfw=data["enable_nsfw"],
+            community_creation_admin_only=data["community_creation_admin_only"],
+            require_email_verification=data["require_email_verification"],
+            application_question=data["application_question"] if "application_question" in data else None,
+            private_instance=data["private_instance"],
+            default_theme=data["default_theme"],
+            default_post_listing_type=data["default_post_listing_type"],
+            legal_information=data["legal_information"] if "legal_information" in data else None,
+            hide_modlog_mod_names=data["hide_modlog_mod_names"],
+            application_email_admins=data["application_email_admins"],
+            slur_filter_regex=data["slur_filter_regex"] if "slur_filter_regex" in data else None,
+            actor_name_max_length=data["actor_name_max_length"],
+            federation_enabled=data["federation_enabled"],
+            captcha_enabled=data["captcha_enabled"],
+            captcha_difficulty=data["captcha_difficulty"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None,
+            registration_mode=data["registration_mode"],
+            reports_email_admins=data["reports_email_admins"],
+            federation_signed_fetch=data["federation_signed_fetch"],
+            default_post_listing_mode=data["default_post_listing_mode"],
+            default_sort_type=data["default_sort_type"]
         )
 
 
@@ -2104,8 +2104,8 @@ class CustomEmojiKeyword:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                custom_emoji_id=data["custom_emoji_id"],
-                keyword=data["keyword"]
+            custom_emoji_id=data["custom_emoji_id"],
+            keyword=data["keyword"]
         )
 
 
@@ -2125,14 +2125,14 @@ class ModlogListParams:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"] if "community_id" in data else None,
-                mod_person_id=data["mod_person_id"] if "mod_person_id" in data else None,
-                other_person_id=data["other_person_id"] if "other_person_id" in data else None,
-                post_id=data["post_id"] if "post_id" in data else None,
-                comment_id=data["comment_id"] if "comment_id" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                hide_modlog_names=data["hide_modlog_names"]
+            community_id=data["community_id"] if "community_id" in data else None,
+            mod_person_id=data["mod_person_id"] if "mod_person_id" in data else None,
+            other_person_id=data["other_person_id"] if "other_person_id" in data else None,
+            post_id=data["post_id"] if "post_id" in data else None,
+            comment_id=data["comment_id"] if "comment_id" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            hide_modlog_names=data["hide_modlog_names"]
         )
 
 
@@ -2150,12 +2150,12 @@ class ModRemoveComment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                mod_person_id=data["mod_person_id"],
-                comment_id=data["comment_id"],
-                reason=data["reason"] if "reason" in data else None,
-                removed=data["removed"],
-                when_=data["when_"]
+            id=data["id"],
+            mod_person_id=data["mod_person_id"],
+            comment_id=data["comment_id"],
+            reason=data["reason"] if "reason" in data else None,
+            removed=data["removed"],
+            when_=data["when_"]
         )
 
 
@@ -2179,18 +2179,18 @@ class GetComments:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                type_=data["type_"] if "type_" in data else None,
-                sort=data["sort"] if "sort" in data else None,
-                max_depth=data["max_depth"] if "max_depth" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                community_id=data["community_id"] if "community_id" in data else None,
-                community_name=data["community_name"] if "community_name" in data else None,
-                post_id=data["post_id"] if "post_id" in data else None,
-                parent_id=data["parent_id"] if "parent_id" in data else None,
-                saved_only=data["saved_only"] if "saved_only" in data else None,
-                liked_only=data["liked_only"] if "liked_only" in data else None,
-                disliked_only=data["disliked_only"] if "disliked_only" in data else None
+            type_=data["type_"] if "type_" in data else None,
+            sort=data["sort"] if "sort" in data else None,
+            max_depth=data["max_depth"] if "max_depth" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            community_id=data["community_id"] if "community_id" in data else None,
+            community_name=data["community_name"] if "community_name" in data else None,
+            post_id=data["post_id"] if "post_id" in data else None,
+            parent_id=data["parent_id"] if "parent_id" in data else None,
+            saved_only=data["saved_only"] if "saved_only" in data else None,
+            liked_only=data["liked_only"] if "liked_only" in data else None,
+            disliked_only=data["disliked_only"] if "disliked_only" in data else None
         )
 
 
@@ -2210,14 +2210,14 @@ class ModBanFromCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                mod_person_id=data["mod_person_id"],
-                other_person_id=data["other_person_id"],
-                community_id=data["community_id"],
-                reason=data["reason"] if "reason" in data else None,
-                banned=data["banned"],
-                expires=data["expires"] if "expires" in data else None,
-                when_=data["when_"]
+            id=data["id"],
+            mod_person_id=data["mod_person_id"],
+            other_person_id=data["other_person_id"],
+            community_id=data["community_id"],
+            reason=data["reason"] if "reason" in data else None,
+            banned=data["banned"],
+            expires=data["expires"] if "expires" in data else None,
+            when_=data["when_"]
         )
 
 
@@ -2231,8 +2231,8 @@ class MarkPersonMentionAsRead:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person_mention_id=data["person_mention_id"],
-                read=data["read"]
+            person_mention_id=data["person_mention_id"],
+            read=data["read"]
         )
 
 
@@ -2246,8 +2246,8 @@ class GetCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"] if "id" in data else None,
-                name=data["name"] if "name" in data else None
+            id=data["id"] if "id" in data else None,
+            name=data["name"] if "name" in data else None
         )
 
 
@@ -2268,15 +2268,15 @@ class PrivateMessageReport:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                creator_id=data["creator_id"],
-                private_message_id=data["private_message_id"],
-                original_pm_text=data["original_pm_text"],
-                reason=data["reason"],
-                resolved=data["resolved"],
-                resolver_id=data["resolver_id"] if "resolver_id" in data else None,
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None
+            id=data["id"],
+            creator_id=data["creator_id"],
+            private_message_id=data["private_message_id"],
+            original_pm_text=data["original_pm_text"],
+            reason=data["reason"],
+            resolved=data["resolved"],
+            resolver_id=data["resolver_id"] if "resolver_id" in data else None,
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None
         )
 
 
@@ -2290,8 +2290,8 @@ class SavePost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                post_id=data["post_id"],
-                save=data["save"]
+            post_id=data["post_id"],
+            save=data["save"]
         )
 
 
@@ -2304,7 +2304,7 @@ class PasswordReset:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                email=data["email"]
+            email=data["email"]
         )
 
 
@@ -2318,8 +2318,8 @@ class CreateCommentReport:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"],
-                reason=data["reason"]
+            comment_id=data["comment_id"],
+            reason=data["reason"]
         )
 
 
@@ -2333,8 +2333,8 @@ class CreateCommentLike:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"],
-                score=data["score"]
+            comment_id=data["comment_id"],
+            score=data["score"]
         )
 
 
@@ -2355,15 +2355,15 @@ class Register:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                username=data["username"],
-                password=data["password"],
-                password_verify=data["password_verify"],
-                show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
-                email=data["email"] if "email" in data else None,
-                captcha_uuid=data["captcha_uuid"] if "captcha_uuid" in data else None,
-                captcha_answer=data["captcha_answer"] if "captcha_answer" in data else None,
-                honeypot=data["honeypot"] if "honeypot" in data else None,
-                answer=data["answer"] if "answer" in data else None
+            username=data["username"],
+            password=data["password"],
+            password_verify=data["password_verify"],
+            show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
+            email=data["email"] if "email" in data else None,
+            captcha_uuid=data["captcha_uuid"] if "captcha_uuid" in data else None,
+            captcha_answer=data["captcha_answer"] if "captcha_answer" in data else None,
+            honeypot=data["honeypot"] if "honeypot" in data else None,
+            answer=data["answer"] if "answer" in data else None
         )
 
 
@@ -2378,9 +2378,9 @@ class FederatedInstances:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                linked=[InstanceWithFederationState.parse(e0) for e0 in data["linked"]],
-                allowed=[InstanceWithFederationState.parse(e0) for e0 in data["allowed"]],
-                blocked=[InstanceWithFederationState.parse(e0) for e0 in data["blocked"]]
+            linked=[InstanceWithFederationState.parse(e0) for e0 in data["linked"]],
+            allowed=[InstanceWithFederationState.parse(e0) for e0 in data["allowed"]],
+            blocked=[InstanceWithFederationState.parse(e0) for e0 in data["blocked"]]
         )
 
 
@@ -2394,8 +2394,8 @@ class DeleteAccount:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                password=data["password"],
-                delete_content=data["delete_content"]
+            password=data["password"],
+            delete_content=data["delete_content"]
         )
 
 
@@ -2409,8 +2409,8 @@ class MarkPrivateMessageAsRead:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                private_message_id=data["private_message_id"],
-                read=data["read"]
+            private_message_id=data["private_message_id"],
+            read=data["read"]
         )
 
 
@@ -2423,7 +2423,7 @@ class GetComment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"]
+            id=data["id"]
         )
 
 
@@ -2437,8 +2437,8 @@ class PurgeCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                reason=data["reason"] if "reason" in data else None
+            community_id=data["community_id"],
+            reason=data["reason"] if "reason" in data else None
         )
 
 
@@ -2452,8 +2452,8 @@ class AddAdmin:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person_id=data["person_id"],
-                added=data["added"]
+            person_id=data["person_id"],
+            added=data["added"]
         )
 
 
@@ -2470,11 +2470,11 @@ class ModTransferCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                mod_person_id=data["mod_person_id"],
-                other_person_id=data["other_person_id"],
-                community_id=data["community_id"],
-                when_=data["when_"]
+            id=data["id"],
+            mod_person_id=data["mod_person_id"],
+            other_person_id=data["other_person_id"],
+            community_id=data["community_id"],
+            when_=data["when_"]
         )
 
 
@@ -2502,22 +2502,22 @@ class Person:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                name=data["name"],
-                display_name=data["display_name"] if "display_name" in data else None,
-                avatar=data["avatar"] if "avatar" in data else None,
-                banned=data["banned"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None,
-                actor_id=data["actor_id"],
-                bio=data["bio"] if "bio" in data else None,
-                local=data["local"],
-                banner=data["banner"] if "banner" in data else None,
-                deleted=data["deleted"],
-                matrix_user_id=data["matrix_user_id"] if "matrix_user_id" in data else None,
-                bot_account=data["bot_account"],
-                ban_expires=data["ban_expires"] if "ban_expires" in data else None,
-                instance_id=data["instance_id"]
+            id=data["id"],
+            name=data["name"],
+            display_name=data["display_name"] if "display_name" in data else None,
+            avatar=data["avatar"] if "avatar" in data else None,
+            banned=data["banned"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None,
+            actor_id=data["actor_id"],
+            bio=data["bio"] if "bio" in data else None,
+            local=data["local"],
+            banner=data["banner"] if "banner" in data else None,
+            deleted=data["deleted"],
+            matrix_user_id=data["matrix_user_id"] if "matrix_user_id" in data else None,
+            bot_account=data["bot_account"],
+            ban_expires=data["ban_expires"] if "ban_expires" in data else None,
+            instance_id=data["instance_id"]
         )
 
 
@@ -2542,19 +2542,19 @@ class Comment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                creator_id=data["creator_id"],
-                post_id=data["post_id"],
-                content=data["content"],
-                removed=data["removed"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None,
-                deleted=data["deleted"],
-                ap_id=data["ap_id"],
-                local=data["local"],
-                path=data["path"],
-                distinguished=data["distinguished"],
-                language_id=data["language_id"]
+            id=data["id"],
+            creator_id=data["creator_id"],
+            post_id=data["post_id"],
+            content=data["content"],
+            removed=data["removed"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None,
+            deleted=data["deleted"],
+            ap_id=data["ap_id"],
+            local=data["local"],
+            path=data["path"],
+            distinguished=data["distinguished"],
+            language_id=data["language_id"]
         )
 
 
@@ -2570,10 +2570,10 @@ class OpenGraphData:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                title=data["title"] if "title" in data else None,
-                description=data["description"] if "description" in data else None,
-                image=data["image"] if "image" in data else None,
-                embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None
+            title=data["title"] if "title" in data else None,
+            description=data["description"] if "description" in data else None,
+            image=data["image"] if "image" in data else None,
+            embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None
         )
 
 
@@ -2587,8 +2587,8 @@ class PurgePerson:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person_id=data["person_id"],
-                reason=data["reason"] if "reason" in data else None
+            person_id=data["person_id"],
+            reason=data["reason"] if "reason" in data else None
         )
 
 
@@ -2602,8 +2602,8 @@ class BlockCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                block=data["block"]
+            community_id=data["community_id"],
+            block=data["block"]
         )
 
 
@@ -2620,11 +2620,11 @@ class AdminPurgePost:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                admin_person_id=data["admin_person_id"],
-                community_id=data["community_id"],
-                reason=data["reason"] if "reason" in data else None,
-                when_=data["when_"]
+            id=data["id"],
+            admin_person_id=data["admin_person_id"],
+            community_id=data["community_id"],
+            reason=data["reason"] if "reason" in data else None,
+            when_=data["when_"]
         )
 
 
@@ -2638,8 +2638,8 @@ class ResolvePostReport:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                report_id=data["report_id"],
-                resolved=data["resolved"]
+            report_id=data["report_id"],
+            resolved=data["resolved"]
         )
 
 
@@ -2655,10 +2655,10 @@ class CreateComment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                content=data["content"],
-                post_id=data["post_id"],
-                parent_id=data["parent_id"] if "parent_id" in data else None,
-                language_id=data["language_id"] if "language_id" in data else None
+            content=data["content"],
+            post_id=data["post_id"],
+            parent_id=data["parent_id"] if "parent_id" in data else None,
+            language_id=data["language_id"] if "language_id" in data else None
         )
 
 
@@ -2673,9 +2673,9 @@ class ListRegistrationApplications:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                unread_only=data["unread_only"] if "unread_only" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None
+            unread_only=data["unread_only"] if "unread_only" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None
         )
 
 
@@ -2689,8 +2689,8 @@ class DistinguishComment:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"],
-                distinguished=data["distinguished"]
+            comment_id=data["comment_id"],
+            distinguished=data["distinguished"]
         )
 
 
@@ -2711,15 +2711,15 @@ class CommentReport:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                creator_id=data["creator_id"],
-                comment_id=data["comment_id"],
-                original_comment_text=data["original_comment_text"],
-                reason=data["reason"],
-                resolved=data["resolved"],
-                resolver_id=data["resolver_id"] if "resolver_id" in data else None,
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None
+            id=data["id"],
+            creator_id=data["creator_id"],
+            comment_id=data["comment_id"],
+            original_comment_text=data["original_comment_text"],
+            reason=data["reason"],
+            resolved=data["resolved"],
+            resolver_id=data["resolver_id"] if "resolver_id" in data else None,
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None
         )
 
 
@@ -2732,7 +2732,7 @@ class DeleteCustomEmoji:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"]
+            id=data["id"]
         )
 
 
@@ -2749,11 +2749,11 @@ class BanPerson:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person_id=data["person_id"],
-                ban=data["ban"],
-                remove_data=data["remove_data"] if "remove_data" in data else None,
-                reason=data["reason"] if "reason" in data else None,
-                expires=data["expires"] if "expires" in data else None
+            person_id=data["person_id"],
+            ban=data["ban"],
+            remove_data=data["remove_data"] if "remove_data" in data else None,
+            reason=data["reason"] if "reason" in data else None,
+            expires=data["expires"] if "expires" in data else None
         )
 
 
@@ -2770,11 +2770,11 @@ class ListCommentReports:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                comment_id=data["comment_id"] if "comment_id" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                unresolved_only=data["unresolved_only"] if "unresolved_only" in data else None,
-                community_id=data["community_id"] if "community_id" in data else None
+            comment_id=data["comment_id"] if "comment_id" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            unresolved_only=data["unresolved_only"] if "unresolved_only" in data else None,
+            community_id=data["community_id"] if "community_id" in data else None
         )
 
 
@@ -2791,11 +2791,11 @@ class ModAdd:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                mod_person_id=data["mod_person_id"],
-                other_person_id=data["other_person_id"],
-                removed=data["removed"],
-                when_=data["when_"]
+            id=data["id"],
+            mod_person_id=data["mod_person_id"],
+            other_person_id=data["other_person_id"],
+            removed=data["removed"],
+            when_=data["when_"]
         )
 
 
@@ -2851,50 +2851,50 @@ class EditSite:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                name=data["name"] if "name" in data else None,
-                sidebar=data["sidebar"] if "sidebar" in data else None,
-                description=data["description"] if "description" in data else None,
-                icon=data["icon"] if "icon" in data else None,
-                banner=data["banner"] if "banner" in data else None,
-                enable_downvotes=data["enable_downvotes"] if "enable_downvotes" in data else None,
-                enable_nsfw=data["enable_nsfw"] if "enable_nsfw" in data else None,
-                community_creation_admin_only=data["community_creation_admin_only"] if "community_creation_admin_only" in data else None,
-                require_email_verification=data["require_email_verification"] if "require_email_verification" in data else None,
-                application_question=data["application_question"] if "application_question" in data else None,
-                private_instance=data["private_instance"] if "private_instance" in data else None,
-                default_theme=data["default_theme"] if "default_theme" in data else None,
-                default_post_listing_type=data["default_post_listing_type"] if "default_post_listing_type" in data else None,
-                default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
-                legal_information=data["legal_information"] if "legal_information" in data else None,
-                application_email_admins=data["application_email_admins"] if "application_email_admins" in data else None,
-                hide_modlog_mod_names=data["hide_modlog_mod_names"] if "hide_modlog_mod_names" in data else None,
-                discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
-                slur_filter_regex=data["slur_filter_regex"] if "slur_filter_regex" in data else None,
-                actor_name_max_length=data["actor_name_max_length"] if "actor_name_max_length" in data else None,
-                rate_limit_message=data["rate_limit_message"] if "rate_limit_message" in data else None,
-                rate_limit_message_per_second=data["rate_limit_message_per_second"] if "rate_limit_message_per_second" in data else None,
-                rate_limit_post=data["rate_limit_post"] if "rate_limit_post" in data else None,
-                rate_limit_post_per_second=data["rate_limit_post_per_second"] if "rate_limit_post_per_second" in data else None,
-                rate_limit_register=data["rate_limit_register"] if "rate_limit_register" in data else None,
-                rate_limit_register_per_second=data["rate_limit_register_per_second"] if "rate_limit_register_per_second" in data else None,
-                rate_limit_image=data["rate_limit_image"] if "rate_limit_image" in data else None,
-                rate_limit_image_per_second=data["rate_limit_image_per_second"] if "rate_limit_image_per_second" in data else None,
-                rate_limit_comment=data["rate_limit_comment"] if "rate_limit_comment" in data else None,
-                rate_limit_comment_per_second=data["rate_limit_comment_per_second"] if "rate_limit_comment_per_second" in data else None,
-                rate_limit_search=data["rate_limit_search"] if "rate_limit_search" in data else None,
-                rate_limit_search_per_second=data["rate_limit_search_per_second"] if "rate_limit_search_per_second" in data else None,
-                federation_enabled=data["federation_enabled"] if "federation_enabled" in data else None,
-                federation_debug=data["federation_debug"] if "federation_debug" in data else None,
-                captcha_enabled=data["captcha_enabled"] if "captcha_enabled" in data else None,
-                captcha_difficulty=data["captcha_difficulty"] if "captcha_difficulty" in data else None,
-                allowed_instances=[e0 for e0 in data["allowed_instances"]] if "allowed_instances" in data else None,
-                blocked_instances=[e0 for e0 in data["blocked_instances"]] if "blocked_instances" in data else None,
-                blocked_urls=[e0 for e0 in data["blocked_urls"]] if "blocked_urls" in data else None,
-                taglines=[e0 for e0 in data["taglines"]] if "taglines" in data else None,
-                registration_mode=data["registration_mode"] if "registration_mode" in data else None,
-                reports_email_admins=data["reports_email_admins"] if "reports_email_admins" in data else None,
-                content_warning=data["content_warning"] if "content_warning" in data else None,
-                default_post_listing_mode=data["default_post_listing_mode"] if "default_post_listing_mode" in data else None
+            name=data["name"] if "name" in data else None,
+            sidebar=data["sidebar"] if "sidebar" in data else None,
+            description=data["description"] if "description" in data else None,
+            icon=data["icon"] if "icon" in data else None,
+            banner=data["banner"] if "banner" in data else None,
+            enable_downvotes=data["enable_downvotes"] if "enable_downvotes" in data else None,
+            enable_nsfw=data["enable_nsfw"] if "enable_nsfw" in data else None,
+            community_creation_admin_only=data["community_creation_admin_only"] if "community_creation_admin_only" in data else None,
+            require_email_verification=data["require_email_verification"] if "require_email_verification" in data else None,
+            application_question=data["application_question"] if "application_question" in data else None,
+            private_instance=data["private_instance"] if "private_instance" in data else None,
+            default_theme=data["default_theme"] if "default_theme" in data else None,
+            default_post_listing_type=data["default_post_listing_type"] if "default_post_listing_type" in data else None,
+            default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
+            legal_information=data["legal_information"] if "legal_information" in data else None,
+            application_email_admins=data["application_email_admins"] if "application_email_admins" in data else None,
+            hide_modlog_mod_names=data["hide_modlog_mod_names"] if "hide_modlog_mod_names" in data else None,
+            discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
+            slur_filter_regex=data["slur_filter_regex"] if "slur_filter_regex" in data else None,
+            actor_name_max_length=data["actor_name_max_length"] if "actor_name_max_length" in data else None,
+            rate_limit_message=data["rate_limit_message"] if "rate_limit_message" in data else None,
+            rate_limit_message_per_second=data["rate_limit_message_per_second"] if "rate_limit_message_per_second" in data else None,
+            rate_limit_post=data["rate_limit_post"] if "rate_limit_post" in data else None,
+            rate_limit_post_per_second=data["rate_limit_post_per_second"] if "rate_limit_post_per_second" in data else None,
+            rate_limit_register=data["rate_limit_register"] if "rate_limit_register" in data else None,
+            rate_limit_register_per_second=data["rate_limit_register_per_second"] if "rate_limit_register_per_second" in data else None,
+            rate_limit_image=data["rate_limit_image"] if "rate_limit_image" in data else None,
+            rate_limit_image_per_second=data["rate_limit_image_per_second"] if "rate_limit_image_per_second" in data else None,
+            rate_limit_comment=data["rate_limit_comment"] if "rate_limit_comment" in data else None,
+            rate_limit_comment_per_second=data["rate_limit_comment_per_second"] if "rate_limit_comment_per_second" in data else None,
+            rate_limit_search=data["rate_limit_search"] if "rate_limit_search" in data else None,
+            rate_limit_search_per_second=data["rate_limit_search_per_second"] if "rate_limit_search_per_second" in data else None,
+            federation_enabled=data["federation_enabled"] if "federation_enabled" in data else None,
+            federation_debug=data["federation_debug"] if "federation_debug" in data else None,
+            captcha_enabled=data["captcha_enabled"] if "captcha_enabled" in data else None,
+            captcha_difficulty=data["captcha_difficulty"] if "captcha_difficulty" in data else None,
+            allowed_instances=[e0 for e0 in data["allowed_instances"]] if "allowed_instances" in data else None,
+            blocked_instances=[e0 for e0 in data["blocked_instances"]] if "blocked_instances" in data else None,
+            blocked_urls=[e0 for e0 in data["blocked_urls"]] if "blocked_urls" in data else None,
+            taglines=[e0 for e0 in data["taglines"]] if "taglines" in data else None,
+            registration_mode=data["registration_mode"] if "registration_mode" in data else None,
+            reports_email_admins=data["reports_email_admins"] if "reports_email_admins" in data else None,
+            content_warning=data["content_warning"] if "content_warning" in data else None,
+            default_post_listing_mode=data["default_post_listing_mode"] if "default_post_listing_mode" in data else None
         )
 
 
@@ -2912,12 +2912,12 @@ class Instance:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                domain=data["domain"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None,
-                software=data["software"] if "software" in data else None,
-                version=data["version"] if "version" in data else None
+            id=data["id"],
+            domain=data["domain"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None,
+            software=data["software"] if "software" in data else None,
+            version=data["version"] if "version" in data else None
         )
 
 
@@ -2952,29 +2952,29 @@ class Post:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                name=data["name"],
-                url=data["url"] if "url" in data else None,
-                body=data["body"] if "body" in data else None,
-                creator_id=data["creator_id"],
-                community_id=data["community_id"],
-                removed=data["removed"],
-                locked=data["locked"],
-                published=data["published"],
-                updated=data["updated"] if "updated" in data else None,
-                deleted=data["deleted"],
-                nsfw=data["nsfw"],
-                embed_title=data["embed_title"] if "embed_title" in data else None,
-                embed_description=data["embed_description"] if "embed_description" in data else None,
-                thumbnail_url=data["thumbnail_url"] if "thumbnail_url" in data else None,
-                ap_id=data["ap_id"],
-                local=data["local"],
-                embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None,
-                language_id=data["language_id"],
-                featured_community=data["featured_community"],
-                featured_local=data["featured_local"],
-                url_content_type=data["url_content_type"] if "url_content_type" in data else None,
-                alt_text=data["alt_text"] if "alt_text" in data else None
+            id=data["id"],
+            name=data["name"],
+            url=data["url"] if "url" in data else None,
+            body=data["body"] if "body" in data else None,
+            creator_id=data["creator_id"],
+            community_id=data["community_id"],
+            removed=data["removed"],
+            locked=data["locked"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None,
+            deleted=data["deleted"],
+            nsfw=data["nsfw"],
+            embed_title=data["embed_title"] if "embed_title" in data else None,
+            embed_description=data["embed_description"] if "embed_description" in data else None,
+            thumbnail_url=data["thumbnail_url"] if "thumbnail_url" in data else None,
+            ap_id=data["ap_id"],
+            local=data["local"],
+            embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None,
+            language_id=data["language_id"],
+            featured_community=data["featured_community"],
+            featured_local=data["featured_local"],
+            url_content_type=data["url_content_type"] if "url_content_type" in data else None,
+            alt_text=data["alt_text"] if "alt_text" in data else None
         )
 
 
@@ -2999,19 +2999,19 @@ class GetPosts:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                type_=data["type_"] if "type_" in data else None,
-                sort=data["sort"] if "sort" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                community_id=data["community_id"] if "community_id" in data else None,
-                community_name=data["community_name"] if "community_name" in data else None,
-                saved_only=data["saved_only"] if "saved_only" in data else None,
-                liked_only=data["liked_only"] if "liked_only" in data else None,
-                disliked_only=data["disliked_only"] if "disliked_only" in data else None,
-                show_hidden=data["show_hidden"] if "show_hidden" in data else None,
-                show_read=data["show_read"] if "show_read" in data else None,
-                show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
-                page_cursor=data["page_cursor"] if "page_cursor" in data else None
+            type_=data["type_"] if "type_" in data else None,
+            sort=data["sort"] if "sort" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            community_id=data["community_id"] if "community_id" in data else None,
+            community_name=data["community_name"] if "community_name" in data else None,
+            saved_only=data["saved_only"] if "saved_only" in data else None,
+            liked_only=data["liked_only"] if "liked_only" in data else None,
+            disliked_only=data["disliked_only"] if "disliked_only" in data else None,
+            show_hidden=data["show_hidden"] if "show_hidden" in data else None,
+            show_read=data["show_read"] if "show_read" in data else None,
+            show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
+            page_cursor=data["page_cursor"] if "page_cursor" in data else None
         )
 
 
@@ -3024,7 +3024,7 @@ class GetRegistrationApplication:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                person_id=data["person_id"]
+            person_id=data["person_id"]
         )
 
 
@@ -3040,10 +3040,10 @@ class GetReplies:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                sort=data["sort"] if "sort" in data else None,
-                page=data["page"] if "page" in data else None,
-                limit=data["limit"] if "limit" in data else None,
-                unread_only=data["unread_only"] if "unread_only" in data else None
+            sort=data["sort"] if "sort" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            unread_only=data["unread_only"] if "unread_only" in data else None
         )
 
 
@@ -3059,10 +3059,10 @@ class AdminPurgePerson:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                id=data["id"],
-                admin_person_id=data["admin_person_id"],
-                reason=data["reason"] if "reason" in data else None,
-                when_=data["when_"]
+            id=data["id"],
+            admin_person_id=data["admin_person_id"],
+            reason=data["reason"] if "reason" in data else None,
+            when_=data["when_"]
         )
 
 
@@ -3076,6 +3076,6 @@ class TransferCommunity:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-                community_id=data["community_id"],
-                person_id=data["person_id"]
+            community_id=data["community_id"],
+            person_id=data["person_id"]
         )
