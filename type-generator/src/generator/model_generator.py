@@ -18,14 +18,14 @@ class Generator:
     def build(self) -> str:
         pass
 
-    def _generate_property_list(self) -> str:
+    def _generate_property_list(self, joiner: str = "\n") -> str:
         lines = []
         for prop in self._properties:
             lines.append(f"""
     {prop.api_name}: {prop.wrapped()} = None
                     """.strip())
 
-        return "\n".join(lines)
+        return joiner.join(lines)
 
     def _i_property_handler(self, pname: str, ptype: str, depth: int = 0) -> str:
         line = ""
@@ -45,14 +45,14 @@ class Generator:
 
         return line
 
-    def _property_handler(self, prop: Property, source_name: str) -> str:
+    def _property_handler(self, prop: Property, source_name: str, assignment: str) -> str:
         line = self._i_property_handler(f"{source_name}[\"{prop.api_name}\"]", prop.type)
 
         if not prop.nullable:
-            return f"{prop.api_name}={line}"
+            return f"{assignment}{line}"
 
         return f"""
-{prop.api_name}={line} if "{prop.api_name}" in {source_name} else None
+{assignment}{line} if "{prop.api_name}" in {source_name} else None
                         """.strip()
 
 
@@ -64,10 +64,13 @@ class ModelGenerator(Generator):
         self._class_type = class_type
 
     def build(self) -> str:
-        return ViewModelGenerator(self._class_name, self._properties).build()
+        if self._class_type == ClassType.RESPONSE:
+            return ResponseModelGenerator(self._class_name, self._properties).build()
+
+        return GeneralModelGenerator(self._class_name, self._properties).build()
 
 
-class ViewModelGenerator(Generator):
+class GeneralModelGenerator(Generator):
     check_all = False
 
     def __init__(self, class_name: str, properties: List[Property], is_response: bool = False):
@@ -75,6 +78,7 @@ class ViewModelGenerator(Generator):
 
     def build(self) -> str:
         return f"""
+@dataclass
 class {self._class_name}:
     \"\"\"https://join-lemmy.org/api/interfaces/{self._class_name}.html\"\"\"
 
@@ -82,13 +86,13 @@ class {self._class_name}:
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
-{textwrap.indent(self._generate_parse(), self._indent_char * 2)}
+{textwrap.indent(self._generate_cls_parse(), self._indent_char * 2)}
             """.strip()
 
-    def _generate_parse(self) -> str:
+    def _generate_cls_parse(self) -> str:
         lines = []
         for prop in self._properties:
-            lines.append(f"{self._indent_char}{self._property_handler(prop, 'data')}")
+            lines.append(f"{self._indent_char}{self._property_handler(prop, 'data', f'{prop.api_name}=')}")
 
         lines = ",\n".join(lines)
 
@@ -97,3 +101,45 @@ return cls(
 {textwrap.indent(lines, self._indent_char)}
 )
         """.strip()
+
+class ResponseModelGenerator(Generator):
+    check_all = False
+
+    def __init__(self, class_name: str, properties: List[Property], is_response: bool = False):
+        super().__init__(class_name, properties)
+
+    def build(self) -> str:
+        joiner = ",\n"
+        return f"""
+class {self._class_name}(ResponseWrapper):
+    \"\"\"https://join-lemmy.org/api/interfaces/{self._class_name}.html\"\"\"
+
+{textwrap.indent(self._generate_property_list(), self._indent_char)}
+    
+    def parse(self, data: dict[str, Any]):
+{textwrap.indent(self._generate_parse(), self._indent_char * 2)}
+
+    @classmethod
+    def data(
+        cls, 
+{textwrap.indent(self._generate_property_list(joiner=joiner), self._indent_char * 2)}
+    ):
+        obj = cls.__new__(cls)
+{textwrap.indent(self._generate_constructor(), self._indent_char * 2)}
+        return obj
+            """.strip()
+
+    def _generate_parse(self) -> str:
+        lines = []
+        for prop in self._properties:
+            lines.append(f"{self._property_handler(prop, 'data', f'self.{prop.api_name} = ')}")
+
+        return "\n".join(lines)
+
+    def _generate_constructor(self) -> str:
+        lines = []
+        for prop in self._properties:
+            lines.append(f"obj.{prop.api_name} = {prop.api_name}")
+
+        return "\n".join(lines)
+

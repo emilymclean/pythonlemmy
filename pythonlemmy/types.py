@@ -1,10 +1,15 @@
 from io import TextIOWrapper
 from typing import Optional, Union
 
+from requests import Response
+
 File = tuple[Optional[str], Union[bytes, str, TextIOWrapper]]
 UploadFile = dict[str, File]
 
 
-class ParsableObject(object):
-    def __init__(self, view: dict) -> None:
-        self.parse(view)
+class ResponseWrapper(object):
+    def __init__(self, data: Response):
+        self.parse(data.json())
+
+    def parse(self, data: dict):
+        pass
