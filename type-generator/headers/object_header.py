@@ -1,5 +1,3 @@
-from typing import Optional
-
-from .types import ParsableObject
-
+from dataclasses import dataclass
+from typing import Optional, Any
 
