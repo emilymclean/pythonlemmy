@@ -33,6 +33,9 @@ class LemmyHttp(object):
             self._request_controller.create_session(jwt)
         self.logger = logging.getLogger(__name__)
 
+    def set_jwt(self, jwt: str):
+        self._request_controller.create_session(jwt)
+
     def get_site(
         self
     ):
