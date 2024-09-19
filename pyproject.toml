@@ -33,3 +33,6 @@ classifiers = [
 filterwarnings = [
     "ignore::DeprecationWarning",
 ]
+testpaths = [
+    "tests/integration"
+]

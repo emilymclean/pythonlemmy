@@ -1,0 +1,78 @@
+{
+  "comment_view": {
+    "comment": {
+      "id": 20700,
+      "creator_id": 659042,
+      "post_id": 417870,
+      "content": "Test?",
+      "removed": false,
+      "published": "2024-09-04T12:04:00.439252Z",
+      "updated": "2024-09-04T12:04:18.924345Z",
+      "deleted": false,
+      "ap_id": "https://enterprise.lemmy.ml/comment/20700",
+      "local": true,
+      "path": "0.20700",
+      "distinguished": false,
+      "language_id": 37
+    },
+    "creator": {
+      "id": 659042,
+      "name": "EmilyTest",
+      "banned": false,
+      "published": "2024-09-04T11:40:56.749546Z",
+      "actor_id": "https://enterprise.lemmy.ml/u/EmilyTest",
+      "local": true,
+      "deleted": false,
+      "bot_account": false,
+      "instance_id": 49
+    },
+    "post": {
+      "id": 417870,
+      "name": "Test",
+      "creator_id": 659042,
+      "community_id": 41470,
+      "removed": false,
+      "locked": false,
+      "published": "2024-09-04T12:03:56.970389Z",
+      "deleted": false,
+      "nsfw": false,
+      "ap_id": "https://enterprise.lemmy.ml/post/417870",
+      "local": true,
+      "language_id": 37,
+      "featured_community": false,
+      "featured_local": false
+    },
+    "community": {
+      "id": 41470,
+      "name": "ptest",
+      "title": "ptest",
+      "removed": false,
+      "published": "2024-09-04T11:41:24.354375Z",
+      "deleted": false,
+      "nsfw": false,
+      "actor_id": "https://enterprise.lemmy.ml/c/ptest",
+      "local": true,
+      "hidden": false,
+      "posting_restricted_to_mods": true,
+      "instance_id": 49,
+      "visibility": "Public"
+    },
+    "counts": {
+      "comment_id": 20700,
+      "score": 1,
+      "upvotes": 1,
+      "downvotes": 0,
+      "published": "2024-09-04T12:04:00.439252Z",
+      "child_count": 0
+    },
+    "creator_banned_from_community": false,
+    "banned_from_community": false,
+    "creator_is_moderator": true,
+    "creator_is_admin": false,
+    "subscribed": "Subscribed",
+    "saved": false,
+    "creator_blocked": false,
+    "my_vote": 1
+  },
+  "recipient_ids": [1,2]
+}

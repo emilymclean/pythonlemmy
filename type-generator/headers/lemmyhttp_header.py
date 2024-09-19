@@ -1,11 +1,9 @@
 import logging
 
 import requests
-from typing import List, Optional
 
-from .types import File
-from .utils import create_session, post_handler, put_handler, get_handler, \
-    create_form, file_handler
+from .request_controller import RequestController
+from .utils import create_form
 
 API_VERSION = "v3"
 
@@ -30,7 +28,11 @@ class LemmyHttp(object):
 
         self._base_url = base_url
         self._api_url = base_url + f"/api/{API_VERSION}"
-        self._headers = headers
-        self._session = create_session(self._headers, jwt)
+        self._request_controller = RequestController(headers)
+        if jwt is not None:
+            self._request_controller.create_session(jwt)
         self.logger = logging.getLogger(__name__)
+
+    def set_jwt(self, jwt: str):
+        self._request_controller.create_session(jwt)
 

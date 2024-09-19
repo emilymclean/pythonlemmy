@@ -20,13 +20,13 @@ class HttpGenerator:
     _processors = {
         "login": """
 if result.status_code == 200:
-    self._session = create_session(self._headers, result.json()["jwt"])
+    self._request_controller.create_session(result.json()["jwt"])
 else:
     raise Exception("Login failed with status code: " + str(result.status_code))
             """.strip(),
         "logout": """
 if result.status_code == 200:
-    self._session = create_session(self._headers, None)
+    self._request_controller.create_session(None)
         """.strip()
     }
 
@@ -58,7 +58,7 @@ def {method.name}(
 ):
 {textwrap.indent(self._generate_documentation(method, properties), self._indent_char)}
     form = create_form(locals())
-    result = {http_method}_handler(self._session, f"{{self._api_url}}{method.url}", json={None if is_get else "form"}, params={"form" if is_get else None})
+    result = self._request_controller.{http_method}_handler(f"{{self._api_url}}{method.url}", json={None if is_get else "form"}, params={"form" if is_get else None})
 {textwrap.indent(processor, self._indent_char)}
     return result
             """.strip()

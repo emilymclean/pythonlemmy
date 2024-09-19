@@ -7,7 +7,7 @@ import yaml
 from openapi_parser.parser import OpenApiParser
 from tree_sitter import Parser, Language
 import tree_sitter_typescript as ts_typescript
-from src import ModelVisitor, EnumVisitor, HttpVisitor, ClassType, ModelGenerator, HttpGenerator
+from src import ModelVisitor, EnumVisitor, HttpVisitor, ClassType, ModelGenerator, HttpGenerator, Property
 
 parser = Parser()
 parser.set_language(Language(ts_typescript.language_typescript(), "TypeScript"))
