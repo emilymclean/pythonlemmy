@@ -1,9 +1,11 @@
-from typing import Optional
+from dataclasses import dataclass
+from typing import Optional, Any
 
 from .types import ParsableObject
 
 
-class ListCommunities(ParsableObject):
+@dataclass
+class ListCommunities:
     """https://join-lemmy.org/api/interfaces/ListCommunities.html"""
 
     type_: Optional[str] = None
@@ -11,31 +13,20 @@ class ListCommunities(ParsableObject):
     show_nsfw: Optional[bool] = None
     page: Optional[int] = None
     limit: Optional[int] = None
-
-    def parse(self) -> None:
-        if "type_" in self._view:
-            self.type_ = self._view["type_"]
-        else:
-            self.type_ = None
-        if "sort" in self._view:
-            self.sort = self._view["sort"]
-        else:
-            self.sort = None
-        if "show_nsfw" in self._view:
-            self.show_nsfw = self._view["show_nsfw"]
-        else:
-            self.show_nsfw = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                type_=data["type_"] if "type_" in data else None,
+                sort=data["sort"] if "sort" in data else None,
+                show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None
+        )
 
 
-class RegistrationApplication(ParsableObject):
+@dataclass
+class RegistrationApplication:
     """https://join-lemmy.org/api/interfaces/RegistrationApplication.html"""
 
     id: int = None
@@ -44,23 +35,21 @@ class RegistrationApplication(ParsableObject):
     admin_id: Optional[int] = None
     deny_reason: Optional[str] = None
     published: str = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.local_user_id = self._view["local_user_id"]
-        self.answer = self._view["answer"]
-        if "admin_id" in self._view:
-            self.admin_id = self._view["admin_id"]
-        else:
-            self.admin_id = None
-        if "deny_reason" in self._view:
-            self.deny_reason = self._view["deny_reason"]
-        else:
-            self.deny_reason = None
-        self.published = self._view["published"]
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                local_user_id=data["local_user_id"],
+                answer=data["answer"],
+                admin_id=data["admin_id"] if "admin_id" in data else None,
+                deny_reason=data["deny_reason"] if "deny_reason" in data else None,
+                published=data["published"]
+        )
 
 
-class AdminPurgeComment(ParsableObject):
+@dataclass
+class AdminPurgeComment:
     """https://join-lemmy.org/api/interfaces/AdminPurgeComment.html"""
 
     id: int = None
@@ -68,19 +57,20 @@ class AdminPurgeComment(ParsableObject):
     post_id: int = None
     reason: Optional[str] = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                admin_person_id=data["admin_person_id"],
+                post_id=data["post_id"],
+                reason=data["reason"] if "reason" in data else None,
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.admin_person_id = self._view["admin_person_id"]
-        self.post_id = self._view["post_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        self.when_ = self._view["when_"]
 
-
-class CreateSite(ParsableObject):
+@dataclass
+class CreateSite:
     """https://join-lemmy.org/api/interfaces/CreateSite.html"""
 
     name: str = None
@@ -125,187 +115,72 @@ class CreateSite(ParsableObject):
     registration_mode: Optional[str] = None
     content_warning: Optional[str] = None
     default_post_listing_mode: Optional[str] = None
-
-    def parse(self) -> None:
-        self.name = self._view["name"]
-        if "sidebar" in self._view:
-            self.sidebar = self._view["sidebar"]
-        else:
-            self.sidebar = None
-        if "description" in self._view:
-            self.description = self._view["description"]
-        else:
-            self.description = None
-        if "icon" in self._view:
-            self.icon = self._view["icon"]
-        else:
-            self.icon = None
-        if "banner" in self._view:
-            self.banner = self._view["banner"]
-        else:
-            self.banner = None
-        if "enable_downvotes" in self._view:
-            self.enable_downvotes = self._view["enable_downvotes"]
-        else:
-            self.enable_downvotes = None
-        if "enable_nsfw" in self._view:
-            self.enable_nsfw = self._view["enable_nsfw"]
-        else:
-            self.enable_nsfw = None
-        if "community_creation_admin_only" in self._view:
-            self.community_creation_admin_only = self._view["community_creation_admin_only"]
-        else:
-            self.community_creation_admin_only = None
-        if "require_email_verification" in self._view:
-            self.require_email_verification = self._view["require_email_verification"]
-        else:
-            self.require_email_verification = None
-        if "application_question" in self._view:
-            self.application_question = self._view["application_question"]
-        else:
-            self.application_question = None
-        if "private_instance" in self._view:
-            self.private_instance = self._view["private_instance"]
-        else:
-            self.private_instance = None
-        if "default_theme" in self._view:
-            self.default_theme = self._view["default_theme"]
-        else:
-            self.default_theme = None
-        if "default_post_listing_type" in self._view:
-            self.default_post_listing_type = self._view["default_post_listing_type"]
-        else:
-            self.default_post_listing_type = None
-        if "default_sort_type" in self._view:
-            self.default_sort_type = self._view["default_sort_type"]
-        else:
-            self.default_sort_type = None
-        if "legal_information" in self._view:
-            self.legal_information = self._view["legal_information"]
-        else:
-            self.legal_information = None
-        if "application_email_admins" in self._view:
-            self.application_email_admins = self._view["application_email_admins"]
-        else:
-            self.application_email_admins = None
-        if "hide_modlog_mod_names" in self._view:
-            self.hide_modlog_mod_names = self._view["hide_modlog_mod_names"]
-        else:
-            self.hide_modlog_mod_names = None
-        if "discussion_languages" in self._view:
-            self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
-        else:
-            self.discussion_languages = None
-        if "slur_filter_regex" in self._view:
-            self.slur_filter_regex = self._view["slur_filter_regex"]
-        else:
-            self.slur_filter_regex = None
-        if "actor_name_max_length" in self._view:
-            self.actor_name_max_length = self._view["actor_name_max_length"]
-        else:
-            self.actor_name_max_length = None
-        if "rate_limit_message" in self._view:
-            self.rate_limit_message = self._view["rate_limit_message"]
-        else:
-            self.rate_limit_message = None
-        if "rate_limit_message_per_second" in self._view:
-            self.rate_limit_message_per_second = self._view["rate_limit_message_per_second"]
-        else:
-            self.rate_limit_message_per_second = None
-        if "rate_limit_post" in self._view:
-            self.rate_limit_post = self._view["rate_limit_post"]
-        else:
-            self.rate_limit_post = None
-        if "rate_limit_post_per_second" in self._view:
-            self.rate_limit_post_per_second = self._view["rate_limit_post_per_second"]
-        else:
-            self.rate_limit_post_per_second = None
-        if "rate_limit_register" in self._view:
-            self.rate_limit_register = self._view["rate_limit_register"]
-        else:
-            self.rate_limit_register = None
-        if "rate_limit_register_per_second" in self._view:
-            self.rate_limit_register_per_second = self._view["rate_limit_register_per_second"]
-        else:
-            self.rate_limit_register_per_second = None
-        if "rate_limit_image" in self._view:
-            self.rate_limit_image = self._view["rate_limit_image"]
-        else:
-            self.rate_limit_image = None
-        if "rate_limit_image_per_second" in self._view:
-            self.rate_limit_image_per_second = self._view["rate_limit_image_per_second"]
-        else:
-            self.rate_limit_image_per_second = None
-        if "rate_limit_comment" in self._view:
-            self.rate_limit_comment = self._view["rate_limit_comment"]
-        else:
-            self.rate_limit_comment = None
-        if "rate_limit_comment_per_second" in self._view:
-            self.rate_limit_comment_per_second = self._view["rate_limit_comment_per_second"]
-        else:
-            self.rate_limit_comment_per_second = None
-        if "rate_limit_search" in self._view:
-            self.rate_limit_search = self._view["rate_limit_search"]
-        else:
-            self.rate_limit_search = None
-        if "rate_limit_search_per_second" in self._view:
-            self.rate_limit_search_per_second = self._view["rate_limit_search_per_second"]
-        else:
-            self.rate_limit_search_per_second = None
-        if "federation_enabled" in self._view:
-            self.federation_enabled = self._view["federation_enabled"]
-        else:
-            self.federation_enabled = None
-        if "federation_debug" in self._view:
-            self.federation_debug = self._view["federation_debug"]
-        else:
-            self.federation_debug = None
-        if "captcha_enabled" in self._view:
-            self.captcha_enabled = self._view["captcha_enabled"]
-        else:
-            self.captcha_enabled = None
-        if "captcha_difficulty" in self._view:
-            self.captcha_difficulty = self._view["captcha_difficulty"]
-        else:
-            self.captcha_difficulty = None
-        if "allowed_instances" in self._view:
-            self.allowed_instances = [e0 for e0 in self._view["allowed_instances"]]
-        else:
-            self.allowed_instances = None
-        if "blocked_instances" in self._view:
-            self.blocked_instances = [e0 for e0 in self._view["blocked_instances"]]
-        else:
-            self.blocked_instances = None
-        if "taglines" in self._view:
-            self.taglines = [e0 for e0 in self._view["taglines"]]
-        else:
-            self.taglines = None
-        if "registration_mode" in self._view:
-            self.registration_mode = self._view["registration_mode"]
-        else:
-            self.registration_mode = None
-        if "content_warning" in self._view:
-            self.content_warning = self._view["content_warning"]
-        else:
-            self.content_warning = None
-        if "default_post_listing_mode" in self._view:
-            self.default_post_listing_mode = self._view["default_post_listing_mode"]
-        else:
-            self.default_post_listing_mode = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                name=data["name"],
+                sidebar=data["sidebar"] if "sidebar" in data else None,
+                description=data["description"] if "description" in data else None,
+                icon=data["icon"] if "icon" in data else None,
+                banner=data["banner"] if "banner" in data else None,
+                enable_downvotes=data["enable_downvotes"] if "enable_downvotes" in data else None,
+                enable_nsfw=data["enable_nsfw"] if "enable_nsfw" in data else None,
+                community_creation_admin_only=data["community_creation_admin_only"] if "community_creation_admin_only" in data else None,
+                require_email_verification=data["require_email_verification"] if "require_email_verification" in data else None,
+                application_question=data["application_question"] if "application_question" in data else None,
+                private_instance=data["private_instance"] if "private_instance" in data else None,
+                default_theme=data["default_theme"] if "default_theme" in data else None,
+                default_post_listing_type=data["default_post_listing_type"] if "default_post_listing_type" in data else None,
+                default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
+                legal_information=data["legal_information"] if "legal_information" in data else None,
+                application_email_admins=data["application_email_admins"] if "application_email_admins" in data else None,
+                hide_modlog_mod_names=data["hide_modlog_mod_names"] if "hide_modlog_mod_names" in data else None,
+                discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
+                slur_filter_regex=data["slur_filter_regex"] if "slur_filter_regex" in data else None,
+                actor_name_max_length=data["actor_name_max_length"] if "actor_name_max_length" in data else None,
+                rate_limit_message=data["rate_limit_message"] if "rate_limit_message" in data else None,
+                rate_limit_message_per_second=data["rate_limit_message_per_second"] if "rate_limit_message_per_second" in data else None,
+                rate_limit_post=data["rate_limit_post"] if "rate_limit_post" in data else None,
+                rate_limit_post_per_second=data["rate_limit_post_per_second"] if "rate_limit_post_per_second" in data else None,
+                rate_limit_register=data["rate_limit_register"] if "rate_limit_register" in data else None,
+                rate_limit_register_per_second=data["rate_limit_register_per_second"] if "rate_limit_register_per_second" in data else None,
+                rate_limit_image=data["rate_limit_image"] if "rate_limit_image" in data else None,
+                rate_limit_image_per_second=data["rate_limit_image_per_second"] if "rate_limit_image_per_second" in data else None,
+                rate_limit_comment=data["rate_limit_comment"] if "rate_limit_comment" in data else None,
+                rate_limit_comment_per_second=data["rate_limit_comment_per_second"] if "rate_limit_comment_per_second" in data else None,
+                rate_limit_search=data["rate_limit_search"] if "rate_limit_search" in data else None,
+                rate_limit_search_per_second=data["rate_limit_search_per_second"] if "rate_limit_search_per_second" in data else None,
+                federation_enabled=data["federation_enabled"] if "federation_enabled" in data else None,
+                federation_debug=data["federation_debug"] if "federation_debug" in data else None,
+                captcha_enabled=data["captcha_enabled"] if "captcha_enabled" in data else None,
+                captcha_difficulty=data["captcha_difficulty"] if "captcha_difficulty" in data else None,
+                allowed_instances=[e0 for e0 in data["allowed_instances"]] if "allowed_instances" in data else None,
+                blocked_instances=[e0 for e0 in data["blocked_instances"]] if "blocked_instances" in data else None,
+                taglines=[e0 for e0 in data["taglines"]] if "taglines" in data else None,
+                registration_mode=data["registration_mode"] if "registration_mode" in data else None,
+                content_warning=data["content_warning"] if "content_warning" in data else None,
+                default_post_listing_mode=data["default_post_listing_mode"] if "default_post_listing_mode" in data else None
+        )
 
 
-class DeleteComment(ParsableObject):
+@dataclass
+class DeleteComment:
     """https://join-lemmy.org/api/interfaces/DeleteComment.html"""
 
     comment_id: int = None
     deleted: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"],
+                deleted=data["deleted"]
+        )
 
-    def parse(self) -> None:
-        self.comment_id = self._view["comment_id"]
-        self.deleted = self._view["deleted"]
 
-
-class CreateCommunity(ParsableObject):
+@dataclass
+class CreateCommunity:
     """https://join-lemmy.org/api/interfaces/CreateCommunity.html"""
 
     name: str = None
@@ -317,59 +192,43 @@ class CreateCommunity(ParsableObject):
     posting_restricted_to_mods: Optional[bool] = None
     discussion_languages: Optional[list[int]] = None
     visibility: Optional[str] = None
-
-    def parse(self) -> None:
-        self.name = self._view["name"]
-        self.title = self._view["title"]
-        if "description" in self._view:
-            self.description = self._view["description"]
-        else:
-            self.description = None
-        if "icon" in self._view:
-            self.icon = self._view["icon"]
-        else:
-            self.icon = None
-        if "banner" in self._view:
-            self.banner = self._view["banner"]
-        else:
-            self.banner = None
-        if "nsfw" in self._view:
-            self.nsfw = self._view["nsfw"]
-        else:
-            self.nsfw = None
-        if "posting_restricted_to_mods" in self._view:
-            self.posting_restricted_to_mods = self._view["posting_restricted_to_mods"]
-        else:
-            self.posting_restricted_to_mods = None
-        if "discussion_languages" in self._view:
-            self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
-        else:
-            self.discussion_languages = None
-        if "visibility" in self._view:
-            self.visibility = self._view["visibility"]
-        else:
-            self.visibility = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                name=data["name"],
+                title=data["title"],
+                description=data["description"] if "description" in data else None,
+                icon=data["icon"] if "icon" in data else None,
+                banner=data["banner"] if "banner" in data else None,
+                nsfw=data["nsfw"] if "nsfw" in data else None,
+                posting_restricted_to_mods=data["posting_restricted_to_mods"] if "posting_restricted_to_mods" in data else None,
+                discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
+                visibility=data["visibility"] if "visibility" in data else None
+        )
 
 
-class AdminPurgeCommunity(ParsableObject):
+@dataclass
+class AdminPurgeCommunity:
     """https://join-lemmy.org/api/interfaces/AdminPurgeCommunity.html"""
 
     id: int = None
     admin_person_id: int = None
     reason: Optional[str] = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                admin_person_id=data["admin_person_id"],
+                reason=data["reason"] if "reason" in data else None,
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.admin_person_id = self._view["admin_person_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        self.when_ = self._view["when_"]
 
-
-class ModRemoveCommunity(ParsableObject):
+@dataclass
+class ModRemoveCommunity:
     """https://join-lemmy.org/api/interfaces/ModRemoveCommunity.html"""
 
     id: int = None
@@ -378,38 +237,40 @@ class ModRemoveCommunity(ParsableObject):
     reason: Optional[str] = None
     removed: bool = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                mod_person_id=data["mod_person_id"],
+                community_id=data["community_id"],
+                reason=data["reason"] if "reason" in data else None,
+                removed=data["removed"],
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.community_id = self._view["community_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        self.removed = self._view["removed"]
-        self.when_ = self._view["when_"]
 
-
-class LocalSiteUrlBlocklist(ParsableObject):
+@dataclass
+class LocalSiteUrlBlocklist:
     """https://join-lemmy.org/api/interfaces/LocalSiteUrlBlocklist.html"""
 
     id: int = None
     url: str = None
     published: str = None
     updated: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                url=data["url"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.url = self._view["url"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
 
-
-class PostReport(ParsableObject):
+@dataclass
+class PostReport:
     """https://join-lemmy.org/api/interfaces/PostReport.html"""
 
     id: int = None
@@ -423,34 +284,26 @@ class PostReport(ParsableObject):
     resolver_id: Optional[int] = None
     published: str = None
     updated: Optional[str] = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.creator_id = self._view["creator_id"]
-        self.post_id = self._view["post_id"]
-        self.original_post_name = self._view["original_post_name"]
-        if "original_post_url" in self._view:
-            self.original_post_url = self._view["original_post_url"]
-        else:
-            self.original_post_url = None
-        if "original_post_body" in self._view:
-            self.original_post_body = self._view["original_post_body"]
-        else:
-            self.original_post_body = None
-        self.reason = self._view["reason"]
-        self.resolved = self._view["resolved"]
-        if "resolver_id" in self._view:
-            self.resolver_id = self._view["resolver_id"]
-        else:
-            self.resolver_id = None
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                creator_id=data["creator_id"],
+                post_id=data["post_id"],
+                original_post_name=data["original_post_name"],
+                original_post_url=data["original_post_url"] if "original_post_url" in data else None,
+                original_post_body=data["original_post_body"] if "original_post_body" in data else None,
+                reason=data["reason"],
+                resolved=data["resolved"],
+                resolver_id=data["resolver_id"] if "resolver_id" in data else None,
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None
+        )
 
 
-class CommentAggregates(ParsableObject):
+@dataclass
+class CommentAggregates:
     """https://join-lemmy.org/api/interfaces/CommentAggregates.html"""
 
     comment_id: int = None
@@ -459,39 +312,51 @@ class CommentAggregates(ParsableObject):
     downvotes: int = None
     published: str = None
     child_count: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"],
+                score=data["score"],
+                upvotes=data["upvotes"],
+                downvotes=data["downvotes"],
+                published=data["published"],
+                child_count=data["child_count"]
+        )
 
-    def parse(self) -> None:
-        self.comment_id = self._view["comment_id"]
-        self.score = self._view["score"]
-        self.upvotes = self._view["upvotes"]
-        self.downvotes = self._view["downvotes"]
-        self.published = self._view["published"]
-        self.child_count = self._view["child_count"]
 
-
-class FeaturePost(ParsableObject):
+@dataclass
+class FeaturePost:
     """https://join-lemmy.org/api/interfaces/FeaturePost.html"""
 
     post_id: int = None
     featured: bool = None
     feature_type: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                featured=data["featured"],
+                feature_type=data["feature_type"]
+        )
 
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        self.featured = self._view["featured"]
-        self.feature_type = self._view["feature_type"]
 
-
-class GetSiteMetadata(ParsableObject):
+@dataclass
+class GetSiteMetadata:
     """https://join-lemmy.org/api/interfaces/GetSiteMetadata.html"""
 
     url: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                url=data["url"]
+        )
 
-    def parse(self) -> None:
-        self.url = self._view["url"]
 
-
-class ModLockPost(ParsableObject):
+@dataclass
+class ModLockPost:
     """https://join-lemmy.org/api/interfaces/ModLockPost.html"""
 
     id: int = None
@@ -499,65 +364,69 @@ class ModLockPost(ParsableObject):
     post_id: int = None
     locked: bool = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                mod_person_id=data["mod_person_id"],
+                post_id=data["post_id"],
+                locked=data["locked"],
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.post_id = self._view["post_id"]
-        self.locked = self._view["locked"]
-        self.when_ = self._view["when_"]
 
-
-class ResolveCommentReport(ParsableObject):
+@dataclass
+class ResolveCommentReport:
     """https://join-lemmy.org/api/interfaces/ResolveCommentReport.html"""
 
     report_id: int = None
     resolved: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                report_id=data["report_id"],
+                resolved=data["resolved"]
+        )
 
-    def parse(self) -> None:
-        self.report_id = self._view["report_id"]
-        self.resolved = self._view["resolved"]
 
-
-class DeleteCommunity(ParsableObject):
+@dataclass
+class DeleteCommunity:
     """https://join-lemmy.org/api/interfaces/DeleteCommunity.html"""
 
     community_id: int = None
     deleted: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                deleted=data["deleted"]
+        )
 
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        self.deleted = self._view["deleted"]
 
-
-class GetPersonMentions(ParsableObject):
+@dataclass
+class GetPersonMentions:
     """https://join-lemmy.org/api/interfaces/GetPersonMentions.html"""
 
     sort: Optional[str] = None
     page: Optional[int] = None
     limit: Optional[int] = None
     unread_only: Optional[bool] = None
-
-    def parse(self) -> None:
-        if "sort" in self._view:
-            self.sort = self._view["sort"]
-        else:
-            self.sort = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        if "unread_only" in self._view:
-            self.unread_only = self._view["unread_only"]
-        else:
-            self.unread_only = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                sort=data["sort"] if "sort" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                unread_only=data["unread_only"] if "unread_only" in data else None
+        )
 
 
-class ModHideCommunity(ParsableObject):
+@dataclass
+class ModHideCommunity:
     """https://join-lemmy.org/api/interfaces/ModHideCommunity.html"""
 
     id: int = None
@@ -566,71 +435,72 @@ class ModHideCommunity(ParsableObject):
     when_: str = None
     reason: Optional[str] = None
     hidden: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                community_id=data["community_id"],
+                mod_person_id=data["mod_person_id"],
+                when_=data["when_"],
+                reason=data["reason"] if "reason" in data else None,
+                hidden=data["hidden"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.community_id = self._view["community_id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.when_ = self._view["when_"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        self.hidden = self._view["hidden"]
 
-
-class HideCommunity(ParsableObject):
+@dataclass
+class HideCommunity:
     """https://join-lemmy.org/api/interfaces/HideCommunity.html"""
 
     community_id: int = None
     hidden: bool = None
     reason: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                hidden=data["hidden"],
+                reason=data["reason"] if "reason" in data else None
+        )
 
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        self.hidden = self._view["hidden"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
 
-
-class RemoveCommunity(ParsableObject):
+@dataclass
+class RemoveCommunity:
     """https://join-lemmy.org/api/interfaces/RemoveCommunity.html"""
 
     community_id: int = None
     removed: bool = None
     reason: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                removed=data["removed"],
+                reason=data["reason"] if "reason" in data else None
+        )
 
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        self.removed = self._view["removed"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
 
-
-class EditComment(ParsableObject):
+@dataclass
+class EditComment:
     """https://join-lemmy.org/api/interfaces/EditComment.html"""
 
     comment_id: int = None
     content: Optional[str] = None
     language_id: Optional[int] = None
-
-    def parse(self) -> None:
-        self.comment_id = self._view["comment_id"]
-        if "content" in self._view:
-            self.content = self._view["content"]
-        else:
-            self.content = None
-        if "language_id" in self._view:
-            self.language_id = self._view["language_id"]
-        else:
-            self.language_id = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"],
+                content=data["content"] if "content" in data else None,
+                language_id=data["language_id"] if "language_id" in data else None
+        )
 
 
-class EditCustomEmoji(ParsableObject):
+@dataclass
+class EditCustomEmoji:
     """https://join-lemmy.org/api/interfaces/EditCustomEmoji.html"""
 
     id: int = None
@@ -638,16 +508,20 @@ class EditCustomEmoji(ParsableObject):
     image_url: str = None
     alt_text: str = None
     keywords: list[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                category=data["category"],
+                image_url=data["image_url"],
+                alt_text=data["alt_text"],
+                keywords=[e0 for e0 in data["keywords"]]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.category = self._view["category"]
-        self.image_url = self._view["image_url"]
-        self.alt_text = self._view["alt_text"]
-        self.keywords = [e0 for e0 in self._view["keywords"]]
 
-
-class PersonMention(ParsableObject):
+@dataclass
+class PersonMention:
     """https://join-lemmy.org/api/interfaces/PersonMention.html"""
 
     id: int = None
@@ -655,38 +529,50 @@ class PersonMention(ParsableObject):
     comment_id: int = None
     read: bool = None
     published: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                recipient_id=data["recipient_id"],
+                comment_id=data["comment_id"],
+                read=data["read"],
+                published=data["published"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.recipient_id = self._view["recipient_id"]
-        self.comment_id = self._view["comment_id"]
-        self.read = self._view["read"]
-        self.published = self._view["published"]
 
-
-class HidePost(ParsableObject):
+@dataclass
+class HidePost:
     """https://join-lemmy.org/api/interfaces/HidePost.html"""
 
     post_ids: list[int] = None
     hide: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_ids=[e0 for e0 in data["post_ids"]],
+                hide=data["hide"]
+        )
 
-    def parse(self) -> None:
-        self.post_ids = [e0 for e0 in self._view["post_ids"]]
-        self.hide = self._view["hide"]
 
-
-class CreatePrivateMessageReport(ParsableObject):
+@dataclass
+class CreatePrivateMessageReport:
     """https://join-lemmy.org/api/interfaces/CreatePrivateMessageReport.html"""
 
     private_message_id: int = None
     reason: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                private_message_id=data["private_message_id"],
+                reason=data["reason"]
+        )
 
-    def parse(self) -> None:
-        self.private_message_id = self._view["private_message_id"]
-        self.reason = self._view["reason"]
 
-
-class ReadableFederationState(ParsableObject):
+@dataclass
+class ReadableFederationState:
     """https://join-lemmy.org/api/interfaces/ReadableFederationState.html"""
 
     instance_id: int = None
@@ -695,90 +581,89 @@ class ReadableFederationState(ParsableObject):
     fail_count: int = None
     last_retry: Optional[str] = None
     next_retry: Optional[str] = None
-
-    def parse(self) -> None:
-        self.instance_id = self._view["instance_id"]
-        if "last_successful_id" in self._view:
-            self.last_successful_id = self._view["last_successful_id"]
-        else:
-            self.last_successful_id = None
-        if "last_successful_published_time" in self._view:
-            self.last_successful_published_time = self._view["last_successful_published_time"]
-        else:
-            self.last_successful_published_time = None
-        self.fail_count = self._view["fail_count"]
-        if "last_retry" in self._view:
-            self.last_retry = self._view["last_retry"]
-        else:
-            self.last_retry = None
-        if "next_retry" in self._view:
-            self.next_retry = self._view["next_retry"]
-        else:
-            self.next_retry = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                instance_id=data["instance_id"],
+                last_successful_id=data["last_successful_id"] if "last_successful_id" in data else None,
+                last_successful_published_time=data["last_successful_published_time"] if "last_successful_published_time" in data else None,
+                fail_count=data["fail_count"],
+                last_retry=data["last_retry"] if "last_retry" in data else None,
+                next_retry=data["next_retry"] if "next_retry" in data else None
+        )
 
 
-class Login(ParsableObject):
+@dataclass
+class Login:
     """https://join-lemmy.org/api/interfaces/Login.html"""
 
     username_or_email: str = None
     password: str = None
     totp_2fa_token: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                username_or_email=data["username_or_email"],
+                password=data["password"],
+                totp_2fa_token=data["totp_2fa_token"] if "totp_2fa_token" in data else None
+        )
 
-    def parse(self) -> None:
-        self.username_or_email = self._view["username_or_email"]
-        self.password = self._view["password"]
-        if "totp_2fa_token" in self._view:
-            self.totp_2fa_token = self._view["totp_2fa_token"]
-        else:
-            self.totp_2fa_token = None
 
-
-class BlockInstance(ParsableObject):
+@dataclass
+class BlockInstance:
     """https://join-lemmy.org/api/interfaces/BlockInstance.html"""
 
     instance_id: int = None
     block: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                instance_id=data["instance_id"],
+                block=data["block"]
+        )
 
-    def parse(self) -> None:
-        self.instance_id = self._view["instance_id"]
-        self.block = self._view["block"]
 
-
-class LoginToken(ParsableObject):
+@dataclass
+class LoginToken:
     """https://join-lemmy.org/api/interfaces/LoginToken.html"""
 
     user_id: int = None
     published: str = None
     ip: Optional[str] = None
     user_agent: Optional[str] = None
-
-    def parse(self) -> None:
-        self.user_id = self._view["user_id"]
-        self.published = self._view["published"]
-        if "ip" in self._view:
-            self.ip = self._view["ip"]
-        else:
-            self.ip = None
-        if "user_agent" in self._view:
-            self.user_agent = self._view["user_agent"]
-        else:
-            self.user_agent = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                user_id=data["user_id"],
+                published=data["published"],
+                ip=data["ip"] if "ip" in data else None,
+                user_agent=data["user_agent"] if "user_agent" in data else None
+        )
 
 
-class PasswordChangeAfterReset(ParsableObject):
+@dataclass
+class PasswordChangeAfterReset:
     """https://join-lemmy.org/api/interfaces/PasswordChangeAfterReset.html"""
 
     token: str = None
     password: str = None
     password_verify: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                token=data["token"],
+                password=data["password"],
+                password_verify=data["password_verify"]
+        )
 
-    def parse(self) -> None:
-        self.token = self._view["token"]
-        self.password = self._view["password"]
-        self.password_verify = self._view["password_verify"]
 
-
-class LocalUser(ParsableObject):
+@dataclass
+class LocalUser:
     """https://join-lemmy.org/api/interfaces/LocalUser.html"""
 
     id: int = None
@@ -806,63 +691,72 @@ class LocalUser(ParsableObject):
     enable_keyboard_navigation: bool = None
     enable_animated_images: bool = None
     collapse_bot_comments: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                person_id=data["person_id"],
+                email=data["email"] if "email" in data else None,
+                show_nsfw=data["show_nsfw"],
+                theme=data["theme"],
+                default_sort_type=data["default_sort_type"],
+                default_listing_type=data["default_listing_type"],
+                interface_language=data["interface_language"],
+                show_avatars=data["show_avatars"],
+                send_notifications_to_email=data["send_notifications_to_email"],
+                show_scores=data["show_scores"],
+                show_bot_accounts=data["show_bot_accounts"],
+                show_read_posts=data["show_read_posts"],
+                email_verified=data["email_verified"],
+                accepted_application=data["accepted_application"],
+                open_links_in_new_tab=data["open_links_in_new_tab"],
+                blur_nsfw=data["blur_nsfw"],
+                auto_expand=data["auto_expand"],
+                infinite_scroll_enabled=data["infinite_scroll_enabled"],
+                admin=data["admin"],
+                post_listing_mode=data["post_listing_mode"],
+                totp_2fa_enabled=data["totp_2fa_enabled"],
+                enable_keyboard_navigation=data["enable_keyboard_navigation"],
+                enable_animated_images=data["enable_animated_images"],
+                collapse_bot_comments=data["collapse_bot_comments"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.person_id = self._view["person_id"]
-        if "email" in self._view:
-            self.email = self._view["email"]
-        else:
-            self.email = None
-        self.show_nsfw = self._view["show_nsfw"]
-        self.theme = self._view["theme"]
-        self.default_sort_type = self._view["default_sort_type"]
-        self.default_listing_type = self._view["default_listing_type"]
-        self.interface_language = self._view["interface_language"]
-        self.show_avatars = self._view["show_avatars"]
-        self.send_notifications_to_email = self._view["send_notifications_to_email"]
-        self.show_scores = self._view["show_scores"]
-        self.show_bot_accounts = self._view["show_bot_accounts"]
-        self.show_read_posts = self._view["show_read_posts"]
-        self.email_verified = self._view["email_verified"]
-        self.accepted_application = self._view["accepted_application"]
-        self.open_links_in_new_tab = self._view["open_links_in_new_tab"]
-        self.blur_nsfw = self._view["blur_nsfw"]
-        self.auto_expand = self._view["auto_expand"]
-        self.infinite_scroll_enabled = self._view["infinite_scroll_enabled"]
-        self.admin = self._view["admin"]
-        self.post_listing_mode = self._view["post_listing_mode"]
-        self.totp_2fa_enabled = self._view["totp_2fa_enabled"]
-        self.enable_keyboard_navigation = self._view["enable_keyboard_navigation"]
-        self.enable_animated_images = self._view["enable_animated_images"]
-        self.collapse_bot_comments = self._view["collapse_bot_comments"]
 
-
-class PersonAggregates(ParsableObject):
+@dataclass
+class PersonAggregates:
     """https://join-lemmy.org/api/interfaces/PersonAggregates.html"""
 
     person_id: int = None
     post_count: int = None
     comment_count: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                person_id=data["person_id"],
+                post_count=data["post_count"],
+                comment_count=data["comment_count"]
+        )
 
-    def parse(self) -> None:
-        self.person_id = self._view["person_id"]
-        self.post_count = self._view["post_count"]
-        self.comment_count = self._view["comment_count"]
 
-
-class MarkCommentReplyAsRead(ParsableObject):
+@dataclass
+class MarkCommentReplyAsRead:
     """https://join-lemmy.org/api/interfaces/MarkCommentReplyAsRead.html"""
 
     comment_reply_id: int = None
     read: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_reply_id=data["comment_reply_id"],
+                read=data["read"]
+        )
 
-    def parse(self) -> None:
-        self.comment_reply_id = self._view["comment_reply_id"]
-        self.read = self._view["read"]
 
-
-class Search(ParsableObject):
+@dataclass
+class Search:
     """https://join-lemmy.org/api/interfaces/Search.html"""
 
     q: str = None
@@ -874,44 +768,24 @@ class Search(ParsableObject):
     listing_type: Optional[str] = None
     page: Optional[int] = None
     limit: Optional[int] = None
-
-    def parse(self) -> None:
-        self.q = self._view["q"]
-        if "community_id" in self._view:
-            self.community_id = self._view["community_id"]
-        else:
-            self.community_id = None
-        if "community_name" in self._view:
-            self.community_name = self._view["community_name"]
-        else:
-            self.community_name = None
-        if "creator_id" in self._view:
-            self.creator_id = self._view["creator_id"]
-        else:
-            self.creator_id = None
-        if "type_" in self._view:
-            self.type_ = self._view["type_"]
-        else:
-            self.type_ = None
-        if "sort" in self._view:
-            self.sort = self._view["sort"]
-        else:
-            self.sort = None
-        if "listing_type" in self._view:
-            self.listing_type = self._view["listing_type"]
-        else:
-            self.listing_type = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                q=data["q"],
+                community_id=data["community_id"] if "community_id" in data else None,
+                community_name=data["community_name"] if "community_name" in data else None,
+                creator_id=data["creator_id"] if "creator_id" in data else None,
+                type_=data["type_"] if "type_" in data else None,
+                sort=data["sort"] if "sort" in data else None,
+                listing_type=data["listing_type"] if "listing_type" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None
+        )
 
 
-class LocalUserVoteDisplayMode(ParsableObject):
+@dataclass
+class LocalUserVoteDisplayMode:
     """https://join-lemmy.org/api/interfaces/LocalUserVoteDisplayMode.html"""
 
     local_user_id: int = None
@@ -919,58 +793,78 @@ class LocalUserVoteDisplayMode(ParsableObject):
     upvotes: bool = None
     downvotes: bool = None
     upvote_percentage: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                local_user_id=data["local_user_id"],
+                score=data["score"],
+                upvotes=data["upvotes"],
+                downvotes=data["downvotes"],
+                upvote_percentage=data["upvote_percentage"]
+        )
 
-    def parse(self) -> None:
-        self.local_user_id = self._view["local_user_id"]
-        self.score = self._view["score"]
-        self.upvotes = self._view["upvotes"]
-        self.downvotes = self._view["downvotes"]
-        self.upvote_percentage = self._view["upvote_percentage"]
 
-
-class LockPost(ParsableObject):
+@dataclass
+class LockPost:
     """https://join-lemmy.org/api/interfaces/LockPost.html"""
 
     post_id: int = None
     locked: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                locked=data["locked"]
+        )
 
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        self.locked = self._view["locked"]
 
-
-class ChangePassword(ParsableObject):
+@dataclass
+class ChangePassword:
     """https://join-lemmy.org/api/interfaces/ChangePassword.html"""
 
     new_password: str = None
     new_password_verify: str = None
     old_password: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                new_password=data["new_password"],
+                new_password_verify=data["new_password_verify"],
+                old_password=data["old_password"]
+        )
 
-    def parse(self) -> None:
-        self.new_password = self._view["new_password"]
-        self.new_password_verify = self._view["new_password_verify"]
-        self.old_password = self._view["old_password"]
 
-
-class ResolveObject(ParsableObject):
+@dataclass
+class ResolveObject:
     """https://join-lemmy.org/api/interfaces/ResolveObject.html"""
 
     q: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                q=data["q"]
+        )
 
-    def parse(self) -> None:
-        self.q = self._view["q"]
 
-
-class VerifyEmail(ParsableObject):
+@dataclass
+class VerifyEmail:
     """https://join-lemmy.org/api/interfaces/VerifyEmail.html"""
 
     token: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                token=data["token"]
+        )
 
-    def parse(self) -> None:
-        self.token = self._view["token"]
 
-
-class ModAddCommunity(ParsableObject):
+@dataclass
+class ModAddCommunity:
     """https://join-lemmy.org/api/interfaces/ModAddCommunity.html"""
 
     id: int = None
@@ -979,50 +873,53 @@ class ModAddCommunity(ParsableObject):
     community_id: int = None
     removed: bool = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                mod_person_id=data["mod_person_id"],
+                other_person_id=data["other_person_id"],
+                community_id=data["community_id"],
+                removed=data["removed"],
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.other_person_id = self._view["other_person_id"]
-        self.community_id = self._view["community_id"]
-        self.removed = self._view["removed"]
-        self.when_ = self._view["when_"]
 
-
-class BlockPerson(ParsableObject):
+@dataclass
+class BlockPerson:
     """https://join-lemmy.org/api/interfaces/BlockPerson.html"""
 
     person_id: int = None
     block: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                person_id=data["person_id"],
+                block=data["block"]
+        )
 
-    def parse(self) -> None:
-        self.person_id = self._view["person_id"]
-        self.block = self._view["block"]
 
-
-class ListPrivateMessageReports(ParsableObject):
+@dataclass
+class ListPrivateMessageReports:
     """https://join-lemmy.org/api/interfaces/ListPrivateMessageReports.html"""
 
     page: Optional[int] = None
     limit: Optional[int] = None
     unresolved_only: Optional[bool] = None
-
-    def parse(self) -> None:
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        if "unresolved_only" in self._view:
-            self.unresolved_only = self._view["unresolved_only"]
-        else:
-            self.unresolved_only = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                unresolved_only=data["unresolved_only"] if "unresolved_only" in data else None
+        )
 
 
-class SiteAggregates(ParsableObject):
+@dataclass
+class SiteAggregates:
     """https://join-lemmy.org/api/interfaces/SiteAggregates.html"""
 
     site_id: int = None
@@ -1034,31 +931,39 @@ class SiteAggregates(ParsableObject):
     users_active_week: int = None
     users_active_month: int = None
     users_active_half_year: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                site_id=data["site_id"],
+                users=data["users"],
+                posts=data["posts"],
+                comments=data["comments"],
+                communities=data["communities"],
+                users_active_day=data["users_active_day"],
+                users_active_week=data["users_active_week"],
+                users_active_month=data["users_active_month"],
+                users_active_half_year=data["users_active_half_year"]
+        )
 
-    def parse(self) -> None:
-        self.site_id = self._view["site_id"]
-        self.users = self._view["users"]
-        self.posts = self._view["posts"]
-        self.comments = self._view["comments"]
-        self.communities = self._view["communities"]
-        self.users_active_day = self._view["users_active_day"]
-        self.users_active_week = self._view["users_active_week"]
-        self.users_active_month = self._view["users_active_month"]
-        self.users_active_half_year = self._view["users_active_half_year"]
 
-
-class CreatePostReport(ParsableObject):
+@dataclass
+class CreatePostReport:
     """https://join-lemmy.org/api/interfaces/CreatePostReport.html"""
 
     post_id: int = None
     reason: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                reason=data["reason"]
+        )
 
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        self.reason = self._view["reason"]
 
-
-class CustomEmoji(ParsableObject):
+@dataclass
+class CustomEmoji:
     """https://join-lemmy.org/api/interfaces/CustomEmoji.html"""
 
     id: int = None
@@ -1069,36 +974,38 @@ class CustomEmoji(ParsableObject):
     category: str = None
     published: str = None
     updated: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                local_site_id=data["local_site_id"],
+                shortcode=data["shortcode"],
+                image_url=data["image_url"],
+                alt_text=data["alt_text"],
+                category=data["category"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.local_site_id = self._view["local_site_id"]
-        self.shortcode = self._view["shortcode"]
-        self.image_url = self._view["image_url"]
-        self.alt_text = self._view["alt_text"]
-        self.category = self._view["category"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
 
-
-class PurgePost(ParsableObject):
+@dataclass
+class PurgePost:
     """https://join-lemmy.org/api/interfaces/PurgePost.html"""
 
     post_id: int = None
     reason: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                reason=data["reason"] if "reason" in data else None
+        )
 
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
 
-
-class PostAggregates(ParsableObject):
+@dataclass
+class PostAggregates:
     """https://join-lemmy.org/api/interfaces/PostAggregates.html"""
 
     post_id: int = None
@@ -1108,54 +1015,67 @@ class PostAggregates(ParsableObject):
     downvotes: int = None
     published: str = None
     newest_comment_time: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                comments=data["comments"],
+                score=data["score"],
+                upvotes=data["upvotes"],
+                downvotes=data["downvotes"],
+                published=data["published"],
+                newest_comment_time=data["newest_comment_time"]
+        )
 
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        self.comments = self._view["comments"]
-        self.score = self._view["score"]
-        self.upvotes = self._view["upvotes"]
-        self.downvotes = self._view["downvotes"]
-        self.published = self._view["published"]
-        self.newest_comment_time = self._view["newest_comment_time"]
 
-
-class Language(ParsableObject):
+@dataclass
+class Language:
     """https://join-lemmy.org/api/interfaces/Language.html"""
 
     id: int = None
     code: str = None
     name: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                code=data["code"],
+                name=data["name"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.code = self._view["code"]
-        self.name = self._view["name"]
 
-
-class GetReportCount(ParsableObject):
+@dataclass
+class GetReportCount:
     """https://join-lemmy.org/api/interfaces/GetReportCount.html"""
 
     community_id: Optional[int] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"] if "community_id" in data else None
+        )
 
-    def parse(self) -> None:
-        if "community_id" in self._view:
-            self.community_id = self._view["community_id"]
-        else:
-            self.community_id = None
 
-
-class DeletePrivateMessage(ParsableObject):
+@dataclass
+class DeletePrivateMessage:
     """https://join-lemmy.org/api/interfaces/DeletePrivateMessage.html"""
 
     private_message_id: int = None
     deleted: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                private_message_id=data["private_message_id"],
+                deleted=data["deleted"]
+        )
 
-    def parse(self) -> None:
-        self.private_message_id = self._view["private_message_id"]
-        self.deleted = self._view["deleted"]
 
-
-class Community(ParsableObject):
+@dataclass
+class Community:
     """https://join-lemmy.org/api/interfaces/Community.html"""
 
     id: int = None
@@ -1175,40 +1095,32 @@ class Community(ParsableObject):
     posting_restricted_to_mods: bool = None
     instance_id: int = None
     visibility: str = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.name = self._view["name"]
-        self.title = self._view["title"]
-        if "description" in self._view:
-            self.description = self._view["description"]
-        else:
-            self.description = None
-        self.removed = self._view["removed"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
-        self.deleted = self._view["deleted"]
-        self.nsfw = self._view["nsfw"]
-        self.actor_id = self._view["actor_id"]
-        self.local = self._view["local"]
-        if "icon" in self._view:
-            self.icon = self._view["icon"]
-        else:
-            self.icon = None
-        if "banner" in self._view:
-            self.banner = self._view["banner"]
-        else:
-            self.banner = None
-        self.hidden = self._view["hidden"]
-        self.posting_restricted_to_mods = self._view["posting_restricted_to_mods"]
-        self.instance_id = self._view["instance_id"]
-        self.visibility = self._view["visibility"]
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                name=data["name"],
+                title=data["title"],
+                description=data["description"] if "description" in data else None,
+                removed=data["removed"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None,
+                deleted=data["deleted"],
+                nsfw=data["nsfw"],
+                actor_id=data["actor_id"],
+                local=data["local"],
+                icon=data["icon"] if "icon" in data else None,
+                banner=data["banner"] if "banner" in data else None,
+                hidden=data["hidden"],
+                posting_restricted_to_mods=data["posting_restricted_to_mods"],
+                instance_id=data["instance_id"],
+                visibility=data["visibility"]
+        )
 
 
-class ListPostReports(ParsableObject):
+@dataclass
+class ListPostReports:
     """https://join-lemmy.org/api/interfaces/ListPostReports.html"""
 
     page: Optional[int] = None
@@ -1216,31 +1128,20 @@ class ListPostReports(ParsableObject):
     unresolved_only: Optional[bool] = None
     community_id: Optional[int] = None
     post_id: Optional[int] = None
-
-    def parse(self) -> None:
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        if "unresolved_only" in self._view:
-            self.unresolved_only = self._view["unresolved_only"]
-        else:
-            self.unresolved_only = None
-        if "community_id" in self._view:
-            self.community_id = self._view["community_id"]
-        else:
-            self.community_id = None
-        if "post_id" in self._view:
-            self.post_id = self._view["post_id"]
-        else:
-            self.post_id = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                unresolved_only=data["unresolved_only"] if "unresolved_only" in data else None,
+                community_id=data["community_id"] if "community_id" in data else None,
+                post_id=data["post_id"] if "post_id" in data else None
+        )
 
 
-class ModFeaturePost(ParsableObject):
+@dataclass
+class ModFeaturePost:
     """https://join-lemmy.org/api/interfaces/ModFeaturePost.html"""
 
     id: int = None
@@ -1249,17 +1150,21 @@ class ModFeaturePost(ParsableObject):
     featured: bool = None
     when_: str = None
     is_featured_community: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                mod_person_id=data["mod_person_id"],
+                post_id=data["post_id"],
+                featured=data["featured"],
+                when_=data["when_"],
+                is_featured_community=data["is_featured_community"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.post_id = self._view["post_id"]
-        self.featured = self._view["featured"]
-        self.when_ = self._view["when_"]
-        self.is_featured_community = self._view["is_featured_community"]
 
-
-class GetPersonDetails(ParsableObject):
+@dataclass
+class GetPersonDetails:
     """https://join-lemmy.org/api/interfaces/GetPersonDetails.html"""
 
     person_id: Optional[int] = None
@@ -1269,52 +1174,39 @@ class GetPersonDetails(ParsableObject):
     limit: Optional[int] = None
     community_id: Optional[int] = None
     saved_only: Optional[bool] = None
-
-    def parse(self) -> None:
-        if "person_id" in self._view:
-            self.person_id = self._view["person_id"]
-        else:
-            self.person_id = None
-        if "username" in self._view:
-            self.username = self._view["username"]
-        else:
-            self.username = None
-        if "sort" in self._view:
-            self.sort = self._view["sort"]
-        else:
-            self.sort = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        if "community_id" in self._view:
-            self.community_id = self._view["community_id"]
-        else:
-            self.community_id = None
-        if "saved_only" in self._view:
-            self.saved_only = self._view["saved_only"]
-        else:
-            self.saved_only = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                person_id=data["person_id"] if "person_id" in data else None,
+                username=data["username"] if "username" in data else None,
+                sort=data["sort"] if "sort" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                community_id=data["community_id"] if "community_id" in data else None,
+                saved_only=data["saved_only"] if "saved_only" in data else None
+        )
 
 
-class AddModToCommunity(ParsableObject):
+@dataclass
+class AddModToCommunity:
     """https://join-lemmy.org/api/interfaces/AddModToCommunity.html"""
 
     community_id: int = None
     person_id: int = None
     added: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                person_id=data["person_id"],
+                added=data["added"]
+        )
 
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        self.person_id = self._view["person_id"]
-        self.added = self._view["added"]
 
-
-class Site(ParsableObject):
+@dataclass
+class Site:
     """https://join-lemmy.org/api/interfaces/Site.html"""
 
     id: int = None
@@ -1331,59 +1223,46 @@ class Site(ParsableObject):
     public_key: str = None
     instance_id: int = None
     content_warning: Optional[str] = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.name = self._view["name"]
-        if "sidebar" in self._view:
-            self.sidebar = self._view["sidebar"]
-        else:
-            self.sidebar = None
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
-        if "icon" in self._view:
-            self.icon = self._view["icon"]
-        else:
-            self.icon = None
-        if "banner" in self._view:
-            self.banner = self._view["banner"]
-        else:
-            self.banner = None
-        if "description" in self._view:
-            self.description = self._view["description"]
-        else:
-            self.description = None
-        self.actor_id = self._view["actor_id"]
-        self.last_refreshed_at = self._view["last_refreshed_at"]
-        self.inbox_url = self._view["inbox_url"]
-        self.public_key = self._view["public_key"]
-        self.instance_id = self._view["instance_id"]
-        if "content_warning" in self._view:
-            self.content_warning = self._view["content_warning"]
-        else:
-            self.content_warning = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                name=data["name"],
+                sidebar=data["sidebar"] if "sidebar" in data else None,
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None,
+                icon=data["icon"] if "icon" in data else None,
+                banner=data["banner"] if "banner" in data else None,
+                description=data["description"] if "description" in data else None,
+                actor_id=data["actor_id"],
+                last_refreshed_at=data["last_refreshed_at"],
+                inbox_url=data["inbox_url"],
+                public_key=data["public_key"],
+                instance_id=data["instance_id"],
+                content_warning=data["content_warning"] if "content_warning" in data else None
+        )
 
 
-class ApproveRegistrationApplication(ParsableObject):
+@dataclass
+class ApproveRegistrationApplication:
     """https://join-lemmy.org/api/interfaces/ApproveRegistrationApplication.html"""
 
     id: int = None
     approve: bool = None
     deny_reason: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                approve=data["approve"],
+                deny_reason=data["deny_reason"] if "deny_reason" in data else None
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.approve = self._view["approve"]
-        if "deny_reason" in self._view:
-            self.deny_reason = self._view["deny_reason"]
-        else:
-            self.deny_reason = None
 
-
-class EditPost(ParsableObject):
+@dataclass
+class EditPost:
     """https://join-lemmy.org/api/interfaces/EditPost.html"""
 
     post_id: int = None
@@ -1394,95 +1273,72 @@ class EditPost(ParsableObject):
     nsfw: Optional[bool] = None
     language_id: Optional[int] = None
     custom_thumbnail: Optional[str] = None
-
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        if "name" in self._view:
-            self.name = self._view["name"]
-        else:
-            self.name = None
-        if "url" in self._view:
-            self.url = self._view["url"]
-        else:
-            self.url = None
-        if "body" in self._view:
-            self.body = self._view["body"]
-        else:
-            self.body = None
-        if "alt_text" in self._view:
-            self.alt_text = self._view["alt_text"]
-        else:
-            self.alt_text = None
-        if "nsfw" in self._view:
-            self.nsfw = self._view["nsfw"]
-        else:
-            self.nsfw = None
-        if "language_id" in self._view:
-            self.language_id = self._view["language_id"]
-        else:
-            self.language_id = None
-        if "custom_thumbnail" in self._view:
-            self.custom_thumbnail = self._view["custom_thumbnail"]
-        else:
-            self.custom_thumbnail = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                name=data["name"] if "name" in data else None,
+                url=data["url"] if "url" in data else None,
+                body=data["body"] if "body" in data else None,
+                alt_text=data["alt_text"] if "alt_text" in data else None,
+                nsfw=data["nsfw"] if "nsfw" in data else None,
+                language_id=data["language_id"] if "language_id" in data else None,
+                custom_thumbnail=data["custom_thumbnail"] if "custom_thumbnail" in data else None
+        )
 
 
-class GetPost(ParsableObject):
+@dataclass
+class GetPost:
     """https://join-lemmy.org/api/interfaces/GetPost.html"""
 
     id: Optional[int] = None
     comment_id: Optional[int] = None
-
-    def parse(self) -> None:
-        if "id" in self._view:
-            self.id = self._view["id"]
-        else:
-            self.id = None
-        if "comment_id" in self._view:
-            self.comment_id = self._view["comment_id"]
-        else:
-            self.comment_id = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"] if "id" in data else None,
+                comment_id=data["comment_id"] if "comment_id" in data else None
+        )
 
 
-class FollowCommunity(ParsableObject):
+@dataclass
+class FollowCommunity:
     """https://join-lemmy.org/api/interfaces/FollowCommunity.html"""
 
     community_id: int = None
     follow: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                follow=data["follow"]
+        )
 
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        self.follow = self._view["follow"]
 
-
-class GetPrivateMessages(ParsableObject):
+@dataclass
+class GetPrivateMessages:
     """https://join-lemmy.org/api/interfaces/GetPrivateMessages.html"""
 
     unread_only: Optional[bool] = None
     page: Optional[int] = None
     limit: Optional[int] = None
     creator_id: Optional[int] = None
-
-    def parse(self) -> None:
-        if "unread_only" in self._view:
-            self.unread_only = self._view["unread_only"]
-        else:
-            self.unread_only = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        if "creator_id" in self._view:
-            self.creator_id = self._view["creator_id"]
-        else:
-            self.creator_id = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                unread_only=data["unread_only"] if "unread_only" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                creator_id=data["creator_id"] if "creator_id" in data else None
+        )
 
 
-class ModBan(ParsableObject):
+@dataclass
+class ModBan:
     """https://join-lemmy.org/api/interfaces/ModBan.html"""
 
     id: int = None
@@ -1492,24 +1348,22 @@ class ModBan(ParsableObject):
     banned: bool = None
     expires: Optional[str] = None
     when_: str = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.other_person_id = self._view["other_person_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        self.banned = self._view["banned"]
-        if "expires" in self._view:
-            self.expires = self._view["expires"]
-        else:
-            self.expires = None
-        self.when_ = self._view["when_"]
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                mod_person_id=data["mod_person_id"],
+                other_person_id=data["other_person_id"],
+                reason=data["reason"] if "reason" in data else None,
+                banned=data["banned"],
+                expires=data["expires"] if "expires" in data else None,
+                when_=data["when_"]
+        )
 
 
-class Tagline(ParsableObject):
+@dataclass
+class Tagline:
     """https://join-lemmy.org/api/interfaces/Tagline.html"""
 
     id: int = None
@@ -1517,68 +1371,82 @@ class Tagline(ParsableObject):
     content: str = None
     published: str = None
     updated: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                local_site_id=data["local_site_id"],
+                content=data["content"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.local_site_id = self._view["local_site_id"]
-        self.content = self._view["content"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
 
-
-class RemoveComment(ParsableObject):
+@dataclass
+class RemoveComment:
     """https://join-lemmy.org/api/interfaces/RemoveComment.html"""
 
     comment_id: int = None
     removed: bool = None
     reason: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"],
+                removed=data["removed"],
+                reason=data["reason"] if "reason" in data else None
+        )
 
-    def parse(self) -> None:
-        self.comment_id = self._view["comment_id"]
-        self.removed = self._view["removed"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
 
-
-class UpdateTotp(ParsableObject):
+@dataclass
+class UpdateTotp:
     """https://join-lemmy.org/api/interfaces/UpdateTotp.html"""
 
     totp_token: str = None
     enabled: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                totp_token=data["totp_token"],
+                enabled=data["enabled"]
+        )
 
-    def parse(self) -> None:
-        self.totp_token = self._view["totp_token"]
-        self.enabled = self._view["enabled"]
 
-
-class MarkPostAsRead(ParsableObject):
+@dataclass
+class MarkPostAsRead:
     """https://join-lemmy.org/api/interfaces/MarkPostAsRead.html"""
 
     post_ids: list[int] = None
     read: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_ids=[e0 for e0 in data["post_ids"]],
+                read=data["read"]
+        )
 
-    def parse(self) -> None:
-        self.post_ids = [e0 for e0 in self._view["post_ids"]]
-        self.read = self._view["read"]
 
-
-class ResolvePrivateMessageReport(ParsableObject):
+@dataclass
+class ResolvePrivateMessageReport:
     """https://join-lemmy.org/api/interfaces/ResolvePrivateMessageReport.html"""
 
     report_id: int = None
     resolved: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                report_id=data["report_id"],
+                resolved=data["resolved"]
+        )
 
-    def parse(self) -> None:
-        self.report_id = self._view["report_id"]
-        self.resolved = self._view["resolved"]
 
-
-class LinkMetadata(ParsableObject):
+@dataclass
+class LinkMetadata:
     """https://join-lemmy.org/api/interfaces/LinkMetadata.html"""
 
     title: Optional[str] = None
@@ -1586,31 +1454,20 @@ class LinkMetadata(ParsableObject):
     image: Optional[str] = None
     embed_video_url: Optional[str] = None
     content_type: Optional[str] = None
-
-    def parse(self) -> None:
-        if "title" in self._view:
-            self.title = self._view["title"]
-        else:
-            self.title = None
-        if "description" in self._view:
-            self.description = self._view["description"]
-        else:
-            self.description = None
-        if "image" in self._view:
-            self.image = self._view["image"]
-        else:
-            self.image = None
-        if "embed_video_url" in self._view:
-            self.embed_video_url = self._view["embed_video_url"]
-        else:
-            self.embed_video_url = None
-        if "content_type" in self._view:
-            self.content_type = self._view["content_type"]
-        else:
-            self.content_type = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                title=data["title"] if "title" in data else None,
+                description=data["description"] if "description" in data else None,
+                image=data["image"] if "image" in data else None,
+                embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None,
+                content_type=data["content_type"] if "content_type" in data else None
+        )
 
 
-class PrivateMessage(ParsableObject):
+@dataclass
+class PrivateMessage:
     """https://join-lemmy.org/api/interfaces/PrivateMessage.html"""
 
     id: int = None
@@ -1623,49 +1480,55 @@ class PrivateMessage(ParsableObject):
     updated: Optional[str] = None
     ap_id: str = None
     local: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                creator_id=data["creator_id"],
+                recipient_id=data["recipient_id"],
+                content=data["content"],
+                deleted=data["deleted"],
+                read=data["read"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None,
+                ap_id=data["ap_id"],
+                local=data["local"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.creator_id = self._view["creator_id"]
-        self.recipient_id = self._view["recipient_id"]
-        self.content = self._view["content"]
-        self.deleted = self._view["deleted"]
-        self.read = self._view["read"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
-        self.ap_id = self._view["ap_id"]
-        self.local = self._view["local"]
 
-
-class DeletePost(ParsableObject):
+@dataclass
+class DeletePost:
     """https://join-lemmy.org/api/interfaces/DeletePost.html"""
 
     post_id: int = None
     deleted: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                deleted=data["deleted"]
+        )
 
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        self.deleted = self._view["deleted"]
 
-
-class PurgeComment(ParsableObject):
+@dataclass
+class PurgeComment:
     """https://join-lemmy.org/api/interfaces/PurgeComment.html"""
 
     comment_id: int = None
     reason: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"],
+                reason=data["reason"] if "reason" in data else None
+        )
 
-    def parse(self) -> None:
-        self.comment_id = self._view["comment_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
 
-
-class CreatePost(ParsableObject):
+@dataclass
+class CreatePost:
     """https://join-lemmy.org/api/interfaces/CreatePost.html"""
 
     name: str = None
@@ -1677,41 +1540,24 @@ class CreatePost(ParsableObject):
     nsfw: Optional[bool] = None
     language_id: Optional[int] = None
     custom_thumbnail: Optional[str] = None
-
-    def parse(self) -> None:
-        self.name = self._view["name"]
-        self.community_id = self._view["community_id"]
-        if "url" in self._view:
-            self.url = self._view["url"]
-        else:
-            self.url = None
-        if "body" in self._view:
-            self.body = self._view["body"]
-        else:
-            self.body = None
-        if "alt_text" in self._view:
-            self.alt_text = self._view["alt_text"]
-        else:
-            self.alt_text = None
-        if "honeypot" in self._view:
-            self.honeypot = self._view["honeypot"]
-        else:
-            self.honeypot = None
-        if "nsfw" in self._view:
-            self.nsfw = self._view["nsfw"]
-        else:
-            self.nsfw = None
-        if "language_id" in self._view:
-            self.language_id = self._view["language_id"]
-        else:
-            self.language_id = None
-        if "custom_thumbnail" in self._view:
-            self.custom_thumbnail = self._view["custom_thumbnail"]
-        else:
-            self.custom_thumbnail = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                name=data["name"],
+                community_id=data["community_id"],
+                url=data["url"] if "url" in data else None,
+                body=data["body"] if "body" in data else None,
+                alt_text=data["alt_text"] if "alt_text" in data else None,
+                honeypot=data["honeypot"] if "honeypot" in data else None,
+                nsfw=data["nsfw"] if "nsfw" in data else None,
+                language_id=data["language_id"] if "language_id" in data else None,
+                custom_thumbnail=data["custom_thumbnail"] if "custom_thumbnail" in data else None
+        )
 
 
-class CreateCustomEmoji(ParsableObject):
+@dataclass
+class CreateCustomEmoji:
     """https://join-lemmy.org/api/interfaces/CreateCustomEmoji.html"""
 
     category: str = None
@@ -1719,16 +1565,20 @@ class CreateCustomEmoji(ParsableObject):
     image_url: str = None
     alt_text: str = None
     keywords: list[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                category=data["category"],
+                shortcode=data["shortcode"],
+                image_url=data["image_url"],
+                alt_text=data["alt_text"],
+                keywords=[e0 for e0 in data["keywords"]]
+        )
 
-    def parse(self) -> None:
-        self.category = self._view["category"]
-        self.shortcode = self._view["shortcode"]
-        self.image_url = self._view["image_url"]
-        self.alt_text = self._view["alt_text"]
-        self.keywords = [e0 for e0 in self._view["keywords"]]
 
-
-class InstanceWithFederationState(ParsableObject):
+@dataclass
+class InstanceWithFederationState:
     """https://join-lemmy.org/api/interfaces/InstanceWithFederationState.html"""
 
     id: int = None
@@ -1738,30 +1588,22 @@ class InstanceWithFederationState(ParsableObject):
     software: Optional[str] = None
     version: Optional[str] = None
     federation_state: Optional[ReadableFederationState] = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.domain = self._view["domain"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
-        if "software" in self._view:
-            self.software = self._view["software"]
-        else:
-            self.software = None
-        if "version" in self._view:
-            self.version = self._view["version"]
-        else:
-            self.version = None
-        if "federation_state" in self._view:
-            self.federation_state = ReadableFederationState(self._view["federation_state"])
-        else:
-            self.federation_state = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                domain=data["domain"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None,
+                software=data["software"] if "software" in data else None,
+                version=data["version"] if "version" in data else None,
+                federation_state=ReadableFederationState.parse(data["federation_state"]) if "federation_state" in data else None
+        )
 
 
-class CommunityAggregates(ParsableObject):
+@dataclass
+class CommunityAggregates:
     """https://join-lemmy.org/api/interfaces/CommunityAggregates.html"""
 
     community_id: int = None
@@ -1774,39 +1616,44 @@ class CommunityAggregates(ParsableObject):
     users_active_month: int = None
     users_active_half_year: int = None
     subscribers_local: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                subscribers=data["subscribers"],
+                posts=data["posts"],
+                comments=data["comments"],
+                published=data["published"],
+                users_active_day=data["users_active_day"],
+                users_active_week=data["users_active_week"],
+                users_active_month=data["users_active_month"],
+                users_active_half_year=data["users_active_half_year"],
+                subscribers_local=data["subscribers_local"]
+        )
 
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        self.subscribers = self._view["subscribers"]
-        self.posts = self._view["posts"]
-        self.comments = self._view["comments"]
-        self.published = self._view["published"]
-        self.users_active_day = self._view["users_active_day"]
-        self.users_active_week = self._view["users_active_week"]
-        self.users_active_month = self._view["users_active_month"]
-        self.users_active_half_year = self._view["users_active_half_year"]
-        self.subscribers_local = self._view["subscribers_local"]
 
-
-class LocalImage(ParsableObject):
+@dataclass
+class LocalImage:
     """https://join-lemmy.org/api/interfaces/LocalImage.html"""
 
     local_user_id: Optional[int] = None
     pictrs_alias: str = None
     pictrs_delete_token: str = None
     published: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                local_user_id=data["local_user_id"] if "local_user_id" in data else None,
+                pictrs_alias=data["pictrs_alias"],
+                pictrs_delete_token=data["pictrs_delete_token"],
+                published=data["published"]
+        )
 
-    def parse(self) -> None:
-        if "local_user_id" in self._view:
-            self.local_user_id = self._view["local_user_id"]
-        else:
-            self.local_user_id = None
-        self.pictrs_alias = self._view["pictrs_alias"]
-        self.pictrs_delete_token = self._view["pictrs_delete_token"]
-        self.published = self._view["published"]
 
-
-class EditCommunity(ParsableObject):
+@dataclass
+class EditCommunity:
     """https://join-lemmy.org/api/interfaces/EditCommunity.html"""
 
     community_id: int = None
@@ -1818,63 +1665,41 @@ class EditCommunity(ParsableObject):
     posting_restricted_to_mods: Optional[bool] = None
     discussion_languages: Optional[list[int]] = None
     visibility: Optional[str] = None
-
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        if "title" in self._view:
-            self.title = self._view["title"]
-        else:
-            self.title = None
-        if "description" in self._view:
-            self.description = self._view["description"]
-        else:
-            self.description = None
-        if "icon" in self._view:
-            self.icon = self._view["icon"]
-        else:
-            self.icon = None
-        if "banner" in self._view:
-            self.banner = self._view["banner"]
-        else:
-            self.banner = None
-        if "nsfw" in self._view:
-            self.nsfw = self._view["nsfw"]
-        else:
-            self.nsfw = None
-        if "posting_restricted_to_mods" in self._view:
-            self.posting_restricted_to_mods = self._view["posting_restricted_to_mods"]
-        else:
-            self.posting_restricted_to_mods = None
-        if "discussion_languages" in self._view:
-            self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
-        else:
-            self.discussion_languages = None
-        if "visibility" in self._view:
-            self.visibility = self._view["visibility"]
-        else:
-            self.visibility = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                title=data["title"] if "title" in data else None,
+                description=data["description"] if "description" in data else None,
+                icon=data["icon"] if "icon" in data else None,
+                banner=data["banner"] if "banner" in data else None,
+                nsfw=data["nsfw"] if "nsfw" in data else None,
+                posting_restricted_to_mods=data["posting_restricted_to_mods"] if "posting_restricted_to_mods" in data else None,
+                discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
+                visibility=data["visibility"] if "visibility" in data else None
+        )
 
 
-class ListPostLikes(ParsableObject):
+@dataclass
+class ListPostLikes:
     """https://join-lemmy.org/api/interfaces/ListPostLikes.html"""
 
     post_id: int = None
     page: Optional[int] = None
     limit: Optional[int] = None
-
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None
+        )
 
 
-class CommentReply(ParsableObject):
+@dataclass
+class CommentReply:
     """https://join-lemmy.org/api/interfaces/CommentReply.html"""
 
     id: int = None
@@ -1882,16 +1707,20 @@ class CommentReply(ParsableObject):
     comment_id: int = None
     read: bool = None
     published: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                recipient_id=data["recipient_id"],
+                comment_id=data["comment_id"],
+                read=data["read"],
+                published=data["published"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.recipient_id = self._view["recipient_id"]
-        self.comment_id = self._view["comment_id"]
-        self.read = self._view["read"]
-        self.published = self._view["published"]
 
-
-class ModRemovePost(ParsableObject):
+@dataclass
+class ModRemovePost:
     """https://join-lemmy.org/api/interfaces/ModRemovePost.html"""
 
     id: int = None
@@ -1900,20 +1729,21 @@ class ModRemovePost(ParsableObject):
     reason: Optional[str] = None
     removed: bool = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                mod_person_id=data["mod_person_id"],
+                post_id=data["post_id"],
+                reason=data["reason"] if "reason" in data else None,
+                removed=data["removed"],
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.post_id = self._view["post_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        self.removed = self._view["removed"]
-        self.when_ = self._view["when_"]
 
-
-class BanFromCommunity(ParsableObject):
+@dataclass
+class BanFromCommunity:
     """https://join-lemmy.org/api/interfaces/BanFromCommunity.html"""
 
     community_id: int = None
@@ -1922,79 +1752,87 @@ class BanFromCommunity(ParsableObject):
     remove_data: Optional[bool] = None
     reason: Optional[str] = None
     expires: Optional[int] = None
-
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        self.person_id = self._view["person_id"]
-        self.ban = self._view["ban"]
-        if "remove_data" in self._view:
-            self.remove_data = self._view["remove_data"]
-        else:
-            self.remove_data = None
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        if "expires" in self._view:
-            self.expires = self._view["expires"]
-        else:
-            self.expires = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                person_id=data["person_id"],
+                ban=data["ban"],
+                remove_data=data["remove_data"] if "remove_data" in data else None,
+                reason=data["reason"] if "reason" in data else None,
+                expires=data["expires"] if "expires" in data else None
+        )
 
 
-class CreatePostLike(ParsableObject):
+@dataclass
+class CreatePostLike:
     """https://join-lemmy.org/api/interfaces/CreatePostLike.html"""
 
     post_id: int = None
     score: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                score=data["score"]
+        )
 
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        self.score = self._view["score"]
 
-
-class RemovePost(ParsableObject):
+@dataclass
+class RemovePost:
     """https://join-lemmy.org/api/interfaces/RemovePost.html"""
 
     post_id: int = None
     removed: bool = None
     reason: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                removed=data["removed"],
+                reason=data["reason"] if "reason" in data else None
+        )
 
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        self.removed = self._view["removed"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
 
-
-class EditPrivateMessage(ParsableObject):
+@dataclass
+class EditPrivateMessage:
     """https://join-lemmy.org/api/interfaces/EditPrivateMessage.html"""
 
     private_message_id: int = None
     content: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                private_message_id=data["private_message_id"],
+                content=data["content"]
+        )
 
-    def parse(self) -> None:
-        self.private_message_id = self._view["private_message_id"]
-        self.content = self._view["content"]
 
-
-class ImageDetails(ParsableObject):
+@dataclass
+class ImageDetails:
     """https://join-lemmy.org/api/interfaces/ImageDetails.html"""
 
     link: str = None
     width: int = None
     height: int = None
     content_type: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                link=data["link"],
+                width=data["width"],
+                height=data["height"],
+                content_type=data["content_type"]
+        )
 
-    def parse(self) -> None:
-        self.link = self._view["link"]
-        self.width = self._view["width"]
-        self.height = self._view["height"]
-        self.content_type = self._view["content_type"]
 
-
-class GetModlog(ParsableObject):
+@dataclass
+class GetModlog:
     """https://join-lemmy.org/api/interfaces/GetModlog.html"""
 
     mod_person_id: Optional[int] = None
@@ -2005,43 +1843,23 @@ class GetModlog(ParsableObject):
     other_person_id: Optional[int] = None
     post_id: Optional[int] = None
     comment_id: Optional[int] = None
-
-    def parse(self) -> None:
-        if "mod_person_id" in self._view:
-            self.mod_person_id = self._view["mod_person_id"]
-        else:
-            self.mod_person_id = None
-        if "community_id" in self._view:
-            self.community_id = self._view["community_id"]
-        else:
-            self.community_id = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        if "type_" in self._view:
-            self.type_ = self._view["type_"]
-        else:
-            self.type_ = None
-        if "other_person_id" in self._view:
-            self.other_person_id = self._view["other_person_id"]
-        else:
-            self.other_person_id = None
-        if "post_id" in self._view:
-            self.post_id = self._view["post_id"]
-        else:
-            self.post_id = None
-        if "comment_id" in self._view:
-            self.comment_id = self._view["comment_id"]
-        else:
-            self.comment_id = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                mod_person_id=data["mod_person_id"] if "mod_person_id" in data else None,
+                community_id=data["community_id"] if "community_id" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                type_=data["type_"] if "type_" in data else None,
+                other_person_id=data["other_person_id"] if "other_person_id" in data else None,
+                post_id=data["post_id"] if "post_id" in data else None,
+                comment_id=data["comment_id"] if "comment_id" in data else None
+        )
 
 
-class SaveUserSettings(ParsableObject):
+@dataclass
+class SaveUserSettings:
     """https://join-lemmy.org/api/interfaces/SaveUserSettings.html"""
 
     show_nsfw: Optional[bool] = None
@@ -2073,138 +1891,59 @@ class SaveUserSettings(ParsableObject):
     show_upvotes: Optional[bool] = None
     show_downvotes: Optional[bool] = None
     show_upvote_percentage: Optional[bool] = None
-
-    def parse(self) -> None:
-        if "show_nsfw" in self._view:
-            self.show_nsfw = self._view["show_nsfw"]
-        else:
-            self.show_nsfw = None
-        if "blur_nsfw" in self._view:
-            self.blur_nsfw = self._view["blur_nsfw"]
-        else:
-            self.blur_nsfw = None
-        if "auto_expand" in self._view:
-            self.auto_expand = self._view["auto_expand"]
-        else:
-            self.auto_expand = None
-        if "theme" in self._view:
-            self.theme = self._view["theme"]
-        else:
-            self.theme = None
-        if "default_sort_type" in self._view:
-            self.default_sort_type = self._view["default_sort_type"]
-        else:
-            self.default_sort_type = None
-        if "default_listing_type" in self._view:
-            self.default_listing_type = self._view["default_listing_type"]
-        else:
-            self.default_listing_type = None
-        if "interface_language" in self._view:
-            self.interface_language = self._view["interface_language"]
-        else:
-            self.interface_language = None
-        if "avatar" in self._view:
-            self.avatar = self._view["avatar"]
-        else:
-            self.avatar = None
-        if "banner" in self._view:
-            self.banner = self._view["banner"]
-        else:
-            self.banner = None
-        if "display_name" in self._view:
-            self.display_name = self._view["display_name"]
-        else:
-            self.display_name = None
-        if "email" in self._view:
-            self.email = self._view["email"]
-        else:
-            self.email = None
-        if "bio" in self._view:
-            self.bio = self._view["bio"]
-        else:
-            self.bio = None
-        if "matrix_user_id" in self._view:
-            self.matrix_user_id = self._view["matrix_user_id"]
-        else:
-            self.matrix_user_id = None
-        if "show_avatars" in self._view:
-            self.show_avatars = self._view["show_avatars"]
-        else:
-            self.show_avatars = None
-        if "send_notifications_to_email" in self._view:
-            self.send_notifications_to_email = self._view["send_notifications_to_email"]
-        else:
-            self.send_notifications_to_email = None
-        if "bot_account" in self._view:
-            self.bot_account = self._view["bot_account"]
-        else:
-            self.bot_account = None
-        if "show_bot_accounts" in self._view:
-            self.show_bot_accounts = self._view["show_bot_accounts"]
-        else:
-            self.show_bot_accounts = None
-        if "show_read_posts" in self._view:
-            self.show_read_posts = self._view["show_read_posts"]
-        else:
-            self.show_read_posts = None
-        if "discussion_languages" in self._view:
-            self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
-        else:
-            self.discussion_languages = None
-        if "open_links_in_new_tab" in self._view:
-            self.open_links_in_new_tab = self._view["open_links_in_new_tab"]
-        else:
-            self.open_links_in_new_tab = None
-        if "infinite_scroll_enabled" in self._view:
-            self.infinite_scroll_enabled = self._view["infinite_scroll_enabled"]
-        else:
-            self.infinite_scroll_enabled = None
-        if "post_listing_mode" in self._view:
-            self.post_listing_mode = self._view["post_listing_mode"]
-        else:
-            self.post_listing_mode = None
-        if "enable_keyboard_navigation" in self._view:
-            self.enable_keyboard_navigation = self._view["enable_keyboard_navigation"]
-        else:
-            self.enable_keyboard_navigation = None
-        if "enable_animated_images" in self._view:
-            self.enable_animated_images = self._view["enable_animated_images"]
-        else:
-            self.enable_animated_images = None
-        if "collapse_bot_comments" in self._view:
-            self.collapse_bot_comments = self._view["collapse_bot_comments"]
-        else:
-            self.collapse_bot_comments = None
-        if "show_scores" in self._view:
-            self.show_scores = self._view["show_scores"]
-        else:
-            self.show_scores = None
-        if "show_upvotes" in self._view:
-            self.show_upvotes = self._view["show_upvotes"]
-        else:
-            self.show_upvotes = None
-        if "show_downvotes" in self._view:
-            self.show_downvotes = self._view["show_downvotes"]
-        else:
-            self.show_downvotes = None
-        if "show_upvote_percentage" in self._view:
-            self.show_upvote_percentage = self._view["show_upvote_percentage"]
-        else:
-            self.show_upvote_percentage = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
+                blur_nsfw=data["blur_nsfw"] if "blur_nsfw" in data else None,
+                auto_expand=data["auto_expand"] if "auto_expand" in data else None,
+                theme=data["theme"] if "theme" in data else None,
+                default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
+                default_listing_type=data["default_listing_type"] if "default_listing_type" in data else None,
+                interface_language=data["interface_language"] if "interface_language" in data else None,
+                avatar=data["avatar"] if "avatar" in data else None,
+                banner=data["banner"] if "banner" in data else None,
+                display_name=data["display_name"] if "display_name" in data else None,
+                email=data["email"] if "email" in data else None,
+                bio=data["bio"] if "bio" in data else None,
+                matrix_user_id=data["matrix_user_id"] if "matrix_user_id" in data else None,
+                show_avatars=data["show_avatars"] if "show_avatars" in data else None,
+                send_notifications_to_email=data["send_notifications_to_email"] if "send_notifications_to_email" in data else None,
+                bot_account=data["bot_account"] if "bot_account" in data else None,
+                show_bot_accounts=data["show_bot_accounts"] if "show_bot_accounts" in data else None,
+                show_read_posts=data["show_read_posts"] if "show_read_posts" in data else None,
+                discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
+                open_links_in_new_tab=data["open_links_in_new_tab"] if "open_links_in_new_tab" in data else None,
+                infinite_scroll_enabled=data["infinite_scroll_enabled"] if "infinite_scroll_enabled" in data else None,
+                post_listing_mode=data["post_listing_mode"] if "post_listing_mode" in data else None,
+                enable_keyboard_navigation=data["enable_keyboard_navigation"] if "enable_keyboard_navigation" in data else None,
+                enable_animated_images=data["enable_animated_images"] if "enable_animated_images" in data else None,
+                collapse_bot_comments=data["collapse_bot_comments"] if "collapse_bot_comments" in data else None,
+                show_scores=data["show_scores"] if "show_scores" in data else None,
+                show_upvotes=data["show_upvotes"] if "show_upvotes" in data else None,
+                show_downvotes=data["show_downvotes"] if "show_downvotes" in data else None,
+                show_upvote_percentage=data["show_upvote_percentage"] if "show_upvote_percentage" in data else None
+        )
 
 
-class CreatePrivateMessage(ParsableObject):
+@dataclass
+class CreatePrivateMessage:
     """https://join-lemmy.org/api/interfaces/CreatePrivateMessage.html"""
 
     content: str = None
     recipient_id: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                content=data["content"],
+                recipient_id=data["recipient_id"]
+        )
 
-    def parse(self) -> None:
-        self.content = self._view["content"]
-        self.recipient_id = self._view["recipient_id"]
 
-
-class LocalSiteRateLimit(ParsableObject):
+@dataclass
+class LocalSiteRateLimit:
     """https://join-lemmy.org/api/interfaces/LocalSiteRateLimit.html"""
 
     local_site_id: int = None
@@ -2224,78 +1963,79 @@ class LocalSiteRateLimit(ParsableObject):
     updated: Optional[str] = None
     import_user_settings: int = None
     import_user_settings_per_second: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                local_site_id=data["local_site_id"],
+                message=data["message"],
+                message_per_second=data["message_per_second"],
+                post=data["post"],
+                post_per_second=data["post_per_second"],
+                register=data["register"],
+                register_per_second=data["register_per_second"],
+                image=data["image"],
+                image_per_second=data["image_per_second"],
+                comment=data["comment"],
+                comment_per_second=data["comment_per_second"],
+                search=data["search"],
+                search_per_second=data["search_per_second"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None,
+                import_user_settings=data["import_user_settings"],
+                import_user_settings_per_second=data["import_user_settings_per_second"]
+        )
 
-    def parse(self) -> None:
-        self.local_site_id = self._view["local_site_id"]
-        self.message = self._view["message"]
-        self.message_per_second = self._view["message_per_second"]
-        self.post = self._view["post"]
-        self.post_per_second = self._view["post_per_second"]
-        self.register = self._view["register"]
-        self.register_per_second = self._view["register_per_second"]
-        self.image = self._view["image"]
-        self.image_per_second = self._view["image_per_second"]
-        self.comment = self._view["comment"]
-        self.comment_per_second = self._view["comment_per_second"]
-        self.search = self._view["search"]
-        self.search_per_second = self._view["search_per_second"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
-        self.import_user_settings = self._view["import_user_settings"]
-        self.import_user_settings_per_second = self._view["import_user_settings_per_second"]
 
-
-class ListCommentLikes(ParsableObject):
+@dataclass
+class ListCommentLikes:
     """https://join-lemmy.org/api/interfaces/ListCommentLikes.html"""
 
     comment_id: int = None
     page: Optional[int] = None
     limit: Optional[int] = None
-
-    def parse(self) -> None:
-        self.comment_id = self._view["comment_id"]
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"],
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None
+        )
 
 
-class SaveComment(ParsableObject):
+@dataclass
+class SaveComment:
     """https://join-lemmy.org/api/interfaces/SaveComment.html"""
 
     comment_id: int = None
     save: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"],
+                save=data["save"]
+        )
 
-    def parse(self) -> None:
-        self.comment_id = self._view["comment_id"]
-        self.save = self._view["save"]
 
-
-class ListMedia(ParsableObject):
+@dataclass
+class ListMedia:
     """https://join-lemmy.org/api/interfaces/ListMedia.html"""
 
     page: Optional[int] = None
     limit: Optional[int] = None
-
-    def parse(self) -> None:
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None
+        )
 
 
-class LocalSite(ParsableObject):
+@dataclass
+class LocalSite:
     """https://join-lemmy.org/api/interfaces/LocalSite.html"""
 
     id: int = None
@@ -2324,60 +2064,56 @@ class LocalSite(ParsableObject):
     federation_signed_fetch: bool = None
     default_post_listing_mode: str = None
     default_sort_type: str = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.site_id = self._view["site_id"]
-        self.site_setup = self._view["site_setup"]
-        self.enable_downvotes = self._view["enable_downvotes"]
-        self.enable_nsfw = self._view["enable_nsfw"]
-        self.community_creation_admin_only = self._view["community_creation_admin_only"]
-        self.require_email_verification = self._view["require_email_verification"]
-        if "application_question" in self._view:
-            self.application_question = self._view["application_question"]
-        else:
-            self.application_question = None
-        self.private_instance = self._view["private_instance"]
-        self.default_theme = self._view["default_theme"]
-        self.default_post_listing_type = self._view["default_post_listing_type"]
-        if "legal_information" in self._view:
-            self.legal_information = self._view["legal_information"]
-        else:
-            self.legal_information = None
-        self.hide_modlog_mod_names = self._view["hide_modlog_mod_names"]
-        self.application_email_admins = self._view["application_email_admins"]
-        if "slur_filter_regex" in self._view:
-            self.slur_filter_regex = self._view["slur_filter_regex"]
-        else:
-            self.slur_filter_regex = None
-        self.actor_name_max_length = self._view["actor_name_max_length"]
-        self.federation_enabled = self._view["federation_enabled"]
-        self.captcha_enabled = self._view["captcha_enabled"]
-        self.captcha_difficulty = self._view["captcha_difficulty"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
-        self.registration_mode = self._view["registration_mode"]
-        self.reports_email_admins = self._view["reports_email_admins"]
-        self.federation_signed_fetch = self._view["federation_signed_fetch"]
-        self.default_post_listing_mode = self._view["default_post_listing_mode"]
-        self.default_sort_type = self._view["default_sort_type"]
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                site_id=data["site_id"],
+                site_setup=data["site_setup"],
+                enable_downvotes=data["enable_downvotes"],
+                enable_nsfw=data["enable_nsfw"],
+                community_creation_admin_only=data["community_creation_admin_only"],
+                require_email_verification=data["require_email_verification"],
+                application_question=data["application_question"] if "application_question" in data else None,
+                private_instance=data["private_instance"],
+                default_theme=data["default_theme"],
+                default_post_listing_type=data["default_post_listing_type"],
+                legal_information=data["legal_information"] if "legal_information" in data else None,
+                hide_modlog_mod_names=data["hide_modlog_mod_names"],
+                application_email_admins=data["application_email_admins"],
+                slur_filter_regex=data["slur_filter_regex"] if "slur_filter_regex" in data else None,
+                actor_name_max_length=data["actor_name_max_length"],
+                federation_enabled=data["federation_enabled"],
+                captcha_enabled=data["captcha_enabled"],
+                captcha_difficulty=data["captcha_difficulty"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None,
+                registration_mode=data["registration_mode"],
+                reports_email_admins=data["reports_email_admins"],
+                federation_signed_fetch=data["federation_signed_fetch"],
+                default_post_listing_mode=data["default_post_listing_mode"],
+                default_sort_type=data["default_sort_type"]
+        )
 
 
-class CustomEmojiKeyword(ParsableObject):
+@dataclass
+class CustomEmojiKeyword:
     """https://join-lemmy.org/api/interfaces/CustomEmojiKeyword.html"""
 
     custom_emoji_id: int = None
     keyword: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                custom_emoji_id=data["custom_emoji_id"],
+                keyword=data["keyword"]
+        )
 
-    def parse(self) -> None:
-        self.custom_emoji_id = self._view["custom_emoji_id"]
-        self.keyword = self._view["keyword"]
 
-
-class ModlogListParams(ParsableObject):
+@dataclass
+class ModlogListParams:
     """https://join-lemmy.org/api/interfaces/ModlogListParams.html"""
 
     community_id: Optional[int] = None
@@ -2388,40 +2124,23 @@ class ModlogListParams(ParsableObject):
     page: Optional[int] = None
     limit: Optional[int] = None
     hide_modlog_names: bool = None
-
-    def parse(self) -> None:
-        if "community_id" in self._view:
-            self.community_id = self._view["community_id"]
-        else:
-            self.community_id = None
-        if "mod_person_id" in self._view:
-            self.mod_person_id = self._view["mod_person_id"]
-        else:
-            self.mod_person_id = None
-        if "other_person_id" in self._view:
-            self.other_person_id = self._view["other_person_id"]
-        else:
-            self.other_person_id = None
-        if "post_id" in self._view:
-            self.post_id = self._view["post_id"]
-        else:
-            self.post_id = None
-        if "comment_id" in self._view:
-            self.comment_id = self._view["comment_id"]
-        else:
-            self.comment_id = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        self.hide_modlog_names = self._view["hide_modlog_names"]
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"] if "community_id" in data else None,
+                mod_person_id=data["mod_person_id"] if "mod_person_id" in data else None,
+                other_person_id=data["other_person_id"] if "other_person_id" in data else None,
+                post_id=data["post_id"] if "post_id" in data else None,
+                comment_id=data["comment_id"] if "comment_id" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                hide_modlog_names=data["hide_modlog_names"]
+        )
 
 
-class ModRemoveComment(ParsableObject):
+@dataclass
+class ModRemoveComment:
     """https://join-lemmy.org/api/interfaces/ModRemoveComment.html"""
 
     id: int = None
@@ -2430,20 +2149,21 @@ class ModRemoveComment(ParsableObject):
     reason: Optional[str] = None
     removed: bool = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                mod_person_id=data["mod_person_id"],
+                comment_id=data["comment_id"],
+                reason=data["reason"] if "reason" in data else None,
+                removed=data["removed"],
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.comment_id = self._view["comment_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        self.removed = self._view["removed"]
-        self.when_ = self._view["when_"]
 
-
-class GetComments(ParsableObject):
+@dataclass
+class GetComments:
     """https://join-lemmy.org/api/interfaces/GetComments.html"""
 
     type_: Optional[str] = None
@@ -2458,59 +2178,27 @@ class GetComments(ParsableObject):
     saved_only: Optional[bool] = None
     liked_only: Optional[bool] = None
     disliked_only: Optional[bool] = None
-
-    def parse(self) -> None:
-        if "type_" in self._view:
-            self.type_ = self._view["type_"]
-        else:
-            self.type_ = None
-        if "sort" in self._view:
-            self.sort = self._view["sort"]
-        else:
-            self.sort = None
-        if "max_depth" in self._view:
-            self.max_depth = self._view["max_depth"]
-        else:
-            self.max_depth = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        if "community_id" in self._view:
-            self.community_id = self._view["community_id"]
-        else:
-            self.community_id = None
-        if "community_name" in self._view:
-            self.community_name = self._view["community_name"]
-        else:
-            self.community_name = None
-        if "post_id" in self._view:
-            self.post_id = self._view["post_id"]
-        else:
-            self.post_id = None
-        if "parent_id" in self._view:
-            self.parent_id = self._view["parent_id"]
-        else:
-            self.parent_id = None
-        if "saved_only" in self._view:
-            self.saved_only = self._view["saved_only"]
-        else:
-            self.saved_only = None
-        if "liked_only" in self._view:
-            self.liked_only = self._view["liked_only"]
-        else:
-            self.liked_only = None
-        if "disliked_only" in self._view:
-            self.disliked_only = self._view["disliked_only"]
-        else:
-            self.disliked_only = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                type_=data["type_"] if "type_" in data else None,
+                sort=data["sort"] if "sort" in data else None,
+                max_depth=data["max_depth"] if "max_depth" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                community_id=data["community_id"] if "community_id" in data else None,
+                community_name=data["community_name"] if "community_name" in data else None,
+                post_id=data["post_id"] if "post_id" in data else None,
+                parent_id=data["parent_id"] if "parent_id" in data else None,
+                saved_only=data["saved_only"] if "saved_only" in data else None,
+                liked_only=data["liked_only"] if "liked_only" in data else None,
+                disliked_only=data["disliked_only"] if "disliked_only" in data else None
+        )
 
 
-class ModBanFromCommunity(ParsableObject):
+@dataclass
+class ModBanFromCommunity:
     """https://join-lemmy.org/api/interfaces/ModBanFromCommunity.html"""
 
     id: int = None
@@ -2521,53 +2209,53 @@ class ModBanFromCommunity(ParsableObject):
     banned: bool = None
     expires: Optional[str] = None
     when_: str = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.other_person_id = self._view["other_person_id"]
-        self.community_id = self._view["community_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        self.banned = self._view["banned"]
-        if "expires" in self._view:
-            self.expires = self._view["expires"]
-        else:
-            self.expires = None
-        self.when_ = self._view["when_"]
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                mod_person_id=data["mod_person_id"],
+                other_person_id=data["other_person_id"],
+                community_id=data["community_id"],
+                reason=data["reason"] if "reason" in data else None,
+                banned=data["banned"],
+                expires=data["expires"] if "expires" in data else None,
+                when_=data["when_"]
+        )
 
 
-class MarkPersonMentionAsRead(ParsableObject):
+@dataclass
+class MarkPersonMentionAsRead:
     """https://join-lemmy.org/api/interfaces/MarkPersonMentionAsRead.html"""
 
     person_mention_id: int = None
     read: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                person_mention_id=data["person_mention_id"],
+                read=data["read"]
+        )
 
-    def parse(self) -> None:
-        self.person_mention_id = self._view["person_mention_id"]
-        self.read = self._view["read"]
 
-
-class GetCommunity(ParsableObject):
+@dataclass
+class GetCommunity:
     """https://join-lemmy.org/api/interfaces/GetCommunity.html"""
 
     id: Optional[int] = None
     name: Optional[str] = None
-
-    def parse(self) -> None:
-        if "id" in self._view:
-            self.id = self._view["id"]
-        else:
-            self.id = None
-        if "name" in self._view:
-            self.name = self._view["name"]
-        else:
-            self.name = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"] if "id" in data else None,
+                name=data["name"] if "name" in data else None
+        )
 
 
-class PrivateMessageReport(ParsableObject):
+@dataclass
+class PrivateMessageReport:
     """https://join-lemmy.org/api/interfaces/PrivateMessageReport.html"""
 
     id: int = None
@@ -2579,68 +2267,82 @@ class PrivateMessageReport(ParsableObject):
     resolver_id: Optional[int] = None
     published: str = None
     updated: Optional[str] = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.creator_id = self._view["creator_id"]
-        self.private_message_id = self._view["private_message_id"]
-        self.original_pm_text = self._view["original_pm_text"]
-        self.reason = self._view["reason"]
-        self.resolved = self._view["resolved"]
-        if "resolver_id" in self._view:
-            self.resolver_id = self._view["resolver_id"]
-        else:
-            self.resolver_id = None
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                creator_id=data["creator_id"],
+                private_message_id=data["private_message_id"],
+                original_pm_text=data["original_pm_text"],
+                reason=data["reason"],
+                resolved=data["resolved"],
+                resolver_id=data["resolver_id"] if "resolver_id" in data else None,
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None
+        )
 
 
-class SavePost(ParsableObject):
+@dataclass
+class SavePost:
     """https://join-lemmy.org/api/interfaces/SavePost.html"""
 
     post_id: int = None
     save: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                post_id=data["post_id"],
+                save=data["save"]
+        )
 
-    def parse(self) -> None:
-        self.post_id = self._view["post_id"]
-        self.save = self._view["save"]
 
-
-class PasswordReset(ParsableObject):
+@dataclass
+class PasswordReset:
     """https://join-lemmy.org/api/interfaces/PasswordReset.html"""
 
     email: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                email=data["email"]
+        )
 
-    def parse(self) -> None:
-        self.email = self._view["email"]
 
-
-class CreateCommentReport(ParsableObject):
+@dataclass
+class CreateCommentReport:
     """https://join-lemmy.org/api/interfaces/CreateCommentReport.html"""
 
     comment_id: int = None
     reason: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"],
+                reason=data["reason"]
+        )
 
-    def parse(self) -> None:
-        self.comment_id = self._view["comment_id"]
-        self.reason = self._view["reason"]
 
-
-class CreateCommentLike(ParsableObject):
+@dataclass
+class CreateCommentLike:
     """https://join-lemmy.org/api/interfaces/CreateCommentLike.html"""
 
     comment_id: int = None
     score: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"],
+                score=data["score"]
+        )
 
-    def parse(self) -> None:
-        self.comment_id = self._view["comment_id"]
-        self.score = self._view["score"]
 
-
-class Register(ParsableObject):
+@dataclass
+class Register:
     """https://join-lemmy.org/api/interfaces/Register.html"""
 
     username: str = None
@@ -2652,107 +2354,114 @@ class Register(ParsableObject):
     captcha_answer: Optional[str] = None
     honeypot: Optional[str] = None
     answer: Optional[str] = None
-
-    def parse(self) -> None:
-        self.username = self._view["username"]
-        self.password = self._view["password"]
-        self.password_verify = self._view["password_verify"]
-        if "show_nsfw" in self._view:
-            self.show_nsfw = self._view["show_nsfw"]
-        else:
-            self.show_nsfw = None
-        if "email" in self._view:
-            self.email = self._view["email"]
-        else:
-            self.email = None
-        if "captcha_uuid" in self._view:
-            self.captcha_uuid = self._view["captcha_uuid"]
-        else:
-            self.captcha_uuid = None
-        if "captcha_answer" in self._view:
-            self.captcha_answer = self._view["captcha_answer"]
-        else:
-            self.captcha_answer = None
-        if "honeypot" in self._view:
-            self.honeypot = self._view["honeypot"]
-        else:
-            self.honeypot = None
-        if "answer" in self._view:
-            self.answer = self._view["answer"]
-        else:
-            self.answer = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                username=data["username"],
+                password=data["password"],
+                password_verify=data["password_verify"],
+                show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
+                email=data["email"] if "email" in data else None,
+                captcha_uuid=data["captcha_uuid"] if "captcha_uuid" in data else None,
+                captcha_answer=data["captcha_answer"] if "captcha_answer" in data else None,
+                honeypot=data["honeypot"] if "honeypot" in data else None,
+                answer=data["answer"] if "answer" in data else None
+        )
 
 
-class FederatedInstances(ParsableObject):
+@dataclass
+class FederatedInstances:
     """https://join-lemmy.org/api/interfaces/FederatedInstances.html"""
 
     linked: list[InstanceWithFederationState] = None
     allowed: list[InstanceWithFederationState] = None
     blocked: list[InstanceWithFederationState] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                linked=[InstanceWithFederationState.parse(e0) for e0 in data["linked"]],
+                allowed=[InstanceWithFederationState.parse(e0) for e0 in data["allowed"]],
+                blocked=[InstanceWithFederationState.parse(e0) for e0 in data["blocked"]]
+        )
 
-    def parse(self) -> None:
-        self.linked = [InstanceWithFederationState(e0) for e0 in self._view["linked"]]
-        self.allowed = [InstanceWithFederationState(e0) for e0 in self._view["allowed"]]
-        self.blocked = [InstanceWithFederationState(e0) for e0 in self._view["blocked"]]
 
-
-class DeleteAccount(ParsableObject):
+@dataclass
+class DeleteAccount:
     """https://join-lemmy.org/api/interfaces/DeleteAccount.html"""
 
     password: str = None
     delete_content: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                password=data["password"],
+                delete_content=data["delete_content"]
+        )
 
-    def parse(self) -> None:
-        self.password = self._view["password"]
-        self.delete_content = self._view["delete_content"]
 
-
-class MarkPrivateMessageAsRead(ParsableObject):
+@dataclass
+class MarkPrivateMessageAsRead:
     """https://join-lemmy.org/api/interfaces/MarkPrivateMessageAsRead.html"""
 
     private_message_id: int = None
     read: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                private_message_id=data["private_message_id"],
+                read=data["read"]
+        )
 
-    def parse(self) -> None:
-        self.private_message_id = self._view["private_message_id"]
-        self.read = self._view["read"]
 
-
-class GetComment(ParsableObject):
+@dataclass
+class GetComment:
     """https://join-lemmy.org/api/interfaces/GetComment.html"""
 
     id: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
 
-
-class PurgeCommunity(ParsableObject):
+@dataclass
+class PurgeCommunity:
     """https://join-lemmy.org/api/interfaces/PurgeCommunity.html"""
 
     community_id: int = None
     reason: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                reason=data["reason"] if "reason" in data else None
+        )
 
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
 
-
-class AddAdmin(ParsableObject):
+@dataclass
+class AddAdmin:
     """https://join-lemmy.org/api/interfaces/AddAdmin.html"""
 
     person_id: int = None
     added: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                person_id=data["person_id"],
+                added=data["added"]
+        )
 
-    def parse(self) -> None:
-        self.person_id = self._view["person_id"]
-        self.added = self._view["added"]
 
-
-class ModTransferCommunity(ParsableObject):
+@dataclass
+class ModTransferCommunity:
     """https://join-lemmy.org/api/interfaces/ModTransferCommunity.html"""
 
     id: int = None
@@ -2760,16 +2469,20 @@ class ModTransferCommunity(ParsableObject):
     other_person_id: int = None
     community_id: int = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                mod_person_id=data["mod_person_id"],
+                other_person_id=data["other_person_id"],
+                community_id=data["community_id"],
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.other_person_id = self._view["other_person_id"]
-        self.community_id = self._view["community_id"]
-        self.when_ = self._view["when_"]
 
-
-class Person(ParsableObject):
+@dataclass
+class Person:
     """https://join-lemmy.org/api/interfaces/Person.html"""
 
     id: int = None
@@ -2788,48 +2501,31 @@ class Person(ParsableObject):
     bot_account: bool = None
     ban_expires: Optional[str] = None
     instance_id: int = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.name = self._view["name"]
-        if "display_name" in self._view:
-            self.display_name = self._view["display_name"]
-        else:
-            self.display_name = None
-        if "avatar" in self._view:
-            self.avatar = self._view["avatar"]
-        else:
-            self.avatar = None
-        self.banned = self._view["banned"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
-        self.actor_id = self._view["actor_id"]
-        if "bio" in self._view:
-            self.bio = self._view["bio"]
-        else:
-            self.bio = None
-        self.local = self._view["local"]
-        if "banner" in self._view:
-            self.banner = self._view["banner"]
-        else:
-            self.banner = None
-        self.deleted = self._view["deleted"]
-        if "matrix_user_id" in self._view:
-            self.matrix_user_id = self._view["matrix_user_id"]
-        else:
-            self.matrix_user_id = None
-        self.bot_account = self._view["bot_account"]
-        if "ban_expires" in self._view:
-            self.ban_expires = self._view["ban_expires"]
-        else:
-            self.ban_expires = None
-        self.instance_id = self._view["instance_id"]
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                name=data["name"],
+                display_name=data["display_name"] if "display_name" in data else None,
+                avatar=data["avatar"] if "avatar" in data else None,
+                banned=data["banned"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None,
+                actor_id=data["actor_id"],
+                bio=data["bio"] if "bio" in data else None,
+                local=data["local"],
+                banner=data["banner"] if "banner" in data else None,
+                deleted=data["deleted"],
+                matrix_user_id=data["matrix_user_id"] if "matrix_user_id" in data else None,
+                bot_account=data["bot_account"],
+                ban_expires=data["ban_expires"] if "ban_expires" in data else None,
+                instance_id=data["instance_id"]
+        )
 
 
-class Comment(ParsableObject):
+@dataclass
+class Comment:
     """https://join-lemmy.org/api/interfaces/Comment.html"""
 
     id: int = None
@@ -2845,79 +2541,77 @@ class Comment(ParsableObject):
     path: str = None
     distinguished: bool = None
     language_id: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                creator_id=data["creator_id"],
+                post_id=data["post_id"],
+                content=data["content"],
+                removed=data["removed"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None,
+                deleted=data["deleted"],
+                ap_id=data["ap_id"],
+                local=data["local"],
+                path=data["path"],
+                distinguished=data["distinguished"],
+                language_id=data["language_id"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.creator_id = self._view["creator_id"]
-        self.post_id = self._view["post_id"]
-        self.content = self._view["content"]
-        self.removed = self._view["removed"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
-        self.deleted = self._view["deleted"]
-        self.ap_id = self._view["ap_id"]
-        self.local = self._view["local"]
-        self.path = self._view["path"]
-        self.distinguished = self._view["distinguished"]
-        self.language_id = self._view["language_id"]
 
-
-class OpenGraphData(ParsableObject):
+@dataclass
+class OpenGraphData:
     """https://join-lemmy.org/api/interfaces/OpenGraphData.html"""
 
     title: Optional[str] = None
     description: Optional[str] = None
     image: Optional[str] = None
     embed_video_url: Optional[str] = None
-
-    def parse(self) -> None:
-        if "title" in self._view:
-            self.title = self._view["title"]
-        else:
-            self.title = None
-        if "description" in self._view:
-            self.description = self._view["description"]
-        else:
-            self.description = None
-        if "image" in self._view:
-            self.image = self._view["image"]
-        else:
-            self.image = None
-        if "embed_video_url" in self._view:
-            self.embed_video_url = self._view["embed_video_url"]
-        else:
-            self.embed_video_url = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                title=data["title"] if "title" in data else None,
+                description=data["description"] if "description" in data else None,
+                image=data["image"] if "image" in data else None,
+                embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None
+        )
 
 
-class PurgePerson(ParsableObject):
+@dataclass
+class PurgePerson:
     """https://join-lemmy.org/api/interfaces/PurgePerson.html"""
 
     person_id: int = None
     reason: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                person_id=data["person_id"],
+                reason=data["reason"] if "reason" in data else None
+        )
 
-    def parse(self) -> None:
-        self.person_id = self._view["person_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
 
-
-class BlockCommunity(ParsableObject):
+@dataclass
+class BlockCommunity:
     """https://join-lemmy.org/api/interfaces/BlockCommunity.html"""
 
     community_id: int = None
     block: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                block=data["block"]
+        )
 
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        self.block = self._view["block"]
 
-
-class AdminPurgePost(ParsableObject):
+@dataclass
+class AdminPurgePost:
     """https://join-lemmy.org/api/interfaces/AdminPurgePost.html"""
 
     id: int = None
@@ -2925,84 +2619,86 @@ class AdminPurgePost(ParsableObject):
     community_id: int = None
     reason: Optional[str] = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                admin_person_id=data["admin_person_id"],
+                community_id=data["community_id"],
+                reason=data["reason"] if "reason" in data else None,
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.admin_person_id = self._view["admin_person_id"]
-        self.community_id = self._view["community_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        self.when_ = self._view["when_"]
 
-
-class ResolvePostReport(ParsableObject):
+@dataclass
+class ResolvePostReport:
     """https://join-lemmy.org/api/interfaces/ResolvePostReport.html"""
 
     report_id: int = None
     resolved: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                report_id=data["report_id"],
+                resolved=data["resolved"]
+        )
 
-    def parse(self) -> None:
-        self.report_id = self._view["report_id"]
-        self.resolved = self._view["resolved"]
 
-
-class CreateComment(ParsableObject):
+@dataclass
+class CreateComment:
     """https://join-lemmy.org/api/interfaces/CreateComment.html"""
 
     content: str = None
     post_id: int = None
     parent_id: Optional[int] = None
     language_id: Optional[int] = None
-
-    def parse(self) -> None:
-        self.content = self._view["content"]
-        self.post_id = self._view["post_id"]
-        if "parent_id" in self._view:
-            self.parent_id = self._view["parent_id"]
-        else:
-            self.parent_id = None
-        if "language_id" in self._view:
-            self.language_id = self._view["language_id"]
-        else:
-            self.language_id = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                content=data["content"],
+                post_id=data["post_id"],
+                parent_id=data["parent_id"] if "parent_id" in data else None,
+                language_id=data["language_id"] if "language_id" in data else None
+        )
 
 
-class ListRegistrationApplications(ParsableObject):
+@dataclass
+class ListRegistrationApplications:
     """https://join-lemmy.org/api/interfaces/ListRegistrationApplications.html"""
 
     unread_only: Optional[bool] = None
     page: Optional[int] = None
     limit: Optional[int] = None
-
-    def parse(self) -> None:
-        if "unread_only" in self._view:
-            self.unread_only = self._view["unread_only"]
-        else:
-            self.unread_only = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                unread_only=data["unread_only"] if "unread_only" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None
+        )
 
 
-class DistinguishComment(ParsableObject):
+@dataclass
+class DistinguishComment:
     """https://join-lemmy.org/api/interfaces/DistinguishComment.html"""
 
     comment_id: int = None
     distinguished: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"],
+                distinguished=data["distinguished"]
+        )
 
-    def parse(self) -> None:
-        self.comment_id = self._view["comment_id"]
-        self.distinguished = self._view["distinguished"]
 
-
-class CommentReport(ParsableObject):
+@dataclass
+class CommentReport:
     """https://join-lemmy.org/api/interfaces/CommentReport.html"""
 
     id: int = None
@@ -3014,35 +2710,37 @@ class CommentReport(ParsableObject):
     resolver_id: Optional[int] = None
     published: str = None
     updated: Optional[str] = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.creator_id = self._view["creator_id"]
-        self.comment_id = self._view["comment_id"]
-        self.original_comment_text = self._view["original_comment_text"]
-        self.reason = self._view["reason"]
-        self.resolved = self._view["resolved"]
-        if "resolver_id" in self._view:
-            self.resolver_id = self._view["resolver_id"]
-        else:
-            self.resolver_id = None
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                creator_id=data["creator_id"],
+                comment_id=data["comment_id"],
+                original_comment_text=data["original_comment_text"],
+                reason=data["reason"],
+                resolved=data["resolved"],
+                resolver_id=data["resolver_id"] if "resolver_id" in data else None,
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None
+        )
 
 
-class DeleteCustomEmoji(ParsableObject):
+@dataclass
+class DeleteCustomEmoji:
     """https://join-lemmy.org/api/interfaces/DeleteCustomEmoji.html"""
 
     id: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
 
-
-class BanPerson(ParsableObject):
+@dataclass
+class BanPerson:
     """https://join-lemmy.org/api/interfaces/BanPerson.html"""
 
     person_id: int = None
@@ -3050,25 +2748,20 @@ class BanPerson(ParsableObject):
     remove_data: Optional[bool] = None
     reason: Optional[str] = None
     expires: Optional[int] = None
-
-    def parse(self) -> None:
-        self.person_id = self._view["person_id"]
-        self.ban = self._view["ban"]
-        if "remove_data" in self._view:
-            self.remove_data = self._view["remove_data"]
-        else:
-            self.remove_data = None
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        if "expires" in self._view:
-            self.expires = self._view["expires"]
-        else:
-            self.expires = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                person_id=data["person_id"],
+                ban=data["ban"],
+                remove_data=data["remove_data"] if "remove_data" in data else None,
+                reason=data["reason"] if "reason" in data else None,
+                expires=data["expires"] if "expires" in data else None
+        )
 
 
-class ListCommentReports(ParsableObject):
+@dataclass
+class ListCommentReports:
     """https://join-lemmy.org/api/interfaces/ListCommentReports.html"""
 
     comment_id: Optional[int] = None
@@ -3076,31 +2769,20 @@ class ListCommentReports(ParsableObject):
     limit: Optional[int] = None
     unresolved_only: Optional[bool] = None
     community_id: Optional[int] = None
-
-    def parse(self) -> None:
-        if "comment_id" in self._view:
-            self.comment_id = self._view["comment_id"]
-        else:
-            self.comment_id = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        if "unresolved_only" in self._view:
-            self.unresolved_only = self._view["unresolved_only"]
-        else:
-            self.unresolved_only = None
-        if "community_id" in self._view:
-            self.community_id = self._view["community_id"]
-        else:
-            self.community_id = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                comment_id=data["comment_id"] if "comment_id" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                unresolved_only=data["unresolved_only"] if "unresolved_only" in data else None,
+                community_id=data["community_id"] if "community_id" in data else None
+        )
 
 
-class ModAdd(ParsableObject):
+@dataclass
+class ModAdd:
     """https://join-lemmy.org/api/interfaces/ModAdd.html"""
 
     id: int = None
@@ -3108,16 +2790,20 @@ class ModAdd(ParsableObject):
     other_person_id: int = None
     removed: bool = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                mod_person_id=data["mod_person_id"],
+                other_person_id=data["other_person_id"],
+                removed=data["removed"],
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.mod_person_id = self._view["mod_person_id"]
-        self.other_person_id = self._view["other_person_id"]
-        self.removed = self._view["removed"]
-        self.when_ = self._view["when_"]
 
-
-class EditSite(ParsableObject):
+@dataclass
+class EditSite:
     """https://join-lemmy.org/api/interfaces/EditSite.html"""
 
     name: Optional[str] = None
@@ -3164,187 +2850,59 @@ class EditSite(ParsableObject):
     reports_email_admins: Optional[bool] = None
     content_warning: Optional[str] = None
     default_post_listing_mode: Optional[str] = None
-
-    def parse(self) -> None:
-        if "name" in self._view:
-            self.name = self._view["name"]
-        else:
-            self.name = None
-        if "sidebar" in self._view:
-            self.sidebar = self._view["sidebar"]
-        else:
-            self.sidebar = None
-        if "description" in self._view:
-            self.description = self._view["description"]
-        else:
-            self.description = None
-        if "icon" in self._view:
-            self.icon = self._view["icon"]
-        else:
-            self.icon = None
-        if "banner" in self._view:
-            self.banner = self._view["banner"]
-        else:
-            self.banner = None
-        if "enable_downvotes" in self._view:
-            self.enable_downvotes = self._view["enable_downvotes"]
-        else:
-            self.enable_downvotes = None
-        if "enable_nsfw" in self._view:
-            self.enable_nsfw = self._view["enable_nsfw"]
-        else:
-            self.enable_nsfw = None
-        if "community_creation_admin_only" in self._view:
-            self.community_creation_admin_only = self._view["community_creation_admin_only"]
-        else:
-            self.community_creation_admin_only = None
-        if "require_email_verification" in self._view:
-            self.require_email_verification = self._view["require_email_verification"]
-        else:
-            self.require_email_verification = None
-        if "application_question" in self._view:
-            self.application_question = self._view["application_question"]
-        else:
-            self.application_question = None
-        if "private_instance" in self._view:
-            self.private_instance = self._view["private_instance"]
-        else:
-            self.private_instance = None
-        if "default_theme" in self._view:
-            self.default_theme = self._view["default_theme"]
-        else:
-            self.default_theme = None
-        if "default_post_listing_type" in self._view:
-            self.default_post_listing_type = self._view["default_post_listing_type"]
-        else:
-            self.default_post_listing_type = None
-        if "default_sort_type" in self._view:
-            self.default_sort_type = self._view["default_sort_type"]
-        else:
-            self.default_sort_type = None
-        if "legal_information" in self._view:
-            self.legal_information = self._view["legal_information"]
-        else:
-            self.legal_information = None
-        if "application_email_admins" in self._view:
-            self.application_email_admins = self._view["application_email_admins"]
-        else:
-            self.application_email_admins = None
-        if "hide_modlog_mod_names" in self._view:
-            self.hide_modlog_mod_names = self._view["hide_modlog_mod_names"]
-        else:
-            self.hide_modlog_mod_names = None
-        if "discussion_languages" in self._view:
-            self.discussion_languages = [e0 for e0 in self._view["discussion_languages"]]
-        else:
-            self.discussion_languages = None
-        if "slur_filter_regex" in self._view:
-            self.slur_filter_regex = self._view["slur_filter_regex"]
-        else:
-            self.slur_filter_regex = None
-        if "actor_name_max_length" in self._view:
-            self.actor_name_max_length = self._view["actor_name_max_length"]
-        else:
-            self.actor_name_max_length = None
-        if "rate_limit_message" in self._view:
-            self.rate_limit_message = self._view["rate_limit_message"]
-        else:
-            self.rate_limit_message = None
-        if "rate_limit_message_per_second" in self._view:
-            self.rate_limit_message_per_second = self._view["rate_limit_message_per_second"]
-        else:
-            self.rate_limit_message_per_second = None
-        if "rate_limit_post" in self._view:
-            self.rate_limit_post = self._view["rate_limit_post"]
-        else:
-            self.rate_limit_post = None
-        if "rate_limit_post_per_second" in self._view:
-            self.rate_limit_post_per_second = self._view["rate_limit_post_per_second"]
-        else:
-            self.rate_limit_post_per_second = None
-        if "rate_limit_register" in self._view:
-            self.rate_limit_register = self._view["rate_limit_register"]
-        else:
-            self.rate_limit_register = None
-        if "rate_limit_register_per_second" in self._view:
-            self.rate_limit_register_per_second = self._view["rate_limit_register_per_second"]
-        else:
-            self.rate_limit_register_per_second = None
-        if "rate_limit_image" in self._view:
-            self.rate_limit_image = self._view["rate_limit_image"]
-        else:
-            self.rate_limit_image = None
-        if "rate_limit_image_per_second" in self._view:
-            self.rate_limit_image_per_second = self._view["rate_limit_image_per_second"]
-        else:
-            self.rate_limit_image_per_second = None
-        if "rate_limit_comment" in self._view:
-            self.rate_limit_comment = self._view["rate_limit_comment"]
-        else:
-            self.rate_limit_comment = None
-        if "rate_limit_comment_per_second" in self._view:
-            self.rate_limit_comment_per_second = self._view["rate_limit_comment_per_second"]
-        else:
-            self.rate_limit_comment_per_second = None
-        if "rate_limit_search" in self._view:
-            self.rate_limit_search = self._view["rate_limit_search"]
-        else:
-            self.rate_limit_search = None
-        if "rate_limit_search_per_second" in self._view:
-            self.rate_limit_search_per_second = self._view["rate_limit_search_per_second"]
-        else:
-            self.rate_limit_search_per_second = None
-        if "federation_enabled" in self._view:
-            self.federation_enabled = self._view["federation_enabled"]
-        else:
-            self.federation_enabled = None
-        if "federation_debug" in self._view:
-            self.federation_debug = self._view["federation_debug"]
-        else:
-            self.federation_debug = None
-        if "captcha_enabled" in self._view:
-            self.captcha_enabled = self._view["captcha_enabled"]
-        else:
-            self.captcha_enabled = None
-        if "captcha_difficulty" in self._view:
-            self.captcha_difficulty = self._view["captcha_difficulty"]
-        else:
-            self.captcha_difficulty = None
-        if "allowed_instances" in self._view:
-            self.allowed_instances = [e0 for e0 in self._view["allowed_instances"]]
-        else:
-            self.allowed_instances = None
-        if "blocked_instances" in self._view:
-            self.blocked_instances = [e0 for e0 in self._view["blocked_instances"]]
-        else:
-            self.blocked_instances = None
-        if "blocked_urls" in self._view:
-            self.blocked_urls = [e0 for e0 in self._view["blocked_urls"]]
-        else:
-            self.blocked_urls = None
-        if "taglines" in self._view:
-            self.taglines = [e0 for e0 in self._view["taglines"]]
-        else:
-            self.taglines = None
-        if "registration_mode" in self._view:
-            self.registration_mode = self._view["registration_mode"]
-        else:
-            self.registration_mode = None
-        if "reports_email_admins" in self._view:
-            self.reports_email_admins = self._view["reports_email_admins"]
-        else:
-            self.reports_email_admins = None
-        if "content_warning" in self._view:
-            self.content_warning = self._view["content_warning"]
-        else:
-            self.content_warning = None
-        if "default_post_listing_mode" in self._view:
-            self.default_post_listing_mode = self._view["default_post_listing_mode"]
-        else:
-            self.default_post_listing_mode = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                name=data["name"] if "name" in data else None,
+                sidebar=data["sidebar"] if "sidebar" in data else None,
+                description=data["description"] if "description" in data else None,
+                icon=data["icon"] if "icon" in data else None,
+                banner=data["banner"] if "banner" in data else None,
+                enable_downvotes=data["enable_downvotes"] if "enable_downvotes" in data else None,
+                enable_nsfw=data["enable_nsfw"] if "enable_nsfw" in data else None,
+                community_creation_admin_only=data["community_creation_admin_only"] if "community_creation_admin_only" in data else None,
+                require_email_verification=data["require_email_verification"] if "require_email_verification" in data else None,
+                application_question=data["application_question"] if "application_question" in data else None,
+                private_instance=data["private_instance"] if "private_instance" in data else None,
+                default_theme=data["default_theme"] if "default_theme" in data else None,
+                default_post_listing_type=data["default_post_listing_type"] if "default_post_listing_type" in data else None,
+                default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
+                legal_information=data["legal_information"] if "legal_information" in data else None,
+                application_email_admins=data["application_email_admins"] if "application_email_admins" in data else None,
+                hide_modlog_mod_names=data["hide_modlog_mod_names"] if "hide_modlog_mod_names" in data else None,
+                discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
+                slur_filter_regex=data["slur_filter_regex"] if "slur_filter_regex" in data else None,
+                actor_name_max_length=data["actor_name_max_length"] if "actor_name_max_length" in data else None,
+                rate_limit_message=data["rate_limit_message"] if "rate_limit_message" in data else None,
+                rate_limit_message_per_second=data["rate_limit_message_per_second"] if "rate_limit_message_per_second" in data else None,
+                rate_limit_post=data["rate_limit_post"] if "rate_limit_post" in data else None,
+                rate_limit_post_per_second=data["rate_limit_post_per_second"] if "rate_limit_post_per_second" in data else None,
+                rate_limit_register=data["rate_limit_register"] if "rate_limit_register" in data else None,
+                rate_limit_register_per_second=data["rate_limit_register_per_second"] if "rate_limit_register_per_second" in data else None,
+                rate_limit_image=data["rate_limit_image"] if "rate_limit_image" in data else None,
+                rate_limit_image_per_second=data["rate_limit_image_per_second"] if "rate_limit_image_per_second" in data else None,
+                rate_limit_comment=data["rate_limit_comment"] if "rate_limit_comment" in data else None,
+                rate_limit_comment_per_second=data["rate_limit_comment_per_second"] if "rate_limit_comment_per_second" in data else None,
+                rate_limit_search=data["rate_limit_search"] if "rate_limit_search" in data else None,
+                rate_limit_search_per_second=data["rate_limit_search_per_second"] if "rate_limit_search_per_second" in data else None,
+                federation_enabled=data["federation_enabled"] if "federation_enabled" in data else None,
+                federation_debug=data["federation_debug"] if "federation_debug" in data else None,
+                captcha_enabled=data["captcha_enabled"] if "captcha_enabled" in data else None,
+                captcha_difficulty=data["captcha_difficulty"] if "captcha_difficulty" in data else None,
+                allowed_instances=[e0 for e0 in data["allowed_instances"]] if "allowed_instances" in data else None,
+                blocked_instances=[e0 for e0 in data["blocked_instances"]] if "blocked_instances" in data else None,
+                blocked_urls=[e0 for e0 in data["blocked_urls"]] if "blocked_urls" in data else None,
+                taglines=[e0 for e0 in data["taglines"]] if "taglines" in data else None,
+                registration_mode=data["registration_mode"] if "registration_mode" in data else None,
+                reports_email_admins=data["reports_email_admins"] if "reports_email_admins" in data else None,
+                content_warning=data["content_warning"] if "content_warning" in data else None,
+                default_post_listing_mode=data["default_post_listing_mode"] if "default_post_listing_mode" in data else None
+        )
 
 
-class Instance(ParsableObject):
+@dataclass
+class Instance:
     """https://join-lemmy.org/api/interfaces/Instance.html"""
 
     id: int = None
@@ -3353,26 +2911,21 @@ class Instance(ParsableObject):
     updated: Optional[str] = None
     software: Optional[str] = None
     version: Optional[str] = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.domain = self._view["domain"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
-        if "software" in self._view:
-            self.software = self._view["software"]
-        else:
-            self.software = None
-        if "version" in self._view:
-            self.version = self._view["version"]
-        else:
-            self.version = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                domain=data["domain"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None,
+                software=data["software"] if "software" in data else None,
+                version=data["version"] if "version" in data else None
+        )
 
 
-class Post(ParsableObject):
+@dataclass
+class Post:
     """https://join-lemmy.org/api/interfaces/Post.html"""
 
     id: int = None
@@ -3398,61 +2951,38 @@ class Post(ParsableObject):
     featured_local: bool = None
     url_content_type: Optional[str] = None
     alt_text: Optional[str] = None
-
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.name = self._view["name"]
-        if "url" in self._view:
-            self.url = self._view["url"]
-        else:
-            self.url = None
-        if "body" in self._view:
-            self.body = self._view["body"]
-        else:
-            self.body = None
-        self.creator_id = self._view["creator_id"]
-        self.community_id = self._view["community_id"]
-        self.removed = self._view["removed"]
-        self.locked = self._view["locked"]
-        self.published = self._view["published"]
-        if "updated" in self._view:
-            self.updated = self._view["updated"]
-        else:
-            self.updated = None
-        self.deleted = self._view["deleted"]
-        self.nsfw = self._view["nsfw"]
-        if "embed_title" in self._view:
-            self.embed_title = self._view["embed_title"]
-        else:
-            self.embed_title = None
-        if "embed_description" in self._view:
-            self.embed_description = self._view["embed_description"]
-        else:
-            self.embed_description = None
-        if "thumbnail_url" in self._view:
-            self.thumbnail_url = self._view["thumbnail_url"]
-        else:
-            self.thumbnail_url = None
-        self.ap_id = self._view["ap_id"]
-        self.local = self._view["local"]
-        if "embed_video_url" in self._view:
-            self.embed_video_url = self._view["embed_video_url"]
-        else:
-            self.embed_video_url = None
-        self.language_id = self._view["language_id"]
-        self.featured_community = self._view["featured_community"]
-        self.featured_local = self._view["featured_local"]
-        if "url_content_type" in self._view:
-            self.url_content_type = self._view["url_content_type"]
-        else:
-            self.url_content_type = None
-        if "alt_text" in self._view:
-            self.alt_text = self._view["alt_text"]
-        else:
-            self.alt_text = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                name=data["name"],
+                url=data["url"] if "url" in data else None,
+                body=data["body"] if "body" in data else None,
+                creator_id=data["creator_id"],
+                community_id=data["community_id"],
+                removed=data["removed"],
+                locked=data["locked"],
+                published=data["published"],
+                updated=data["updated"] if "updated" in data else None,
+                deleted=data["deleted"],
+                nsfw=data["nsfw"],
+                embed_title=data["embed_title"] if "embed_title" in data else None,
+                embed_description=data["embed_description"] if "embed_description" in data else None,
+                thumbnail_url=data["thumbnail_url"] if "thumbnail_url" in data else None,
+                ap_id=data["ap_id"],
+                local=data["local"],
+                embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None,
+                language_id=data["language_id"],
+                featured_community=data["featured_community"],
+                featured_local=data["featured_local"],
+                url_content_type=data["url_content_type"] if "url_content_type" in data else None,
+                alt_text=data["alt_text"] if "alt_text" in data else None
+        )
 
 
-class GetPosts(ParsableObject):
+@dataclass
+class GetPosts:
     """https://join-lemmy.org/api/interfaces/GetPosts.html"""
 
     type_: Optional[str] = None
@@ -3468,122 +2998,87 @@ class GetPosts(ParsableObject):
     show_read: Optional[bool] = None
     show_nsfw: Optional[bool] = None
     page_cursor: Optional[str] = None
-
-    def parse(self) -> None:
-        if "type_" in self._view:
-            self.type_ = self._view["type_"]
-        else:
-            self.type_ = None
-        if "sort" in self._view:
-            self.sort = self._view["sort"]
-        else:
-            self.sort = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        if "community_id" in self._view:
-            self.community_id = self._view["community_id"]
-        else:
-            self.community_id = None
-        if "community_name" in self._view:
-            self.community_name = self._view["community_name"]
-        else:
-            self.community_name = None
-        if "saved_only" in self._view:
-            self.saved_only = self._view["saved_only"]
-        else:
-            self.saved_only = None
-        if "liked_only" in self._view:
-            self.liked_only = self._view["liked_only"]
-        else:
-            self.liked_only = None
-        if "disliked_only" in self._view:
-            self.disliked_only = self._view["disliked_only"]
-        else:
-            self.disliked_only = None
-        if "show_hidden" in self._view:
-            self.show_hidden = self._view["show_hidden"]
-        else:
-            self.show_hidden = None
-        if "show_read" in self._view:
-            self.show_read = self._view["show_read"]
-        else:
-            self.show_read = None
-        if "show_nsfw" in self._view:
-            self.show_nsfw = self._view["show_nsfw"]
-        else:
-            self.show_nsfw = None
-        if "page_cursor" in self._view:
-            self.page_cursor = self._view["page_cursor"]
-        else:
-            self.page_cursor = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                type_=data["type_"] if "type_" in data else None,
+                sort=data["sort"] if "sort" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                community_id=data["community_id"] if "community_id" in data else None,
+                community_name=data["community_name"] if "community_name" in data else None,
+                saved_only=data["saved_only"] if "saved_only" in data else None,
+                liked_only=data["liked_only"] if "liked_only" in data else None,
+                disliked_only=data["disliked_only"] if "disliked_only" in data else None,
+                show_hidden=data["show_hidden"] if "show_hidden" in data else None,
+                show_read=data["show_read"] if "show_read" in data else None,
+                show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
+                page_cursor=data["page_cursor"] if "page_cursor" in data else None
+        )
 
 
-class GetRegistrationApplication(ParsableObject):
+@dataclass
+class GetRegistrationApplication:
     """https://join-lemmy.org/api/interfaces/GetRegistrationApplication.html"""
 
     person_id: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                person_id=data["person_id"]
+        )
 
-    def parse(self) -> None:
-        self.person_id = self._view["person_id"]
 
-
-class GetReplies(ParsableObject):
+@dataclass
+class GetReplies:
     """https://join-lemmy.org/api/interfaces/GetReplies.html"""
 
     sort: Optional[str] = None
     page: Optional[int] = None
     limit: Optional[int] = None
     unread_only: Optional[bool] = None
-
-    def parse(self) -> None:
-        if "sort" in self._view:
-            self.sort = self._view["sort"]
-        else:
-            self.sort = None
-        if "page" in self._view:
-            self.page = self._view["page"]
-        else:
-            self.page = None
-        if "limit" in self._view:
-            self.limit = self._view["limit"]
-        else:
-            self.limit = None
-        if "unread_only" in self._view:
-            self.unread_only = self._view["unread_only"]
-        else:
-            self.unread_only = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                sort=data["sort"] if "sort" in data else None,
+                page=data["page"] if "page" in data else None,
+                limit=data["limit"] if "limit" in data else None,
+                unread_only=data["unread_only"] if "unread_only" in data else None
+        )
 
 
-class AdminPurgePerson(ParsableObject):
+@dataclass
+class AdminPurgePerson:
     """https://join-lemmy.org/api/interfaces/AdminPurgePerson.html"""
 
     id: int = None
     admin_person_id: int = None
     reason: Optional[str] = None
     when_: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                id=data["id"],
+                admin_person_id=data["admin_person_id"],
+                reason=data["reason"] if "reason" in data else None,
+                when_=data["when_"]
+        )
 
-    def parse(self) -> None:
-        self.id = self._view["id"]
-        self.admin_person_id = self._view["admin_person_id"]
-        if "reason" in self._view:
-            self.reason = self._view["reason"]
-        else:
-            self.reason = None
-        self.when_ = self._view["when_"]
 
-
-class TransferCommunity(ParsableObject):
+@dataclass
+class TransferCommunity:
     """https://join-lemmy.org/api/interfaces/TransferCommunity.html"""
 
     community_id: int = None
     person_id: int = None
-
-    def parse(self) -> None:
-        self.community_id = self._view["community_id"]
-        self.person_id = self._view["person_id"]
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+                community_id=data["community_id"],
+                person_id=data["person_id"]
+        )

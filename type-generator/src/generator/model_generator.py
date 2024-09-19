@@ -40,7 +40,7 @@ class Generator:
                     """.strip()
         else:
             line = f"""
-{ptype}({pname})
+{ptype}.parse({pname})
                         """.strip()
 
         return line
@@ -49,13 +49,10 @@ class Generator:
         line = self._i_property_handler(f"{source_name}[\"{prop.api_name}\"]", prop.type)
 
         if not prop.nullable:
-            return f"self.{prop.api_name} = {line}"
+            return f"{prop.api_name}={line}"
 
         return f"""
-if "{prop.api_name}" in {source_name}:
-    self.{prop.api_name} = {line}
-else:
-    self.{prop.api_name} = None        
+{prop.api_name}={line} if "{prop.api_name}" in {source_name} else None
                         """.strip()
 
 
@@ -67,74 +64,36 @@ class ModelGenerator(Generator):
         self._class_type = class_type
 
     def build(self) -> str:
-        if self._class_type is ClassType.OBJECT:
-            return ViewModelGenerator(self._class_name, self._properties).build()
-        if self._class_type is ClassType.RESPONSE:
-            return ResponseModelGenerator(self._class_name, self._properties).build()
-        if self._class_type is ClassType.VIEW:
-            return ViewModelGenerator(self._class_name, self._properties).build()
-
-
-class ObjectModelGenerator(Generator):
-
-    def __init__(self, class_name: str, properties: List[Property]):
-        super().__init__(class_name, properties)
-
-    def build(self) -> str:
-        return f"""
-@dataclass
-class {self._class_name}:
-    \"\"\"https://join-lemmy.org/api/interfaces/{self._class_name}.html\"\"\"
-    
-{textwrap.indent(self._generate_property_list(), self._indent_char)}
-        """.strip()
-
-
-class ResponseModelGenerator(Generator):
-
-    def __init__(self, class_name: str, properties: List[Property]):
-        super().__init__(class_name, properties)
-
-    def build(self) -> str:
-        return f"""
-class {self._class_name}(object):
-    \"\"\"https://join-lemmy.org/api/interfaces/{self._class_name}.html\"\"\"
-
-{textwrap.indent(self._generate_property_list(), self._indent_char)}
-
-    def __init__(self, api_response: requests.Response) -> None:
-        response = api_response.json()
-{textwrap.indent(self._generate_constructor(), self._indent_char * 2)}
-        """.strip()
-
-    def _generate_constructor(self) -> str:
-        lines = []
-        for prop in self._properties:
-            lines.append(self._property_handler(prop, 'response'))
-
-        return "\n".join(lines)
+        return ViewModelGenerator(self._class_name, self._properties).build()
 
 
 class ViewModelGenerator(Generator):
     check_all = False
 
-    def __init__(self, class_name: str, properties: List[Property]):
+    def __init__(self, class_name: str, properties: List[Property], is_response: bool = False):
         super().__init__(class_name, properties)
 
     def build(self) -> str:
         return f"""
-class {self._class_name}(ParsableObject):
+class {self._class_name}:
     \"\"\"https://join-lemmy.org/api/interfaces/{self._class_name}.html\"\"\"
 
 {textwrap.indent(self._generate_property_list(), self._indent_char)}
-
-    def parse(self) -> None:
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
 {textwrap.indent(self._generate_parse(), self._indent_char * 2)}
             """.strip()
 
     def _generate_parse(self) -> str:
         lines = []
         for prop in self._properties:
-            lines.append(self._property_handler(prop, 'self._view'))
+            lines.append(f"{self._indent_char}{self._property_handler(prop, 'data')}")
 
-        return "\n".join(lines)
+        lines = ",\n".join(lines)
+
+        return f"""
+return cls(
+{textwrap.indent(lines, self._indent_char)}
+)
+        """.strip()
