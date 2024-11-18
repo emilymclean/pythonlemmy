@@ -7,68 +7,6 @@ from .objects import *
 from .types import ResponseWrapper
 
 
-class CaptchaResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/CaptchaResponse.html"""
-
-    png: str = None
-    wav: str = None
-    uuid: str = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.png = data["png"]
-        self.wav = data["wav"]
-        self.uuid = data["uuid"]
-
-    @classmethod
-    def data(
-        cls, 
-        png: str = None,
-        wav: str = None,
-        uuid: str = None
-    ):
-        obj = cls.__new__(cls)
-        obj.png = png
-        obj.wav = wav
-        obj.uuid = uuid
-        return obj
-
-
-class BannedPersonsResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/BannedPersonsResponse.html"""
-
-    banned: list[PersonView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.banned = [PersonView.parse(e0) for e0 in data["banned"]]
-
-    @classmethod
-    def data(
-        cls, 
-        banned: list[PersonView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.banned = banned
-        return obj
-
-
-class ListMediaResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListMediaResponse.html"""
-
-    images: list[LocalImageView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.images = [LocalImageView.parse(e0) for e0 in data["images"]]
-
-    @classmethod
-    def data(
-        cls, 
-        images: list[LocalImageView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.images = images
-        return obj
-
-
 class UpdateTotpResponse(ResponseWrapper):
     """https://join-lemmy.org/api/interfaces/UpdateTotpResponse.html"""
 
@@ -87,201 +25,21 @@ class UpdateTotpResponse(ResponseWrapper):
         return obj
 
 
-class CommentReportResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/CommentReportResponse.html"""
+class BlockInstanceResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/BlockInstanceResponse.html"""
 
-    comment_report_view: CommentReportView = None
+    blocked: bool = None
     
     def parse(self, data: dict[str, Any]):
-        self.comment_report_view = CommentReportView.parse(data["comment_report_view"])
+        self.blocked = data["blocked"]
 
     @classmethod
     def data(
         cls, 
-        comment_report_view: CommentReportView = None
+        blocked: bool = None
     ):
         obj = cls.__new__(cls)
-        obj.comment_report_view = comment_report_view
-        return obj
-
-
-class GetCommunityResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetCommunityResponse.html"""
-
-    community_view: CommunityView = None
-    site: Optional[Site] = None
-    moderators: list[CommunityModeratorView] = None
-    discussion_languages: list[int] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.community_view = CommunityView.parse(data["community_view"])
-        self.site = Site.parse(data["site"]) if "site" in data else None
-        self.moderators = [CommunityModeratorView.parse(e0) for e0 in data["moderators"]]
-        self.discussion_languages = [e0 for e0 in data["discussion_languages"]]
-
-    @classmethod
-    def data(
-        cls, 
-        community_view: CommunityView = None,
-        site: Optional[Site] = None,
-        moderators: list[CommunityModeratorView] = None,
-        discussion_languages: list[int] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.community_view = community_view
-        obj.site = site
-        obj.moderators = moderators
-        obj.discussion_languages = discussion_languages
-        return obj
-
-
-class GetPostsResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetPostsResponse.html"""
-
-    posts: list[PostView] = None
-    next_page: Optional[str] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.posts = [PostView.parse(e0) for e0 in data["posts"]]
-        self.next_page = data["next_page"] if "next_page" in data else None
-
-    @classmethod
-    def data(
-        cls, 
-        posts: list[PostView] = None,
-        next_page: Optional[str] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.posts = posts
-        obj.next_page = next_page
-        return obj
-
-
-class CommunityResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/CommunityResponse.html"""
-
-    community_view: CommunityView = None
-    discussion_languages: list[int] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.community_view = CommunityView.parse(data["community_view"])
-        self.discussion_languages = [e0 for e0 in data["discussion_languages"]]
-
-    @classmethod
-    def data(
-        cls, 
-        community_view: CommunityView = None,
-        discussion_languages: list[int] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.community_view = community_view
-        obj.discussion_languages = discussion_languages
-        return obj
-
-
-class GetCommentsResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetCommentsResponse.html"""
-
-    comments: list[CommentView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.comments = [CommentView.parse(e0) for e0 in data["comments"]]
-
-    @classmethod
-    def data(
-        cls, 
-        comments: list[CommentView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.comments = comments
-        return obj
-
-
-class SearchResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/SearchResponse.html"""
-
-    type_: str = None
-    comments: list[CommentView] = None
-    posts: list[PostView] = None
-    communities: list[CommunityView] = None
-    users: list[PersonView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.type_ = data["type_"]
-        self.comments = [CommentView.parse(e0) for e0 in data["comments"]]
-        self.posts = [PostView.parse(e0) for e0 in data["posts"]]
-        self.communities = [CommunityView.parse(e0) for e0 in data["communities"]]
-        self.users = [PersonView.parse(e0) for e0 in data["users"]]
-
-    @classmethod
-    def data(
-        cls, 
-        type_: str = None,
-        comments: list[CommentView] = None,
-        posts: list[PostView] = None,
-        communities: list[CommunityView] = None,
-        users: list[PersonView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.type_ = type_
-        obj.comments = comments
-        obj.posts = posts
-        obj.communities = communities
-        obj.users = users
-        return obj
-
-
-class GetCommunityPendingFollowsCountResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetCommunityPendingFollowsCountResponse.html"""
-
-    count: int = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.count = data["count"]
-
-    @classmethod
-    def data(
-        cls, 
-        count: int = None
-    ):
-        obj = cls.__new__(cls)
-        obj.count = count
-        return obj
-
-
-class PrivateMessageResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/PrivateMessageResponse.html"""
-
-    private_message_view: PrivateMessageView = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.private_message_view = PrivateMessageView.parse(data["private_message_view"])
-
-    @classmethod
-    def data(
-        cls, 
-        private_message_view: PrivateMessageView = None
-    ):
-        obj = cls.__new__(cls)
-        obj.private_message_view = private_message_view
-        return obj
-
-
-class AddModToCommunityResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/AddModToCommunityResponse.html"""
-
-    moderators: list[CommunityModeratorView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.moderators = [CommunityModeratorView.parse(e0) for e0 in data["moderators"]]
-
-    @classmethod
-    def data(
-        cls, 
-        moderators: list[CommunityModeratorView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.moderators = moderators
+        obj.blocked = blocked
         return obj
 
 
@@ -315,6 +73,250 @@ class GetReportCountResponse(ResponseWrapper):
         return obj
 
 
+class GetUnreadCountResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetUnreadCountResponse.html"""
+
+    replies: int = None
+    mentions: int = None
+    private_messages: int = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.replies = data["replies"]
+        self.mentions = data["mentions"]
+        self.private_messages = data["private_messages"]
+
+    @classmethod
+    def data(
+        cls, 
+        replies: int = None,
+        mentions: int = None,
+        private_messages: int = None
+    ):
+        obj = cls.__new__(cls)
+        obj.replies = replies
+        obj.mentions = mentions
+        obj.private_messages = private_messages
+        return obj
+
+
+class GetCommunityPendingFollowsCountResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetCommunityPendingFollowsCountResponse.html"""
+
+    count: int = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.count = data["count"]
+
+    @classmethod
+    def data(
+        cls, 
+        count: int = None
+    ):
+        obj = cls.__new__(cls)
+        obj.count = count
+        return obj
+
+
+class SuccessResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/SuccessResponse.html"""
+
+    success: bool = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.success = data["success"]
+
+    @classmethod
+    def data(
+        cls, 
+        success: bool = None
+    ):
+        obj = cls.__new__(cls)
+        obj.success = success
+        return obj
+
+
+class CaptchaResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/CaptchaResponse.html"""
+
+    png: str = None
+    wav: str = None
+    uuid: str = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.png = data["png"]
+        self.wav = data["wav"]
+        self.uuid = data["uuid"]
+
+    @classmethod
+    def data(
+        cls, 
+        png: str = None,
+        wav: str = None,
+        uuid: str = None
+    ):
+        obj = cls.__new__(cls)
+        obj.png = png
+        obj.wav = wav
+        obj.uuid = uuid
+        return obj
+
+
+class LoginResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/LoginResponse.html"""
+
+    jwt: Optional[str] = None
+    registration_created: bool = None
+    verify_email_sent: bool = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.jwt = data["jwt"] if "jwt" in data else None
+        self.registration_created = data["registration_created"]
+        self.verify_email_sent = data["verify_email_sent"]
+
+    @classmethod
+    def data(
+        cls, 
+        jwt: Optional[str] = None,
+        registration_created: bool = None,
+        verify_email_sent: bool = None
+    ):
+        obj = cls.__new__(cls)
+        obj.jwt = jwt
+        obj.registration_created = registration_created
+        obj.verify_email_sent = verify_email_sent
+        return obj
+
+
+class GenerateTotpSecretResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GenerateTotpSecretResponse.html"""
+
+    totp_secret_url: str = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.totp_secret_url = data["totp_secret_url"]
+
+    @classmethod
+    def data(
+        cls, 
+        totp_secret_url: str = None
+    ):
+        obj = cls.__new__(cls)
+        obj.totp_secret_url = totp_secret_url
+        return obj
+
+
+class GetUnreadRegistrationApplicationCountResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetUnreadRegistrationApplicationCountResponse.html"""
+
+    registration_applications: int = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.registration_applications = data["registration_applications"]
+
+    @classmethod
+    def data(
+        cls, 
+        registration_applications: int = None
+    ):
+        obj = cls.__new__(cls)
+        obj.registration_applications = registration_applications
+        return obj
+
+
+class ListCommunityPendingFollowsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListCommunityPendingFollowsResponse.html"""
+
+    items: list[PendingFollow] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.items = [PendingFollow.parse(e0) for e0 in data["items"]]
+
+    @classmethod
+    def data(
+        cls, 
+        items: list[PendingFollow] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.items = items
+        return obj
+
+
+class BanPersonResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/BanPersonResponse.html"""
+
+    person_view: PersonView = None
+    banned: bool = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.person_view = PersonView.parse(data["person_view"])
+        self.banned = data["banned"]
+
+    @classmethod
+    def data(
+        cls, 
+        person_view: PersonView = None,
+        banned: bool = None
+    ):
+        obj = cls.__new__(cls)
+        obj.person_view = person_view
+        obj.banned = banned
+        return obj
+
+
+class ListCommentLikesResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListCommentLikesResponse.html"""
+
+    comment_likes: list[VoteView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.comment_likes = [VoteView.parse(e0) for e0 in data["comment_likes"]]
+
+    @classmethod
+    def data(
+        cls, 
+        comment_likes: list[VoteView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.comment_likes = comment_likes
+        return obj
+
+
+class BannedPersonsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/BannedPersonsResponse.html"""
+
+    banned: list[PersonView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.banned = [PersonView.parse(e0) for e0 in data["banned"]]
+
+    @classmethod
+    def data(
+        cls, 
+        banned: list[PersonView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.banned = banned
+        return obj
+
+
+class CommentReportResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/CommentReportResponse.html"""
+
+    comment_report_view: CommentReportView = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.comment_report_view = CommentReportView.parse(data["comment_report_view"])
+
+    @classmethod
+    def data(
+        cls, 
+        comment_report_view: CommentReportView = None
+    ):
+        obj = cls.__new__(cls)
+        obj.comment_report_view = comment_report_view
+        return obj
+
+
 class ListTaglinesResponse(ResponseWrapper):
     """https://join-lemmy.org/api/interfaces/ListTaglinesResponse.html"""
 
@@ -330,6 +332,180 @@ class ListTaglinesResponse(ResponseWrapper):
     ):
         obj = cls.__new__(cls)
         obj.taglines = taglines
+        return obj
+
+
+class PersonMentionResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/PersonMentionResponse.html"""
+
+    person_mention_view: PersonMentionView = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.person_mention_view = PersonMentionView.parse(data["person_mention_view"])
+
+    @classmethod
+    def data(
+        cls, 
+        person_mention_view: PersonMentionView = None
+    ):
+        obj = cls.__new__(cls)
+        obj.person_mention_view = person_mention_view
+        return obj
+
+
+class ListPostLikesResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListPostLikesResponse.html"""
+
+    post_likes: list[VoteView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.post_likes = [VoteView.parse(e0) for e0 in data["post_likes"]]
+
+    @classmethod
+    def data(
+        cls, 
+        post_likes: list[VoteView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.post_likes = post_likes
+        return obj
+
+
+class GetRepliesResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetRepliesResponse.html"""
+
+    replies: list[CommentReplyView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.replies = [CommentReplyView.parse(e0) for e0 in data["replies"]]
+
+    @classmethod
+    def data(
+        cls, 
+        replies: list[CommentReplyView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.replies = replies
+        return obj
+
+
+class ListPrivateMessageReportsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListPrivateMessageReportsResponse.html"""
+
+    private_message_reports: list[PrivateMessageReportView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.private_message_reports = [PrivateMessageReportView.parse(e0) for e0 in data["private_message_reports"]]
+
+    @classmethod
+    def data(
+        cls, 
+        private_message_reports: list[PrivateMessageReportView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.private_message_reports = private_message_reports
+        return obj
+
+
+class GetCaptchaResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetCaptchaResponse.html"""
+
+    ok: Optional[CaptchaResponse] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.ok = CaptchaResponse.parse(data["ok"]) if "ok" in data else None
+
+    @classmethod
+    def data(
+        cls, 
+        ok: Optional[CaptchaResponse] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.ok = ok
+        return obj
+
+
+class RegistrationApplicationResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/RegistrationApplicationResponse.html"""
+
+    registration_application: RegistrationApplicationView = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.registration_application = RegistrationApplicationView.parse(data["registration_application"])
+
+    @classmethod
+    def data(
+        cls, 
+        registration_application: RegistrationApplicationView = None
+    ):
+        obj = cls.__new__(cls)
+        obj.registration_application = registration_application
+        return obj
+
+
+class GetSiteMetadataResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetSiteMetadataResponse.html"""
+
+    metadata: LinkMetadata = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.metadata = LinkMetadata.parse(data["metadata"])
+
+    @classmethod
+    def data(
+        cls, 
+        metadata: LinkMetadata = None
+    ):
+        obj = cls.__new__(cls)
+        obj.metadata = metadata
+        return obj
+
+
+class GetPostResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetPostResponse.html"""
+
+    post_view: PostView = None
+    community_view: CommunityView = None
+    moderators: list[CommunityModeratorView] = None
+    cross_posts: list[PostView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.post_view = PostView.parse(data["post_view"])
+        self.community_view = CommunityView.parse(data["community_view"])
+        self.moderators = [CommunityModeratorView.parse(e0) for e0 in data["moderators"]]
+        self.cross_posts = [PostView.parse(e0) for e0 in data["cross_posts"]]
+
+    @classmethod
+    def data(
+        cls, 
+        post_view: PostView = None,
+        community_view: CommunityView = None,
+        moderators: list[CommunityModeratorView] = None,
+        cross_posts: list[PostView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.post_view = post_view
+        obj.community_view = community_view
+        obj.moderators = moderators
+        obj.cross_posts = cross_posts
+        return obj
+
+
+class TaglineResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/TaglineResponse.html"""
+
+    tagline: Tagline = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.tagline = Tagline.parse(data["tagline"])
+
+    @classmethod
+    def data(
+        cls, 
+        tagline: Tagline = None
+    ):
+        obj = cls.__new__(cls)
+        obj.tagline = tagline
         return obj
 
 
@@ -351,21 +527,39 @@ class PostReportResponse(ResponseWrapper):
         return obj
 
 
-class RegistrationApplicationResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/RegistrationApplicationResponse.html"""
+class GetFederatedInstancesResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetFederatedInstancesResponse.html"""
 
-    registration_application: RegistrationApplicationView = None
+    federated_instances: Optional[FederatedInstances] = None
     
     def parse(self, data: dict[str, Any]):
-        self.registration_application = RegistrationApplicationView.parse(data["registration_application"])
+        self.federated_instances = FederatedInstances.parse(data["federated_instances"]) if "federated_instances" in data else None
 
     @classmethod
     def data(
         cls, 
-        registration_application: RegistrationApplicationView = None
+        federated_instances: Optional[FederatedInstances] = None
     ):
         obj = cls.__new__(cls)
-        obj.registration_application = registration_application
+        obj.federated_instances = federated_instances
+        return obj
+
+
+class ListCommunitiesResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListCommunitiesResponse.html"""
+
+    communities: list[CommunityView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.communities = [CommunityView.parse(e0) for e0 in data["communities"]]
+
+    @classmethod
+    def data(
+        cls, 
+        communities: list[CommunityView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.communities = communities
         return obj
 
 
@@ -420,60 +614,6 @@ class GetSiteResponse(ResponseWrapper):
         obj.oauth_providers = oauth_providers
         obj.admin_oauth_providers = admin_oauth_providers
         obj.blocked_urls = blocked_urls
-        return obj
-
-
-class GetCaptchaResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetCaptchaResponse.html"""
-
-    ok: Optional[CaptchaResponse] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.ok = CaptchaResponse.parse(data["ok"]) if "ok" in data else None
-
-    @classmethod
-    def data(
-        cls, 
-        ok: Optional[CaptchaResponse] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.ok = ok
-        return obj
-
-
-class PersonMentionResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/PersonMentionResponse.html"""
-
-    person_mention_view: PersonMentionView = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.person_mention_view = PersonMentionView.parse(data["person_mention_view"])
-
-    @classmethod
-    def data(
-        cls, 
-        person_mention_view: PersonMentionView = None
-    ):
-        obj = cls.__new__(cls)
-        obj.person_mention_view = person_mention_view
-        return obj
-
-
-class ListLoginsResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListLoginsResponse.html"""
-
-    logins: list[LoginToken] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.logins = [LoginToken.parse(e0) for e0 in data["logins"]]
-
-    @classmethod
-    def data(
-        cls, 
-        logins: list[LoginToken] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.logins = logins
         return obj
 
 
@@ -551,443 +691,55 @@ class GetModlogResponse(ResponseWrapper):
         return obj
 
 
-class SuccessResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/SuccessResponse.html"""
+class SearchResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/SearchResponse.html"""
 
-    success: bool = None
+    type_: str = None
+    comments: list[CommentView] = None
+    posts: list[PostView] = None
+    communities: list[CommunityView] = None
+    users: list[PersonView] = None
     
     def parse(self, data: dict[str, Any]):
-        self.success = data["success"]
+        self.type_ = data["type_"]
+        self.comments = [CommentView.parse(e0) for e0 in data["comments"]]
+        self.posts = [PostView.parse(e0) for e0 in data["posts"]]
+        self.communities = [CommunityView.parse(e0) for e0 in data["communities"]]
+        self.users = [PersonView.parse(e0) for e0 in data["users"]]
 
     @classmethod
     def data(
         cls, 
-        success: bool = None
+        type_: str = None,
+        comments: list[CommentView] = None,
+        posts: list[PostView] = None,
+        communities: list[CommunityView] = None,
+        users: list[PersonView] = None
     ):
         obj = cls.__new__(cls)
-        obj.success = success
+        obj.type_ = type_
+        obj.comments = comments
+        obj.posts = posts
+        obj.communities = communities
+        obj.users = users
         return obj
 
 
-class ListRegistrationApplicationsResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListRegistrationApplicationsResponse.html"""
+class ListMediaResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListMediaResponse.html"""
 
-    registration_applications: list[RegistrationApplicationView] = None
+    images: list[LocalImageView] = None
     
     def parse(self, data: dict[str, Any]):
-        self.registration_applications = [RegistrationApplicationView.parse(e0) for e0 in data["registration_applications"]]
+        self.images = [LocalImageView.parse(e0) for e0 in data["images"]]
 
     @classmethod
     def data(
         cls, 
-        registration_applications: list[RegistrationApplicationView] = None
+        images: list[LocalImageView] = None
     ):
         obj = cls.__new__(cls)
-        obj.registration_applications = registration_applications
-        return obj
-
-
-class BlockInstanceResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/BlockInstanceResponse.html"""
-
-    blocked: bool = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.blocked = data["blocked"]
-
-    @classmethod
-    def data(
-        cls, 
-        blocked: bool = None
-    ):
-        obj = cls.__new__(cls)
-        obj.blocked = blocked
-        return obj
-
-
-class ResolveObjectResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ResolveObjectResponse.html"""
-
-    comment: Optional[CommentView] = None
-    post: Optional[PostView] = None
-    community: Optional[CommunityView] = None
-    person: Optional[PersonView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.comment = CommentView.parse(data["comment"]) if "comment" in data else None
-        self.post = PostView.parse(data["post"]) if "post" in data else None
-        self.community = CommunityView.parse(data["community"]) if "community" in data else None
-        self.person = PersonView.parse(data["person"]) if "person" in data else None
-
-    @classmethod
-    def data(
-        cls, 
-        comment: Optional[CommentView] = None,
-        post: Optional[PostView] = None,
-        community: Optional[CommunityView] = None,
-        person: Optional[PersonView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.comment = comment
-        obj.post = post
-        obj.community = community
-        obj.person = person
-        return obj
-
-
-class PrivateMessageReportResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/PrivateMessageReportResponse.html"""
-
-    private_message_report_view: PrivateMessageReportView = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.private_message_report_view = PrivateMessageReportView.parse(data["private_message_report_view"])
-
-    @classmethod
-    def data(
-        cls, 
-        private_message_report_view: PrivateMessageReportView = None
-    ):
-        obj = cls.__new__(cls)
-        obj.private_message_report_view = private_message_report_view
-        return obj
-
-
-class SiteResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/SiteResponse.html"""
-
-    site_view: SiteView = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.site_view = SiteView.parse(data["site_view"])
-
-    @classmethod
-    def data(
-        cls, 
-        site_view: SiteView = None
-    ):
-        obj = cls.__new__(cls)
-        obj.site_view = site_view
-        return obj
-
-
-class ListPostReportsResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListPostReportsResponse.html"""
-
-    post_reports: list[PostReportView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.post_reports = [PostReportView.parse(e0) for e0 in data["post_reports"]]
-
-    @classmethod
-    def data(
-        cls, 
-        post_reports: list[PostReportView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.post_reports = post_reports
-        return obj
-
-
-class BlockCommunityResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/BlockCommunityResponse.html"""
-
-    community_view: CommunityView = None
-    blocked: bool = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.community_view = CommunityView.parse(data["community_view"])
-        self.blocked = data["blocked"]
-
-    @classmethod
-    def data(
-        cls, 
-        community_view: CommunityView = None,
-        blocked: bool = None
-    ):
-        obj = cls.__new__(cls)
-        obj.community_view = community_view
-        obj.blocked = blocked
-        return obj
-
-
-class PrivateMessagesResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/PrivateMessagesResponse.html"""
-
-    private_messages: list[PrivateMessageView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.private_messages = [PrivateMessageView.parse(e0) for e0 in data["private_messages"]]
-
-    @classmethod
-    def data(
-        cls, 
-        private_messages: list[PrivateMessageView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.private_messages = private_messages
-        return obj
-
-
-class ListCommunityPendingFollowsResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListCommunityPendingFollowsResponse.html"""
-
-    items: list[PendingFollow] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.items = [PendingFollow.parse(e0) for e0 in data["items"]]
-
-    @classmethod
-    def data(
-        cls, 
-        items: list[PendingFollow] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.items = items
-        return obj
-
-
-class LoginResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/LoginResponse.html"""
-
-    jwt: Optional[str] = None
-    registration_created: bool = None
-    verify_email_sent: bool = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.jwt = data["jwt"] if "jwt" in data else None
-        self.registration_created = data["registration_created"]
-        self.verify_email_sent = data["verify_email_sent"]
-
-    @classmethod
-    def data(
-        cls, 
-        jwt: Optional[str] = None,
-        registration_created: bool = None,
-        verify_email_sent: bool = None
-    ):
-        obj = cls.__new__(cls)
-        obj.jwt = jwt
-        obj.registration_created = registration_created
-        obj.verify_email_sent = verify_email_sent
-        return obj
-
-
-class GetUnreadCountResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetUnreadCountResponse.html"""
-
-    replies: int = None
-    mentions: int = None
-    private_messages: int = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.replies = data["replies"]
-        self.mentions = data["mentions"]
-        self.private_messages = data["private_messages"]
-
-    @classmethod
-    def data(
-        cls, 
-        replies: int = None,
-        mentions: int = None,
-        private_messages: int = None
-    ):
-        obj = cls.__new__(cls)
-        obj.replies = replies
-        obj.mentions = mentions
-        obj.private_messages = private_messages
-        return obj
-
-
-class BanFromCommunityResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/BanFromCommunityResponse.html"""
-
-    person_view: PersonView = None
-    banned: bool = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.person_view = PersonView.parse(data["person_view"])
-        self.banned = data["banned"]
-
-    @classmethod
-    def data(
-        cls, 
-        person_view: PersonView = None,
-        banned: bool = None
-    ):
-        obj = cls.__new__(cls)
-        obj.person_view = person_view
-        obj.banned = banned
-        return obj
-
-
-class CommentReplyResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/CommentReplyResponse.html"""
-
-    comment_reply_view: CommentReplyView = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.comment_reply_view = CommentReplyView.parse(data["comment_reply_view"])
-
-    @classmethod
-    def data(
-        cls, 
-        comment_reply_view: CommentReplyView = None
-    ):
-        obj = cls.__new__(cls)
-        obj.comment_reply_view = comment_reply_view
-        return obj
-
-
-class ListPostLikesResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListPostLikesResponse.html"""
-
-    post_likes: list[VoteView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.post_likes = [VoteView.parse(e0) for e0 in data["post_likes"]]
-
-    @classmethod
-    def data(
-        cls, 
-        post_likes: list[VoteView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.post_likes = post_likes
-        return obj
-
-
-class ListCommentReportsResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListCommentReportsResponse.html"""
-
-    comment_reports: list[CommentReportView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.comment_reports = [CommentReportView.parse(e0) for e0 in data["comment_reports"]]
-
-    @classmethod
-    def data(
-        cls, 
-        comment_reports: list[CommentReportView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.comment_reports = comment_reports
-        return obj
-
-
-class GetSiteMetadataResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetSiteMetadataResponse.html"""
-
-    metadata: LinkMetadata = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.metadata = LinkMetadata.parse(data["metadata"])
-
-    @classmethod
-    def data(
-        cls, 
-        metadata: LinkMetadata = None
-    ):
-        obj = cls.__new__(cls)
-        obj.metadata = metadata
-        return obj
-
-
-class TaglineResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/TaglineResponse.html"""
-
-    tagline: Tagline = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.tagline = Tagline.parse(data["tagline"])
-
-    @classmethod
-    def data(
-        cls, 
-        tagline: Tagline = None
-    ):
-        obj = cls.__new__(cls)
-        obj.tagline = tagline
-        return obj
-
-
-class BanPersonResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/BanPersonResponse.html"""
-
-    person_view: PersonView = None
-    banned: bool = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.person_view = PersonView.parse(data["person_view"])
-        self.banned = data["banned"]
-
-    @classmethod
-    def data(
-        cls, 
-        person_view: PersonView = None,
-        banned: bool = None
-    ):
-        obj = cls.__new__(cls)
-        obj.person_view = person_view
-        obj.banned = banned
-        return obj
-
-
-class CommentResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/CommentResponse.html"""
-
-    comment_view: CommentView = None
-    recipient_ids: list[int] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.comment_view = CommentView.parse(data["comment_view"])
-        self.recipient_ids = [e0 for e0 in data["recipient_ids"]]
-
-    @classmethod
-    def data(
-        cls, 
-        comment_view: CommentView = None,
-        recipient_ids: list[int] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.comment_view = comment_view
-        obj.recipient_ids = recipient_ids
-        return obj
-
-
-class GetRepliesResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetRepliesResponse.html"""
-
-    replies: list[CommentReplyView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.replies = [CommentReplyView.parse(e0) for e0 in data["replies"]]
-
-    @classmethod
-    def data(
-        cls, 
-        replies: list[CommentReplyView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.replies = replies
-        return obj
-
-
-class GetUnreadRegistrationApplicationCountResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetUnreadRegistrationApplicationCountResponse.html"""
-
-    registration_applications: int = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.registration_applications = data["registration_applications"]
-
-    @classmethod
-    def data(
-        cls, 
-        registration_applications: int = None
-    ):
-        obj = cls.__new__(cls)
-        obj.registration_applications = registration_applications
+        obj.images = images
         return obj
 
 
@@ -1043,21 +795,21 @@ class GetPersonDetailsResponse(ResponseWrapper):
         return obj
 
 
-class ListCommunitiesResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListCommunitiesResponse.html"""
+class GetCommentsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetCommentsResponse.html"""
 
-    communities: list[CommunityView] = None
+    comments: list[CommentView] = None
     
     def parse(self, data: dict[str, Any]):
-        self.communities = [CommunityView.parse(e0) for e0 in data["communities"]]
+        self.comments = [CommentView.parse(e0) for e0 in data["comments"]]
 
     @classmethod
     def data(
         cls, 
-        communities: list[CommunityView] = None
+        comments: list[CommentView] = None
     ):
         obj = cls.__new__(cls)
-        obj.communities = communities
+        obj.comments = comments
         return obj
 
 
@@ -1097,21 +849,109 @@ class AddAdminResponse(ResponseWrapper):
         return obj
 
 
-class GetFederatedInstancesResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetFederatedInstancesResponse.html"""
+class ListRegistrationApplicationsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListRegistrationApplicationsResponse.html"""
 
-    federated_instances: Optional[FederatedInstances] = None
+    registration_applications: list[RegistrationApplicationView] = None
     
     def parse(self, data: dict[str, Any]):
-        self.federated_instances = FederatedInstances.parse(data["federated_instances"]) if "federated_instances" in data else None
+        self.registration_applications = [RegistrationApplicationView.parse(e0) for e0 in data["registration_applications"]]
 
     @classmethod
     def data(
         cls, 
-        federated_instances: Optional[FederatedInstances] = None
+        registration_applications: list[RegistrationApplicationView] = None
     ):
         obj = cls.__new__(cls)
-        obj.federated_instances = federated_instances
+        obj.registration_applications = registration_applications
+        return obj
+
+
+class CommunityResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/CommunityResponse.html"""
+
+    community_view: CommunityView = None
+    discussion_languages: list[int] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.community_view = CommunityView.parse(data["community_view"])
+        self.discussion_languages = [e0 for e0 in data["discussion_languages"]]
+
+    @classmethod
+    def data(
+        cls, 
+        community_view: CommunityView = None,
+        discussion_languages: list[int] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.community_view = community_view
+        obj.discussion_languages = discussion_languages
+        return obj
+
+
+class SiteResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/SiteResponse.html"""
+
+    site_view: SiteView = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.site_view = SiteView.parse(data["site_view"])
+
+    @classmethod
+    def data(
+        cls, 
+        site_view: SiteView = None
+    ):
+        obj = cls.__new__(cls)
+        obj.site_view = site_view
+        return obj
+
+
+class CommentReplyResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/CommentReplyResponse.html"""
+
+    comment_reply_view: CommentReplyView = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.comment_reply_view = CommentReplyView.parse(data["comment_reply_view"])
+
+    @classmethod
+    def data(
+        cls, 
+        comment_reply_view: CommentReplyView = None
+    ):
+        obj = cls.__new__(cls)
+        obj.comment_reply_view = comment_reply_view
+        return obj
+
+
+class GetCommunityResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetCommunityResponse.html"""
+
+    community_view: CommunityView = None
+    site: Optional[Site] = None
+    moderators: list[CommunityModeratorView] = None
+    discussion_languages: list[int] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.community_view = CommunityView.parse(data["community_view"])
+        self.site = Site.parse(data["site"]) if "site" in data else None
+        self.moderators = [CommunityModeratorView.parse(e0) for e0 in data["moderators"]]
+        self.discussion_languages = [e0 for e0 in data["discussion_languages"]]
+
+    @classmethod
+    def data(
+        cls, 
+        community_view: CommunityView = None,
+        site: Optional[Site] = None,
+        moderators: list[CommunityModeratorView] = None,
+        discussion_languages: list[int] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.community_view = community_view
+        obj.site = site
+        obj.moderators = moderators
+        obj.discussion_languages = discussion_languages
         return obj
 
 
@@ -1133,39 +973,247 @@ class PostResponse(ResponseWrapper):
         return obj
 
 
-class GenerateTotpSecretResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GenerateTotpSecretResponse.html"""
+class ListLoginsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListLoginsResponse.html"""
 
-    totp_secret_url: str = None
+    logins: list[LoginToken] = None
     
     def parse(self, data: dict[str, Any]):
-        self.totp_secret_url = data["totp_secret_url"]
+        self.logins = [LoginToken.parse(e0) for e0 in data["logins"]]
 
     @classmethod
     def data(
         cls, 
-        totp_secret_url: str = None
+        logins: list[LoginToken] = None
     ):
         obj = cls.__new__(cls)
-        obj.totp_secret_url = totp_secret_url
+        obj.logins = logins
         return obj
 
 
-class ListPrivateMessageReportsResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListPrivateMessageReportsResponse.html"""
+class PrivateMessagesResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/PrivateMessagesResponse.html"""
 
-    private_message_reports: list[PrivateMessageReportView] = None
+    private_messages: list[PrivateMessageView] = None
     
     def parse(self, data: dict[str, Any]):
-        self.private_message_reports = [PrivateMessageReportView.parse(e0) for e0 in data["private_message_reports"]]
+        self.private_messages = [PrivateMessageView.parse(e0) for e0 in data["private_messages"]]
 
     @classmethod
     def data(
         cls, 
-        private_message_reports: list[PrivateMessageReportView] = None
+        private_messages: list[PrivateMessageView] = None
     ):
         obj = cls.__new__(cls)
-        obj.private_message_reports = private_message_reports
+        obj.private_messages = private_messages
+        return obj
+
+
+class AddModToCommunityResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/AddModToCommunityResponse.html"""
+
+    moderators: list[CommunityModeratorView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.moderators = [CommunityModeratorView.parse(e0) for e0 in data["moderators"]]
+
+    @classmethod
+    def data(
+        cls, 
+        moderators: list[CommunityModeratorView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.moderators = moderators
+        return obj
+
+
+class ListPostReportsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListPostReportsResponse.html"""
+
+    post_reports: list[PostReportView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.post_reports = [PostReportView.parse(e0) for e0 in data["post_reports"]]
+
+    @classmethod
+    def data(
+        cls, 
+        post_reports: list[PostReportView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.post_reports = post_reports
+        return obj
+
+
+class ListCommentReportsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListCommentReportsResponse.html"""
+
+    comment_reports: list[CommentReportView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.comment_reports = [CommentReportView.parse(e0) for e0 in data["comment_reports"]]
+
+    @classmethod
+    def data(
+        cls, 
+        comment_reports: list[CommentReportView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.comment_reports = comment_reports
+        return obj
+
+
+class ResolveObjectResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ResolveObjectResponse.html"""
+
+    comment: Optional[CommentView] = None
+    post: Optional[PostView] = None
+    community: Optional[CommunityView] = None
+    person: Optional[PersonView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.comment = CommentView.parse(data["comment"]) if "comment" in data else None
+        self.post = PostView.parse(data["post"]) if "post" in data else None
+        self.community = CommunityView.parse(data["community"]) if "community" in data else None
+        self.person = PersonView.parse(data["person"]) if "person" in data else None
+
+    @classmethod
+    def data(
+        cls, 
+        comment: Optional[CommentView] = None,
+        post: Optional[PostView] = None,
+        community: Optional[CommunityView] = None,
+        person: Optional[PersonView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.comment = comment
+        obj.post = post
+        obj.community = community
+        obj.person = person
+        return obj
+
+
+class ListCustomEmojisResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListCustomEmojisResponse.html"""
+
+    custom_emojis: list[CustomEmojiView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.custom_emojis = [CustomEmojiView.parse(e0) for e0 in data["custom_emojis"]]
+
+    @classmethod
+    def data(
+        cls, 
+        custom_emojis: list[CustomEmojiView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.custom_emojis = custom_emojis
+        return obj
+
+
+class CommentResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/CommentResponse.html"""
+
+    comment_view: CommentView = None
+    recipient_ids: list[int] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.comment_view = CommentView.parse(data["comment_view"])
+        self.recipient_ids = [e0 for e0 in data["recipient_ids"]]
+
+    @classmethod
+    def data(
+        cls, 
+        comment_view: CommentView = None,
+        recipient_ids: list[int] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.comment_view = comment_view
+        obj.recipient_ids = recipient_ids
+        return obj
+
+
+class GetPostsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetPostsResponse.html"""
+
+    posts: list[PostView] = None
+    next_page: Optional[str] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.posts = [PostView.parse(e0) for e0 in data["posts"]]
+        self.next_page = data["next_page"] if "next_page" in data else None
+
+    @classmethod
+    def data(
+        cls, 
+        posts: list[PostView] = None,
+        next_page: Optional[str] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.posts = posts
+        obj.next_page = next_page
+        return obj
+
+
+class BanFromCommunityResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/BanFromCommunityResponse.html"""
+
+    person_view: PersonView = None
+    banned: bool = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.person_view = PersonView.parse(data["person_view"])
+        self.banned = data["banned"]
+
+    @classmethod
+    def data(
+        cls, 
+        person_view: PersonView = None,
+        banned: bool = None
+    ):
+        obj = cls.__new__(cls)
+        obj.person_view = person_view
+        obj.banned = banned
+        return obj
+
+
+class BlockCommunityResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/BlockCommunityResponse.html"""
+
+    community_view: CommunityView = None
+    blocked: bool = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.community_view = CommunityView.parse(data["community_view"])
+        self.blocked = data["blocked"]
+
+    @classmethod
+    def data(
+        cls, 
+        community_view: CommunityView = None,
+        blocked: bool = None
+    ):
+        obj = cls.__new__(cls)
+        obj.community_view = community_view
+        obj.blocked = blocked
+        return obj
+
+
+class PrivateMessageReportResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/PrivateMessageReportResponse.html"""
+
+    private_message_report_view: PrivateMessageReportView = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.private_message_report_view = PrivateMessageReportView.parse(data["private_message_report_view"])
+
+    @classmethod
+    def data(
+        cls, 
+        private_message_report_view: PrivateMessageReportView = None
+    ):
+        obj = cls.__new__(cls)
+        obj.private_message_report_view = private_message_report_view
         return obj
 
 
@@ -1191,67 +1239,19 @@ class BlockPersonResponse(ResponseWrapper):
         return obj
 
 
-class GetPostResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/GetPostResponse.html"""
+class PrivateMessageResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/PrivateMessageResponse.html"""
 
-    post_view: PostView = None
-    community_view: CommunityView = None
-    moderators: list[CommunityModeratorView] = None
-    cross_posts: list[PostView] = None
+    private_message_view: PrivateMessageView = None
     
     def parse(self, data: dict[str, Any]):
-        self.post_view = PostView.parse(data["post_view"])
-        self.community_view = CommunityView.parse(data["community_view"])
-        self.moderators = [CommunityModeratorView.parse(e0) for e0 in data["moderators"]]
-        self.cross_posts = [PostView.parse(e0) for e0 in data["cross_posts"]]
+        self.private_message_view = PrivateMessageView.parse(data["private_message_view"])
 
     @classmethod
     def data(
         cls, 
-        post_view: PostView = None,
-        community_view: CommunityView = None,
-        moderators: list[CommunityModeratorView] = None,
-        cross_posts: list[PostView] = None
+        private_message_view: PrivateMessageView = None
     ):
         obj = cls.__new__(cls)
-        obj.post_view = post_view
-        obj.community_view = community_view
-        obj.moderators = moderators
-        obj.cross_posts = cross_posts
-        return obj
-
-
-class ListCustomEmojisResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListCustomEmojisResponse.html"""
-
-    custom_emojis: list[CustomEmojiView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.custom_emojis = [CustomEmojiView.parse(e0) for e0 in data["custom_emojis"]]
-
-    @classmethod
-    def data(
-        cls, 
-        custom_emojis: list[CustomEmojiView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.custom_emojis = custom_emojis
-        return obj
-
-
-class ListCommentLikesResponse(ResponseWrapper):
-    """https://join-lemmy.org/api/interfaces/ListCommentLikesResponse.html"""
-
-    comment_likes: list[VoteView] = None
-    
-    def parse(self, data: dict[str, Any]):
-        self.comment_likes = [VoteView.parse(e0) for e0 in data["comment_likes"]]
-
-    @classmethod
-    def data(
-        cls, 
-        comment_likes: list[VoteView] = None
-    ):
-        obj = cls.__new__(cls)
-        obj.comment_likes = comment_likes
+        obj.private_message_view = private_message_view
         return obj

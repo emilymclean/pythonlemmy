@@ -18,11 +18,36 @@ model_dir = "../pythonlemmy"
 enum_names = []
 type_aliases = {}
 
-objects = []
-responses = []
-views = []
+objects = {}
+object_dependencies = {}
+responses = {}
+response_dependencies = {}
+views = {}
+view_dependencies = {}
 
 openapi_docs = "https://raw.githubusercontent.com/MV-GH/lemmy_openapi_spec/master/lemmy_spec.yaml"
+
+
+# From https://code.activestate.com/recipes/576570-dependency-resolver/
+def dep(arg):
+    '''
+        Dependency resolver
+
+    "arg" is a dependency dictionary in which
+    the values are the dependencies of their respective keys.
+    '''
+    d=dict((k, set(arg[k])) for k in arg)
+    r=[]
+    while d:
+        # values not in keys (items without dep)
+        t=set(i for v in d.values() for i in v)-set(d.keys())
+        # and keys without value (items without dep)
+        t.update(k for k, v in d.items() if not v)
+        # can be done right away
+        r.append(t)
+        # and cleaned up
+        d=dict(((k, v-t) for k, v in d.items() if v))
+    return r
 
 
 def list_enums():
@@ -48,29 +73,27 @@ def generate_types():
         if file_without_extension in enum_names or file_without_extension in type_aliases.keys():
             continue
         with open(f"{types_dir}{file}", "r") as f:
-            print(f"File = {types_dir}{file}")
             parse_model(f.read())
 
     print(f"Object count = {len(objects)}, Response count = {len(responses)}, View count = {len(views)}")
+    generate_file(f"./headers/object_header.py", "objects.py", objects, object_dependencies)
+    generate_file(f"./headers/response_header.py", "responses.py", responses, response_dependencies)
+    generate_file(f"./headers/view_header.py", "views.py", views, view_dependencies)
 
-    with open(f"./headers/object_header.py", "r") as f:
-        object_header = f.read()
-    with open(f"./headers/response_header.py", "r") as f:
-        response_header = f.read()
-    with open(f"./headers/view_header.py", "r") as f:
-        view_header = f.read()
 
-    with open(f"{model_dir}/views.py", "w") as f:
-        f.write(view_header)
-        f.write("\n\n\n".join(views))
-        f.write("\n")
-    with open(f"{model_dir}/objects.py", "w") as f:
-        f.write(object_header)
-        f.write("\n\n\n".join(objects))
-        f.write("\n")
-    with open(f"{model_dir}/responses.py", "w") as f:
-        f.write(response_header)
-        f.write("\n\n\n".join(responses))
+def generate_file(header_file_path: str, output_file_path: str, types: dict[str, str], dependencies: dict[str, str]):
+    with open(header_file_path, "r") as f:
+        header = f.read()
+
+    dep_tree = dep(dependencies)
+
+    with open(f"{model_dir}/{output_file_path}", "w") as f:
+        f.write(header)
+        for d in dep_tree:
+            for r in d:
+                if r not in types:
+                    continue
+                f.write(f"\n\n\n{types[r]}")
         f.write("\n")
 
 
@@ -114,11 +137,14 @@ def parse_model(model_contents: str):
     visitor.walk()
     result = ModelGenerator(visitor.class_name, visitor.properties, visitor.class_type).build()
     if visitor.class_type == ClassType.VIEW:
-        views.append(result)
+        views[visitor.class_name] = result
+        view_dependencies[visitor.class_name] = visitor.dependencies
     elif visitor.class_type == ClassType.RESPONSE:
-        responses.append(result)
+        responses[visitor.class_name] = result
+        response_dependencies[visitor.class_name] = visitor.dependencies
     elif visitor.class_type == ClassType.OBJECT:
-        objects.append(result)
+        objects[visitor.class_name] = result
+        object_dependencies[visitor.class_name] = visitor.dependencies
 
 
 def generate_http():

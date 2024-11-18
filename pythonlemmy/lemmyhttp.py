@@ -35,7 +35,7 @@ class LemmyHttp(object):
 
     def set_jwt(self, jwt: str):
         self._request_controller.create_session(jwt)
-
+        
     def get_site(
         self
     ):
