@@ -57,7 +57,6 @@ class LemmyHttp(object):
         description: str = None,
         icon: str = None,
         banner: str = None,
-        enable_downvotes: bool = None,
         enable_nsfw: bool = None,
         community_creation_admin_only: bool = None,
         require_email_verification: bool = None,
@@ -65,7 +64,9 @@ class LemmyHttp(object):
         private_instance: bool = None,
         default_theme: str = None,
         default_post_listing_type: str = None,
-        default_sort_type: str = None,
+        default_post_listing_mode: str = None,
+        default_post_sort_type: str = None,
+        default_comment_sort_type: str = None,
         legal_information: str = None,
         application_email_admins: bool = None,
         hide_modlog_mod_names: bool = None,
@@ -90,10 +91,13 @@ class LemmyHttp(object):
         captcha_difficulty: str = None,
         allowed_instances: list[str] = None,
         blocked_instances: list[str] = None,
-        taglines: list[str] = None,
         registration_mode: str = None,
+        oauth_registration: bool = None,
         content_warning: str = None,
-        default_post_listing_mode: str = None
+        post_upvotes: str = None,
+        post_downvotes: str = None,
+        comment_upvotes: str = None,
+        comment_downvotes: str = None
     ):
         """ Create your site.
         Args:
@@ -102,7 +106,6 @@ class LemmyHttp(object):
             description: CreateSite.description
             icon: CreateSite.icon
             banner: CreateSite.banner
-            enable_downvotes: CreateSite.enable_downvotes
             enable_nsfw: CreateSite.enable_nsfw
             community_creation_admin_only: CreateSite.community_creation_admin_only
             require_email_verification: CreateSite.require_email_verification
@@ -110,7 +113,9 @@ class LemmyHttp(object):
             private_instance: CreateSite.private_instance
             default_theme: CreateSite.default_theme
             default_post_listing_type: Possible values [All, Local, Subscribed, ModeratorView]
-            default_sort_type: Possible values [Active, Hot, New, Old, TopDay, TopWeek, TopMonth, TopYear, TopAll, MostComments, NewComments, TopHour, TopSixHour, TopTwelveHour, TopThreeMonths, TopSixMonths, TopNineMonths, Controversial, Scaled]
+            default_post_listing_mode: Possible values [List, Card, SmallCard]
+            default_post_sort_type
+            default_comment_sort_type
             legal_information: CreateSite.legal_information
             application_email_admins: CreateSite.application_email_admins
             hide_modlog_mod_names: CreateSite.hide_modlog_mod_names
@@ -135,10 +140,13 @@ class LemmyHttp(object):
             captcha_difficulty: CreateSite.captcha_difficulty
             allowed_instances: CreateSite.allowed_instances
             blocked_instances: CreateSite.blocked_instances
-            taglines: CreateSite.taglines
             registration_mode: Possible values [Closed, RequireApplication, Open]
+            oauth_registration
             content_warning: CreateSite.content_warning
-            default_post_listing_mode: Possible values [List, Card, SmallCard]
+            post_upvotes
+            post_downvotes
+            comment_upvotes
+            comment_downvotes
 
         Returns:
             requests.Response: result of API call (wrap in SiteResponse if successful)
@@ -155,7 +163,6 @@ class LemmyHttp(object):
         description: str = None,
         icon: str = None,
         banner: str = None,
-        enable_downvotes: bool = None,
         enable_nsfw: bool = None,
         community_creation_admin_only: bool = None,
         require_email_verification: bool = None,
@@ -163,7 +170,9 @@ class LemmyHttp(object):
         private_instance: bool = None,
         default_theme: str = None,
         default_post_listing_type: str = None,
-        default_sort_type: str = None,
+        default_post_listing_mode: str = None,
+        default_post_sort_type: str = None,
+        default_comment_sort_type: str = None,
         legal_information: str = None,
         application_email_admins: bool = None,
         hide_modlog_mod_names: bool = None,
@@ -189,11 +198,14 @@ class LemmyHttp(object):
         allowed_instances: list[str] = None,
         blocked_instances: list[str] = None,
         blocked_urls: list[str] = None,
-        taglines: list[str] = None,
         registration_mode: str = None,
         reports_email_admins: bool = None,
         content_warning: str = None,
-        default_post_listing_mode: str = None
+        oauth_registration: bool = None,
+        post_upvotes: str = None,
+        post_downvotes: str = None,
+        comment_upvotes: str = None,
+        comment_downvotes: str = None
     ):
         """ Edit your site.
         Args:
@@ -202,7 +214,6 @@ class LemmyHttp(object):
             description: EditSite.description
             icon: EditSite.icon
             banner: EditSite.banner
-            enable_downvotes: EditSite.enable_downvotes
             enable_nsfw: EditSite.enable_nsfw
             community_creation_admin_only: EditSite.community_creation_admin_only
             require_email_verification: EditSite.require_email_verification
@@ -210,7 +221,9 @@ class LemmyHttp(object):
             private_instance: EditSite.private_instance
             default_theme: EditSite.default_theme
             default_post_listing_type: Possible values [All, Local, Subscribed, ModeratorView]
-            default_sort_type: Possible values [Active, Hot, New, Old, TopDay, TopWeek, TopMonth, TopYear, TopAll, MostComments, NewComments, TopHour, TopSixHour, TopTwelveHour, TopThreeMonths, TopSixMonths, TopNineMonths, Controversial, Scaled]
+            default_post_listing_mode: Possible values [List, Card, SmallCard]
+            default_post_sort_type
+            default_comment_sort_type
             legal_information: EditSite.legal_information
             application_email_admins: EditSite.application_email_admins
             hide_modlog_mod_names: EditSite.hide_modlog_mod_names
@@ -236,11 +249,14 @@ class LemmyHttp(object):
             allowed_instances: EditSite.allowed_instances
             blocked_instances: EditSite.blocked_instances
             blocked_urls: EditSite.blocked_urls
-            taglines: EditSite.taglines
             registration_mode: Possible values [Closed, RequireApplication, Open]
             reports_email_admins: EditSite.reports_email_admins
             content_warning: EditSite.content_warning
-            default_post_listing_mode: Possible values [List, Card, SmallCard]
+            oauth_registration
+            post_upvotes
+            post_downvotes
+            comment_upvotes
+            comment_downvotes
 
         Returns:
             requests.Response: result of API call (wrap in SiteResponse if successful)
@@ -428,7 +444,12 @@ class LemmyHttp(object):
         sort: str = None,
         listing_type: str = None,
         page: int = None,
-        limit: int = None
+        limit: int = None,
+        title_only: bool = None,
+        post_url_only: bool = None,
+        saved_only: bool = None,
+        liked_only: bool = None,
+        disliked_only: bool = None
     ):
         """ Search lemmy.
         Args:
@@ -441,6 +462,11 @@ class LemmyHttp(object):
             listing_type: Possible values [All, Local, Subscribed, ModeratorView]
             page: Search.page
             limit: Search.limit
+            title_only
+            post_url_only
+            saved_only
+            liked_only
+            disliked_only
 
         Returns:
             requests.Response: result of API call (wrap in SearchResponse if successful)
@@ -470,6 +496,7 @@ class LemmyHttp(object):
         self,
         name: str,
         title: str,
+        sidebar: str = None,
         description: str = None,
         icon: str = None,
         banner: str = None,
@@ -482,6 +509,7 @@ class LemmyHttp(object):
         Args:
             name: CreateCommunity.name
             title: CreateCommunity.title
+            sidebar
             description: CreateCommunity.description
             icon: CreateCommunity.icon
             banner: CreateCommunity.banner
@@ -520,6 +548,7 @@ class LemmyHttp(object):
         self,
         community_id: int,
         title: str = None,
+        sidebar: str = None,
         description: str = None,
         icon: str = None,
         banner: str = None,
@@ -532,6 +561,7 @@ class LemmyHttp(object):
         Args:
             community_id: CommunityId
             title: EditCommunity.title
+            sidebar
             description: EditCommunity.description
             icon: EditCommunity.icon
             banner: EditCommunity.banner
@@ -587,6 +617,41 @@ class LemmyHttp(object):
         """
         form = create_form(locals())
         result = self._request_controller.post_handler(f"{self._api_url}/community/follow", json=form, params=None)
+
+        return result
+
+    def get_community_pending_follows_count(
+        self,
+        community_id: int
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.get_handler(f"{self._api_url}/community/pending_follows/count", json=None, params=form)
+
+        return result
+
+    def list_community_pending_follows(
+        self,
+        pending_only: bool = None,
+        all_communities: bool = None,
+        page: int = None,
+        limit: int = None
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.get_handler(f"{self._api_url}/community/pending_follows/list", json=None, params=form)
+
+        return result
+
+    def approve_community_pending_follow(
+        self,
+        community_id: int,
+        follower_id: int,
+        approve: bool
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.post_handler(f"{self._api_url}/community/pending_follows/approve", json=form, params=None)
 
         return result
 
@@ -689,7 +754,7 @@ class LemmyHttp(object):
         community_id: int,
         person_id: int,
         ban: bool,
-        remove_data: bool = None,
+        remove_or_restore_data: bool = None,
         reason: str = None,
         expires: int = None
     ):
@@ -698,7 +763,7 @@ class LemmyHttp(object):
             community_id: CommunityId
             person_id: PersonId
             ban: BanFromCommunity.ban
-            remove_data: BanFromCommunity.remove_data
+            remove_or_restore_data
             reason: BanFromCommunity.reason
             expires: BanFromCommunity.expires
 
@@ -730,6 +795,16 @@ class LemmyHttp(object):
 
         return result
 
+    def get_random_community(
+        self,
+        type_: str = None
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.get_handler(f"{self._api_url}/community/random", json=None, params=form)
+
+        return result
+
     def create_post(
         self,
         name: str,
@@ -740,7 +815,8 @@ class LemmyHttp(object):
         honeypot: str = None,
         nsfw: bool = None,
         language_id: int = None,
-        custom_thumbnail: str = None
+        custom_thumbnail: str = None,
+        scheduled_publish_time: int = None
     ):
         """ Create a post.
         Args:
@@ -753,6 +829,7 @@ class LemmyHttp(object):
             nsfw: CreatePost.nsfw
             language_id: LanguageId
             custom_thumbnail: CreatePost.custom_thumbnail
+            scheduled_publish_time
 
         Returns:
             requests.Response: result of API call (wrap in PostResponse if successful)
@@ -789,7 +866,8 @@ class LemmyHttp(object):
         alt_text: str = None,
         nsfw: bool = None,
         language_id: int = None,
-        custom_thumbnail: str = None
+        custom_thumbnail: str = None,
+        scheduled_publish_time: int = None
     ):
         """ Edit a post.
         Args:
@@ -801,6 +879,7 @@ class LemmyHttp(object):
             nsfw: EditPost.nsfw
             language_id: LanguageId
             custom_thumbnail: EditPost.custom_thumbnail
+            scheduled_publish_time
 
         Returns:
             requests.Response: result of API call (wrap in PostResponse if successful)
@@ -936,6 +1015,7 @@ class LemmyHttp(object):
         show_hidden: bool = None,
         show_read: bool = None,
         show_nsfw: bool = None,
+        no_comments_only: bool = None,
         page_cursor: str = None
     ):
         """ Get / fetch posts, with various filters.
@@ -950,8 +1030,9 @@ class LemmyHttp(object):
             liked_only: GetPosts.liked_only
             disliked_only: GetPosts.disliked_only
             show_hidden: GetPosts.show_hidden
-            show_read
-            show_nsfw
+            show_read: GetPosts.show_read
+            show_nsfw: GetPosts.show_nsfw
+            no_comments_only
             page_cursor: PaginationCursor
 
         Returns:
@@ -1588,7 +1669,7 @@ class LemmyHttp(object):
     def logout(
         self
     ):
-        """ [MANUAL] Logout your user, which clears the cookie and invalidates the auth token
+        """ Invalidate the currently used auth token.
 
 
         Returns:
@@ -1694,7 +1775,7 @@ class LemmyHttp(object):
         self,
         person_id: int,
         ban: bool,
-        remove_data: bool = None,
+        remove_or_restore_data: bool = None,
         reason: str = None,
         expires: int = None
     ):
@@ -1702,7 +1783,7 @@ class LemmyHttp(object):
         Args:
             person_id: PersonId
             ban: BanPerson.ban
-            remove_data: BanPerson.remove_data
+            remove_or_restore_data
             reason: BanPerson.reason
             expires: BanPerson.expires
 
@@ -1832,10 +1913,11 @@ class LemmyHttp(object):
         self,
         show_nsfw: bool = None,
         blur_nsfw: bool = None,
-        auto_expand: bool = None,
         theme: str = None,
-        default_sort_type: str = None,
         default_listing_type: str = None,
+        post_listing_mode: str = None,
+        default_post_sort_type: str = None,
+        default_comment_sort_type: str = None,
         interface_language: str = None,
         avatar: str = None,
         banner: str = None,
@@ -1851,7 +1933,6 @@ class LemmyHttp(object):
         discussion_languages: list[int] = None,
         open_links_in_new_tab: bool = None,
         infinite_scroll_enabled: bool = None,
-        post_listing_mode: str = None,
         enable_keyboard_navigation: bool = None,
         enable_animated_images: bool = None,
         collapse_bot_comments: bool = None,
@@ -1864,10 +1945,11 @@ class LemmyHttp(object):
         Args:
             show_nsfw: SaveUserSettings.show_nsfw
             blur_nsfw: SaveUserSettings.blur_nsfw
-            auto_expand: SaveUserSettings.auto_expand
             theme: SaveUserSettings.theme
-            default_sort_type: Possible values [Active, Hot, New, Old, TopDay, TopWeek, TopMonth, TopYear, TopAll, MostComments, NewComments, TopHour, TopSixHour, TopTwelveHour, TopThreeMonths, TopSixMonths, TopNineMonths, Controversial, Scaled]
             default_listing_type: Possible values [All, Local, Subscribed, ModeratorView]
+            post_listing_mode: Possible values [List, Card, SmallCard]
+            default_post_sort_type
+            default_comment_sort_type
             interface_language: SaveUserSettings.interface_language
             avatar: SaveUserSettings.avatar
             banner: SaveUserSettings.banner
@@ -1883,7 +1965,6 @@ class LemmyHttp(object):
             discussion_languages: SaveUserSettings.discussion_languages
             open_links_in_new_tab: SaveUserSettings.open_links_in_new_tab
             infinite_scroll_enabled: SaveUserSettings.infinite_scroll_enabled
-            post_listing_mode: Possible values [List, Card, SmallCard]
             enable_keyboard_navigation: SaveUserSettings.enable_keyboard_navigation
             enable_animated_images: SaveUserSettings.enable_animated_images
             collapse_bot_comments: SaveUserSettings.collapse_bot_comments
@@ -2026,7 +2107,7 @@ class LemmyHttp(object):
     ):
         """ Approve a registration application
         Args:
-            id: ApproveRegistrationApplication.id
+            id: RegistrationApplicationId
             approve: ApproveRegistrationApplication.approve
             deny_reason: ApproveRegistrationApplication.deny_reason
 
@@ -2042,7 +2123,13 @@ class LemmyHttp(object):
         self,
         person_id: int
     ):
+        """ Get the application a user submitted when they first registered their account
+        Args:
+            person_id: PersonId
 
+        Returns:
+            requests.Response: result of API call (wrap in RegistrationApplicationResponse if successful)
+        """
         form = create_form(locals())
         result = self._request_controller.get_handler(f"{self._api_url}/admin/registration_application", json=None, params=form)
 
@@ -2181,6 +2268,127 @@ class LemmyHttp(object):
         """
         form = create_form(locals())
         result = self._request_controller.post_handler(f"{self._api_url}/custom_emoji/delete", json=form, params=None)
+
+        return result
+
+    def list_custom_emojis(
+        self,
+        page: int = None,
+        limit: int = None,
+        category: str = None,
+        ignore_page_limits: bool = None
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.get_handler(f"{self._api_url}/custom_emoji/list", json=None, params=form)
+
+        return result
+
+    def create_tagline(
+        self,
+        content: str
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.post_handler(f"{self._api_url}/admin/tagline", json=form, params=None)
+
+        return result
+
+    def edit_tagline(
+        self,
+        id: int,
+        content: str
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.put_handler(f"{self._api_url}/admin/tagline", json=form, params=None)
+
+        return result
+
+    def delete_tagline(
+        self,
+        id: int
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.post_handler(f"{self._api_url}/admin/tagline/delete", json=form, params=None)
+
+        return result
+
+    def list_taglines(
+        self,
+        page: int = None,
+        limit: int = None
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.get_handler(f"{self._api_url}/admin/tagline/list", json=None, params=form)
+
+        return result
+
+    def create_o_auth_provider(
+        self,
+        display_name: str,
+        issuer: str,
+        authorization_endpoint: str,
+        token_endpoint: str,
+        userinfo_endpoint: str,
+        id_claim: str,
+        client_id: str,
+        client_secret: str,
+        scopes: str,
+        auto_verify_email: bool = None,
+        account_linking_enabled: bool = None,
+        enabled: bool = None
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.post_handler(f"{self._api_url}/oauth_provider", json=form, params=None)
+
+        return result
+
+    def edit_o_auth_provider(
+        self,
+        id: int,
+        display_name: str = None,
+        authorization_endpoint: str = None,
+        token_endpoint: str = None,
+        userinfo_endpoint: str = None,
+        id_claim: str = None,
+        client_secret: str = None,
+        scopes: str = None,
+        auto_verify_email: bool = None,
+        account_linking_enabled: bool = None,
+        enabled: bool = None
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.put_handler(f"{self._api_url}/oauth_provider", json=form, params=None)
+
+        return result
+
+    def delete_o_auth_provider(
+        self,
+        id: int
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.post_handler(f"{self._api_url}/oauth_provider/delete", json=form, params=None)
+
+        return result
+
+    def authenticate_with_o_auth(
+        self,
+        code: str,
+        oauth_provider_id: int,
+        redirect_uri: str,
+        show_nsfw: bool = None,
+        username: str = None,
+        answer: str = None
+    ):
+
+        form = create_form(locals())
+        result = self._request_controller.post_handler(f"{self._api_url}/oauth/authenticate", json=form, params=None)
 
         return result
 

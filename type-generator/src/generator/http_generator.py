@@ -1,5 +1,5 @@
 import textwrap
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 from openapi_parser.model import ModelEndpoint, ModelSchema, ModelEnumData
 from openapi_parser.parser import OpenApiParser, ModelEnumDataImpl
@@ -32,10 +32,11 @@ if result.status_code == 200:
 
     _methods: List[ApiMethod] = []
 
-    def __init__(self, methods: List[ApiMethod], types_dir: str, enums: List[str],
+    def __init__(self, methods: List[ApiMethod], types_dir: str, enums: List[str], type_aliases: Dict[str, str],
                  openapi: Optional[OpenApiParser] = None):
         self._methods = methods
         self._types_dir = types_dir
+        self._type_aliases = type_aliases
         self._enums = enums
         self._openapi = openapi
 
@@ -147,6 +148,6 @@ Returns:
 
         with open(f"{self._types_dir}/{method.input}.ts", "r") as f:
             tree = parser.parse(bytes(f.read(), "utf-8"))
-            visitor = ModelVisitor(tree, self._enums)
+            visitor = ModelVisitor(tree, self._enums, self._type_aliases)
         visitor.walk()
         return visitor.properties

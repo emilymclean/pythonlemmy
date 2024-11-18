@@ -75,7 +75,6 @@ class CreateSite:
     description: Optional[str] = None
     icon: Optional[str] = None
     banner: Optional[str] = None
-    enable_downvotes: Optional[bool] = None
     enable_nsfw: Optional[bool] = None
     community_creation_admin_only: Optional[bool] = None
     require_email_verification: Optional[bool] = None
@@ -83,7 +82,9 @@ class CreateSite:
     private_instance: Optional[bool] = None
     default_theme: Optional[str] = None
     default_post_listing_type: Optional[str] = None
-    default_sort_type: Optional[str] = None
+    default_post_listing_mode: Optional[str] = None
+    default_post_sort_type: Optional[str] = None
+    default_comment_sort_type: Optional[str] = None
     legal_information: Optional[str] = None
     application_email_admins: Optional[bool] = None
     hide_modlog_mod_names: Optional[bool] = None
@@ -108,10 +109,13 @@ class CreateSite:
     captcha_difficulty: Optional[str] = None
     allowed_instances: Optional[list[str]] = None
     blocked_instances: Optional[list[str]] = None
-    taglines: Optional[list[str]] = None
     registration_mode: Optional[str] = None
+    oauth_registration: Optional[bool] = None
     content_warning: Optional[str] = None
-    default_post_listing_mode: Optional[str] = None
+    post_upvotes: Optional[str] = None
+    post_downvotes: Optional[str] = None
+    comment_upvotes: Optional[str] = None
+    comment_downvotes: Optional[str] = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
@@ -121,7 +125,6 @@ class CreateSite:
             description=data["description"] if "description" in data else None,
             icon=data["icon"] if "icon" in data else None,
             banner=data["banner"] if "banner" in data else None,
-            enable_downvotes=data["enable_downvotes"] if "enable_downvotes" in data else None,
             enable_nsfw=data["enable_nsfw"] if "enable_nsfw" in data else None,
             community_creation_admin_only=data["community_creation_admin_only"] if "community_creation_admin_only" in data else None,
             require_email_verification=data["require_email_verification"] if "require_email_verification" in data else None,
@@ -129,7 +132,9 @@ class CreateSite:
             private_instance=data["private_instance"] if "private_instance" in data else None,
             default_theme=data["default_theme"] if "default_theme" in data else None,
             default_post_listing_type=data["default_post_listing_type"] if "default_post_listing_type" in data else None,
-            default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
+            default_post_listing_mode=data["default_post_listing_mode"] if "default_post_listing_mode" in data else None,
+            default_post_sort_type=data["default_post_sort_type"] if "default_post_sort_type" in data else None,
+            default_comment_sort_type=data["default_comment_sort_type"] if "default_comment_sort_type" in data else None,
             legal_information=data["legal_information"] if "legal_information" in data else None,
             application_email_admins=data["application_email_admins"] if "application_email_admins" in data else None,
             hide_modlog_mod_names=data["hide_modlog_mod_names"] if "hide_modlog_mod_names" in data else None,
@@ -154,10 +159,13 @@ class CreateSite:
             captcha_difficulty=data["captcha_difficulty"] if "captcha_difficulty" in data else None,
             allowed_instances=[e0 for e0 in data["allowed_instances"]] if "allowed_instances" in data else None,
             blocked_instances=[e0 for e0 in data["blocked_instances"]] if "blocked_instances" in data else None,
-            taglines=[e0 for e0 in data["taglines"]] if "taglines" in data else None,
             registration_mode=data["registration_mode"] if "registration_mode" in data else None,
+            oauth_registration=data["oauth_registration"] if "oauth_registration" in data else None,
             content_warning=data["content_warning"] if "content_warning" in data else None,
-            default_post_listing_mode=data["default_post_listing_mode"] if "default_post_listing_mode" in data else None
+            post_upvotes=data["post_upvotes"] if "post_upvotes" in data else None,
+            post_downvotes=data["post_downvotes"] if "post_downvotes" in data else None,
+            comment_upvotes=data["comment_upvotes"] if "comment_upvotes" in data else None,
+            comment_downvotes=data["comment_downvotes"] if "comment_downvotes" in data else None
         )
 
 
@@ -182,6 +190,7 @@ class CreateCommunity:
 
     name: str = None
     title: str = None
+    sidebar: Optional[str] = None
     description: Optional[str] = None
     icon: Optional[str] = None
     banner: Optional[str] = None
@@ -195,6 +204,7 @@ class CreateCommunity:
         return cls(
             name=data["name"],
             title=data["title"],
+            sidebar=data["sidebar"] if "sidebar" in data else None,
             description=data["description"] if "description" in data else None,
             icon=data["icon"] if "icon" in data else None,
             banner=data["banner"] if "banner" in data else None,
@@ -244,6 +254,23 @@ class ModRemoveCommunity:
             reason=data["reason"] if "reason" in data else None,
             removed=data["removed"],
             when_=data["when_"]
+        )
+
+
+@dataclass
+class ApproveCommunityPendingFollower:
+    """https://join-lemmy.org/api/interfaces/ApproveCommunityPendingFollower.html"""
+
+    community_id: int = None
+    follower_id: int = None
+    approve: bool = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            community_id=data["community_id"],
+            follower_id=data["follower_id"],
+            approve=data["approve"]
         )
 
 
@@ -385,6 +412,38 @@ class ResolveCommentReport:
         return cls(
             report_id=data["report_id"],
             resolved=data["resolved"]
+        )
+
+
+@dataclass
+class GetCommunityPendingFollowsCount:
+    """https://join-lemmy.org/api/interfaces/GetCommunityPendingFollowsCount.html"""
+
+    community_id: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            community_id=data["community_id"]
+        )
+
+
+@dataclass
+class ListCommunityPendingFollows:
+    """https://join-lemmy.org/api/interfaces/ListCommunityPendingFollows.html"""
+
+    pending_only: Optional[bool] = None
+    all_communities: Optional[bool] = None
+    page: Optional[int] = None
+    limit: Optional[int] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            pending_only=data["pending_only"] if "pending_only" in data else None,
+            all_communities=data["all_communities"] if "all_communities" in data else None,
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None
         )
 
 
@@ -569,25 +628,40 @@ class CreatePrivateMessageReport:
 
 
 @dataclass
+class UpdateTagline:
+    """https://join-lemmy.org/api/interfaces/UpdateTagline.html"""
+
+    id: int = None
+    content: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            id=data["id"],
+            content=data["content"]
+        )
+
+
+@dataclass
 class ReadableFederationState:
     """https://join-lemmy.org/api/interfaces/ReadableFederationState.html"""
 
+    next_retry: Optional[str] = None
     instance_id: int = None
     last_successful_id: Optional[int] = None
     last_successful_published_time: Optional[str] = None
     fail_count: int = None
     last_retry: Optional[str] = None
-    next_retry: Optional[str] = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
+            next_retry=data["next_retry"] if "next_retry" in data else None,
             instance_id=data["instance_id"],
             last_successful_id=data["last_successful_id"] if "last_successful_id" in data else None,
             last_successful_published_time=data["last_successful_published_time"] if "last_successful_published_time" in data else None,
             fail_count=data["fail_count"],
-            last_retry=data["last_retry"] if "last_retry" in data else None,
-            next_retry=data["next_retry"] if "next_retry" in data else None
+            last_retry=data["last_retry"] if "last_retry" in data else None
         )
 
 
@@ -668,19 +742,17 @@ class LocalUser:
     email: Optional[str] = None
     show_nsfw: bool = None
     theme: str = None
-    default_sort_type: str = None
+    default_post_sort_type: str = None
     default_listing_type: str = None
     interface_language: str = None
     show_avatars: bool = None
     send_notifications_to_email: bool = None
-    show_scores: bool = None
     show_bot_accounts: bool = None
     show_read_posts: bool = None
     email_verified: bool = None
     accepted_application: bool = None
     open_links_in_new_tab: bool = None
     blur_nsfw: bool = None
-    auto_expand: bool = None
     infinite_scroll_enabled: bool = None
     admin: bool = None
     post_listing_mode: str = None
@@ -688,6 +760,7 @@ class LocalUser:
     enable_keyboard_navigation: bool = None
     enable_animated_images: bool = None
     collapse_bot_comments: bool = None
+    default_comment_sort_type: str = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
@@ -697,26 +770,25 @@ class LocalUser:
             email=data["email"] if "email" in data else None,
             show_nsfw=data["show_nsfw"],
             theme=data["theme"],
-            default_sort_type=data["default_sort_type"],
+            default_post_sort_type=data["default_post_sort_type"],
             default_listing_type=data["default_listing_type"],
             interface_language=data["interface_language"],
             show_avatars=data["show_avatars"],
             send_notifications_to_email=data["send_notifications_to_email"],
-            show_scores=data["show_scores"],
             show_bot_accounts=data["show_bot_accounts"],
             show_read_posts=data["show_read_posts"],
             email_verified=data["email_verified"],
             accepted_application=data["accepted_application"],
             open_links_in_new_tab=data["open_links_in_new_tab"],
             blur_nsfw=data["blur_nsfw"],
-            auto_expand=data["auto_expand"],
             infinite_scroll_enabled=data["infinite_scroll_enabled"],
             admin=data["admin"],
             post_listing_mode=data["post_listing_mode"],
             totp_2fa_enabled=data["totp_2fa_enabled"],
             enable_keyboard_navigation=data["enable_keyboard_navigation"],
             enable_animated_images=data["enable_animated_images"],
-            collapse_bot_comments=data["collapse_bot_comments"]
+            collapse_bot_comments=data["collapse_bot_comments"],
+            default_comment_sort_type=data["default_comment_sort_type"]
         )
 
 
@@ -734,6 +806,19 @@ class PersonAggregates:
             person_id=data["person_id"],
             post_count=data["post_count"],
             comment_count=data["comment_count"]
+        )
+
+
+@dataclass
+class CreateTagline:
+    """https://join-lemmy.org/api/interfaces/CreateTagline.html"""
+
+    content: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            content=data["content"]
         )
 
 
@@ -765,6 +850,11 @@ class Search:
     listing_type: Optional[str] = None
     page: Optional[int] = None
     limit: Optional[int] = None
+    title_only: Optional[bool] = None
+    post_url_only: Optional[bool] = None
+    saved_only: Optional[bool] = None
+    liked_only: Optional[bool] = None
+    disliked_only: Optional[bool] = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
@@ -777,7 +867,12 @@ class Search:
             sort=data["sort"] if "sort" in data else None,
             listing_type=data["listing_type"] if "listing_type" in data else None,
             page=data["page"] if "page" in data else None,
-            limit=data["limit"] if "limit" in data else None
+            limit=data["limit"] if "limit" in data else None,
+            title_only=data["title_only"] if "title_only" in data else None,
+            post_url_only=data["post_url_only"] if "post_url_only" in data else None,
+            saved_only=data["saved_only"] if "saved_only" in data else None,
+            liked_only=data["liked_only"] if "liked_only" in data else None,
+            disliked_only=data["disliked_only"] if "disliked_only" in data else None
         )
 
 
@@ -785,7 +880,6 @@ class Search:
 class LocalUserVoteDisplayMode:
     """https://join-lemmy.org/api/interfaces/LocalUserVoteDisplayMode.html"""
 
-    local_user_id: int = None
     score: bool = None
     upvotes: bool = None
     downvotes: bool = None
@@ -794,7 +888,6 @@ class LocalUserVoteDisplayMode:
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
-            local_user_id=data["local_user_id"],
             score=data["score"],
             upvotes=data["upvotes"],
             downvotes=data["downvotes"],
@@ -964,7 +1057,6 @@ class CustomEmoji:
     """https://join-lemmy.org/api/interfaces/CustomEmoji.html"""
 
     id: int = None
-    local_site_id: int = None
     shortcode: str = None
     image_url: str = None
     alt_text: str = None
@@ -976,7 +1068,6 @@ class CustomEmoji:
     def parse(cls, data: dict[str, Any]):
         return cls(
             id=data["id"],
-            local_site_id=data["local_site_id"],
             shortcode=data["shortcode"],
             image_url=data["image_url"],
             alt_text=data["alt_text"],
@@ -1057,6 +1148,29 @@ class GetReportCount:
 
 
 @dataclass
+class AuthenticateWithOauth:
+    """https://join-lemmy.org/api/interfaces/AuthenticateWithOauth.html"""
+
+    code: str = None
+    oauth_provider_id: int = None
+    redirect_uri: str = None
+    show_nsfw: Optional[bool] = None
+    username: Optional[str] = None
+    answer: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            code=data["code"],
+            oauth_provider_id=data["oauth_provider_id"],
+            redirect_uri=data["redirect_uri"],
+            show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
+            username=data["username"] if "username" in data else None,
+            answer=data["answer"] if "answer" in data else None
+        )
+
+
+@dataclass
 class DeletePrivateMessage:
     """https://join-lemmy.org/api/interfaces/DeletePrivateMessage.html"""
 
@@ -1078,7 +1192,7 @@ class Community:
     id: int = None
     name: str = None
     title: str = None
-    description: Optional[str] = None
+    sidebar: Optional[str] = None
     removed: bool = None
     published: str = None
     updated: Optional[str] = None
@@ -1092,6 +1206,7 @@ class Community:
     posting_restricted_to_mods: bool = None
     instance_id: int = None
     visibility: str = None
+    description: Optional[str] = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
@@ -1099,7 +1214,7 @@ class Community:
             id=data["id"],
             name=data["name"],
             title=data["title"],
-            description=data["description"] if "description" in data else None,
+            sidebar=data["sidebar"] if "sidebar" in data else None,
             removed=data["removed"],
             published=data["published"],
             updated=data["updated"] if "updated" in data else None,
@@ -1112,7 +1227,8 @@ class Community:
             hidden=data["hidden"],
             posting_restricted_to_mods=data["posting_restricted_to_mods"],
             instance_id=data["instance_id"],
-            visibility=data["visibility"]
+            visibility=data["visibility"],
+            description=data["description"] if "description" in data else None
         )
 
 
@@ -1270,6 +1386,7 @@ class EditPost:
     nsfw: Optional[bool] = None
     language_id: Optional[int] = None
     custom_thumbnail: Optional[str] = None
+    scheduled_publish_time: Optional[int] = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
@@ -1281,7 +1398,8 @@ class EditPost:
             alt_text=data["alt_text"] if "alt_text" in data else None,
             nsfw=data["nsfw"] if "nsfw" in data else None,
             language_id=data["language_id"] if "language_id" in data else None,
-            custom_thumbnail=data["custom_thumbnail"] if "custom_thumbnail" in data else None
+            custom_thumbnail=data["custom_thumbnail"] if "custom_thumbnail" in data else None,
+            scheduled_publish_time=data["scheduled_publish_time"] if "scheduled_publish_time" in data else None
         )
 
 
@@ -1335,6 +1453,21 @@ class GetPrivateMessages:
 
 
 @dataclass
+class ListTaglines:
+    """https://join-lemmy.org/api/interfaces/ListTaglines.html"""
+
+    page: Optional[int] = None
+    limit: Optional[int] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None
+        )
+
+
+@dataclass
 class ModBan:
     """https://join-lemmy.org/api/interfaces/ModBan.html"""
 
@@ -1364,7 +1497,6 @@ class Tagline:
     """https://join-lemmy.org/api/interfaces/Tagline.html"""
 
     id: int = None
-    local_site_id: int = None
     content: str = None
     published: str = None
     updated: Optional[str] = None
@@ -1373,7 +1505,6 @@ class Tagline:
     def parse(cls, data: dict[str, Any]):
         return cls(
             id=data["id"],
-            local_site_id=data["local_site_id"],
             content=data["content"],
             published=data["published"],
             updated=data["updated"] if "updated" in data else None
@@ -1413,6 +1544,19 @@ class UpdateTotp:
 
 
 @dataclass
+class PublicOAuthProvider:
+    """https://join-lemmy.org/api/interfaces/PublicOAuthProvider.html"""
+
+
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+
+        )
+
+
+@dataclass
 class MarkPostAsRead:
     """https://join-lemmy.org/api/interfaces/MarkPostAsRead.html"""
 
@@ -1424,6 +1568,25 @@ class MarkPostAsRead:
         return cls(
             post_ids=[e0 for e0 in data["post_ids"]],
             read=data["read"]
+        )
+
+
+@dataclass
+class PendingFollow:
+    """https://join-lemmy.org/api/interfaces/PendingFollow.html"""
+
+    person: Person = None
+    community: Community = None
+    is_new_instance: bool = None
+    subscribed: str = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            person=Person.parse(data["person"]),
+            community=Community.parse(data["community"]),
+            is_new_instance=data["is_new_instance"],
+            subscribed=data["subscribed"]
         )
 
 
@@ -1446,20 +1609,20 @@ class ResolvePrivateMessageReport:
 class LinkMetadata:
     """https://join-lemmy.org/api/interfaces/LinkMetadata.html"""
 
+    content_type: Optional[str] = None
     title: Optional[str] = None
     description: Optional[str] = None
     image: Optional[str] = None
     embed_video_url: Optional[str] = None
-    content_type: Optional[str] = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
+            content_type=data["content_type"] if "content_type" in data else None,
             title=data["title"] if "title" in data else None,
             description=data["description"] if "description" in data else None,
             image=data["image"] if "image" in data else None,
-            embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None,
-            content_type=data["content_type"] if "content_type" in data else None
+            embed_video_url=data["embed_video_url"] if "embed_video_url" in data else None
         )
 
 
@@ -1510,6 +1673,27 @@ class DeletePost:
 
 
 @dataclass
+class OAuthAccount:
+    """https://join-lemmy.org/api/interfaces/OAuthAccount.html"""
+
+    local_user_id: int = None
+    oauth_provider_id: int = None
+    oauth_user_id: str = None
+    published: str = None
+    updated: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            local_user_id=data["local_user_id"],
+            oauth_provider_id=data["oauth_provider_id"],
+            oauth_user_id=data["oauth_user_id"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None
+        )
+
+
+@dataclass
 class PurgeComment:
     """https://join-lemmy.org/api/interfaces/PurgeComment.html"""
 
@@ -1537,6 +1721,7 @@ class CreatePost:
     nsfw: Optional[bool] = None
     language_id: Optional[int] = None
     custom_thumbnail: Optional[str] = None
+    scheduled_publish_time: Optional[int] = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
@@ -1549,7 +1734,8 @@ class CreatePost:
             honeypot=data["honeypot"] if "honeypot" in data else None,
             nsfw=data["nsfw"] if "nsfw" in data else None,
             language_id=data["language_id"] if "language_id" in data else None,
-            custom_thumbnail=data["custom_thumbnail"] if "custom_thumbnail" in data else None
+            custom_thumbnail=data["custom_thumbnail"] if "custom_thumbnail" in data else None,
+            scheduled_publish_time=data["scheduled_publish_time"] if "scheduled_publish_time" in data else None
         )
 
 
@@ -1578,24 +1764,24 @@ class CreateCustomEmoji:
 class InstanceWithFederationState:
     """https://join-lemmy.org/api/interfaces/InstanceWithFederationState.html"""
 
+    federation_state: Optional[ReadableFederationState] = None
     id: int = None
     domain: str = None
     published: str = None
     updated: Optional[str] = None
     software: Optional[str] = None
     version: Optional[str] = None
-    federation_state: Optional[ReadableFederationState] = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
         return cls(
+            federation_state=ReadableFederationState.parse(data["federation_state"]) if "federation_state" in data else None,
             id=data["id"],
             domain=data["domain"],
             published=data["published"],
             updated=data["updated"] if "updated" in data else None,
             software=data["software"] if "software" in data else None,
-            version=data["version"] if "version" in data else None,
-            federation_state=ReadableFederationState.parse(data["federation_state"]) if "federation_state" in data else None
+            version=data["version"] if "version" in data else None
         )
 
 
@@ -1655,6 +1841,7 @@ class EditCommunity:
 
     community_id: int = None
     title: Optional[str] = None
+    sidebar: Optional[str] = None
     description: Optional[str] = None
     icon: Optional[str] = None
     banner: Optional[str] = None
@@ -1668,6 +1855,7 @@ class EditCommunity:
         return cls(
             community_id=data["community_id"],
             title=data["title"] if "title" in data else None,
+            sidebar=data["sidebar"] if "sidebar" in data else None,
             description=data["description"] if "description" in data else None,
             icon=data["icon"] if "icon" in data else None,
             banner=data["banner"] if "banner" in data else None,
@@ -1740,13 +1928,52 @@ class ModRemovePost:
 
 
 @dataclass
+class OAuthProvider:
+    """https://join-lemmy.org/api/interfaces/OAuthProvider.html"""
+
+    id: int = None
+    display_name: str = None
+    issuer: str = None
+    authorization_endpoint: str = None
+    token_endpoint: str = None
+    userinfo_endpoint: str = None
+    id_claim: str = None
+    client_id: str = None
+    scopes: str = None
+    auto_verify_email: bool = None
+    account_linking_enabled: bool = None
+    enabled: bool = None
+    published: str = None
+    updated: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            id=data["id"],
+            display_name=data["display_name"],
+            issuer=data["issuer"],
+            authorization_endpoint=data["authorization_endpoint"],
+            token_endpoint=data["token_endpoint"],
+            userinfo_endpoint=data["userinfo_endpoint"],
+            id_claim=data["id_claim"],
+            client_id=data["client_id"],
+            scopes=data["scopes"],
+            auto_verify_email=data["auto_verify_email"],
+            account_linking_enabled=data["account_linking_enabled"],
+            enabled=data["enabled"],
+            published=data["published"],
+            updated=data["updated"] if "updated" in data else None
+        )
+
+
+@dataclass
 class BanFromCommunity:
     """https://join-lemmy.org/api/interfaces/BanFromCommunity.html"""
 
     community_id: int = None
     person_id: int = None
     ban: bool = None
-    remove_data: Optional[bool] = None
+    remove_or_restore_data: Optional[bool] = None
     reason: Optional[str] = None
     expires: Optional[int] = None
     
@@ -1756,7 +1983,7 @@ class BanFromCommunity:
             community_id=data["community_id"],
             person_id=data["person_id"],
             ban=data["ban"],
-            remove_data=data["remove_data"] if "remove_data" in data else None,
+            remove_or_restore_data=data["remove_or_restore_data"] if "remove_or_restore_data" in data else None,
             reason=data["reason"] if "reason" in data else None,
             expires=data["expires"] if "expires" in data else None
         )
@@ -1861,10 +2088,11 @@ class SaveUserSettings:
 
     show_nsfw: Optional[bool] = None
     blur_nsfw: Optional[bool] = None
-    auto_expand: Optional[bool] = None
     theme: Optional[str] = None
-    default_sort_type: Optional[str] = None
     default_listing_type: Optional[str] = None
+    post_listing_mode: Optional[str] = None
+    default_post_sort_type: Optional[str] = None
+    default_comment_sort_type: Optional[str] = None
     interface_language: Optional[str] = None
     avatar: Optional[str] = None
     banner: Optional[str] = None
@@ -1880,7 +2108,6 @@ class SaveUserSettings:
     discussion_languages: Optional[list[int]] = None
     open_links_in_new_tab: Optional[bool] = None
     infinite_scroll_enabled: Optional[bool] = None
-    post_listing_mode: Optional[str] = None
     enable_keyboard_navigation: Optional[bool] = None
     enable_animated_images: Optional[bool] = None
     collapse_bot_comments: Optional[bool] = None
@@ -1894,10 +2121,11 @@ class SaveUserSettings:
         return cls(
             show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
             blur_nsfw=data["blur_nsfw"] if "blur_nsfw" in data else None,
-            auto_expand=data["auto_expand"] if "auto_expand" in data else None,
             theme=data["theme"] if "theme" in data else None,
-            default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
             default_listing_type=data["default_listing_type"] if "default_listing_type" in data else None,
+            post_listing_mode=data["post_listing_mode"] if "post_listing_mode" in data else None,
+            default_post_sort_type=data["default_post_sort_type"] if "default_post_sort_type" in data else None,
+            default_comment_sort_type=data["default_comment_sort_type"] if "default_comment_sort_type" in data else None,
             interface_language=data["interface_language"] if "interface_language" in data else None,
             avatar=data["avatar"] if "avatar" in data else None,
             banner=data["banner"] if "banner" in data else None,
@@ -1913,7 +2141,6 @@ class SaveUserSettings:
             discussion_languages=[e0 for e0 in data["discussion_languages"]] if "discussion_languages" in data else None,
             open_links_in_new_tab=data["open_links_in_new_tab"] if "open_links_in_new_tab" in data else None,
             infinite_scroll_enabled=data["infinite_scroll_enabled"] if "infinite_scroll_enabled" in data else None,
-            post_listing_mode=data["post_listing_mode"] if "post_listing_mode" in data else None,
             enable_keyboard_navigation=data["enable_keyboard_navigation"] if "enable_keyboard_navigation" in data else None,
             enable_animated_images=data["enable_animated_images"] if "enable_animated_images" in data else None,
             collapse_bot_comments=data["collapse_bot_comments"] if "collapse_bot_comments" in data else None,
@@ -1921,6 +2148,32 @@ class SaveUserSettings:
             show_upvotes=data["show_upvotes"] if "show_upvotes" in data else None,
             show_downvotes=data["show_downvotes"] if "show_downvotes" in data else None,
             show_upvote_percentage=data["show_upvote_percentage"] if "show_upvote_percentage" in data else None
+        )
+
+
+@dataclass
+class GetRandomCommunity:
+    """https://join-lemmy.org/api/interfaces/GetRandomCommunity.html"""
+
+    type_: Optional[str] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            type_=data["type_"] if "type_" in data else None
+        )
+
+
+@dataclass
+class DeleteTagline:
+    """https://join-lemmy.org/api/interfaces/DeleteTagline.html"""
+
+    id: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            id=data["id"]
         )
 
 
@@ -2002,6 +2255,41 @@ class ListCommentLikes:
 
 
 @dataclass
+class CreateOAuthProvider:
+    """https://join-lemmy.org/api/interfaces/CreateOAuthProvider.html"""
+
+    display_name: str = None
+    issuer: str = None
+    authorization_endpoint: str = None
+    token_endpoint: str = None
+    userinfo_endpoint: str = None
+    id_claim: str = None
+    client_id: str = None
+    client_secret: str = None
+    scopes: str = None
+    auto_verify_email: Optional[bool] = None
+    account_linking_enabled: Optional[bool] = None
+    enabled: Optional[bool] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            display_name=data["display_name"],
+            issuer=data["issuer"],
+            authorization_endpoint=data["authorization_endpoint"],
+            token_endpoint=data["token_endpoint"],
+            userinfo_endpoint=data["userinfo_endpoint"],
+            id_claim=data["id_claim"],
+            client_id=data["client_id"],
+            client_secret=data["client_secret"],
+            scopes=data["scopes"],
+            auto_verify_email=data["auto_verify_email"] if "auto_verify_email" in data else None,
+            account_linking_enabled=data["account_linking_enabled"] if "account_linking_enabled" in data else None,
+            enabled=data["enabled"] if "enabled" in data else None
+        )
+
+
+@dataclass
 class SaveComment:
     """https://join-lemmy.org/api/interfaces/SaveComment.html"""
 
@@ -2032,14 +2320,25 @@ class ListMedia:
 
 
 @dataclass
+class DeleteOAuthProvider:
+    """https://join-lemmy.org/api/interfaces/DeleteOAuthProvider.html"""
+
+    id: int = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            id=data["id"]
+        )
+
+
+@dataclass
 class LocalSite:
     """https://join-lemmy.org/api/interfaces/LocalSite.html"""
 
     id: int = None
     site_id: int = None
     site_setup: bool = None
-    enable_downvotes: bool = None
-    enable_nsfw: bool = None
     community_creation_admin_only: bool = None
     require_email_verification: bool = None
     application_question: Optional[str] = None
@@ -2060,7 +2359,13 @@ class LocalSite:
     reports_email_admins: bool = None
     federation_signed_fetch: bool = None
     default_post_listing_mode: str = None
-    default_sort_type: str = None
+    default_post_sort_type: str = None
+    default_comment_sort_type: str = None
+    oauth_registration: bool = None
+    post_upvotes: str = None
+    post_downvotes: str = None
+    comment_upvotes: str = None
+    comment_downvotes: str = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
@@ -2068,8 +2373,6 @@ class LocalSite:
             id=data["id"],
             site_id=data["site_id"],
             site_setup=data["site_setup"],
-            enable_downvotes=data["enable_downvotes"],
-            enable_nsfw=data["enable_nsfw"],
             community_creation_admin_only=data["community_creation_admin_only"],
             require_email_verification=data["require_email_verification"],
             application_question=data["application_question"] if "application_question" in data else None,
@@ -2090,7 +2393,13 @@ class LocalSite:
             reports_email_admins=data["reports_email_admins"],
             federation_signed_fetch=data["federation_signed_fetch"],
             default_post_listing_mode=data["default_post_listing_mode"],
-            default_sort_type=data["default_sort_type"]
+            default_post_sort_type=data["default_post_sort_type"],
+            default_comment_sort_type=data["default_comment_sort_type"],
+            oauth_registration=data["oauth_registration"],
+            post_upvotes=data["post_upvotes"],
+            post_downvotes=data["post_downvotes"],
+            comment_upvotes=data["comment_upvotes"],
+            comment_downvotes=data["comment_downvotes"]
         )
 
 
@@ -2191,6 +2500,39 @@ class GetComments:
             saved_only=data["saved_only"] if "saved_only" in data else None,
             liked_only=data["liked_only"] if "liked_only" in data else None,
             disliked_only=data["disliked_only"] if "disliked_only" in data else None
+        )
+
+
+@dataclass
+class EditOAuthProvider:
+    """https://join-lemmy.org/api/interfaces/EditOAuthProvider.html"""
+
+    id: int = None
+    display_name: Optional[str] = None
+    authorization_endpoint: Optional[str] = None
+    token_endpoint: Optional[str] = None
+    userinfo_endpoint: Optional[str] = None
+    id_claim: Optional[str] = None
+    client_secret: Optional[str] = None
+    scopes: Optional[str] = None
+    auto_verify_email: Optional[bool] = None
+    account_linking_enabled: Optional[bool] = None
+    enabled: Optional[bool] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            id=data["id"],
+            display_name=data["display_name"] if "display_name" in data else None,
+            authorization_endpoint=data["authorization_endpoint"] if "authorization_endpoint" in data else None,
+            token_endpoint=data["token_endpoint"] if "token_endpoint" in data else None,
+            userinfo_endpoint=data["userinfo_endpoint"] if "userinfo_endpoint" in data else None,
+            id_claim=data["id_claim"] if "id_claim" in data else None,
+            client_secret=data["client_secret"] if "client_secret" in data else None,
+            scopes=data["scopes"] if "scopes" in data else None,
+            auto_verify_email=data["auto_verify_email"] if "auto_verify_email" in data else None,
+            account_linking_enabled=data["account_linking_enabled"] if "account_linking_enabled" in data else None,
+            enabled=data["enabled"] if "enabled" in data else None
         )
 
 
@@ -2742,7 +3084,7 @@ class BanPerson:
 
     person_id: int = None
     ban: bool = None
-    remove_data: Optional[bool] = None
+    remove_or_restore_data: Optional[bool] = None
     reason: Optional[str] = None
     expires: Optional[int] = None
     
@@ -2751,7 +3093,7 @@ class BanPerson:
         return cls(
             person_id=data["person_id"],
             ban=data["ban"],
-            remove_data=data["remove_data"] if "remove_data" in data else None,
+            remove_or_restore_data=data["remove_or_restore_data"] if "remove_or_restore_data" in data else None,
             reason=data["reason"] if "reason" in data else None,
             expires=data["expires"] if "expires" in data else None
         )
@@ -2800,6 +3142,25 @@ class ModAdd:
 
 
 @dataclass
+class ListCustomEmojis:
+    """https://join-lemmy.org/api/interfaces/ListCustomEmojis.html"""
+
+    page: Optional[int] = None
+    limit: Optional[int] = None
+    category: Optional[str] = None
+    ignore_page_limits: Optional[bool] = None
+    
+    @classmethod
+    def parse(cls, data: dict[str, Any]):
+        return cls(
+            page=data["page"] if "page" in data else None,
+            limit=data["limit"] if "limit" in data else None,
+            category=data["category"] if "category" in data else None,
+            ignore_page_limits=data["ignore_page_limits"] if "ignore_page_limits" in data else None
+        )
+
+
+@dataclass
 class EditSite:
     """https://join-lemmy.org/api/interfaces/EditSite.html"""
 
@@ -2808,7 +3169,6 @@ class EditSite:
     description: Optional[str] = None
     icon: Optional[str] = None
     banner: Optional[str] = None
-    enable_downvotes: Optional[bool] = None
     enable_nsfw: Optional[bool] = None
     community_creation_admin_only: Optional[bool] = None
     require_email_verification: Optional[bool] = None
@@ -2816,7 +3176,9 @@ class EditSite:
     private_instance: Optional[bool] = None
     default_theme: Optional[str] = None
     default_post_listing_type: Optional[str] = None
-    default_sort_type: Optional[str] = None
+    default_post_listing_mode: Optional[str] = None
+    default_post_sort_type: Optional[str] = None
+    default_comment_sort_type: Optional[str] = None
     legal_information: Optional[str] = None
     application_email_admins: Optional[bool] = None
     hide_modlog_mod_names: Optional[bool] = None
@@ -2842,11 +3204,14 @@ class EditSite:
     allowed_instances: Optional[list[str]] = None
     blocked_instances: Optional[list[str]] = None
     blocked_urls: Optional[list[str]] = None
-    taglines: Optional[list[str]] = None
     registration_mode: Optional[str] = None
     reports_email_admins: Optional[bool] = None
     content_warning: Optional[str] = None
-    default_post_listing_mode: Optional[str] = None
+    oauth_registration: Optional[bool] = None
+    post_upvotes: Optional[str] = None
+    post_downvotes: Optional[str] = None
+    comment_upvotes: Optional[str] = None
+    comment_downvotes: Optional[str] = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
@@ -2856,7 +3221,6 @@ class EditSite:
             description=data["description"] if "description" in data else None,
             icon=data["icon"] if "icon" in data else None,
             banner=data["banner"] if "banner" in data else None,
-            enable_downvotes=data["enable_downvotes"] if "enable_downvotes" in data else None,
             enable_nsfw=data["enable_nsfw"] if "enable_nsfw" in data else None,
             community_creation_admin_only=data["community_creation_admin_only"] if "community_creation_admin_only" in data else None,
             require_email_verification=data["require_email_verification"] if "require_email_verification" in data else None,
@@ -2864,7 +3228,9 @@ class EditSite:
             private_instance=data["private_instance"] if "private_instance" in data else None,
             default_theme=data["default_theme"] if "default_theme" in data else None,
             default_post_listing_type=data["default_post_listing_type"] if "default_post_listing_type" in data else None,
-            default_sort_type=data["default_sort_type"] if "default_sort_type" in data else None,
+            default_post_listing_mode=data["default_post_listing_mode"] if "default_post_listing_mode" in data else None,
+            default_post_sort_type=data["default_post_sort_type"] if "default_post_sort_type" in data else None,
+            default_comment_sort_type=data["default_comment_sort_type"] if "default_comment_sort_type" in data else None,
             legal_information=data["legal_information"] if "legal_information" in data else None,
             application_email_admins=data["application_email_admins"] if "application_email_admins" in data else None,
             hide_modlog_mod_names=data["hide_modlog_mod_names"] if "hide_modlog_mod_names" in data else None,
@@ -2890,11 +3256,14 @@ class EditSite:
             allowed_instances=[e0 for e0 in data["allowed_instances"]] if "allowed_instances" in data else None,
             blocked_instances=[e0 for e0 in data["blocked_instances"]] if "blocked_instances" in data else None,
             blocked_urls=[e0 for e0 in data["blocked_urls"]] if "blocked_urls" in data else None,
-            taglines=[e0 for e0 in data["taglines"]] if "taglines" in data else None,
             registration_mode=data["registration_mode"] if "registration_mode" in data else None,
             reports_email_admins=data["reports_email_admins"] if "reports_email_admins" in data else None,
             content_warning=data["content_warning"] if "content_warning" in data else None,
-            default_post_listing_mode=data["default_post_listing_mode"] if "default_post_listing_mode" in data else None
+            oauth_registration=data["oauth_registration"] if "oauth_registration" in data else None,
+            post_upvotes=data["post_upvotes"] if "post_upvotes" in data else None,
+            post_downvotes=data["post_downvotes"] if "post_downvotes" in data else None,
+            comment_upvotes=data["comment_upvotes"] if "comment_upvotes" in data else None,
+            comment_downvotes=data["comment_downvotes"] if "comment_downvotes" in data else None
         )
 
 
@@ -2948,6 +3317,7 @@ class Post:
     featured_local: bool = None
     url_content_type: Optional[str] = None
     alt_text: Optional[str] = None
+    scheduled_publish_time: Optional[str] = None
     
     @classmethod
     def parse(cls, data: dict[str, Any]):
@@ -2974,7 +3344,8 @@ class Post:
             featured_community=data["featured_community"],
             featured_local=data["featured_local"],
             url_content_type=data["url_content_type"] if "url_content_type" in data else None,
-            alt_text=data["alt_text"] if "alt_text" in data else None
+            alt_text=data["alt_text"] if "alt_text" in data else None,
+            scheduled_publish_time=data["scheduled_publish_time"] if "scheduled_publish_time" in data else None
         )
 
 
@@ -2994,6 +3365,7 @@ class GetPosts:
     show_hidden: Optional[bool] = None
     show_read: Optional[bool] = None
     show_nsfw: Optional[bool] = None
+    no_comments_only: Optional[bool] = None
     page_cursor: Optional[str] = None
     
     @classmethod
@@ -3011,6 +3383,7 @@ class GetPosts:
             show_hidden=data["show_hidden"] if "show_hidden" in data else None,
             show_read=data["show_read"] if "show_read" in data else None,
             show_nsfw=data["show_nsfw"] if "show_nsfw" in data else None,
+            no_comments_only=data["no_comments_only"] if "no_comments_only" in data else None,
             page_cursor=data["page_cursor"] if "page_cursor" in data else None
         )
 

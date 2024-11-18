@@ -231,6 +231,24 @@ class SearchResponse(ResponseWrapper):
         return obj
 
 
+class GetCommunityPendingFollowsCountResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/GetCommunityPendingFollowsCountResponse.html"""
+
+    count: int = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.count = data["count"]
+
+    @classmethod
+    def data(
+        cls, 
+        count: int = None
+    ):
+        obj = cls.__new__(cls)
+        obj.count = count
+        return obj
+
+
 class PrivateMessageResponse(ResponseWrapper):
     """https://join-lemmy.org/api/interfaces/PrivateMessageResponse.html"""
 
@@ -297,6 +315,24 @@ class GetReportCountResponse(ResponseWrapper):
         return obj
 
 
+class ListTaglinesResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListTaglinesResponse.html"""
+
+    taglines: list[Tagline] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.taglines = [Tagline.parse(e0) for e0 in data["taglines"]]
+
+    @classmethod
+    def data(
+        cls, 
+        taglines: list[Tagline] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.taglines = taglines
+        return obj
+
+
 class PostReportResponse(ResponseWrapper):
     """https://join-lemmy.org/api/interfaces/PostReportResponse.html"""
 
@@ -342,8 +378,9 @@ class GetSiteResponse(ResponseWrapper):
     my_user: Optional[MyUserInfo] = None
     all_languages: list[Language] = None
     discussion_languages: list[int] = None
-    taglines: list[Tagline] = None
-    custom_emojis: list[CustomEmojiView] = None
+    tagline: Optional[Tagline] = None
+    oauth_providers: Optional[list[PublicOAuthProvider]] = None
+    admin_oauth_providers: Optional[list[OAuthProvider]] = None
     blocked_urls: list[LocalSiteUrlBlocklist] = None
     
     def parse(self, data: dict[str, Any]):
@@ -353,8 +390,9 @@ class GetSiteResponse(ResponseWrapper):
         self.my_user = MyUserInfo.parse(data["my_user"]) if "my_user" in data else None
         self.all_languages = [Language.parse(e0) for e0 in data["all_languages"]]
         self.discussion_languages = [e0 for e0 in data["discussion_languages"]]
-        self.taglines = [Tagline.parse(e0) for e0 in data["taglines"]]
-        self.custom_emojis = [CustomEmojiView.parse(e0) for e0 in data["custom_emojis"]]
+        self.tagline = Tagline.parse(data["tagline"]) if "tagline" in data else None
+        self.oauth_providers = [PublicOAuthProvider.parse(e0) for e0 in data["oauth_providers"]] if "oauth_providers" in data else None
+        self.admin_oauth_providers = [OAuthProvider.parse(e0) for e0 in data["admin_oauth_providers"]] if "admin_oauth_providers" in data else None
         self.blocked_urls = [LocalSiteUrlBlocklist.parse(e0) for e0 in data["blocked_urls"]]
 
     @classmethod
@@ -366,8 +404,9 @@ class GetSiteResponse(ResponseWrapper):
         my_user: Optional[MyUserInfo] = None,
         all_languages: list[Language] = None,
         discussion_languages: list[int] = None,
-        taglines: list[Tagline] = None,
-        custom_emojis: list[CustomEmojiView] = None,
+        tagline: Optional[Tagline] = None,
+        oauth_providers: Optional[list[PublicOAuthProvider]] = None,
+        admin_oauth_providers: Optional[list[OAuthProvider]] = None,
         blocked_urls: list[LocalSiteUrlBlocklist] = None
     ):
         obj = cls.__new__(cls)
@@ -377,8 +416,9 @@ class GetSiteResponse(ResponseWrapper):
         obj.my_user = my_user
         obj.all_languages = all_languages
         obj.discussion_languages = discussion_languages
-        obj.taglines = taglines
-        obj.custom_emojis = custom_emojis
+        obj.tagline = tagline
+        obj.oauth_providers = oauth_providers
+        obj.admin_oauth_providers = admin_oauth_providers
         obj.blocked_urls = blocked_urls
         return obj
 
@@ -416,6 +456,24 @@ class PersonMentionResponse(ResponseWrapper):
     ):
         obj = cls.__new__(cls)
         obj.person_mention_view = person_mention_view
+        return obj
+
+
+class ListLoginsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListLoginsResponse.html"""
+
+    logins: list[LoginToken] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.logins = [LoginToken.parse(e0) for e0 in data["logins"]]
+
+    @classmethod
+    def data(
+        cls, 
+        logins: list[LoginToken] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.logins = logins
         return obj
 
 
@@ -599,21 +657,17 @@ class SiteResponse(ResponseWrapper):
     """https://join-lemmy.org/api/interfaces/SiteResponse.html"""
 
     site_view: SiteView = None
-    taglines: list[Tagline] = None
     
     def parse(self, data: dict[str, Any]):
         self.site_view = SiteView.parse(data["site_view"])
-        self.taglines = [Tagline.parse(e0) for e0 in data["taglines"]]
 
     @classmethod
     def data(
         cls, 
-        site_view: SiteView = None,
-        taglines: list[Tagline] = None
+        site_view: SiteView = None
     ):
         obj = cls.__new__(cls)
         obj.site_view = site_view
-        obj.taglines = taglines
         return obj
 
 
@@ -672,6 +726,24 @@ class PrivateMessagesResponse(ResponseWrapper):
     ):
         obj = cls.__new__(cls)
         obj.private_messages = private_messages
+        return obj
+
+
+class ListCommunityPendingFollowsResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListCommunityPendingFollowsResponse.html"""
+
+    items: list[PendingFollow] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.items = [PendingFollow.parse(e0) for e0 in data["items"]]
+
+    @classmethod
+    def data(
+        cls, 
+        items: list[PendingFollow] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.items = items
         return obj
 
 
@@ -818,6 +890,24 @@ class GetSiteMetadataResponse(ResponseWrapper):
     ):
         obj = cls.__new__(cls)
         obj.metadata = metadata
+        return obj
+
+
+class TaglineResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/TaglineResponse.html"""
+
+    tagline: Tagline = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.tagline = Tagline.parse(data["tagline"])
+
+    @classmethod
+    def data(
+        cls, 
+        tagline: Tagline = None
+    ):
+        obj = cls.__new__(cls)
+        obj.tagline = tagline
         return obj
 
 
@@ -1128,6 +1218,24 @@ class GetPostResponse(ResponseWrapper):
         obj.community_view = community_view
         obj.moderators = moderators
         obj.cross_posts = cross_posts
+        return obj
+
+
+class ListCustomEmojisResponse(ResponseWrapper):
+    """https://join-lemmy.org/api/interfaces/ListCustomEmojisResponse.html"""
+
+    custom_emojis: list[CustomEmojiView] = None
+    
+    def parse(self, data: dict[str, Any]):
+        self.custom_emojis = [CustomEmojiView.parse(e0) for e0 in data["custom_emojis"]]
+
+    @classmethod
+    def data(
+        cls, 
+        custom_emojis: list[CustomEmojiView] = None
+    ):
+        obj = cls.__new__(cls)
+        obj.custom_emojis = custom_emojis
         return obj
 
 

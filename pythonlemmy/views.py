@@ -188,21 +188,6 @@ class RegistrationApplicationView:
 
 
 @dataclass
-class CommunityBlockView:
-    """https://join-lemmy.org/api/interfaces/CommunityBlockView.html"""
-
-    person: Person = None
-    community: Community = None
-    
-    @classmethod
-    def parse(cls, data: dict[str, Any]):
-        return cls(
-            person=Person.parse(data["person"]),
-            community=Community.parse(data["community"])
-        )
-
-
-@dataclass
 class ModBanFromCommunityView:
     """https://join-lemmy.org/api/interfaces/ModBanFromCommunityView.html"""
 
@@ -261,23 +246,6 @@ class PostView:
             creator_blocked=data["creator_blocked"],
             my_vote=data["my_vote"] if "my_vote" in data else None,
             unread_comments=data["unread_comments"]
-        )
-
-
-@dataclass
-class InstanceBlockView:
-    """https://join-lemmy.org/api/interfaces/InstanceBlockView.html"""
-
-    person: Person = None
-    instance: Instance = None
-    site: Optional[Site] = None
-    
-    @classmethod
-    def parse(cls, data: dict[str, Any]):
-        return cls(
-            person=Person.parse(data["person"]),
-            instance=Instance.parse(data["instance"]),
-            site=Site.parse(data["site"]) if "site" in data else None
         )
 
 
@@ -371,21 +339,6 @@ class ModAddCommunityView:
             moderator=Person.parse(data["moderator"]) if "moderator" in data else None,
             community=Community.parse(data["community"]),
             modded_person=Person.parse(data["modded_person"])
-        )
-
-
-@dataclass
-class PersonBlockView:
-    """https://join-lemmy.org/api/interfaces/PersonBlockView.html"""
-
-    person: Person = None
-    target: Person = None
-    
-    @classmethod
-    def parse(cls, data: dict[str, Any]):
-        return cls(
-            person=Person.parse(data["person"]),
-            target=Person.parse(data["target"])
         )
 
 
@@ -485,9 +438,9 @@ class MyUserInfo:
     local_user_view: LocalUserView = None
     follows: list[CommunityFollowerView] = None
     moderates: list[CommunityModeratorView] = None
-    community_blocks: list[CommunityBlockView] = None
-    instance_blocks: list[InstanceBlockView] = None
-    person_blocks: list[PersonBlockView] = None
+    community_blocks: list[Community] = None
+    instance_blocks: list[Instance] = None
+    person_blocks: list[Person] = None
     discussion_languages: list[int] = None
     
     @classmethod
@@ -496,9 +449,9 @@ class MyUserInfo:
             local_user_view=LocalUserView.parse(data["local_user_view"]),
             follows=[CommunityFollowerView.parse(e0) for e0 in data["follows"]],
             moderates=[CommunityModeratorView.parse(e0) for e0 in data["moderates"]],
-            community_blocks=[CommunityBlockView.parse(e0) for e0 in data["community_blocks"]],
-            instance_blocks=[InstanceBlockView.parse(e0) for e0 in data["instance_blocks"]],
-            person_blocks=[PersonBlockView.parse(e0) for e0 in data["person_blocks"]],
+            community_blocks=[Community.parse(e0) for e0 in data["community_blocks"]],
+            instance_blocks=[Instance.parse(e0) for e0 in data["instance_blocks"]],
+            person_blocks=[Person.parse(e0) for e0 in data["person_blocks"]],
             discussion_languages=[e0 for e0 in data["discussion_languages"]]
         )
 

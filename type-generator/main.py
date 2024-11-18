@@ -7,7 +7,8 @@ import yaml
 from openapi_parser.parser import OpenApiParser
 from tree_sitter import Parser, Language
 import tree_sitter_typescript as ts_typescript
-from src import ModelVisitor, EnumVisitor, HttpVisitor, ClassType, ModelGenerator, HttpGenerator, Property
+from src import ModelVisitor, EnumVisitor, HttpVisitor, ClassType, ModelGenerator, HttpGenerator, Property, \
+    TypeAliasVisitor
 
 parser = Parser()
 parser.set_language(Language(ts_typescript.language_typescript(), "TypeScript"))
@@ -15,6 +16,7 @@ model_dir = "../pythonlemmy"
 # model_dir = "./test_output"
 
 enum_names = []
+type_aliases = {}
 
 objects = []
 responses = []
@@ -28,10 +30,10 @@ def list_enums():
     files = os.listdir(types_dir)
 
     for file in files:
-        if file.endswith("Id.ts"):
-            continue
         with open(f"{types_dir}{file}", "r") as f:
-            parse_enum(f.read())
+            content = f.read()
+        parse_enum(content)
+        parse_type_alias(content)
 
 
 def generate_types():
@@ -42,10 +44,14 @@ def generate_types():
         os.makedirs(model_dir)
 
     for file in files:
-        if file.endswith("Id.ts"):
+        file_without_extension = file[:-len(".ts")]
+        if file_without_extension in enum_names or file_without_extension in type_aliases.keys():
             continue
         with open(f"{types_dir}{file}", "r") as f:
+            print(f"File = {types_dir}{file}")
             parse_model(f.read())
+
+    print(f"Object count = {len(objects)}, Response count = {len(responses)}, View count = {len(views)}")
 
     with open(f"./headers/object_header.py", "r") as f:
         object_header = f.read()
@@ -77,15 +83,34 @@ def parse_enum(model_contents: str):
     visitor = EnumVisitor(tree)
     visitor.walk()
 
+    if not visitor.is_enum:
+        return
+
     enum_names.append(visitor.enum_name)
+
+
+def parse_type_alias(model_contents: str):
+    tree = parser.parse(bytes(model_contents, "utf-8"))
+
+    if "export type" not in model_contents:
+        return
+
+    visitor = TypeAliasVisitor(tree)
+    visitor.walk()
+
+    if not visitor.is_type_alias:
+        return
+
+    type_aliases[visitor.type_alias_name] = visitor.mapped_type
 
 
 def parse_model(model_contents: str):
     tree = parser.parse(bytes(model_contents, "utf-8"))
 
-    if "export interface" not in model_contents:
+    if "export type" not in model_contents:
         return
-    visitor = ModelVisitor(tree, enum_names)
+
+    visitor = ModelVisitor(tree, enum_names, type_aliases)
     visitor.walk()
     result = ModelGenerator(visitor.class_name, visitor.properties, visitor.class_type).build()
     if visitor.class_type == ClassType.VIEW:
@@ -117,7 +142,7 @@ def parse_http() -> str:
         tree = parser.parse(bytes(f.read(), "utf-8"))
         visitor = HttpVisitor(tree)
         visitor.walk()
-        result = HttpGenerator(visitor.methods, types_dir, enum_names, docs).build()
+        result = HttpGenerator(visitor.methods, types_dir, enum_names, type_aliases, docs).build()
         return result
 
 
