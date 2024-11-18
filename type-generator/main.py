@@ -7,7 +7,8 @@ import yaml
 from openapi_parser.parser import OpenApiParser
 from tree_sitter import Parser, Language
 import tree_sitter_typescript as ts_typescript
-from src import ModelVisitor, EnumVisitor, HttpVisitor, ClassType, ModelGenerator, HttpGenerator, Property
+from src import ModelVisitor, EnumVisitor, HttpVisitor, ClassType, ModelGenerator, HttpGenerator, Property, \
+    TypeAliasVisitor
 
 parser = Parser()
 parser.set_language(Language(ts_typescript.language_typescript(), "TypeScript"))
@@ -15,12 +16,38 @@ model_dir = "../pythonlemmy"
 # model_dir = "./test_output"
 
 enum_names = []
+type_aliases = {}
 
-objects = []
-responses = []
-views = []
+objects = {}
+object_dependencies = {}
+responses = {}
+response_dependencies = {}
+views = {}
+view_dependencies = {}
 
 openapi_docs = "https://raw.githubusercontent.com/MV-GH/lemmy_openapi_spec/master/lemmy_spec.yaml"
+
+
+# From https://code.activestate.com/recipes/576570-dependency-resolver/
+def dep(arg):
+    '''
+        Dependency resolver
+
+    "arg" is a dependency dictionary in which
+    the values are the dependencies of their respective keys.
+    '''
+    d=dict((k, set(arg[k])) for k in arg)
+    r=[]
+    while d:
+        # values not in keys (items without dep)
+        t=set(i for v in d.values() for i in v)-set(d.keys())
+        # and keys without value (items without dep)
+        t.update(k for k, v in d.items() if not v)
+        # can be done right away
+        r.append(t)
+        # and cleaned up
+        d=dict(((k, v-t) for k, v in d.items() if v))
+    return r
 
 
 def list_enums():
@@ -28,10 +55,10 @@ def list_enums():
     files = os.listdir(types_dir)
 
     for file in files:
-        if file.endswith("Id.ts"):
-            continue
         with open(f"{types_dir}{file}", "r") as f:
-            parse_enum(f.read())
+            content = f.read()
+        parse_enum(content)
+        parse_type_alias(content)
 
 
 def generate_types():
@@ -42,29 +69,31 @@ def generate_types():
         os.makedirs(model_dir)
 
     for file in files:
-        if file.endswith("Id.ts"):
+        file_without_extension = file[:-len(".ts")]
+        if file_without_extension in enum_names or file_without_extension in type_aliases.keys():
             continue
         with open(f"{types_dir}{file}", "r") as f:
             parse_model(f.read())
 
-    with open(f"./headers/object_header.py", "r") as f:
-        object_header = f.read()
-    with open(f"./headers/response_header.py", "r") as f:
-        response_header = f.read()
-    with open(f"./headers/view_header.py", "r") as f:
-        view_header = f.read()
+    print(f"Object count = {len(objects)}, Response count = {len(responses)}, View count = {len(views)}")
+    generate_file(f"./headers/object_header.py", "objects.py", objects, object_dependencies)
+    generate_file(f"./headers/response_header.py", "responses.py", responses, response_dependencies)
+    generate_file(f"./headers/view_header.py", "views.py", views, view_dependencies)
 
-    with open(f"{model_dir}/views.py", "w") as f:
-        f.write(view_header)
-        f.write("\n\n\n".join(views))
-        f.write("\n")
-    with open(f"{model_dir}/objects.py", "w") as f:
-        f.write(object_header)
-        f.write("\n\n\n".join(objects))
-        f.write("\n")
-    with open(f"{model_dir}/responses.py", "w") as f:
-        f.write(response_header)
-        f.write("\n\n\n".join(responses))
+
+def generate_file(header_file_path: str, output_file_path: str, types: dict[str, str], dependencies: dict[str, str]):
+    with open(header_file_path, "r") as f:
+        header = f.read()
+
+    dep_tree = dep(dependencies)
+
+    with open(f"{model_dir}/{output_file_path}", "w") as f:
+        f.write(header)
+        for d in dep_tree:
+            for r in d:
+                if r not in types:
+                    continue
+                f.write(f"\n\n\n{types[r]}")
         f.write("\n")
 
 
@@ -77,23 +106,45 @@ def parse_enum(model_contents: str):
     visitor = EnumVisitor(tree)
     visitor.walk()
 
+    if not visitor.is_enum:
+        return
+
     enum_names.append(visitor.enum_name)
+
+
+def parse_type_alias(model_contents: str):
+    tree = parser.parse(bytes(model_contents, "utf-8"))
+
+    if "export type" not in model_contents:
+        return
+
+    visitor = TypeAliasVisitor(tree)
+    visitor.walk()
+
+    if not visitor.is_type_alias:
+        return
+
+    type_aliases[visitor.type_alias_name] = visitor.mapped_type
 
 
 def parse_model(model_contents: str):
     tree = parser.parse(bytes(model_contents, "utf-8"))
 
-    if "export interface" not in model_contents:
+    if "export type" not in model_contents:
         return
-    visitor = ModelVisitor(tree, enum_names)
+
+    visitor = ModelVisitor(tree, enum_names, type_aliases)
     visitor.walk()
     result = ModelGenerator(visitor.class_name, visitor.properties, visitor.class_type).build()
     if visitor.class_type == ClassType.VIEW:
-        views.append(result)
+        views[visitor.class_name] = result
+        view_dependencies[visitor.class_name] = visitor.dependencies
     elif visitor.class_type == ClassType.RESPONSE:
-        responses.append(result)
+        responses[visitor.class_name] = result
+        response_dependencies[visitor.class_name] = visitor.dependencies
     elif visitor.class_type == ClassType.OBJECT:
-        objects.append(result)
+        objects[visitor.class_name] = result
+        object_dependencies[visitor.class_name] = visitor.dependencies
 
 
 def generate_http():
@@ -117,7 +168,7 @@ def parse_http() -> str:
         tree = parser.parse(bytes(f.read(), "utf-8"))
         visitor = HttpVisitor(tree)
         visitor.walk()
-        result = HttpGenerator(visitor.methods, types_dir, enum_names, docs).build()
+        result = HttpGenerator(visitor.methods, types_dir, enum_names, type_aliases, docs).build()
         return result
 
 

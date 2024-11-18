@@ -11,13 +11,19 @@ class EnumVisitor(Visitor):
     _encoding = "utf-8"
     _number_type = "long"
 
+    is_enum: bool
     enum_name = ""
     types: List[EnumProperty] = []
 
     def __init__(self, tree: Tree):
         self.tree = tree
+        self.is_enum = False
         self.enum_name = ""
         self.types = []
+
+    def visit_union_type(self, node: Node):
+        self.is_enum = True
+        self._accept_list(node.children)
 
     def visit_type_alias_declaration(self, node: Node):
         self.enum_name = node.child_by_field_name("name").text.decode(self._encoding)
